@@ -5,12 +5,12 @@ An free, open-source application for keeping notes for frontline social workers.
 
 Developed by:
 -------------
--Adrianna Diaz
--Anna Rogozin
--Francis Bouchard
--James Talarico
--Liuai Hatter
--Wahab Ahmed
+- Adrianna Diaz
+- Anna Rogozin
+- Francis Bouchard
+- James Talarico
+- Liuai Hatter
+- Wahab Ahmed
 
 Installation:
 -------------
