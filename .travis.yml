@@ -20,3 +20,6 @@ env:
         matrix:
         - SERVICE=angular
         - SERVICE=express
+
+notifications:
+        email: false
