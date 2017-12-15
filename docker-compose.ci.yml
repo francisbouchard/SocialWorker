@@ -1,0 +1,10 @@
+version: '3'
+services:
+        angular-client:
+                command: bash -c 'npm run test'
+                environment:
+                        CI: 'true'
+        express-server:
+                command: bash -c 'npm run test'
+                environment:
+                        CI: 'true'
