@@ -9,5 +9,5 @@ node_js:
 
 env:
         matrix:
-        - SERVICE=angular-client
-        - SERVICE=express-server
+        - SERVICE=angular
+        - SERVICE=express
