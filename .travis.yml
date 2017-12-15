@@ -7,13 +7,6 @@ node_js:
         - "iojs"
         - "8"
 
-before_script:
-        - npm install -g @angular/cli
-        - npm install -g karma
-
-script: karma start config/karma.conf.js --single-run
-
-
 env:
         matrix:
         - SERVICE=angular
