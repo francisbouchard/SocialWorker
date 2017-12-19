@@ -16,7 +16,7 @@ Domain Model:
 -------------
 
 ![Image of Domain Model]
-(./documentation/domain-model.png]
+(documentation/domain-model.png]
 
 
 Installation:
