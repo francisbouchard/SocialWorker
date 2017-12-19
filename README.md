@@ -1,4 +1,4 @@
-SocialWorker
+ScialWorker
 ============
 
 An free, open-source application for keeping notes for frontline social workers.
@@ -11,6 +11,13 @@ Developed by:
 - James Talarico
 - Liuai Hatter
 - Wahab Ahmed
+
+Domain Model:
+-------------
+
+![Image of Domain Model]
+(./documentation/domain-model.png]
+
 
 Installation:
 -------------
