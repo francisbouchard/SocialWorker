@@ -1,4 +1,4 @@
-ScialWorker
+SocialWorker
 ============
 
 An free, open-source application for keeping notes for frontline social workers.
