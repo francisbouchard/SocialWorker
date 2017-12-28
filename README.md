@@ -1,4 +1,4 @@
-ScialWorker
+SocialWorker
 ============
 
 An free, open-source application for keeping notes for frontline social workers.
@@ -15,8 +15,7 @@ Developed by:
 Domain Model:
 -------------
 
-![Image of Domain Model]
-(documentation/domain-model.png)
+![Image of Domain Model](documentation/domain-model.png)
 
 
 Installation:
