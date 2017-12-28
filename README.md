@@ -15,7 +15,8 @@ Developed by:
 Domain Model:
 -------------
 
-![Image of Domain Model](documentation/domain-model.png)
+![Image of Domain Model]
+(documentation/domain-model.png)
 
 
 Installation:
