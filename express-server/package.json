@@ -1,0 +1,14 @@
+{
+  "name": "express-server",
+  "version": "1.0.0",
+  "description": "Server for SocialWorker application",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma"
+  },
+  "keywords": [
+    "socialworker"
+  ],
+  "author": "socialworker490 team",
+  "license": "MIT"
+}
