@@ -3,7 +3,9 @@
 		"version": "0.0.0",
 		"private": true,
 		"scripts": {
-				"start": "node server.js"
+				"start": "node server.js",
+				"test": "mocha",
+				"cover": "istanbul cover _mocha"
 		},
 		"dependencies": {
 				"bcrypt-nodejs": "0.0.3",
@@ -11,5 +13,10 @@
 				"express": "~4.14.0",
 				"mongo": "^0.1.0",
 				"mongoose": "^5.0.0-rc0"
+		},
+		"devDependencies": {
+				"chai": "^4.1.2",
+				"istanbul": "^0.4.5",
+				"mocha": "^4.0.1"
 		}
 }

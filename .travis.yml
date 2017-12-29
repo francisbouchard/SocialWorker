@@ -1,0 +1,15 @@
+sudo: required
+services:
+          - docker
+
+language: node_js
+node_js:
+        - "iojs"
+        - "8"
+env:
+        matrix:
+        - SERVICE=angular
+        - SERVICE=express
+
+notifications:
+        email: false
