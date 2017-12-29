@@ -7,7 +7,7 @@ const participantSchema = new Schema({
     email: { type: String, unique: true },
     phone: String,
     documents: [{ type: Schema.Types.ObjectId, ref: 'Document' }],
-    notes: [{ type: Schema.Types.ObjectId, ref: 'NotesEntry' }]
+    notes: [{ type: Schema.Types.ObjectId, ref: 'Note' }]
   }, { timestamps: true });
 
 const Participant = mongoose.model('Participant', participantSchema);
