@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 // Get our API routes
 const api = require('./routes/api');
 const user = require('./routes/user');
+const participant = require('./routes/participant.route');
 
 const app = express();
 // Parsers for POST data
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Set our api routes
 app.use('/', api);
 app.use('/user', user);
+app.use('/participant', participant);
 
 //Connect to mongo
 const mongoUrl = 'mongodb://socialworker:soen490Whiteboard!@ds143559.mlab.com:43559/socialworker'
@@ -47,3 +49,5 @@ const server = http.createServer(app);
 * Listen on provided port, on all network interfaces.
 */
 server.listen(port, () => console.log(`API running on localhost:${port}`));
+
+module.exports = app;
