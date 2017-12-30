@@ -31,7 +31,7 @@ router.get('/:pid', (req, res) => {
  */
 router.post('/', (req, res) => {
     let participant = new Participant({
-        identifier: req.body.identifier,
+        _id: req.body._id,
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone
