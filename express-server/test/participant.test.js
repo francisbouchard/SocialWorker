@@ -37,7 +37,7 @@ describe('Participant Tests', () => {
                     done();
                 });
         });
-        it('should not GET a participant with a nonexisting ID', (done) => {
+        it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
                 .get('/participant/' + 'p123')
                 .end((err, res) => {
@@ -68,7 +68,7 @@ describe('Participant Tests', () => {
                     done();
                 });
         });
-        it('should POST a participant ', (done) => {
+        it('should POST a participant', (done) => {
             let participant = {
                 _id: id2,
                 name: "participant",
@@ -87,6 +87,44 @@ describe('Participant Tests', () => {
                     res.body.should.have.property('phone');
                     done();
                 });
+        });
+        it('should POST a document to given participant', (done) => {
+            let document = {
+                type: "A123 Form",
+                attachment: "url"
+            }
+            Participant.findById(id1).then(participant => {
+                let numOfDocs = participant.documents.length;
+                chai.request(server)
+                .post('/participant/' + id1 + '/doc')
+                .send(document)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('documents');
+                    res.body.documents.length.should.be.eql(numOfDocs+1);
+                    done();
+                });
+            })
+        });
+        it('should POST a note to given participant', (done) => {
+            let note = {
+                text: "notes taken",
+                attachment: "url"
+            }
+            Participant.findById(id1).then(participant => {
+                let numOfNotes = participant.notes.length;
+                chai.request(server)
+                .post('/participant/' + id1 + '/note')
+                .send(note)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('notes');
+                    res.body.notes.length.should.be.eql(numOfNotes+1);
+                    done();
+                });
+            })
         });
     });
 
