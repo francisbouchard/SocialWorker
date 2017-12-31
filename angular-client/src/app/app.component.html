@@ -1,15 +1,11 @@
-<form class="example-form">
+<mat-toolbar color="primary">
+  SocialWorker
+  <a class="nav-link" routerLink="create-profile"><button mat-button>New Participant</button></a>
 
-    <mat-form-field class="example-full-width">
+    <a class="nav-link" routerLink="profiles"><button mat-button>Profiles</button></a>
 
-      <input matInput #message maxlength="256" placeholder="Message">
+</mat-toolbar>
 
-      <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
+<router-outlet></router-outlet>
 
-      <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-
-    </mat-form-field>
-
-    
-
-  </form>
+ 
