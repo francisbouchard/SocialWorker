@@ -16,7 +16,11 @@
     </mat-form-field>
 
     <mat-form-field class="field">
-      <input matInput placeholder="Province" name="province" [(ngModel)]="province">
+      <mat-select placeholder="Province">
+        <mat-option *ngFor="let province of provinces" [value]="province.value">
+          {{ province.viewValue }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field class="field">

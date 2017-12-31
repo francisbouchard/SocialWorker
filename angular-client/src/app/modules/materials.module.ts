@@ -10,6 +10,8 @@ import {
     MatInputModule, 
     MatToolbarModule, 
     MatChipsModule, 
+    MatSelectModule,
+    MatOptionModule,
     MatProgressBarModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -30,7 +32,9 @@ import { CdkTableModule} from '@angular/cdk/table';
     MatExpansionModule,
     MatProgressBarModule,
     MatTableModule,
-    CdkTableModule
+    CdkTableModule,
+    MatSelectModule,
+    MatOptionModule
   ]
 })
 export class MaterialsModule { }

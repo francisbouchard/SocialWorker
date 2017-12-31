@@ -7,8 +7,8 @@ import { MaterialsModule } from './modules/materials.module';
 
 
 import { AppComponent } from './app.component';
-import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NewParticipantComponent } from './components/new-participant/new-participant.component';
 
 const routes: Routes = [
   {
@@ -21,16 +21,16 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
-    path: 'create-profile',
-    component: CreateProfileComponent
+    path: 'new-participant',
+    component: NewParticipantComponent
   }
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateProfileComponent,
-    DashboardComponent
+    DashboardComponent,
+    NewParticipantComponent
   ],
   imports: [
     BrowserModule,
