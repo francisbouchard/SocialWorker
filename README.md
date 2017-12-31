@@ -1,5 +1,7 @@
 ![https://travis-ci.org/adriannadiaz/SocialWorker](https://travis-ci.org/adriannadiaz/SocialWorker.svg?branch=master)
-[![codecov](https://codecov.io/gh/adriannadiaz/SocialWorker/branch/master/graph/badge.svg)](https://codecov.io/gh/adriannadiaz/SocialWorker)
+[![codecov](https://codecov.io/gh/adriannadiaz/SocialWorker/branch/master/graph/badge.svg)](https://codecov.io/gh/adriannadiaz/SocialWorker)  
+  
+
 SocialWorker
 ============
 
