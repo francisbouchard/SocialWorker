@@ -59,3 +59,7 @@ typings/
 
 #macOS
 .DS_Store
+
+#packagelock
+angular-client/package-lock.json
+express-server/package-lock.json
