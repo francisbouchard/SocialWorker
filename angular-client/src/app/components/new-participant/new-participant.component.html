@@ -3,34 +3,30 @@
     <mat-form-field class="field">
       <input matInput required placeholder="Name" name="name" [(ngModel)]="name">
       <mat-hint align="start">
-        <strong>Do not use participant's true name</strong>
+        <strong>Do not use participant's legal name</strong>
       </mat-hint>
-    </mat-form-field>
-
-    <mat-form-field class="field">
-      <input matInput placeholder="Address" name="address" [(ngModel)]="address">
-    </mat-form-field>
-
-    <mat-form-field class="field">
-      <input matInput placeholder="City" name="city" [(ngModel)]="city">
-    </mat-form-field>
-
-    <mat-form-field class="field">
-      <mat-select placeholder="Province">
-        <mat-option *ngFor="let province of provinces" [value]="province.value">
-          {{ province.viewValue }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="field">
-      <input matInput placeholder="Postal Code" name="postalcode" [(ngModel)]="postalcode">
     </mat-form-field>
 
     <mat-form-field class="field">
       <span matPrefix>+1 &nbsp;</span>
       <input type="tel" matInput placeholder="Telephone" [(ngModel)]="telephone">
     </mat-form-field>
+
+    <mat-form-field class="field">
+      <input matInput placeholder="Social media handle" name="socialmedia" [(ngModel)]="socialmedia">
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <input matInput placeholder="Email address" name="email" [(ngModel)]="email">
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <input matInput placeholder="Physical Address" name="address" [(ngModel)]="address">
+      <mat-hint align="start">
+        <strong>Optional</strong>
+      </mat-hint>
+    </mat-form-field>
+
   </form>
   <button mat-raised-button (click)="submit()">Submit</button>
 </mat-card>
