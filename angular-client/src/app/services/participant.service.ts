@@ -1,31 +1,37 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Participant } from '../components/participant/participant';
 
 @Injectable()
 export class ParticipantService {
 
-  private data: any;
+  private url = 'http://localhost:3000/participant/';
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  get(participantName) {
-    let that = this;
-    return new Promise(resolve => {
-      this.http.get('api/participants/' + participantName)
-      .map(res => res.json())
-      .subscribe(data => {
-        that.data = data;
-        resolve(that.data);
-      })
-    })
+  /**
+   * Get all participants 
+   * 
+   * @param {any} participantName 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  get(participantName): Observable<Object> {
+    return this.http.get(this.url);
   }
 
-  save(participantData) {
-    let that = this;
-    return new Promise(resolve => {
-      this.http.post('api/participants/', participantData)
-    })
+  /**
+   * Save a new participant profile
+   * 
+   * @param {any} participantData 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  save(participantData): Observable<Object> {
+    return this.http.post(this.url, participantData);
   }
 
 }

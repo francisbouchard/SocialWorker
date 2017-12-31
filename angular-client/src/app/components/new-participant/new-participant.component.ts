@@ -1,24 +1,40 @@
 import { Component, OnInit } from '@angular/core';
+import { ParticipantService } from '../../services/participant.service';
+import { Participant } from '../participant/participant';
 
 @Component({
   selector: 'app-new-participant',
   templateUrl: './new-participant.component.html',
-  styleUrls: ['./new-participant.component.css']
+  styleUrls: ['./new-participant.component.css'],
+  providers: [ParticipantService]
 })
 export class NewParticipantComponent implements OnInit {
 
-  constructor() { }
+  participantData: Participant = {
+    _id: "",
+    name: "",
+    address: "",
+    telephone: "",
+    email: "",
+    socialmedia: ""
+  }
 
-  public name: String;
-  public address: String;
-  public telephone: String;
-  public email: String;
-  public socialmedia: String;
+  constructor(private participantService: ParticipantService) {
+  }
 
   ngOnInit() {
   }
 
-  submit() {
-    // Send to profile service
+
+/**
+ * Submit new participant profile information.
+ * 
+ * @memberof NewParticipantComponent
+ */
+submit() {
+    this.participantService.save(this.participantData)
+      .subscribe(data => {
+        // console.log(data);
+      })
   }
 }
