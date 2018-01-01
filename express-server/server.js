@@ -3,6 +3,7 @@
 //Get dependencies
 const express = require('express');
 const path = require('path');
+var cors = require('cors')
 const http = require('http');
 const bodyParser = require('body-parser');
 const mongo = require('mongo');
@@ -15,14 +16,24 @@ const user = require('./routes/user');
 const participant = require('./routes/participant.route');
 
 const app = express();
+
 // Parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// CORS
+var cors = require('cors');		
+app.use(cors({  		
+    origin: '*',		
+    withCredentials: false,		
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin' ]		
+}));
 
 // Set our api routes
 app.use('/', api);
 app.use('/user', user);
 app.use('/participant', participant);
+app.use(cors())
 
 //Connect to mongo
 const mongoUrl = 'mongodb://socialworker:soen490Whiteboard!@ds143559.mlab.com:43559/socialworker'
