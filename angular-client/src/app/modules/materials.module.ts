@@ -1,36 +1,32 @@
 
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { 
-    MatTableModule, 
-    MatGridListModule, 
-    MatCardModule, 
-    MatButtonModule, 
-    MatIconModule, 
-    MatInputModule, 
-    MatToolbarModule, 
-    MatChipsModule, 
-    MatProgressBarModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CdkTableModule} from '@angular/cdk/table';
+import { 
+  MatButtonModule, 
+  MatCardModule,
+  MatIconModule, 
+  MatInputModule, 
+  MatToolbarModule,  
+  MatSelectModule,
+  MatOptionModule } from '@angular/material';
 
 
 @NgModule({
   exports: [
     BrowserAnimationsModule,
+    CdkTableModule,
     FlexLayoutModule,
-    MatGridListModule,
-    MatCardModule,
     MatButtonModule,
+    MatCardModule,
     MatInputModule,
     MatIconModule,
     MatToolbarModule,
-    MatChipsModule,
     MatExpansionModule,
-    MatProgressBarModule,
-    MatTableModule,
-    CdkTableModule
+    MatSelectModule,
+    MatOptionModule
   ]
 })
 export class MaterialsModule { }

@@ -21,6 +21,14 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// CORS
+var cors = require('cors');		
+app.use(cors({  		
+    origin: '*',		
+    withCredentials: false,		
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin' ]		
+}));
+
 // Set our api routes
 app.use('/', api);
 app.use('/user', user);
