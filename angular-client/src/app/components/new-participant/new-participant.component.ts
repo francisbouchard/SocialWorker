@@ -5,8 +5,7 @@ import { Participant } from '../participant/participant';
 @Component({
   selector: 'app-new-participant',
   templateUrl: './new-participant.component.html',
-  styleUrls: ['./new-participant.component.css'],
-  providers: [ParticipantService]
+  styleUrls: ['./new-participant.component.css']
 })
 export class NewParticipantComponent implements OnInit {
 
