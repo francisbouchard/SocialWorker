@@ -5,33 +5,58 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
-const mongo = require('mongo');
+const mongo = require('connect-mongo');
 const mongoose = require('mongoose');
-
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('express-flash');
+const expressValidator  = require('express-validator');
 
 // Get our API routes
 const api = require('./routes/api');
 const user = require('./routes/user');
 const participant = require('./routes/participant.route');
 
-const app = express();
-// Parsers for POST data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+const MongoStore = mongo(session);
 
-// Set our api routes
-app.use('/', api);
-app.use('/user', user);
-app.use('/participant', participant);
+// Load environment variables from .env file
+const dotenv = require('dotenv').config();
+
+const app = express();
 
 //Connect to mongo
-const mongoUrl = 'mongodb://socialworker:soen490Whiteboard!@ds143559.mlab.com:43559/socialworker'
+const mongoUrl = process.env.MONGOLAB_URL;
 mongoose.connect(mongoUrl, {}).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
   console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
   // process.exit();
 });
+
+
+// Parsers for POST data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: process.env.SESSION_SECRET,
+  store: new MongoStore({
+    url: mongoUrl,
+    autoReconnect: true
+  })
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+
+// Set our api routes
+app.use('/', api);
+app.use('/user', user);
+app.use('/participant', participant);
+
 
 /**
 * Get port from environment and store in Express.
@@ -42,6 +67,9 @@ app.set('port', port);
 /**
 * Create HTTP server.
 */
+
+
+
 
 const server = http.createServer(app);
 
