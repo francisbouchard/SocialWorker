@@ -12,6 +12,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NewParticipantComponent } from './components/new-participant/new-participant.component';
 import { ProfilesService } from '../providers/profilesService'
 import { ParticipantService } from './services/participant.service';
+import { MessagesComponent } from './components/messages/messages.component';
+import { MessageService } from './services/message.service';
 
 const routes: Routes = [
   {
@@ -38,7 +40,8 @@ const routes: Routes = [
     AppComponent,
     ProfilesComponent,
     DashboardComponent,
-    NewParticipantComponent
+    NewParticipantComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ const routes: Routes = [
   ],
   providers: [
     ProfilesService,
-    ParticipantService
+    ParticipantService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

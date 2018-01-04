@@ -33,7 +33,7 @@ export class NewParticipantComponent implements OnInit {
 submit() {
     this.participantService.save(this.participantData)
       .subscribe(data => {
-        // console.log(data);
+        console.log(data);
       })
   }
 }
