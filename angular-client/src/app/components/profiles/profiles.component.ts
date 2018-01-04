@@ -1,34 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import {ProfilesService} from'../../../providers/profilesService';
+import { ParticipantService } from '../../services/participant.service';
 
 
 @Component({
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
-  styleUrls: ['./profiles.component.css'],
-  providers: [ProfilesService]
+  styleUrls: ['./profiles.component.css']
 })
 export class ProfilesComponent {
   public profiles;
-  constructor(public profilesService: ProfilesService) { 
-    
+  constructor(private participantService: ParticipantService) {
   }
 
- loadProfiles() {
-    let that = this;
-    this.profilesService.getAll()
-      .then(profile => {
-        console.log(profile)
-        that.profiles = profile;
-        })
-      }
-      
+  loadProfiles(){
+    this.participantService.getAll()
+    .subscribe(data => {
+      console.log(data);
+      this.profiles = data;
+    });
+  }
+
   ngOnInit() {
-  this.loadProfiles() 
+    this.loadProfiles();
   }
 
-  
+
 }
 
 
- 

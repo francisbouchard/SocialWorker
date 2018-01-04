@@ -7,13 +7,12 @@ import { Http, HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
 import { AppComponent } from './app.component';
-import { ProfilesComponent } from './components/profiles/profiles.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { NewParticipantComponent } from './components/new-participant/new-participant.component';
-import { ProfilesService } from '../providers/profilesService'
-import { ParticipantService } from './services/participant.service';
 import { MessagesComponent } from './components/messages/messages.component';
+import { NewParticipantComponent } from './components/new-participant/new-participant.component';
+import { ProfilesComponent } from './components/profiles/profiles.component';
 import { MessageService } from './services/message.service';
+import { ParticipantService } from './services/participant.service';
 
 const routes: Routes = [
   {
@@ -38,10 +37,10 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ProfilesComponent,
     DashboardComponent,
+    MessagesComponent,
     NewParticipantComponent,
-    MessagesComponent
+    ProfilesComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +52,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [
-    ProfilesService,
     ParticipantService,
     MessageService
   ],

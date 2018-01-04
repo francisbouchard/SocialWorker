@@ -26,9 +26,17 @@ export class ParticipantService {
   get(participantName): Observable<Object> {
     return this.http.get(this.url)
       .pipe(
-      tap(participant => this.log('fetched participants')),
+      tap(participant => this.log('fetched a participant')),
       catchError(this.handleError<Object>('get(participantName)'))
       );
+  }
+
+  getAll(): Observable<Object>{
+    return this.http.get(this.url)
+    .pipe(
+      tap(participants => this.log('fecthed all participants')),
+      catchError(this.handleError<Object>('getAll()'))
+    );
   }
 
   /**
