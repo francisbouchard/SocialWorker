@@ -17,26 +17,32 @@ export class ParticipantService {
   ) { }
 
   /**
-   * Get all participants 
+   * Get participant by ID
    * 
-   * @param {any} participantName 
+   * @param {any} participantID
    * @returns {Observable<Object>} 
    * @memberof ParticipantService
    */
-  get(participantName): Observable<Object> {
-    return this.http.get(this.url)
+  get(participantID): Observable<Object> {
+    return this.http.get(`${this.url}/${participantID}`)
       .pipe(
       tap(participant => this.log('fetched a participant')),
-      catchError(this.handleError<Object>('get(participantName)'))
+      catchError(this.handleError<Object>('get(participantID)'))
       );
   }
 
-  getAll(): Observable<Object>{
+  /**
+   * Get all participants
+   * 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  getAll(): Observable<Object> {
     return this.http.get(this.url)
-    .pipe(
+      .pipe(
       tap(participants => this.log('fecthed all participants')),
       catchError(this.handleError<Object>('getAll()'))
-    );
+      );
   }
 
   /**
@@ -49,8 +55,23 @@ export class ParticipantService {
   save(participantData: Participant): Observable<Participant> {
     return this.http.post<Participant>(this.url, participantData)
       .pipe(
-      tap((participant:Participant) => this.log('saved new participant')),
+      tap((participant: Participant) => this.log('saved new participant')),
       catchError(this.handleError<Participant>('save(participantData)'))
+      );
+  }
+
+  /**
+   * Delete a participant by ID
+   * 
+   * @param {any} participantID 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  delete(participantID): Observable<Object> {
+    return this.http.delete(`${this.url}/${participantID}`)
+      .pipe(
+      tap(_ => this.log('deleted participant')),
+      catchError(this.handleError<Object>('delete(participantID)'))
       );
   }
 

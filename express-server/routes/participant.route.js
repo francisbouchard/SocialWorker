@@ -44,6 +44,17 @@ router.post('/', (req, res) => {
 });
 
 /**
+ * Delete a participant by ID
+ */
+router.delete('/:pid', (req, res) => {
+    Participant.findByIdAndRemove(req.params.pid).then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+})
+
+/**
  * Add a document to participant
  */
 router.post('/:pid/doc', (req, res) => {

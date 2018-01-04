@@ -15,9 +15,16 @@ export class ProfilesComponent {
   loadProfiles(){
     this.participantService.getAll()
     .subscribe(data => {
-      console.log(data);
       this.profiles = data;
     });
+  }
+
+  delete(pid){
+    this.participantService.delete(pid)
+    .subscribe(data => {
+      console.log('Deleted: ' + data);
+      this.loadProfiles();
+    })
   }
 
   ngOnInit() {
