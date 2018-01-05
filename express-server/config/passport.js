@@ -36,3 +36,18 @@ passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, don
     });
   });
 }));
+
+/**
+ * Login Required middleware.
+ */
+let passport = {
+    isAuthenticated = (req, res, next) => {
+        if (req.isAuthenticated()) {
+          return next();
+        }
+        res.redirect("/login");
+      }
+}
+
+
+module.exports = passport;
