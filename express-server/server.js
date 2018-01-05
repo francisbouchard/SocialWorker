@@ -12,6 +12,9 @@ const passport = require('passport');
 const flash = require('express-flash');
 const expressValidator  = require('express-validator');
 
+
+const passportConfig = require("./config/passport");
+
 // Get our API routes
 const api = require('./routes/api');
 const user = require('./routes/user');
@@ -23,6 +26,7 @@ const MongoStore = mongo(session);
 const dotenv = require('dotenv').config();
 
 const app = express();
+
 
 //Connect to mongo
 const mongoUrl = process.env.MONGOLAB_URL;

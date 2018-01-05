@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/Users');
+const passport = require("passport");
+const passportConfig = require("../config/passport");
+
+// const LocalStrategy = require("passport-local")
 
 router.post('/login', (req, res, next) => {
   req.assert("email", "Email is not valid").isEmail();
