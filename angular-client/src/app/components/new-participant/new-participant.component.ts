@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ParticipantService } from '../../services/participant.service';
 import { Participant } from '../participant/participant';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AlertModalComponent } from '../alert-modal/alert-modal.component';
 
 @Component({
   selector: 'app-new-participant',
@@ -21,7 +23,7 @@ export class NewParticipantComponent implements OnInit {
   isAlreadyAParticipantID = false;
   isAlreadyAParticipantEmail = false;
 
-  constructor(private participantService: ParticipantService) {
+  constructor(private participantService: ParticipantService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -34,19 +36,35 @@ export class NewParticipantComponent implements OnInit {
    * @param {*} event 
    * @memberof NewParticipantComponent
    */
-  onKey(event: any) {
-    let query = event.target.name + '=' + event.target.value;
+  onKey(attribute: String, value: String) {
+    let query = attribute + '=' + value;
     let that = this;
-    console.log(event.target.value);
     this.participantService.search(query)
       .subscribe(data => {
-        if (event.target.name == "_id") {
+        if (attribute == "_id") {
           that.isAlreadyAParticipantID = (data == true) ? true : false;
         } else {
           that.isAlreadyAParticipantEmail = (data == true) ? true : false;
         }
-
       });
+  }
+
+  /**
+   * Alert user of response success or fail.
+   * 
+   * @param {any} message 
+   * @memberof NewParticipantComponent
+   */
+  alertModal(message): void {
+    let dialogRef = this.dialog.open(AlertModalComponent, {
+      width: '250px',
+      data: { message: message }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+
   }
 
 
@@ -58,7 +76,11 @@ export class NewParticipantComponent implements OnInit {
   submit() {
     this.participantService.save(this.participantData)
       .subscribe(data => {
-        console.log(data);
+        if (data.hasOwnProperty("errmsg")) {
+          this.alertModal("Could not add new participant.");
+        } else {
+          this.alertModal("New participant successfully added.")
+        }
       })
   }
 }

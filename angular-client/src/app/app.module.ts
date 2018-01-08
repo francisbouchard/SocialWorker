@@ -53,6 +53,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
+  entryComponents: [ AlertModalComponent ],
   providers: [
     ParticipantService,
     MessageService
