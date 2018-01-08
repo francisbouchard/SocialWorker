@@ -22,7 +22,7 @@ describe('Housing Resources Tests', () => {
             phone: "514-1234567",
             location: "the location",
             term: "15 weeks",
-            constraints: "some constraints"
+            constraints: ["some constraints"]
         });
         let housing2 = new Housing({
             _id: id4,
