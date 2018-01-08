@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Participant } from '../components/participant/participant';
 import { MessageService } from './message.service';
+import { error } from 'selenium-webdriver';
 
 @Injectable()
 export class ParticipantService {
@@ -52,10 +53,17 @@ export class ParticipantService {
    * @returns {Observable<Object>} 
    * @memberof ParticipantService
    */
-  save(participantData: Participant): Observable<Participant> {
-    return this.http.post<Participant>(this.url, participantData)
+  save(participantData: Participant): Observable<Object> {
+    return this.http.post<Object>(this.url, participantData)
       .pipe(
-      tap((participant: Participant) => this.log('saved new participant')),
+      tap(p => {
+        if (p.hasOwnProperty("errmsg")) {
+          console.log("has err msg");
+          this.log('did not save new participant');
+        } else {
+          this.log('saved new participant');
+        }
+      }),
       catchError(this.handleError<Participant>('save(participantData)'))
       );
   }
@@ -72,6 +80,23 @@ export class ParticipantService {
       .pipe(
       tap(_ => this.log('deleted participant')),
       catchError(this.handleError<Object>('delete(participantID)'))
+      );
+  }
+
+  /**
+   * Search participants to see if account email already exists,
+   * or it participant ID has already been taken.
+   * 
+   * @param {any} participantAttributeValuePair 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  search(participantAttributeValuePair): Observable<Object> {
+    return this.http.get(`${this.url}/search/${participantAttributeValuePair}`)
+      .pipe(
+      map(participants => participants[0]? true: false),
+      tap(_ => this.log('searched participant')),
+      catchError(this.handleError<Object>('search participant information'))
       );
   }
 

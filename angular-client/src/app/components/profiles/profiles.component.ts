@@ -19,6 +19,13 @@ export class ProfilesComponent {
     });
   }
 
+  getProfile(pid){
+    this.participantService.get(pid)
+    .subscribe(data => {
+      this.profiles = [data];
+    });
+  }
+
   delete(pid){
     this.participantService.delete(pid)
     .subscribe(data => {

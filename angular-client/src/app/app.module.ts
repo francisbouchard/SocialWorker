@@ -13,6 +13,7 @@ import { NewParticipantComponent } from './components/new-participant/new-partic
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
+import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
 
 const routes: Routes = [
   {
@@ -40,7 +41,8 @@ const routes: Routes = [
     DashboardComponent,
     MessagesComponent,
     NewParticipantComponent,
-    ProfilesComponent
+    ProfilesComponent,
+    AlertModalComponent
   ],
   imports: [
     BrowserModule,

@@ -18,19 +18,44 @@ export class NewParticipantComponent implements OnInit {
     socialmedia: ""
   }
 
+  isAlreadyAParticipantID = false;
+  isAlreadyAParticipantEmail = false;
+
   constructor(private participantService: ParticipantService) {
   }
 
   ngOnInit() {
   }
 
+  /**
+   * Verify if attribute and value of the given input has 
+   * already been associated to a participant.
+   * 
+   * @param {*} event 
+   * @memberof NewParticipantComponent
+   */
+  onKey(event: any) {
+    let query = event.target.name + '=' + event.target.value;
+    let that = this;
+    console.log(event.target.value);
+    this.participantService.search(query)
+      .subscribe(data => {
+        if (event.target.name == "_id") {
+          that.isAlreadyAParticipantID = (data == true) ? true : false;
+        } else {
+          that.isAlreadyAParticipantEmail = (data == true) ? true : false;
+        }
 
-/**
- * Submit new participant profile information.
- * 
- * @memberof NewParticipantComponent
- */
-submit() {
+      });
+  }
+
+
+  /**
+   * Submit new participant profile information.
+   * 
+   * @memberof NewParticipantComponent
+   */
+  submit() {
     this.participantService.save(this.participantData)
       .subscribe(data => {
         console.log(data);
