@@ -18,13 +18,13 @@ export class ProfilesComponent {
     let that = this;
     this.profilesService.getAll()
       .then(profile => {
-        console.log(profile)
+        console.log(profile);
         that.profiles = profile;
-        })
+        });
       }
       
   ngOnInit() {
-  this.loadProfiles() 
+  this.loadProfiles();
   }
 
   
