@@ -14,7 +14,8 @@ import { ProfilesComponent } from './components/profiles/profiles.component';
 import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
 import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthenticationService } from './services/authentication.service';
 
 const routes: Routes = [
   {
@@ -62,7 +63,8 @@ const routes: Routes = [
   entryComponents: [ AlertModalComponent ],
   providers: [
     ParticipantService,
-    MessageService
+    MessageService,
+    AuthenticationService,
   ],
   bootstrap: [AppComponent]
 })

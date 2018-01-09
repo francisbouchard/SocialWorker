@@ -55,7 +55,6 @@ app.use(passport.session());
 app.use(flash());
 
 // CORS
-var cors = require('cors');
 app.use(cors({
     origin: '*',
     withCredentials: false,
@@ -64,7 +63,9 @@ app.use(cors({
 
 
 // Server public folder
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/*', express.static(path.join(__dirname, 'public', 'index.html')));
+
 
 //all urls with /api must be authenticated
 app.use('/api', passportConfig.isAuthenticated);
