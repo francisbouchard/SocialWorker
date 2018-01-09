@@ -14,6 +14,7 @@ const mongoose = require('mongoose');
 const api = require('./routes/api');
 const user = require('./routes/user');
 const participant = require('./routes/participant.route');
+const resource = require('./routes/resource.route');
 
 const app = express();
 
@@ -33,10 +34,15 @@ app.use(cors({
 app.use('/', api);
 app.use('/user', user);
 app.use('/participant', participant);
+app.use('/resource', resource);
 app.use(cors())
 
+
+// Load environment variables from .env file
+const dotenv = require('dotenv').config();
+
 //Connect to mongo
-const mongoUrl = 'mongodb://socialworker:soen490Whiteboard!@ds143559.mlab.com:43559/socialworker'
+const mongoUrl = process.env.MONGOLAB_URL;
 mongoose.connect(mongoUrl, {}).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
