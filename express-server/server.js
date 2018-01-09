@@ -12,7 +12,6 @@ const passport = require('passport');
 const flash = require('express-flash');
 const expressValidator  = require('express-validator');
 
-
 const passportConfig = require("./config/passport");
 
 // Get our API routes
@@ -55,6 +54,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use('/', express.static('public'));
 
 // Set our api routes
 app.use('/', api);

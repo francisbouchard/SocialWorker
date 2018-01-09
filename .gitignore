@@ -63,3 +63,7 @@ typings/
 #packagelock
 angular-client/package-lock.json
 express-server/package-lock.json
+
+# other
+public/
+.idea/
