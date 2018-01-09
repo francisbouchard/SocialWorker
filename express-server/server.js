@@ -23,19 +23,17 @@ const MongoStore = mongo(session);
 
 // Load environment variables from .env file
 const dotenv = require('dotenv').config();
-
 const app = express();
-
 
 //Connect to mongo
 const mongoUrl = process.env.MONGOLAB_URL;
+
 mongoose.connect(mongoUrl, {}).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
   console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
   // process.exit();
 });
-
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -54,9 +52,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.use('/', express.static('public'));
+// Server public folder
+app.use('/', express.static(path.join(__dirname, 'public')))
+
 //all urls with /api must be authenticated
-app.use('/api', passportConfig.isAuthenticated)
+app.use('/api', passportConfig.isAuthenticated);
 
 // Set our api routes
 app.use('/api', api);
@@ -73,9 +73,6 @@ app.set('port', port);
 /**
 * Create HTTP server.
 */
-
-
-
 
 const server = http.createServer(app);
 
