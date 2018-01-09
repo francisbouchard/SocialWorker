@@ -68,7 +68,7 @@ router.post('/signup', (req, res, next) => {
   });
 });
 
-router.delete('/', passportConfig.isAuthenticated, (req, res, next) => {
+router.delete('/',  (req, res, next) => {
   User.remove({ _id: req.user.id }, (err) => {
     if (err) { return next(err); }
     req.logout();

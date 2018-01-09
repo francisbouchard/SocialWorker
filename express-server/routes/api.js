@@ -3,7 +3,7 @@ const router = express.Router();
 const passportConfig = require("../config/passport")
 
 /* GET api listing. */
-router.get('/', passportConfig.isAuthenticated, (req, res) => {
+router.get('/',  (req, res) => {
 	    res.send('api works');
 });
 
