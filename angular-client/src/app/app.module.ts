@@ -14,6 +14,7 @@ import { ProfilesComponent } from './components/profiles/profiles.component';
 import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
 import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,11 @@ const routes: Routes = [
   {
     path: 'new-participant',
     component: NewParticipantComponent
-  }
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
 ];
 
 @NgModule({
@@ -42,7 +47,8 @@ const routes: Routes = [
     MessagesComponent,
     NewParticipantComponent,
     ProfilesComponent,
-    AlertModalComponent
+    AlertModalComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
