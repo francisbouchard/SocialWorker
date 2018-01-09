@@ -3,16 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule  } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { Http, HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
-import {MatCardModule} from '@angular/material';
-import { ProfilesComponent } from './components/profiles/profiles.component';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import {ProfilesService} from '../providers/profilesService'
-import { Http, HttpModule } from '@angular/http';
+import { MessagesComponent } from './components/messages/messages.component';
 import { NewParticipantComponent } from './components/new-participant/new-participant.component';
+import { ProfilesComponent } from './components/profiles/profiles.component';
+import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
+import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
 
 const routes: Routes = [
   {
@@ -37,22 +38,25 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ProfilesComponent,
     DashboardComponent,
-    NewParticipantComponent
+    MessagesComponent,
+    NewParticipantComponent,
+    ProfilesComponent,
+    AlertModalComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    HttpModule,
     FormsModule,
-    MatCardModule,
     MaterialsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes),
-    HttpModule
+    RouterModule.forRoot(routes)
   ],
+  entryComponents: [ AlertModalComponent ],
   providers: [
-    ProfilesService,
+    ParticipantService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

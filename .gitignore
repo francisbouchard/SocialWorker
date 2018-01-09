@@ -63,3 +63,6 @@ typings/
 #packagelock
 angular-client/package-lock.json
 express-server/package-lock.json
+
+# Visual Studio Code
+.vscode/

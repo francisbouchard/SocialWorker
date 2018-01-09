@@ -1,8 +1,10 @@
 <mat-card>
   <form class="form">
     <mat-form-field>
-      <input matInput required placeholder="Id" name="id" [(ngModel)]="participantData._id">
+      <input matInput required (keyup.enter)="onKey('_id', id.value)" (blur)="onKey('_id', id.value)" #id placeholder="Id" name="_id" [(ngModel)]="participantData._id">
     </mat-form-field>
+    <!-- TODO: use mat-error -->
+    <div *ngIf="isAlreadyAParticipantID" style="color:red">This is already associated to a participant!</div>
 
     <mat-form-field>
       <input matInput required placeholder="Name" name="name" [(ngModel)]="participantData.name">
@@ -21,8 +23,11 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Email address" name="email" [(ngModel)]="participantData.email">
+      <input matInput (keyup.enter)="onKey('email', email.value)" (blur)="onKey('email', email.value)" #email placeholder="Email address" name="email" [(ngModel)]="participantData.email">
     </mat-form-field>
+    <!-- TODO: use mat-error -->
+    <div *ngIf="isAlreadyAParticipantEmail" style="color:red">This is already associated to a participant!</div>
+
 
     <mat-form-field>
       <input matInput placeholder="Physical Address" name="address" [(ngModel)]="participantData.address">
