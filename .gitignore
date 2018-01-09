@@ -67,3 +67,4 @@ express-server/package-lock.json
 # other
 public/
 .idea/
+.vscode/

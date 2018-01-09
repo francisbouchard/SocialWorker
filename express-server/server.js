@@ -3,6 +3,7 @@
 //Get dependencies
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const http = require('http');
 const bodyParser = require('body-parser');
 const mongo = require('connect-mongo');
@@ -18,24 +19,23 @@ const passportConfig = require("./config/passport");
 const api = require('./routes/api');
 const user = require('./routes/user');
 const participant = require('./routes/participant.route');
+const resource = require('./routes/resource.route');
 
 const MongoStore = mongo(session);
 
 // Load environment variables from .env file
 const dotenv = require('dotenv').config();
-
 const app = express();
-
 
 //Connect to mongo
 const mongoUrl = process.env.MONGOLAB_URL;
+
 mongoose.connect(mongoUrl, {}).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
   console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
   // process.exit();
 });
-
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -54,15 +54,27 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.use('/', express.static('public'));
+// CORS
+var cors = require('cors');
+app.use(cors({
+    origin: '*',
+    withCredentials: false,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin' ]
+}));
+
+
+// Server public folder
+app.use('/', express.static(path.join(__dirname, 'public')))
+
 //all urls with /api must be authenticated
-app.use('/api', passportConfig.isAuthenticated)
+app.use('/api', passportConfig.isAuthenticated);
 
 // Set our api routes
 app.use('/api', api);
 app.use('/user', user);
 app.use('/participant', participant);
-
+app.use('/resource', resource);
+app.use(cors());
 
 /**
 * Get port from environment and store in Express.
@@ -73,9 +85,6 @@ app.set('port', port);
 /**
 * Create HTTP server.
 */
-
-
-
 
 const server = http.createServer(app);
 
