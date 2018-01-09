@@ -6,19 +6,29 @@ const Participant = require('../models/Participant');
 
 let id1 = "testingID1";
 let id2 = "testingID2";
+let id3 = "testingID3";
 
 chai.use(chaiHttp);
 
 describe('Participant Tests', () => {
 
     before(() => {
-        let participant = new Participant({
+        let participant1 = new Participant({
             _id: id1,
             name: "participant1",
             email: "participant1@p.com",
             phone: "514-1234567"
         });
-        participant.save().then(data => {}, err => {
+        let participant3 = new Participant({
+            _id: id3,
+            name: "participant3",
+            email: "participant3@p.com",
+            phone: "514-1234567"
+        });
+        participant1.save().then(data => {}, err => {
+            console.log(err);
+        });
+        participant3.save().then(data => {}, err => {
             console.log(err);
         })
     });
@@ -59,7 +69,32 @@ describe('Participant Tests', () => {
                     done();
                 });
         });
-    })
+    });
+
+    describe('/GET/search/:values', () => {
+        it('should GET the participants matching the given values', (done) => {
+            let values = "name=participant1"
+            chai.request(server)
+                .get('/participant/search/' + values)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(1);
+                    done();
+                });
+        });
+        it('should not GET any participants matching the given values', (done) => {
+            let values = "name=participant500"
+            chai.request(server)
+                .get('/participant/search/' + values)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(0);
+                    done();
+                });
+        });
+    });
 
     describe('/POST', () => {
         it('should not POST a participant without _id', (done) => {
@@ -100,6 +135,9 @@ describe('Participant Tests', () => {
                     done();
                 });
         });
+    });
+
+    describe('/POST/:pid/doc', () => {
         it('should POST a document to given participant', (done) => {
             let document = {
                 type: "A123 Form",
@@ -119,6 +157,9 @@ describe('Participant Tests', () => {
                     });
             })
         });
+    });
+
+    describe('/POST/:pid/note', () => {
         it('should POST a note to given participant', (done) => {
             let note = {
                 text: "notes taken",
@@ -137,6 +178,17 @@ describe('Participant Tests', () => {
                         done();
                     });
             })
+        });
+    });
+
+    describe('/DELETE/:pid', () => {
+        it('should DELETE the participant with the given ID', (done) => {
+            chai.request(server)
+                .del('/participant/' + id3)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                });
         });
     });
 
