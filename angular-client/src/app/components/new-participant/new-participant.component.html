@@ -1,0 +1,41 @@
+<mat-card>
+  <form class="form">
+    <mat-form-field>
+      <input matInput required (keyup.enter)="onKey('_id', id.value)" (blur)="onKey('_id', id.value)" #id placeholder="Id" name="_id" [(ngModel)]="participantData._id">
+    </mat-form-field>
+    <!-- TODO: use mat-error -->
+    <div *ngIf="isAlreadyAParticipantID" style="color:red">This is already associated to a participant!</div>
+
+    <mat-form-field>
+      <input matInput required placeholder="Name" name="name" [(ngModel)]="participantData.name">
+      <mat-hint align="start">
+        <strong>Do not use participant's legal name</strong>
+      </mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <span matPrefix>+1 &nbsp;</span>
+      <input type="tel" matInput placeholder="Telephone" name="telephone" [(ngModel)]="participantData.telephone">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Social media handle" name="socialmedia" [(ngModel)]="participantData.socialmedia">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput (keyup.enter)="onKey('email', email.value)" (blur)="onKey('email', email.value)" #email placeholder="Email address" name="email" [(ngModel)]="participantData.email">
+    </mat-form-field>
+    <!-- TODO: use mat-error -->
+    <div *ngIf="isAlreadyAParticipantEmail" style="color:red">This is already associated to a participant!</div>
+
+
+    <mat-form-field>
+      <input matInput placeholder="Physical Address" name="address" [(ngModel)]="participantData.address">
+      <mat-hint align="start">
+        <strong>Optional</strong>
+      </mat-hint>
+    </mat-form-field>
+
+  </form>
+  <button mat-raised-button (click)="submit()">Submit</button>
+</mat-card>

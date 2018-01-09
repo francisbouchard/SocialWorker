@@ -3,6 +3,7 @@
 //Get dependencies
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const http = require('http');
 const bodyParser = require('body-parser');
 const mongo = require('connect-mongo');
@@ -18,6 +19,7 @@ const passportConfig = require("./config/passport");
 const api = require('./routes/api');
 const user = require('./routes/user');
 const participant = require('./routes/participant.route');
+const resource = require('./routes/resource.route');
 
 const MongoStore = mongo(session);
 
@@ -52,6 +54,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+// CORS
+var cors = require('cors');
+app.use(cors({
+    origin: '*',
+    withCredentials: false,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin' ]
+}));
+
+
 // Server public folder
 app.use('/', express.static(path.join(__dirname, 'public')))
 
@@ -62,7 +73,8 @@ app.use('/api', passportConfig.isAuthenticated);
 app.use('/api', api);
 app.use('/user', user);
 app.use('/participant', participant);
-
+app.use('/resource', resource);
+app.use(cors());
 
 /**
 * Get port from environment and store in Express.

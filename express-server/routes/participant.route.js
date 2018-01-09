@@ -27,6 +27,22 @@ router.get('/:pid', (req, res) => {
 });
 
 /**
+ * Search for an existing attribute and value pair
+ * Query example: /participant/search/name=Sandy
+ */
+router.get('/search/:values', (req, res) => {
+    let pair = (req.params.values).replace('=', '":"');
+    let query = JSON.parse('{"' + pair + '"}');
+    Participant.find(query).then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+})
+
+
+
+/**
  * Create a new participant
  */
 router.post('/', (req, res) => {
@@ -42,6 +58,17 @@ router.post('/', (req, res) => {
         res.send(err);
     })
 });
+
+/**
+ * Delete a participant by ID
+ */
+router.delete('/:pid', (req, res) => {
+    Participant.findByIdAndRemove(req.params.pid).then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+})
 
 /**
  * Add a document to participant
