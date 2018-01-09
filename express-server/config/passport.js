@@ -40,8 +40,8 @@ passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, don
 /**
  * Login Required middleware.
  */
-let passport = {
-    isAuthenticated = (req, res, next) => {
+let passportConfig = {
+    isAuthenticated: (req, res, next) => {
         if (req.isAuthenticated()) {
           return next();
         }
@@ -50,4 +50,4 @@ let passport = {
 }
 
 
-module.exports = passport;
+module.exports = passportConfig;

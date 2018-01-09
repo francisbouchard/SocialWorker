@@ -55,9 +55,11 @@ app.use(passport.session());
 app.use(flash());
 
 app.use('/', express.static('public'));
+//all urls with /api must be authenticated
+app.use('/api', passportConfig.isAuthenticated)
 
 // Set our api routes
-app.use('/', api);
+app.use('/api', api);
 app.use('/user', user);
 app.use('/participant', participant);
 
