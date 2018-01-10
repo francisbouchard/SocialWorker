@@ -19,7 +19,10 @@ export class LoginComponent implements OnInit {
   }
 
   public login () {
-    return this.authenticationService.login(this.user.email, this.user.password);
+    this.authenticationService.login(this.user.email, this.user.password).subscribe(data => {
+      // Read the result field from the JSON response.
+      console.log(data);
+    });
   }
 
 }

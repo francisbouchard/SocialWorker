@@ -1,11 +1,16 @@
 <mat-toolbar color="primary">
-  SocialWorker
-  <a class="nav-link" routerLink="new-participant"><button mat-button>New Participant</button></a>
-
-  <a class="nav-link" routerLink="profiles"><button mat-button>Profiles</button></a>
-  <a class="nav-link" routerLink="login"><button mat-button>Login</button></a>
-
+  <span>
+    SocialWorker
+    <a class="nav-link" routerLink="new-participant">
+      <button mat-button>New Participant</button>
+    </a>
+    <a class="nav-link" routerLink="profiles">
+      <button mat-button>Profiles</button>
+    </a>
+  </span>
+  <span class="example-fill-remaining-space"></span>
+  <span>
+    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+  </span>
 </mat-toolbar>
-
 <router-outlet></router-outlet>
-

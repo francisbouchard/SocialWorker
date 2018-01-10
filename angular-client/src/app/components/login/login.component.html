@@ -1,21 +1,36 @@
-<div>
-  <form name="form" (ngSubmit)="login()">
-    <div class="form-group">
-      <mat-form-field>
-          <label for="email">Email</label>
-          <input name="email" matInput type="email" class="form-control" id="email" [(ngModel)]="user.email" #email="ngModel" required>
-      </mat-form-field>
-    </div>
+<div fxLayout="row">
+  <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxFlex="100">
+    <mat-card style="width:50%">
+      <mat-card-title>
+        Login
+      </mat-card-title>
+      <form name="form" (ngSubmit)="login()">
+        <mat-card-content>
 
-    <div class="form-group">
-      <mat-form-field>
-        <label for="password">Password</label>
-        <input matInput name="password" type="password" class="form-control" id="password" [(ngModel)]="user.password" #password="ngModel" required>
-      </mat-form-field>
+          <div class="form-group">
+            <mat-form-field>
+              <label for="email">Email</label>
+              <input name="email" matInput type="email" class="form-control" id="email" [(ngModel)]="user.email" #email="ngModel" required>
+            </mat-form-field>
+          </div>
 
-    </div>
+          <div class="form-group">
+            <mat-form-field>
+              <label for="password">Password</label>
+              <input matInput name="password" type="password" class="form-control" id="password" [(ngModel)]="user.password" #password="ngModel"
+                required>
+            </mat-form-field>
 
-    <button mat-button type="submit" class="btn btn-success">Submit</button>
+          </div>
 
-  </form>
+
+
+
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit">Submit</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
 </div>
