@@ -6,7 +6,6 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Participant } from '../components/participant/participant';
 import { MessageService } from './message.service';
-import { error } from 'selenium-webdriver';
 
 @Injectable()
 export class ParticipantService {

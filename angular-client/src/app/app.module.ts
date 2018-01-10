@@ -7,13 +7,15 @@ import { Http, HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
 import { AppComponent } from './app.component';
+import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { NewParticipantComponent } from './components/new-participant/new-participant.component';
 import { ProfilesComponent } from './components/profiles/profiles.component';
+import { ResourcesComponent } from './components/resources/resources.component';
 import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
-import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
+import { ResourceService } from './services/resource.service';
 
 const routes: Routes = [
   {
@@ -32,6 +34,10 @@ const routes: Routes = [
   {
     path: 'new-participant',
     component: NewParticipantComponent
+  },
+  {
+    path: 'resources',
+    component: ResourcesComponent
   }
 ];
 
@@ -42,7 +48,8 @@ const routes: Routes = [
     MessagesComponent,
     NewParticipantComponent,
     ProfilesComponent,
-    AlertModalComponent
+    AlertModalComponent,
+    ResourcesComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +63,8 @@ const routes: Routes = [
   entryComponents: [ AlertModalComponent ],
   providers: [
     ParticipantService,
-    MessageService
+    MessageService,
+    ResourceService
   ],
   bootstrap: [AppComponent]
 })
