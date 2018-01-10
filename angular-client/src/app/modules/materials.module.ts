@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CdkTableModule} from '@angular/cdk/table';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { 
   MatButtonModule, 
   MatCardModule,
@@ -28,7 +29,8 @@ import {
     MatToolbarModule,
     MatExpansionModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialsModule { }

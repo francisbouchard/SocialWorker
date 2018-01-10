@@ -4,7 +4,7 @@
       <mat-card-title>
         Login
       </mat-card-title>
-      <form name="form" (ngSubmit)="login()">
+      <form name="form" (ngSubmit)="login()" *ngIf="!loading">
         <mat-card-content>
 
           <div class="form-group">
@@ -31,6 +31,13 @@
           <button mat-raised-button color="primary" type="submit">Submit</button>
         </mat-card-actions>
       </form>
+      <mat-spinner *ngIf="loading"></mat-spinner>
+      <div *ngIf="error">
+          <i class="fa fa-exclamation" aria-hidden="true"></i>
+          <mat-icon>error</mat-icon>
+          <h4>{{msg}}</h4>
+      </div>
+      
     </mat-card>
   </div>
 </div>
