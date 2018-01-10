@@ -1,34 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import {ProfilesService} from'../../../providers/profilesService';
+import { ParticipantService } from '../../services/participant.service';
 
 
 @Component({
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
-  styleUrls: ['./profiles.component.css'],
-  providers: [ProfilesService]
+  styleUrls: ['./profiles.component.css']
 })
-export class ProfilesComponent {
+export class ProfilesComponent implements OnInit{
   public profiles;
-  constructor(public profilesService: ProfilesService) { 
-    
+  constructor(private participantService: ParticipantService) {
   }
 
- loadProfiles() {
-    let that = this;
-    this.profilesService.getAll()
-      .then(profile => {
-        console.log(profile);
-        that.profiles = profile;
-        });
-      }
-      
+  loadProfiles() {
+    this.participantService.getAll()
+    .subscribe(data => {
+      this.profiles = data;
+    });
+  }
+
+  getProfile(pid) {
+    this.participantService.get(pid)
+    .subscribe(data => {
+      this.profiles = [data];
+    });
+  }
+
+  delete(pid) {
+    this.participantService.delete(pid)
+    .subscribe(data => {
+      console.log('Deleted: ' + data);
+      this.loadProfiles();
+    });
+  }
+
   ngOnInit() {
-  this.loadProfiles();
+    this.loadProfiles();
   }
 
-  
+
 }
 
 
- 

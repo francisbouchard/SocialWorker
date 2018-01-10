@@ -7,6 +7,7 @@ import { CdkTableModule} from '@angular/cdk/table';
 import { 
   MatButtonModule, 
   MatCardModule,
+  MatDialogModule,
   MatIconModule, 
   MatInputModule, 
   MatToolbarModule,  
@@ -21,6 +22,7 @@ import {
     FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatInputModule,
     MatIconModule,
     MatToolbarModule,
