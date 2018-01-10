@@ -28,7 +28,7 @@ router.get('/:id', (req, res) => {
  * Get a request by participant ID
  */
 router.get('/participant/:id', (req, res) => {
-    Request.find({participant: req.params.id}).then(data => {
+    Request.find({ participant: req.params.id }).then(data => {
         res.send(data);
     }, err => {
         res.send(err);
@@ -48,6 +48,42 @@ router.post('/', (req, res) => {
     }, err => {
         res.send(err);
     })
+});
+
+/**
+ * Add a contacted resource to request
+ */
+router.post('/:id/resource', (req, res) => {
+    Request.findById(req.params.id).then(request => {
+        if (!request.contactedResources) {
+            request.contactedResources = [];
+        }
+        request.contactedResources.push({
+            resource: req.body.resource,
+            status: req.body.status
+        });
+
+        request.save().then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+    }, err => {
+        res.send(err);
+    })
+});
+
+/**
+ * Update status of a contacted resource
+ */
+router.put('/:id/resource/:resId', (req, res) => {
+    Request.update({ '_id': req.params.id, 'contactedResources.resource': req.params.resId },
+        { '$set': { 'contactedResource.$.status': req.body.status } })
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
 });
 
 /**
