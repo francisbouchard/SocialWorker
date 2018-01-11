@@ -39,7 +39,7 @@ router.get('/participant/:id', (req, res) => {
  * Create a new request
  */
 router.post('/', (req, res) => {
-    let request = new Housing({
+    let request = new Request({
         participant: req.body.participant,
         notes: [req.body.notes]
     });
