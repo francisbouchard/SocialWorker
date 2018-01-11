@@ -7,7 +7,7 @@ import { ParticipantService } from '../../services/participant.service';
   templateUrl: './profiles.component.html',
   styleUrls: ['./profiles.component.css']
 })
-export class ProfilesComponent implements OnInit{
+export class ProfilesComponent implements OnInit {
   public profiles;
   constructor(private participantService: ParticipantService) {
   }

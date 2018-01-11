@@ -12,7 +12,7 @@
    <b> Phone number: {{profile.phone}}</b>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>View Profile</button>
+    <button mat-button><a routerLink="/participant-profile/{{profile._id}}"></a>Anything</button>
     <button mat-button (click)="delete(profile._id)">Delete Profile</button>
   </mat-card-actions>
 </mat-card><br>

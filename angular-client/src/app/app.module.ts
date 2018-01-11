@@ -14,6 +14,7 @@ import { ProfilesComponent } from './components/profiles/profiles.component';
 import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
 import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
+import { ParticipantProfileComponent } from './components/participant-profile/participant-profile.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'new-participant',
     component: NewParticipantComponent
+  },
+  {
+    path: 'participant-profile/:_id',
+    component: ParticipantProfileComponent
   }
 ];
 
@@ -42,7 +47,8 @@ const routes: Routes = [
     MessagesComponent,
     NewParticipantComponent,
     ProfilesComponent,
-    AlertModalComponent
+    AlertModalComponent,
+    ParticipantProfileComponent
   ],
   imports: [
     BrowserModule,
