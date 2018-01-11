@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const requestSchema = new Schema({
   participant: { type: String, ref: 'Participant', required: true },
   contactedResources: [{
-    resource: { type: Schema.Types.ObjectId, ref: 'Resource', sparse: true, required: true },
+    _id: { type: Schema.Types.ObjectId, ref: 'Resource', sparse: true, required: true },
     status: String
   }],
   notes: [String],

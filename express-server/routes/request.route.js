@@ -54,20 +54,12 @@ router.post('/', (req, res) => {
  * Add a contacted resource to request
  */
 router.post('/:id/resource', (req, res) => {
-    Request.findById(req.params.id).then(request => {
-        if (!request.contactedResources) {
-            request.contactedResources = [];
-        }
-        request.contactedResources.push({
-            resource: req.body.resource,
-            status: req.body.status
-        });
-
-        request.save().then(data => {
-            res.send(data);
-        }, err => {
-            res.send(err);
-        })
+    let contResource = {
+        _id: req.body.resourceId,
+        status: req.body.status
+    };
+    Request.update({ _id: req.params.id }, { $push: { contactedResources: contResource } }).then(data => {
+        res.send(data);
     }, err => {
         res.send(err);
     })
@@ -77,7 +69,7 @@ router.post('/:id/resource', (req, res) => {
  * Update status of a contacted resource
  */
 router.put('/:id/resource/:resId', (req, res) => {
-    Request.update({ '_id': req.params.id, 'contactedResources.resource': req.params.resId },
+    Request.update({ '_id': req.params.id, 'contactedResources._id': req.params.resId },
         { '$set': { 'contactedResource.$.status': req.body.status } })
         .then(data => {
             res.send(data);

@@ -4,10 +4,12 @@ const should = chai.should();
 const mongoose = require('mongoose');
 const server = require('../server');
 const Participant = require('../models/Participant');
+const Housing = require('../models/Housing');
 const Request = require('../models/Request');
 
 let participantId1 = "reqParticipant1";
 let participantId2 = "reqParticipant2";
+let housingId = new mongoose.Types.ObjectId();
 let id1 = new mongoose.Types.ObjectId();
 let id2 = new mongoose.Types.ObjectId();
 let id3 = new mongoose.Types.ObjectId();
@@ -35,6 +37,15 @@ describe('Request Tests', () => {
         participant2.save().then(data => { }, err => {
             console.log(err);
         });
+        let housing = new Housing({
+            _id: housingId,
+            name: "Housing Facility for Request Testing",
+            term: "5 weeks"
+        });
+        housing.save().then(data => {}, err => {
+            console.log(err);
+        });
+
         let request1 = new Request({
             _id: id1,
             participant: participantId1,
@@ -148,6 +159,55 @@ describe('Request Tests', () => {
         });
     });
 
+    describe('/POST/:id/resource', () => {
+        it('should not add a contacted resource with an invalid request ID', (done) => {
+            let contactedResource = {
+                resourceId: housingId,
+                status: "pending"
+            }
+            chai.request(server)
+                .post('/request/' + id3 + '/resource')
+                .send(contactedResource)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(0);
+                    done();
+                });
+        });
+        // TODO: fix this 
+        // it('should not add a contacted resource with an invalid resource ID', (done) => {
+        //     let contactedResource = {
+        //         resourceId: id3,
+        //         status: "pending"
+        //     }
+        //     chai.request(server)
+        //         .post('/request/' + id1 + '/resource')
+        //         .send(contactedResource)
+        //         .end((err, res) => {
+        //             res.should.have.status(200);
+        //             res.body.should.be.a('object');
+        //             res.body.should.have.property('nModified').eql(0);
+        //             done();
+        //         });
+        // });
+        it('should add a contacted resource to the request with the given ID', (done) => {
+            let contactedResource = {
+                resourceId: housingId,
+                status: "pending"
+            }
+            chai.request(server)
+                .post('/request/' + id1 + '/resource')
+                .send(contactedResource)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(1);
+                    done();
+                });
+        });
+    });
+
     describe('/DELETE/:id', () => {
         it('should DELETE the request with the given ID', (done) => {
             chai.request(server)
@@ -173,6 +233,9 @@ describe('Request Tests', () => {
             console.log(err);
         });
         Participant.findByIdAndRemove(participantId2).then(data => {}, err => {
+            console.log(err);
+        });
+        Housing.findByIdAndRemove(housingId).then(data => {}, err => {
             console.log(err);
         });
     });
