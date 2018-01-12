@@ -30,8 +30,8 @@ export class ResourceService {
     );
   }
 
-  save(resource): Observable<Object>{
-    return this.http.post(this.url, resource)
+  save(resourceType, resource): Observable<Object>{
+    return this.http.post(`${this.url}/${resourceType}`, resource)
     .pipe(
       tap(_ => this.log('saving a resource')),
       catchError(this.handleError<Object>('save()'))

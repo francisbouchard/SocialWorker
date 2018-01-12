@@ -16,6 +16,8 @@ import { ResourcesComponent } from './components/resources/resources.component';
 import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
 import { ResourceService } from './services/resource.service';
+import { AddResourceComponent } from './components/resources/add-resource/add-resource.component';
+import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 
 const routes: Routes = [
   {
@@ -49,7 +51,9 @@ const routes: Routes = [
     NewParticipantComponent,
     ProfilesComponent,
     AlertModalComponent,
-    ResourcesComponent
+    ResourcesComponent,
+    AddResourceComponent,
+    ViewResourcesComponent
   ],
   imports: [
     BrowserModule,
