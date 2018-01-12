@@ -13,8 +13,8 @@
    <b> Social media: </b>{{profile.socialmedia}}<br>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>View Profile</button>
-    <button mat-button (click)="delete(profile._id)">Delete Profile</button>
+    <button mat-raised-button><a routerLink="/participant-profile/{{profile._id}}">View Profile</a></button>
+    <button mat-raised-button (click)="delete(profile._id)">Delete Profile</button>
   </mat-card-actions>
 </mat-card><br>
 </div>
