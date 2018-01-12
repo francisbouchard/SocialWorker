@@ -7,31 +7,31 @@ import { ParticipantService } from '../../services/participant.service';
   templateUrl: './profiles.component.html',
   styleUrls: ['./profiles.component.css']
 })
-export class ProfilesComponent {
+export class ProfilesComponent implements OnInit {
   public profiles;
   constructor(private participantService: ParticipantService) {
   }
 
-  loadProfiles(){
+  loadProfiles() {
     this.participantService.getAll()
     .subscribe(data => {
       this.profiles = data;
     });
   }
 
-  getProfile(pid){
+  getProfile(pid) {
     this.participantService.get(pid)
     .subscribe(data => {
       this.profiles = [data];
     });
   }
 
-  delete(pid){
+  delete(pid) {
     this.participantService.delete(pid)
     .subscribe(data => {
       console.log('Deleted: ' + data);
       this.loadProfiles();
-    })
+    });
   }
 
   ngOnInit() {
