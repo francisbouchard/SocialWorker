@@ -175,22 +175,21 @@ describe('Request Tests', () => {
                     done();
                 });
         });
-        // TODO: fix this 
-        // it('should not add a contacted resource with an invalid resource ID', (done) => {
-        //     let contactedResource = {
-        //         resourceId: id3,
-        //         status: "pending"
-        //     }
-        //     chai.request(server)
-        //         .post('/request/' + id1 + '/resource')
-        //         .send(contactedResource)
-        //         .end((err, res) => {
-        //             res.should.have.status(200);
-        //             res.body.should.be.a('object');
-        //             res.body.should.have.property('nModified').eql(0);
-        //             done();
-        //         });
-        // });
+        it('should not add a contacted resource with an invalid resource ID', (done) => {
+            let contactedResource = {
+                resourceId: new mongoose.Types.ObjectId(),
+                status: "pending"
+            }
+            chai.request(server)
+                .post('/request/' + id1 + '/resource')
+                .send(contactedResource)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('err');
+                    done();
+                });
+        });
         it('should add a contacted resource to the request with the given ID', (done) => {
             let contactedResource = {
                 resourceId: housingId,
@@ -199,6 +198,46 @@ describe('Request Tests', () => {
             chai.request(server)
                 .post('/request/' + id1 + '/resource')
                 .send(contactedResource)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(1);
+                    done();
+                });
+        });
+    });
+
+    describe('/PUT/:id/resource/:resId', () => {
+        it('should not update a contacted resource with an invalid request ID', (done) => {
+            let contactedResource = {
+                resourceId: housingId,
+                status: "pending"
+            }
+            chai.request(server)
+                .put('/request/' + id3 + '/resource/' + housingId)
+                .send(contactedResource)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(0);
+                    done();
+                });
+        });
+        it('should not add a contacted resource with an invalid resource ID', (done) => {
+            chai.request(server)
+                .put('/request/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
+                .send({status: "accepted"})
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(0);
+                    done();
+                });
+        });
+        it('should update the status of a contacted resource given request and resource IDs', (done) => {
+            chai.request(server)
+                .put('/request/' + id1 + '/resource/' + housingId)
+                .send({status: "accepted"})
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');

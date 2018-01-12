@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Request = require('../models/Request');
+const Resource = require('../models/Resource');
 
 /**
  * Get all requests
@@ -54,15 +55,21 @@ router.post('/', (req, res) => {
  * Add a contacted resource to request
  */
 router.post('/:id/resource', (req, res) => {
-    let contResource = {
-        _id: req.body.resourceId,
-        status: req.body.status
-    };
-    Request.update({ _id: req.params.id }, { $push: { contactedResources: contResource } }).then(data => {
-        res.send(data);
+    Resource.findById(req.body.resourceId).then(resource => {
+        if (!resource) return res.send({ err: "Resource ID does not exist." });
+
+        let contResource = {
+            _id: req.body.resourceId,
+            status: req.body.status
+        };
+        Request.update({ _id: req.params.id }, { $push: { contactedResources: contResource } }).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
     }, err => {
         res.send(err);
-    })
+    });
 });
 
 /**
@@ -70,7 +77,7 @@ router.post('/:id/resource', (req, res) => {
  */
 router.put('/:id/resource/:resId', (req, res) => {
     Request.update({ '_id': req.params.id, 'contactedResources._id': req.params.resId },
-        { '$set': { 'contactedResource.$.status': req.body.status } })
+        { '$set': { 'contactedResources.$.status': req.body.status } })
         .then(data => {
             res.send(data);
         }, err => {
