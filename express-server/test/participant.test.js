@@ -17,7 +17,9 @@ describe('Participant Tests', () => {
             _id: id1,
             name: "participant1",
             email: "participant1@p.com",
-            phone: "514-1234567"
+            phone: "514-1234567",
+            address: "1234 Sherbrooke",
+            socialmedia: { service: "facebook", username: "participant1" }
         });
         let participant3 = new Participant({
             _id: id3,
@@ -56,6 +58,8 @@ describe('Participant Tests', () => {
                     res.body.should.have.property('name');
                     res.body.should.have.property('email');
                     res.body.should.have.property('phone');
+                    res.body.should.have.property('address');
+                    res.body.should.have.property('socialmedia');
                     done();
                 });
         });
