@@ -20,6 +20,7 @@ const api = require('./routes/api');
 const user = require('./routes/user');
 const participant = require('./routes/participant.route');
 const resource = require('./routes/resource.route');
+const request = require('./routes/request.route');
 
 const MongoStore = mongo(session);
 
@@ -75,18 +76,19 @@ app.use('/api', api);
 app.use('/user', user);
 app.use('/participant', participant);
 app.use('/resource', resource);
-app.use(cors());
+app.use('/request', request);
+app.use(cors())
+
 
 /**
 * Get port from environment and store in Express.
 */
-
 const port = process.env.PORT || '3000';
 app.set('port', port);
+
 /**
 * Create HTTP server.
 */
-
 const server = http.createServer(app);
 
 /**

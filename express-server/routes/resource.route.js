@@ -81,6 +81,9 @@ router.put('/housing/:id', (req, res) => {
     })
 });
 
+/**
+ * Delete a resource with the given ID
+ */
 router.delete('/:id', (req, res) => {
     Resource.findByIdAndRemove(req.params.id).then(data => {
         res.send(data);
