@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const resourceSchema = new Schema({
     name: { type: String, required: true},
-    email: { type: String, unique: true },
+    email: { type: String, sparse: true },
     phone: String,
     location: String,
     notes: String

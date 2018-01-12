@@ -15,6 +15,7 @@ const api = require('./routes/api');
 const user = require('./routes/user');
 const participant = require('./routes/participant.route');
 const resource = require('./routes/resource.route');
+const request = require('./routes/request.route');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use('/', api);
 app.use('/user', user);
 app.use('/participant', participant);
 app.use('/resource', resource);
+app.use('/request', request);
 app.use(cors())
 
 
