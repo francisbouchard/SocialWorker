@@ -1,7 +1,10 @@
 <mat-card>
   <form class="form">
     <mat-form-field>
-      <input matInput required (keyup.enter)="onKey('_id', id.value)" (blur)="onKey('_id', id.value)" #id placeholder="Id" name="_id" [(ngModel)]="participantData._id">
+      <input matInput required (keyup.enter)="onKey('_id', id.value)" (blur)="onKey('_id', id.value)" #id placeholder="Username" name="_id" [(ngModel)]="participantData._id">
+      <mat-hint align="start">
+        <strong>This is a unique internal identifier.</strong>
+      </mat-hint>
     </mat-form-field>
     <!-- TODO: use mat-error -->
     <div *ngIf="isAlreadyAParticipantID" style="color:red">This is already associated to a participant!</div>
@@ -32,7 +35,7 @@
     <mat-form-field>
       <input matInput placeholder="Physical Address" name="address" [(ngModel)]="participantData.address">
       <mat-hint align="start">
-        <strong>Optional</strong>
+        <strong>This is strictly optional.</strong>
       </mat-hint>
     </mat-form-field>
 
