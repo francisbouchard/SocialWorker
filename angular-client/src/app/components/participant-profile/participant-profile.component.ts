@@ -32,7 +32,7 @@ export class ParticipantProfileComponent implements OnInit {
   getParticipant(): void {
     const id = this.route.snapshot.paramMap.get('_id');
     this.participantService.get(id).subscribe(participantSelected => {
-        if (participantSelected !== undefined) {
+        if (participantSelected != null) {
           this.participantSelected = participantSelected as Participant;
         } else {
           console.log('Participant does not exist anymore.');
