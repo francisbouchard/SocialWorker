@@ -1,3 +1,4 @@
-<p>
-  participant-profile works!
-</p>
+<mat-card *ngIf="participantSelected">
+  <h2>{{participantSelected.name}}</h2>
+  <p>Email: {{participantSelected.email}}</p>
+</mat-card>
