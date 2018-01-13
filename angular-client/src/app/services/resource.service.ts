@@ -69,7 +69,7 @@ export class ResourceService {
    * @memberof ResourceService
    */
   update(resourceType, resourceID, resourceData): Observable<Object> {
-    return this.http.post(`${this.url}/${resourceType}/${resourceID}`, resourceData)
+    return this.http.put(`${this.url}/${resourceType}/${resourceID}`, resourceData)
       .pipe(
       tap(_ => this.log('saving a resource')),
       catchError(this.handleError<Object>('update()'))

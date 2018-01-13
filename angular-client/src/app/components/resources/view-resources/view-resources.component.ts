@@ -35,6 +35,11 @@ export class ViewResourcesComponent implements OnInit {
     this.editingResourceID = id;
   }
 
+  update(id, resource) {
+    this.resourceService.update('housing', id, resource)
+    .subscribe(data => console.log(data));
+  }
+
   cancel() {
     this.edit('');
   }
