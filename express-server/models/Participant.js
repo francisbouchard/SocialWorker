@@ -7,7 +7,7 @@ const participantSchema = new Schema({
   _id: { type: String, required: true },
   name: String,
   email: { type: String, sparse: true },
-  phone: String,
+  telephone: String,
   address: String,
   socialmedia: {
     service: String,
