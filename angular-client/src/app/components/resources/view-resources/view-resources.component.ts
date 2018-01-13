@@ -10,7 +10,6 @@ import { Housing } from '../../../classes/housing';
 export class ViewResourcesComponent implements OnInit {
 
   resources: Object;
-  editingResourceID = '';
   editingResource = Housing;
 
   constructor(private resourceService: ResourceService) { }
@@ -33,7 +32,6 @@ export class ViewResourcesComponent implements OnInit {
   }
 
   edit(id, resource) {
-    this.editingResourceID = id;
     this.editingResource = resource;
   }
 
