@@ -1,6 +1,6 @@
 <div *ngFor="let resource of resources">
   <mat-card>
-    <div *ngIf="!(editingResourceID == resource._id)">
+    <div *ngIf="!(editingResource == resource)">
       <mat-card-header>
         <!-- <mat-icon>house</mat-icon> -->
         <mat-card-title>Name: {{resource.name}}</mat-card-title>
@@ -19,7 +19,7 @@
       </mat-card-actions>
     </div>
 
-    <div *ngIf="editingResourceID == resource._id">
+    <div *ngIf="editingResource == resource">
       <app-edit-resource [resource]="editingResource" ></app-edit-resource>
       <mat-card-actions>
           <button mat-button (click)="update(resource._id, resource)">Update</button>
