@@ -14,36 +14,81 @@ export class ResourceService {
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
+  /**
+ * Get resource by id
+ * 
+ * @param {any} resourceID 
+ * @returns {Observable<Object>} 
+ * @memberof ResourceService
+ */
   get(resourceID): Observable<Object> {
     return this.http.get(`${this.url}/${resourceID}`)
-    .pipe(
+      .pipe(
       tap(_ => this.log('fetching a resource')),
       catchError(this.handleError<Object>('get()'))
-    );
+      );
   }
 
-  getAll(): Observable<Object>{
+  /**
+   * Get all resources
+   * 
+   * @returns {Observable<Object>} 
+   * @memberof ResourceService
+   */
+  getAll(): Observable<Object> {
     return this.http.get(this.url)
-    .pipe(
+      .pipe(
       tap(_ => this.log('fetching all resources')),
       catchError(this.handleError<Object>('getAll()'))
-    );
+      );
   }
 
-  save(resourceType, resource): Observable<Object>{
+  /**
+   * Save resource by id
+   * 
+   * @param {any} resourceType 
+   * @param {any} resource 
+   * @returns {Observable<Object>} 
+   * @memberof ResourceService
+   */
+  save(resourceType, resource): Observable<Object> {
     return this.http.post(`${this.url}/${resourceType}`, resource)
-    .pipe(
+      .pipe(
       tap(_ => this.log('saving a resource')),
       catchError(this.handleError<Object>('save()'))
-    );
+      );
   }
 
-  delete(resourceID): Observable<Object>{
+  /**
+   * Update resource with new data 
+   * 
+   * @param {any} resourceType 
+   * @param {any} resourceID 
+   * @param {any} resourceData 
+   * @returns {Observable<Object>} 
+   * @memberof ResourceService
+   */
+  update(resourceType, resourceID, resourceData): Observable<Object> {
+    return this.http.post(`${this.url}/${resourceType}/${resourceID}`, resourceData)
+      .pipe(
+      tap(_ => this.log('saving a resource')),
+      catchError(this.handleError<Object>('update()'))
+      );
+  }
+
+  /**
+   * Delete resource by id 
+   * 
+   * @param {any} resourceID 
+   * @returns {Observable<Object>} 
+   * @memberof ResourceService
+   */
+  delete(resourceID): Observable<Object> {
     return this.http.delete(`${this.url}/${resourceID}`)
-    .pipe(
+      .pipe(
       tap(_ => this.log('deleting a resource')),
       catchError(this.handleError<Object>('delete()'))
-    );
+      );
   }
 
   /**
