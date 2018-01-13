@@ -12,13 +12,13 @@ import { AlertModalComponent } from '../alert-modal/alert-modal.component';
 export class NewParticipantComponent implements OnInit {
 
   participantData: Participant = {
-    _id: "",
-    name: "",
-    address: "",
-    telephone: "",
-    email: "",
-    socialmedia: ""
-  }
+    _id: '',
+    name: '',
+    address: '',
+    telephone: '',
+    email: '',
+    socialmedia: {service: '', username: '' }
+  };
 
   isAlreadyAParticipantID = false;
   isAlreadyAParticipantEmail = false;
