@@ -10,7 +10,7 @@
   </span>
   <span class="example-fill-remaining-space"></span>
   <span>
-    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+    <button mat-raised-button color="warn" (click)="logout()" *ngIf="this.authenticationService.loggedIn">Logout</button>
   </span>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<router-outlet *ngIf="heartbeat"></router-outlet>

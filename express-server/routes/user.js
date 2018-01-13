@@ -80,4 +80,12 @@ router.post('/logout', (req, res, next) => {
   }
 });
 
+router.post('/heartbeat', (req, res, next) => {
+  if(req.user){
+    res.send({loggedIn: true});
+  } else {
+    res.send({loggedIn: false})
+  }
+});
+
 module.exports = router;
