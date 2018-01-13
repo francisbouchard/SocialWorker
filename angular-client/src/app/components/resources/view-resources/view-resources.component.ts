@@ -10,6 +10,7 @@ import { Housing } from '../../../classes/housing';
 export class ViewResourcesComponent implements OnInit {
 
   resources: Object;
+  editingResourceID = '';
 
   constructor(private resourceService: ResourceService) { }
 
@@ -28,6 +29,14 @@ export class ViewResourcesComponent implements OnInit {
   delete(id) {
     this.resourceService.delete(id)
     .subscribe(data => console.log(data));
+  }
+
+  edit(id) {
+    this.editingResourceID = id;
+  }
+
+  cancel() {
+    this.edit('');
   }
 
 }
