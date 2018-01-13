@@ -28,7 +28,10 @@ export class ViewResourcesComponent implements OnInit {
 
   delete(id) {
     this.resourceService.delete(id)
-    .subscribe(data => console.log(data));
+    .subscribe(data => {
+      console.log(data);
+      this.cancel();
+    });
   }
 
   edit(id, resource) {
@@ -37,11 +40,15 @@ export class ViewResourcesComponent implements OnInit {
 
   update(id, resource) {
     this.resourceService.update('housing', id, resource)
-    .subscribe(data => console.log(data));
+    .subscribe(data => {
+      console.log(data);
+      this.cancel();
+    });
   }
 
   cancel() {
     this.edit('', null);
+    this.loadAllResources();
   }
 
 }
