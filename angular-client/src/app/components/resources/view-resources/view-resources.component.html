@@ -1,5 +1,5 @@
-<div *ngFor="let resource of resources">
-  <mat-card>
+<div *ngIf="checkResources()">
+  <mat-card  *ngFor="let resource of resources" >
     <div *ngIf="!(editingResource == resource)">
       <mat-card-header>
         <!-- <mat-icon>house</mat-icon> -->

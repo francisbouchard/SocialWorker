@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ResourceService } from '../../../services/resource.service';
 import { Housing } from '../../../classes/housing';
 
@@ -9,6 +9,7 @@ import { Housing } from '../../../classes/housing';
 })
 export class ViewResourcesComponent implements OnInit {
 
+  @Input() hasTabChanged: boolean;
   resources: Object;
   editingResource = Housing;
 
@@ -49,6 +50,14 @@ export class ViewResourcesComponent implements OnInit {
   cancel() {
     this.edit('', null);
     this.loadAllResources();
+  }
+
+  checkResources(): boolean {
+    if(this.hasTabChanged){
+      this.loadAllResources();
+      this.hasTabChanged = !this.hasTabChanged;
+    }
+    return true;
   }
 
 }
