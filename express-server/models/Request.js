@@ -7,6 +7,7 @@ const requestSchema = new Schema({
     _id: { type: Schema.Types.ObjectId, ref: 'Resource', sparse: true, required: true },
     status: String
   }],
+  status: String,
   notes: [String],
   date: { type: Date, default: Date.now }
 }, { timestamps: true });
