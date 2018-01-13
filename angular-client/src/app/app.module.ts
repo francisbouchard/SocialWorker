@@ -7,17 +7,18 @@ import { Http, HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
 import { AppComponent } from './app.component';
+import { AddResourceComponent } from './components/resources/add-resource/add-resource.component';
 import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { NewParticipantComponent } from './components/new-participant/new-participant.component';
+import { ParticipantProfileComponent } from './components/participant-profile/participant-profile.component';
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { ResourcesComponent } from './components/resources/resources.component';
+import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
 import { ResourceService } from './services/resource.service';
-import { AddResourceComponent } from './components/resources/add-resource/add-resource.component';
-import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'resources',
     component: ResourcesComponent
+  },
+  {
+    path: 'participant-profile/:_id',
+    component: ParticipantProfileComponent
   }
 ];
 
@@ -53,7 +58,8 @@ const routes: Routes = [
     AlertModalComponent,
     ResourcesComponent,
     AddResourceComponent,
-    ViewResourcesComponent
+    ViewResourcesComponent,
+    ParticipantProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,12 @@
 }
 
 .example-header-image {
-  background-image: url('http://profile.actionsprout.com/default.jpeg');
+  background-image: url('https://orig00.deviantart.net/dca3/f/2012/006/0/5/princess_luna_facebook_profile_picture_season_2_by_wisami-d4lgj08.jpg');
   background-size: cover;
+  background-position: calc(50% - 0px) 20%;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }

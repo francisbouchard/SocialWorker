@@ -17,13 +17,15 @@ describe('Participant Tests', () => {
             _id: id1,
             name: "participant1",
             email: "participant1@p.com",
-            phone: "514-1234567"
+            telephone: "514-1234567",
+            address: "1234 Sherbrooke",
+            socialmedia: { service: "facebook", username: "participant1" }
         });
         let participant3 = new Participant({
             _id: id3,
             name: "participant3",
             email: "participant3@p.com",
-            phone: "514-1234567"
+            telephone: "514-1234567"
         });
         participant1.save().then(data => {}, err => {
             console.log(err);
@@ -55,7 +57,9 @@ describe('Participant Tests', () => {
                     res.body.should.have.property('_id');
                     res.body.should.have.property('name');
                     res.body.should.have.property('email');
-                    res.body.should.have.property('phone');
+                    res.body.should.have.property('telephone');
+                    res.body.should.have.property('address');
+                    res.body.should.have.property('socialmedia');
                     done();
                 });
         });
@@ -101,7 +105,7 @@ describe('Participant Tests', () => {
             let participant = {
                 name: "participant",
                 email: "participant@p.com",
-                phone: "514-1234567"
+                telephone: "514-1234567"
             }
             chai.request(server)
                 .post('/participant')
@@ -120,7 +124,7 @@ describe('Participant Tests', () => {
                 _id: id2,
                 name: "participant",
                 email: "participant2@p.com",
-                phone: "514-1234567"
+                telephone: "514-1234567"
             }
             chai.request(server)
                 .post('/participant')
@@ -131,7 +135,7 @@ describe('Participant Tests', () => {
                     res.body.should.have.property('_id');
                     res.body.should.have.property('name');
                     res.body.should.have.property('email');
-                    res.body.should.have.property('phone');
+                    res.body.should.have.property('telephone');
                     done();
                 });
         });
