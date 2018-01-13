@@ -11,6 +11,7 @@ export class ViewResourcesComponent implements OnInit {
 
   resources: Object;
   editingResourceID = '';
+  editingResource = Housing;
 
   constructor(private resourceService: ResourceService) { }
 
@@ -31,8 +32,9 @@ export class ViewResourcesComponent implements OnInit {
     .subscribe(data => console.log(data));
   }
 
-  edit(id) {
+  edit(id, resource) {
     this.editingResourceID = id;
+    this.editingResource = resource;
   }
 
   update(id, resource) {
@@ -41,7 +43,7 @@ export class ViewResourcesComponent implements OnInit {
   }
 
   cancel() {
-    this.edit('');
+    this.edit('', null);
   }
 
 }

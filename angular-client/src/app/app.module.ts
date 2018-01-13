@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AddResourceComponent } from './components/resources/add-resource/add-resource.component';
 import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { NewParticipantComponent } from './components/new-participant/new-participant.component';
 import { ParticipantProfileComponent } from './components/participant-profile/participant-profile.component';
@@ -51,15 +52,16 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    AddResourceComponent,
+    AlertModalComponent,
     DashboardComponent,
+    EditResourceComponent,
     MessagesComponent,
     NewParticipantComponent,
+    ParticipantProfileComponent,
     ProfilesComponent,
-    AlertModalComponent,
     ResourcesComponent,
-    AddResourceComponent,
-    ViewResourcesComponent,
-    ParticipantProfileComponent
+    ViewResourcesComponent
   ],
   imports: [
     BrowserModule,
