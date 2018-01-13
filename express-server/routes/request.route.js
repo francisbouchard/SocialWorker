@@ -40,7 +40,8 @@ router.get('/participant/:id', (req, res) => {
  * Get a contacted resource of a request by resource ID
  */
 router.get('/:id/resource/:resId', (req, res) => {
-    Request.findOne({ _id: req.params.id, 'contactedResources._id': req.params.resId }).then(data => {
+    Request.findOne({ _id: req.params.id, 'contactedResources._id': req.params.resId },
+        { 'contactedResources.$': 1 }).then(data => {
         res.send(data);
     }, err => {
         res.send(err);

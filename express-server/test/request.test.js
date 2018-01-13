@@ -59,10 +59,10 @@ describe('Request Tests', () => {
             _id: id1,
             participant: participantId1,
             notes: "testing",
-            contactedResources: {
+            contactedResources: [{
                 _id: housingId2,
                 status: "pending"
-            }
+            }]
         });
         let request2 = new Request({
             _id: id5,
@@ -146,9 +146,9 @@ describe('Request Tests', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('_id');
-                    res.body.should.have.property('participant');
-                    res.body.should.have.property('notes');
                     res.body.should.have.property('contactedResources');
+                    res.body.contactedResources[0].should.have.property('_id');
+                    res.body.contactedResources[0].should.have.property('status');
                     done();
                 });
         });
