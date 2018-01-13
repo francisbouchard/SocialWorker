@@ -7,10 +7,10 @@
     <mat-card-subtitle>Username: {{profile._id}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-   <b> Email: </b> {{profile.email}} <br>
-   <b> Address: </b> {{profile.address}}<br>
-   <b> Phone number: </b> {{profile.phone}} <br>
-   <b> Social media: </b>{{profile.socialmedia}}<br>
+   <div *ngIf="profile.email !== ''"><b> Email: </b> {{profile.email}} <br></div>
+   <div *ngIf="profile.telephone !== '' "><b> Phone number: </b> {{profile.telephone}} <br></div>
+   <div *ngIf="profile.socialmedia !== undefined"><b> Social media: </b> {{profile.socialmedia.service}}  {{profile.socialmedia.username}}<br></div>
+   <div *ngIf="profile.address !== '' "><b> Address: </b> {{profile.address}}<br></div>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button><a routerLink="/participant-profile/{{profile._id}}">View Profile</a></button>

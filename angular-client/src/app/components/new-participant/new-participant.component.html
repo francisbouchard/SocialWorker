@@ -22,7 +22,11 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Social media handle" name="socialmedia" [(ngModel)]="participantData.socialmedia">
+      <input matInput placeholder="Social media provider (Twitter, Facebook)" name="service" [(ngModel)]="participantData.service">
+    </mat-form-field>
+
+    <mat-form-field >
+      <input matInput placeholder="Social media account (@username)" name="username" [(ngModel)]="participantData.username">
     </mat-form-field>
 
     <mat-form-field>
