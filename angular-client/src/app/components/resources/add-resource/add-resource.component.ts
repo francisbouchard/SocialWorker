@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourceService } from '../../../services/resource.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AlertModalComponent } from '../../alert-modal/alert-modal.component';
 import { Housing } from '../../../classes/housing';
 
 @Component({
@@ -20,9 +22,27 @@ export class AddResourceComponent implements OnInit {
     constraints: null
   }
 
-  constructor(private resourceService: ResourceService) { }
+  constructor(private resourceService: ResourceService, public dialog: MatDialog) { }
 
   ngOnInit() {
+  }
+
+  /**
+   * Alert user of response success or fail.
+   * 
+   * @param {any} message 
+   * @memberof AddResourceComponent
+   */
+  alertModal(message): void {
+    let dialogRef = this.dialog.open(AlertModalComponent, {
+      width: '250px',
+      data: { message: message }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.housing = new Housing();
+    });
   }
 
   /**
@@ -31,7 +51,13 @@ export class AddResourceComponent implements OnInit {
    */
   submit() {
     this.resourceService.save('housing', this.housing)
-      .subscribe(data => console.log(data));
+      .subscribe(data => {
+        if (data.hasOwnProperty("errmsg")) {
+          this.alertModal("Could not add new resource.");
+        } else {
+          this.alertModal("New resource successfully added.")
+        }
+      });
   }
 
 }

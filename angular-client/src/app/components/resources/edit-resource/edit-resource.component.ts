@@ -13,7 +13,6 @@ export class EditResourceComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.resource);
   }
 
 }
