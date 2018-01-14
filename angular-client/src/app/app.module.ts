@@ -19,6 +19,7 @@ import { ViewResourcesComponent } from './components/resources/view-resources/vi
 import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
 import { ResourceService } from './services/resource.service';
+import { CaseModalComponent } from './components/case-modal/case-modal.component';
 
 const routes: Routes = [
   {
@@ -59,7 +60,8 @@ const routes: Routes = [
     ResourcesComponent,
     AddResourceComponent,
     ViewResourcesComponent,
-    ParticipantProfileComponent
+    ParticipantProfileComponent,
+    CaseModalComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
-  entryComponents: [ AlertModalComponent ],
+  entryComponents: [ 
+    AlertModalComponent,
+    CaseModalComponent
+  ],
   providers: [
     ParticipantService,
     MessageService,

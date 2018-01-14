@@ -6,8 +6,8 @@ import { ParticipantService } from '../../services/participant.service';
 import { Participant } from '../participant/participant';
 import { AppModule } from '../../app.module';
 
-import {MatDialogModule} from '@angular/material/dialog';
-import { MatDialog } from '@angular/material';
+import { CaseModalComponent } from '../case-modal/case-modal.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
 @Component({
@@ -16,16 +16,16 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./participant-profile.component.css']
 })
 
-/**
- *  This mini-component takes care of a single selected profile of a participant
- */
 export class ParticipantProfileComponent implements OnInit {
-  constructor(private route: ActivatedRoute,
+
+  @Input() public participantSelected: Participant;
+  
+  constructor(
+    private route: ActivatedRoute,
     private participantService: ParticipantService,
     private location: Location,
     private dialog: MatDialog
   ) { }
-  @Input() public participantSelected: Participant;
 
   ngOnInit() {
     this.getParticipant();
@@ -48,12 +48,23 @@ export class ParticipantProfileComponent implements OnInit {
       });
   }
 
+  // initializeCase(): void {
+  //   const dialogRef = this.dialog.open(null, {
+  //     height: '400px',
+  //     width: '600px',
+  //    });
+  //    dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed');
+  //   });
+  // }
+
   initializeCase(): void {
-    const dialogRef = this.dialog.open(null, {
-      height: '400px',
-      width: '600px',
-     });
-     dialogRef.afterClosed().subscribe(result => {
+    let dialogRef = this.dialog.open(CaseModalComponent, {
+      width: '250px',
+      data: { message: "HEY ADRIANNA" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
