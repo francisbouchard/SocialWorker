@@ -37,12 +37,26 @@ router.get('/participant/:id', (req, res) => {
 });
 
 /**
+ * Get a contacted resource of a request by resource ID
+ */
+router.get('/:id/resource/:resId', (req, res) => {
+    Request.findOne({ _id: req.params.id, 'contactedResources._id': req.params.resId },
+        { 'contactedResources.$': 1 }).then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+});
+
+/**
  * Create a new request
  */
 router.post('/', (req, res) => {
     let request = new Request({
         participant: req.body.participant,
-        notes: [req.body.notes]
+        notes: [req.body.notes],
+        status: req.body.status,
+        contactedResources: req.body.contactedResources
     });
     request.save().then(data => {
         res.send(data);
@@ -78,6 +92,18 @@ router.post('/:id/resource', (req, res) => {
 router.put('/:id/resource/:resId', (req, res) => {
     Request.update({ '_id': req.params.id, 'contactedResources._id': req.params.resId },
         { '$set': { 'contactedResources.$.status': req.body.status } })
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+});
+
+/**
+ * Update status of a request
+ */
+router.put('/:id/status', (req, res) => {
+    Request.update({ '_id': req.params.id }, { '$set': { status: req.body.status } })
         .then(data => {
             res.send(data);
         }, err => {
