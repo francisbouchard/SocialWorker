@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-// import { RequestService } from '../../services/request.service';
+import { CaseService } from '../../services/case.service';
 import { Request } from '../../classes/request';
+
 
 @Component({
   selector: 'app-case-modal',
