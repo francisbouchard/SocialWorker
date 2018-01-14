@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ParticipantService } from '../../services/participant.service';
-import { Participant } from '../participant/participant';
+import { Participant } from '../../classes/participant';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertModalComponent } from '../alert-modal/alert-modal.component';
 
