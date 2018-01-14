@@ -1,6 +1,6 @@
 import { Participant } from './participant';
 
-export class Request {
+export class Case {
     participant: String;
     status: String;
 }

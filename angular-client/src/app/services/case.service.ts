@@ -10,7 +10,7 @@ import { MessageService } from './message.service';
 @Injectable()
 export class CaseService {
 
-  private url = 'http://localhost:3000/request/';
+  private url = 'http://localhost:3000/casefile/';
 
   constructor(private http: HttpClient,
     private messageService: MessageService) {
@@ -27,7 +27,7 @@ export class CaseService {
   get(caseID): Observable<Object> {
     return this.http.get(`${this.url}/${caseID}`)
       .pipe(
-      tap(case => this.log('fecthed a case')),
+      tap(_ => this.log('fecthed a case')),
       catchError(this.handleError<Object>('get(caseID)'))
       );
   }

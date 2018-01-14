@@ -20,6 +20,7 @@ import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
 import { ResourceService } from './services/resource.service';
 import { CaseModalComponent } from './components/case-modal/case-modal.component';
+import { CaseService } from './services/case.service';
 
 const routes: Routes = [
   {
@@ -79,7 +80,8 @@ const routes: Routes = [
   providers: [
     ParticipantService,
     MessageService,
-    ResourceService
+    ResourceService,
+    CaseService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CaseService } from '../../services/case.service';
-import { Request } from '../../classes/request';
+import { Case } from '../../classes/case';
 
 
 @Component({
@@ -11,31 +11,31 @@ import { Request } from '../../classes/request';
 })
 export class CaseModalComponent implements OnInit {
 
-  statuses = [ 'In progress', 'Completed'];
+  statuses = ['In progress', 'Completed'];
   selectedStatus: String;
-  request: Request = {
+  case: Case = {
     participant: '',
     status: 'In progress'
   };
 
 
-  // constructor(
-  //   private requestService: RequestService,
-  //   public dialogRef: MatDialogRef<CaseModalComponent>,
-  //   @Inject(MAT_DIALOG_DATA) public data: any) { }
-
   constructor(
+    private caseService: CaseService,
     public dialogRef: MatDialogRef<CaseModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { 
-      this.request.participant = data.pid;
-    }
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.case.participant = data.pid;
+  }
+
 
   ngOnInit() {
   }
 
   submit(): void {
-    console.log(this.request);
-    this.dialogRef.close();
+    this.caseService.save(this.case)
+    .subscribe(data => {
+      console.log(data);
+      this.dialogRef.close();
+    });
   }
 
   cancel(): void {
