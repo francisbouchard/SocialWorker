@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { CaseService } from '../../services/case.service';
 
 @Component({
   selector: 'app-case-modal',
