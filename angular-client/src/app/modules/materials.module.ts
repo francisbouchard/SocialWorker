@@ -10,9 +10,10 @@ import {
   MatDialogModule,
   MatIconModule, 
   MatInputModule, 
+  MatRadioModule,
+  MatSelectModule,
   MatTabsModule,
   MatToolbarModule,  
-  MatSelectModule,
   MatOptionModule } from '@angular/material';
 
 
@@ -26,6 +27,7 @@ import {
     MatDialogModule,
     MatInputModule,
     MatIconModule,
+    MatRadioModule,
     MatTabsModule,
     MatToolbarModule,
     MatExpansionModule,
