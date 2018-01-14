@@ -13,7 +13,7 @@
    <div *ngIf="profile.address !== '' "><b> Address: </b> {{profile.address}}<br></div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button><a routerLink="/participant-profile/{{profile._id}}">View Profile</a></button>
+      <a routerLink="/participant-profile/{{profile._id}}"><button mat-raised-button>View Profile</button></a>
     <button mat-raised-button (click)="delete(profile._id)">Delete Profile</button>
   </mat-card-actions>
 </mat-card><br>

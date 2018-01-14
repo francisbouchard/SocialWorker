@@ -6,6 +6,10 @@ import { ParticipantService } from '../../services/participant.service';
 import { Participant } from '../participant/participant';
 import { AppModule } from '../../app.module';
 
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material';
+
+
 @Component({
   selector: 'app-participant-profile',
   templateUrl: './participant-profile.component.html',
@@ -16,7 +20,10 @@ import { AppModule } from '../../app.module';
  *  This mini-component takes care of a single selected profile of a participant
  */
 export class ParticipantProfileComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private participantService: ParticipantService,     private location: Location
+  constructor(private route: ActivatedRoute,
+    private participantService: ParticipantService,
+    private location: Location,
+    private dialog: MatDialog
   ) { }
   @Input() public participantSelected: Participant;
 
@@ -39,6 +46,16 @@ export class ParticipantProfileComponent implements OnInit {
           this.location.back();
         }
       });
+  }
+
+  initializeCase(): void {
+    const dialogRef = this.dialog.open(null, {
+      height: '400px',
+      width: '600px',
+     });
+     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }
 

@@ -1,7 +1,10 @@
 <mat-card *ngIf="participantSelected">
   <h2>{{participantSelected.name}}</h2>
-  <p>Email: <span *ngIf="participantSelected.email !== ''">{{participantSelected.email}}</span></p>
-  <p>Phone number: <span *ngIf="participantSelected.telephone !== ''" >{{participantSelected.telephone}}</span> </p>
-  <p>Social media: <span *ngIf="participantSelected.socialmedia !== undefined" >{{participantSelected.socialmedia.service}} {{participantSelected.socialmedia.username}}</span></p>
-  <p>Address: <span *ngIf="participantSelected.address !== ''">{{participantSelected.address}}</span></p>
+  <mat-card-content>
+    Email: <span *ngIf="participantSelected.email !== ''">{{participantSelected.email}}</span><br>
+    Phone number: <span *ngIf="participantSelected.telephone !== ''" >{{participantSelected.telephone}}</span><br>
+    Social media: <span *ngIf="participantSelected.socialmedia !== undefined" >{{participantSelected.socialmedia.service}} {{participantSelected.socialmedia.username}}</span><br>
+    Address: <span *ngIf="participantSelected.address !== ''">{{participantSelected.address}}</span>
+  </mat-card-content>
+  <button mat-raised-button (click)="initializeCase()">Initialize case</button>
 </mat-card>
