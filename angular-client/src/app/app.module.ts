@@ -7,14 +7,19 @@ import { Http, HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
 import { AppComponent } from './app.component';
+import { AddResourceComponent } from './components/resources/add-resource/add-resource.component';
+import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { NewParticipantComponent } from './components/new-participant/new-participant.component';
+import { ParticipantProfileComponent } from './components/participant-profile/participant-profile.component';
 import { ProfilesComponent } from './components/profiles/profiles.component';
+import { ResourcesComponent } from './components/resources/resources.component';
+import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
-import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
-import { ParticipantProfileComponent } from './components/participant-profile/participant-profile.component';
+import { ResourceService } from './services/resource.service';
 
 const routes: Routes = [
   {
@@ -35,6 +40,10 @@ const routes: Routes = [
     component: NewParticipantComponent
   },
   {
+    path: 'resources',
+    component: ResourcesComponent
+  },
+  {
     path: 'participant-profile/:_id',
     component: ParticipantProfileComponent
   }
@@ -43,12 +52,16 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    AddResourceComponent,
+    AlertModalComponent,
     DashboardComponent,
+    EditResourceComponent,
     MessagesComponent,
     NewParticipantComponent,
+    ParticipantProfileComponent,
     ProfilesComponent,
-    AlertModalComponent,
-    ParticipantProfileComponent
+    ResourcesComponent,
+    ViewResourcesComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +75,8 @@ const routes: Routes = [
   entryComponents: [ AlertModalComponent ],
   providers: [
     ParticipantService,
-    MessageService
+    MessageService,
+    ResourceService
   ],
   bootstrap: [AppComponent]
 })

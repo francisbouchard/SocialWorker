@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { ParticipantService } from '../../services/participant.service';
-import { Participant } from '../participant/participant';
+import { Participant } from '../../classes/participant';
 import { AppModule } from '../../app.module';
 
 @Component({
