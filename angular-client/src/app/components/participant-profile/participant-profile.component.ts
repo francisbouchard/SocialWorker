@@ -48,20 +48,10 @@ export class ParticipantProfileComponent implements OnInit {
       });
   }
 
-  // initializeCase(): void {
-  //   const dialogRef = this.dialog.open(null, {
-  //     height: '400px',
-  //     width: '600px',
-  //    });
-  //    dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //   });
-  // }
-
-  initializeCase(): void {
+  newCase(id): void {
     let dialogRef = this.dialog.open(CaseModalComponent, {
       width: '250px',
-      data: { message: "HEY ADRIANNA" }
+      data: { pid: id }
     });
 
     dialogRef.afterClosed().subscribe(result => {

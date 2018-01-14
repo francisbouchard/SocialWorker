@@ -1,4 +1,12 @@
-<h1 mat-dialog-title>{{data.message}}</h1>
+<h1 mat-dialog-title>New Case</h1>
+<form>
+  <h4>Select case status</h4>
+  <mat-radio-group [(ngModel)]="request.status" name="status">
+    <mat-radio-button *ngFor="let status of statuses" [value]="status">{{status}}</mat-radio-button>
+  </mat-radio-group>
+</form>
+<div>{{selectedStatus}}</div>
 <div mat-dialog-actions>
-  <button mat-button (click)="ok()">Ok</button>
+  <button mat-button (click)="submit()">Submit</button>
+  <button mat-button (click)="cancel()">Cancel</button>
 </div>
