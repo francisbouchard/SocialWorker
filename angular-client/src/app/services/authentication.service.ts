@@ -9,8 +9,8 @@ export class AuthenticationService {
 public loggedIn: boolean;
   constructor(
     private http: HttpClient
-  ) { 
-    
+  ) {
+
   }
 
   public login(email: string, password: string) {
@@ -21,8 +21,8 @@ public loggedIn: boolean;
     return this.http.post<any>('/user/logout', {})
   }
 
-  public signup (email: string, password: string, confirmPassword: string) {
-    return this.http.post<any>('/user/signup', {})
+  public signUp (email: string, password: string, confirmPassword: string) {
+    return this.http.post<any>('/user/signup', {email: email, password: password, confirmPassword: confirmPassword})
   }
 
   public heartbeat (){
