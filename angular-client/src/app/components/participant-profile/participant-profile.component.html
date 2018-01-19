@@ -1,7 +1,32 @@
-<mat-card *ngIf="participantSelected">
-  <h2>{{participantSelected.name}}</h2>
-  <p>Email: <span *ngIf="participantSelected.email !== ''">{{participantSelected.email}}</span></p>
-  <p>Phone number: <span *ngIf="participantSelected.telephone !== ''" >{{participantSelected.telephone}}</span> </p>
-  <p>Social media: <span *ngIf="participantSelected.socialmedia !== undefined" >{{participantSelected.socialmedia.service}} {{participantSelected.socialmedia.username}}</span></p>
-  <p>Address: <span *ngIf="participantSelected.address !== ''">{{participantSelected.address}}</span></p>
-</mat-card>
+<div *ngIf="participantSelected">
+  <mat-card>
+    <h2>{{participantSelected.name}}</h2>
+    <p>Email:
+      <span *ngIf="participantSelected.email !== ''">{{participantSelected.email}}</span>
+    </p>
+    <p>Phone number:
+      <span *ngIf="participantSelected.telephone !== ''">{{participantSelected.telephone}}</span>
+    </p>
+    <p>Social media:
+      <span *ngIf="participantSelected.socialmedia !== undefined">{{participantSelected.socialmedia.service}} {{participantSelected.socialmedia.username}}</span>
+    </p>
+    <p>Address:
+      <span *ngIf="participantSelected.address !== ''">{{participantSelected.address}}</span>
+    </p>
+  </mat-card>
+
+  <mat-accordion>
+    <h3>Notes</h3>
+    <mat-expansion-panel *ngFor="let note of participantSelected.notes">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{note.date | date: 'fullDate'}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{note.text | slice:0:100}}...
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      {{note.text}}
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
