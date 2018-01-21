@@ -16,7 +16,9 @@ import { AppModule } from '../../app.module';
  *  This mini-component takes care of a single selected profile of a participant
  */
 export class ParticipantProfileComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private participantService: ParticipantService,     private location: Location
+  orderedNotes = [];
+
+  constructor(private route: ActivatedRoute, private participantService: ParticipantService, private location: Location
   ) { }
   @Input() public participantSelected: Participant;
 
@@ -34,6 +36,10 @@ export class ParticipantProfileComponent implements OnInit {
     this.participantService.get(id).subscribe(participantSelected => {
         if (participantSelected != null) {
           this.participantSelected = participantSelected as Participant;
+          // order notes of participant in reverse chronological order
+          this.orderedNotes = this.participantSelected.notes.sort((note1, note2) => {
+            return new Date(note2.date).getTime() - new Date(note1.date).getTime();
+          });
         } else {
           console.log('Participant does not exist anymore.');
           this.location.back();

@@ -1,4 +1,4 @@
-<div *ngIf="participantSelected">
+<div class="profile-div" *ngIf="participantSelected">
   <mat-card>
     <h2>{{participantSelected.name}}</h2>
     <p>Email:
@@ -15,9 +15,12 @@
     </p>
   </mat-card>
 
-  <mat-accordion>
-    <h3>Notes</h3>
-    <mat-expansion-panel *ngFor="let note of participantSelected.notes">
+  <h3>Notes</h3>
+  <mat-card *ngIf="orderedNotes.length == 0">
+    No notes to display.
+  </mat-card>
+  <mat-accordion *ngIf="orderedNotes.length > 0">
+    <mat-expansion-panel *ngFor="let note of orderedNotes">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{note.date | date: 'fullDate'}}
@@ -27,6 +30,8 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       {{note.text}}
+      <br><br>
+      <h4>Attachments:</h4>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
