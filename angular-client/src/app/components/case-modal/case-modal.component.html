@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>New Case</h1>
+<h1 mat-dialog-title>New Housing Case</h1>
 <form>
-  <h4>Select case status</h4>
+  <h4>Select urgency of request</h4>
   <mat-radio-group [(ngModel)]="case.status" name="status">
     <mat-radio-button *ngFor="let status of statuses" [value]="status">{{status}}</mat-radio-button>
   </mat-radio-group>

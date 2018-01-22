@@ -12,10 +12,11 @@ import { Case } from '../../classes/case';
 export class CaseModalComponent implements OnInit {
 
   statuses = ['In progress', 'Completed'];
+  urgency = ['Urgent', 'Regular'];
   selectedStatus: String;
   case: Case = {
-    participant: '',
-    status: 'In progress'
+    _id: 
+    status: 'In progress',
   };
 
 

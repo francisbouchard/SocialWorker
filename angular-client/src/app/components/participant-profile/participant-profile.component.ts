@@ -50,7 +50,7 @@ export class ParticipantProfileComponent implements OnInit {
 
   newCase(id): void {
     let dialogRef = this.dialog.open(CaseModalComponent, {
-      width: '250px',
+      width: '66%',
       data: { pid: id }
     });
 
