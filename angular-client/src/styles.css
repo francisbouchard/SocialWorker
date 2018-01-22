@@ -5,3 +5,23 @@ body {
     font-family: Open, Arial, sans-serif;
     margin: 0;
   }
+
+.mat-toolbar.mat-primary{
+  background: rgb(122, 59, 158);
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: rgb(64, 48, 117);
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: rgb(	136, 45, 96);
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color:rgba(167, 36, 243, 0.219);
+}
+
+.mat-button-ripple {
+  background-color:rgba(193, 89, 253, 0.062);
+}

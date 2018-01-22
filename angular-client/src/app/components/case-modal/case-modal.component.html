@@ -10,8 +10,18 @@
     <input matInput placeholder="Enter any relevant notes here" value="">
   </mat-form-field>
 
+<br>
+<div class="hint">Select the shelters for this case</div>
+  <mat-form-field>
+    <mat-select multiple>
+        <mat-option *ngFor="let resource of resources" [value]="resource.name">
+            {{resource.name}}
+          </mat-option>
+    </mat-select>
+  </mat-form-field>
 </form>
-<div>{{selectedUrgency}}</div>
+
+
 <div mat-dialog-actions>
   <button mat-button (click)="submit()">Submit</button>
   <button mat-button (click)="cancel()">Cancel</button>
