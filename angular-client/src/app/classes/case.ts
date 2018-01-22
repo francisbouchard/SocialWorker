@@ -5,6 +5,6 @@ export class Case {
     status: String;
     urgency: String;
     comment: String;
-    shelters: Map<String, String>;
+    shelters: Map<String, String> = new Map<String, String>();
     shelterchosen: String;
 }

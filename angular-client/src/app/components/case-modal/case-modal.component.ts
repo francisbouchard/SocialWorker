@@ -10,13 +10,16 @@ import { Case } from '../../classes/case';
   styleUrls: ['./case-modal.component.css']
 })
 export class CaseModalComponent implements OnInit {
-
   statuses = ['In progress', 'Completed'];
-  urgency = ['Urgent', 'Regular'];
+  urgencies = ['Regular', 'Urgent'];
   selectedStatus: String;
   case: Case = {
-    _id: 
+    _id: '',
     status: 'In progress',
+    urgency: 'Regular',
+    comment: '',
+    shelters: new Map<String, String>(),
+    shelterchosen: '',
   };
 
 
@@ -24,7 +27,6 @@ export class CaseModalComponent implements OnInit {
     private caseService: CaseService,
     public dialogRef: MatDialogRef<CaseModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.case.participant = data.pid;
   }
 
 

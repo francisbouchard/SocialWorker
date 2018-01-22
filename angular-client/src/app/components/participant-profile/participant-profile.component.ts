@@ -48,10 +48,10 @@ export class ParticipantProfileComponent implements OnInit {
       });
   }
 
-  newCase(id): void {
-    let dialogRef = this.dialog.open(CaseModalComponent, {
+  newCase(name): void {
+    const dialogRef = this.dialog.open(CaseModalComponent, {
       width: '66%',
-      data: { pid: id }
+      data: { pid: name }
     });
 
     dialogRef.afterClosed().subscribe(result => {

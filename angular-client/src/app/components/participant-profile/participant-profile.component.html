@@ -6,5 +6,5 @@
     Social media: <span *ngIf="participantSelected.socialmedia !== undefined" >{{participantSelected.socialmedia.service}} {{participantSelected.socialmedia.username}}</span><br>
     Address: <span *ngIf="participantSelected.address !== ''">{{participantSelected.address}}</span>
   </mat-card-content>
-  <button mat-raised-button (click)="newCase(participantSelected._id)">New case</button>
+  <button mat-raised-button (click)="newCase(participantSelected.name)">New case</button>
 </mat-card>

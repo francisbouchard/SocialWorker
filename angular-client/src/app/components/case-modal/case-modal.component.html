@@ -1,11 +1,17 @@
 <h1 mat-dialog-title>New Housing Case</h1>
+<h5>Participant: {{data.pid}}</h5>
 <form>
-  <h4>Select urgency of request</h4>
-  <mat-radio-group [(ngModel)]="case.status" name="status">
-    <mat-radio-button *ngFor="let status of statuses" [value]="status">{{status}}</mat-radio-button>
+  <div class="hint">Select urgency of request</div>
+  <mat-radio-group [(ngModel)]="case.urgency" name="urgency">
+    <mat-radio-button *ngFor="let urgency of urgencies" [value]="urgency">{{urgency}}&nbsp;&nbsp;</mat-radio-button>
   </mat-radio-group>
+<br>
+  <mat-form-field>
+    <input matInput placeholder="Enter any relevant notes here" value="">
+  </mat-form-field>
+
 </form>
-<div>{{selectedStatus}}</div>
+<div>{{selectedUrgency}}</div>
 <div mat-dialog-actions>
   <button mat-button (click)="submit()">Submit</button>
   <button mat-button (click)="cancel()">Cancel</button>
