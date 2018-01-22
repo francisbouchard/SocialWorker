@@ -13,6 +13,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { NewParticipantComponent } from './components/new-participant/new-participant.component';
+import { NoteComponent } from './components/note/note.component';
 import { ParticipantProfileComponent } from './components/participant-profile/participant-profile.component';
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { ResourcesComponent } from './components/resources/resources.component';
@@ -61,7 +62,8 @@ const routes: Routes = [
     ParticipantProfileComponent,
     ProfilesComponent,
     ResourcesComponent,
-    ViewResourcesComponent
+    ViewResourcesComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
-  entryComponents: [ AlertModalComponent ],
+  entryComponents: [ AlertModalComponent, NoteComponent ],
   providers: [
     ParticipantService,
     MessageService,
