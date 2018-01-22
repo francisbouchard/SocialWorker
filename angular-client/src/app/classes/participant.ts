@@ -4,5 +4,5 @@ export class Participant {
     address: String;
     telephone: String;
     email: String;
-    socialmedia: String;
+    socialmedia: { service: String, username: String };
 }

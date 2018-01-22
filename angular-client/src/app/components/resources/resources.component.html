@@ -1,6 +1,6 @@
-<mat-tab-group>
+<mat-tab-group (selectedTabChange)="changeTab()">
   <mat-tab label="Resources">
-    <app-view-resources></app-view-resources>
+    <app-view-resources [hasTabChanged]="hasTabChanged"></app-view-resources>
   </mat-tab>
   <mat-tab label="Add Resource">
     <app-add-resource></app-add-resource>

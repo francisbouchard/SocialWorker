@@ -8,9 +8,15 @@ import { ResourceService } from '../../services/resource.service';
 })
 export class ResourcesComponent implements OnInit {
 
+  hasTabChanged = true;
+
   constructor(private resourceService: ResourceService) { }
 
   ngOnInit() {
+  }
+
+  changeTab() {
+    this.hasTabChanged = !this.hasTabChanged;
   }
 
 }

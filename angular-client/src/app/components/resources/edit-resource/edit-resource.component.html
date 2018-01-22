@@ -1,0 +1,35 @@
+<form class="form">
+    <mat-form-field>
+      <input matInput required placeholder="Name" name="name" [(ngModel)]="resource.name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Term" name="term" [(ngModel)]="resource.term">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Email" name="email" [(ngModel)]="resource.email">
+    </mat-form-field>
+
+    <mat-form-field>
+      <span matPrefix>+1 &nbsp;</span>
+      <input type="tel" matInput placeholder="Telephone" name="telephone" [(ngModel)]="resource.phone">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Location" name="location" [(ngModel)]="resource.location">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Notes" name="notes" [(ngModel)]="resource.notes">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Gender" name="gender" [(ngModel)]="resource.gender">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Constraints" name="constraints" [(ngModel)]="resource.constraints">
+    </mat-form-field>
+
+  </form>
