@@ -11,6 +11,7 @@ import {
   MatDialogModule,
   MatIconModule, 
   MatInputModule, 
+  MatTabsModule,
   MatToolbarModule,  
   MatSelectModule,
   MatOptionModule } from '@angular/material';
@@ -26,6 +27,7 @@ import {
     MatDialogModule,
     MatInputModule,
     MatIconModule,
+    MatTabsModule,
     MatToolbarModule,
     MatExpansionModule,
     MatSelectModule,
