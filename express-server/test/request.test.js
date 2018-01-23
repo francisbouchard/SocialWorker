@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const server = require('../server');
 const Participant = require('../models/Participant');
 const Housing = require('../models/Housing');
-const Request = require('../models/Request');
+const CaseFile = require('../models/Casefile');
 
 let participantId1 = "reqParticipant1";
 let participantId2 = "reqParticipant2";
@@ -19,7 +19,7 @@ let id5 = new mongoose.Types.ObjectId();
 
 chai.use(chaiHttp);
 
-describe('Request Tests', () => {
+describe('Casefile Tests', () => {
 
     before(() => {
         let participant1 = new Participant({
@@ -40,12 +40,12 @@ describe('Request Tests', () => {
         });
         let housing1 = new Housing({
             _id: housingId1,
-            name: "Housing Facility for Request Testing",
+            name: "Housing Facility for CaseFile Testing",
             term: "5 weeks"
         });
         let housing2 = new Housing({
             _id: housingId2,
-            name: "Housing Facility for Request Testing 2",
+            name: "Housing Facility for CaseFile Testing 2",
             term: "2 months"
         });
         housing1.save().then(data => {}, err => {
@@ -55,7 +55,7 @@ describe('Request Tests', () => {
             console.log(err);
         });
 
-        let request1 = new Request({
+        let casefile1 = new CaseFile({
             _id: id1,
             participant: participantId1,
             notes: "testing",
@@ -64,23 +64,23 @@ describe('Request Tests', () => {
                 status: "pending"
             }]
         });
-        let request2 = new Request({
+        let casefile2 = new CaseFile({
             _id: id5,
             participant: participantId2,
             notes: "testing"
         });
-        request1.save().then(data => { }, err => {
+        casefile1.save().then(data => { }, err => {
             console.log(err);
         });
-        request2.save().then(data => { }, err => {
+        casefile2.save().then(data => { }, err => {
             console.log(err);
         });
     });
 
     describe('/GET', () => {
-        it('should GET all requests', (done) => {
+        it('should GET all casefiles', (done) => {
             chai.request(server)
-                .get('/request')
+                .get('/casefile')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -90,9 +90,9 @@ describe('Request Tests', () => {
     });
 
     describe('/GET/:id', () => {
-        it('should GET a request with the given ID', (done) => {
+        it('should GET a casefile with the given ID', (done) => {
             chai.request(server)
-                .get('/request/' + id1)
+                .get('/casefile/' + id1)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -105,7 +105,7 @@ describe('Request Tests', () => {
         });
         it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
-                .get('/request/' + id2)
+                .get('/casefile/' + id2)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -116,19 +116,19 @@ describe('Request Tests', () => {
     });
 
     describe('/GET/participant/:id', () => {
-        it('should GET requests with the given participant ID', (done) => {
+        it('should GET casefile with the given participant ID', (done) => {
             chai.request(server)
-                .get('/request/participant/' + participantId1)
+                .get('/casefile/participant/' + participantId1)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
-                    res.body.length.should.be.eql(1);
+                    res.body.length.should.be.eql(2);
                     done();
                 });
         });
         it('should be empty for GET with nonexisting participant ID', (done) => {
             chai.request(server)
-                .get('/request/participant/' + 'p123')
+                .get('/casefile/participant/' + 'p123')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -139,9 +139,9 @@ describe('Request Tests', () => {
     });
 
     describe('/GET/:id/resource/:resId', () => {
-        it('should GET the contacted resource of the request with the given request and resource IDs', (done) => {
+        it('should GET the contacted resource of the casefile with the given casefile and resource IDs', (done) => {
             chai.request(server)
-                .get('/request/' + id1 + '/resource/' + housingId2)
+                .get('/casefile/' + id1 + '/resource/' + housingId2)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -152,9 +152,9 @@ describe('Request Tests', () => {
                     done();
                 });
         });
-        it('should be empty for GET with nonexisting request ID', (done) => {
+        it('should be empty for GET with nonexisting casefile ID', (done) => {
             chai.request(server)
-                .get('/request/' + new mongoose.Types.ObjectId() + '/resource/' + housingId2)
+                .get('/casefile/' + new mongoose.Types.ObjectId() + '/resource/' + housingId2)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -164,7 +164,7 @@ describe('Request Tests', () => {
         });
         it('should be empty for GET with nonexisting resource ID', (done) => {
             chai.request(server)
-                .get('/request/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
+                .get('/casefile/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -175,11 +175,11 @@ describe('Request Tests', () => {
     });
 
     describe('/POST', () => {
-        it('should not POST a request without a participant ID', (done) => {
-            let request = {notes: "testing notes"};
+        it('should not POST a casefile without a participant ID', (done) => {
+            let casefile = {notes: "testing notes"};
             chai.request(server)
-                .post('/request')
-                .send(request)
+                .post('/casefile')
+                .send(casefile)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -189,14 +189,14 @@ describe('Request Tests', () => {
                     done();
                 });
         });
-        it('should POST a request', (done) => {
-            let request = {
+        it('should POST a casefile', (done) => {
+            let casefile = {
                 participant: participantId2,
                 note: "testing notes"
             }
             chai.request(server)
-                .post('/request')
-                .send(request)
+                .post('/casefile')
+                .send(casefile)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -210,13 +210,13 @@ describe('Request Tests', () => {
     });
 
     describe('/POST/:id/resource', () => {
-        it('should not add a contacted resource with an invalid request ID', (done) => {
+        it('should not add a contacted resource with an invalid casefile ID', (done) => {
             let contactedResource = {
                 resourceId: housingId1,
                 status: "pending"
             }
             chai.request(server)
-                .post('/request/' + id3 + '/resource')
+                .post('/casefile/' + id3 + '/resource')
                 .send(contactedResource)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -231,7 +231,7 @@ describe('Request Tests', () => {
                 status: "pending"
             }
             chai.request(server)
-                .post('/request/' + id1 + '/resource')
+                .post('/casefile/' + id1 + '/resource')
                 .send(contactedResource)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -240,13 +240,13 @@ describe('Request Tests', () => {
                     done();
                 });
         });
-        it('should add a contacted resource to the request with the given ID', (done) => {
+        it('should add a contacted resource to the casefile with the given ID', (done) => {
             let contactedResource = {
                 resourceId: housingId1,
                 status: "pending"
             }
             chai.request(server)
-                .post('/request/' + id1 + '/resource')
+                .post('/casefile/' + id1 + '/resource')
                 .send(contactedResource)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -258,13 +258,13 @@ describe('Request Tests', () => {
     });
 
     describe('/PUT/:id/resource/:resId', () => {
-        it('should not update a contacted resource with an invalid request ID', (done) => {
+        it('should not update a contacted resource with an invalid casefile ID', (done) => {
             let contactedResource = {
                 resourceId: housingId1,
                 status: "pending"
             }
             chai.request(server)
-                .put('/request/' + id3 + '/resource/' + housingId1)
+                .put('/casefile/' + id3 + '/resource/' + housingId1)
                 .send(contactedResource)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -275,7 +275,7 @@ describe('Request Tests', () => {
         });
         it('should not update a contacted resource with an invalid resource ID', (done) => {
             chai.request(server)
-                .put('/request/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
+                .put('/casefile/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
                 .send({status: "accepted"})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -284,9 +284,9 @@ describe('Request Tests', () => {
                     done();
                 });
         });
-        it('should update the status of a contacted resource given request and resource IDs', (done) => {
+        it('should update the status of a contacted resource given casefile and resource IDs', (done) => {
             chai.request(server)
-                .put('/request/' + id1 + '/resource/' + housingId1)
+                .put('/casefile/' + id1 + '/resource/' + housingId1)
                 .send({status: "accepted"})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -298,9 +298,9 @@ describe('Request Tests', () => {
     });
 
     describe('/PUT/:id/status', () => {
-        it('should not update a request with an invalid ID', (done) => {
+        it('should not update a casefile with an invalid ID', (done) => {
             chai.request(server)
-                .put('/request/' + id3 + '/status')
+                .put('/casefile/' + id3 + '/status')
                 .send({status: "finalized"})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -309,9 +309,9 @@ describe('Request Tests', () => {
                     done();
                 });
         });
-        it('should update the status of the request with the given ID', (done) => {
+        it('should update the status of the casefile with the given ID', (done) => {
             chai.request(server)
-                .put('/request/' + id1 + '/status')
+                .put('/casefile/' + id1 + '/status')
                 .send({status: "finalized"})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -323,9 +323,9 @@ describe('Request Tests', () => {
     });
 
     describe('/DELETE/:id', () => {
-        it('should DELETE the request with the given ID', (done) => {
+        it('should DELETE the casefile with the given ID', (done) => {
             chai.request(server)
-                .del('/request/' + id5)
+                .del('/casefile/' + id5)
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();
@@ -334,13 +334,13 @@ describe('Request Tests', () => {
     });
 
     after(() => {
-        Request.findByIdAndRemove(id1).then(data => { }, err => {
+        CaseFile.findByIdAndRemove(id1).then(data => { }, err => {
             console.log(err);
         });
-        Request.findByIdAndRemove(id2).then(data => { }, err => {
+        CaseFile.findByIdAndRemove(id2).then(data => { }, err => {
             console.log(err);
         });
-        Request.findByIdAndRemove(id4).then(data => { }, err => {
+        CaseFile.findByIdAndRemove(id4).then(data => { }, err => {
             console.log(err);
         });
         Participant.findByIdAndRemove(participantId1).then(data => {}, err => {
