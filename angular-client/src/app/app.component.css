@@ -1,5 +1,6 @@
-a.nav-link {
+.mat-toolbar a.nav-link {
     color: white;
+    text-decoration: none;
 }
 .example-fill-remaining-space {
     /* This fills the remaining space, by using flexbox. 
