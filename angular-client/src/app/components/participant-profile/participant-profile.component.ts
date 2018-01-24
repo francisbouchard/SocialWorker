@@ -52,7 +52,7 @@ export class ParticipantProfileComponent implements OnInit {
   addNote(): void {
     let dialogRef = this.dialog.open(NoteComponent, {
       width: '250px',
-      data: { message: "New Note" }
+      data: { id: this.participantSelected._id }
     });
 
     dialogRef.afterClosed().subscribe(result => {

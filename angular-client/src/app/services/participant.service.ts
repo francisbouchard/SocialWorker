@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Participant } from '../classes/participant';
+import { Note } from '../classes/note';
 import { MessageService } from './message.service';
 
 @Injectable()
@@ -68,6 +69,22 @@ export class ParticipantService {
   }
 
   /**
+   * Save a note to a participant
+   * 
+   * @param {Note} note 
+   * @param {String} pid 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  saveNote(note: Note, pid: String): Observable<Object> {
+    return this.http.post<Object>(`${this.url}/${pid}/note`, note)
+      .pipe(
+      tap(note => this.log('saved a note to participant')),
+      catchError(this.handleError<Object>('saveNote()'))
+      );
+  }
+
+  /**
    * Delete a participant by ID
    * 
    * @param {any} participantID 
@@ -93,7 +110,7 @@ export class ParticipantService {
   search(participantAttributeValuePair): Observable<Object> {
     return this.http.get(`${this.url}/search/${participantAttributeValuePair}`)
       .pipe(
-      map(participants => participants[0]? true: false),
+      map(participants => participants[0] ? true : false),
       tap(_ => this.log('searched participant')),
       catchError(this.handleError<Object>('search participant information'))
       );
