@@ -1,12 +1,15 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const should = chai.should();
+const mongoose = require('mongoose');
 const server = require('../server');
 const Participant = require('../models/Participant');
 
 let id1 = "testingID1";
 let id2 = "testingID2";
 let id3 = "testingID3";
+let noteId = new mongoose.Types.ObjectId();
+let docId = new mongoose.Types.ObjectId();
 
 chai.use(chaiHttp);
 
@@ -19,7 +22,16 @@ describe('Participant Tests', () => {
             email: "participant1@p.com",
             telephone: "514-1234567",
             address: "1234 Sherbrooke",
-            socialmedia: { service: "facebook", username: "participant1" }
+            socialmedia: { service: "facebook", username: "participant1" },
+            notes: [{
+                _id: noteId,
+                text: "some notes"
+            }],
+            documents: [{
+                _id: docId,
+                type: "Form XYZ",
+                attachment: ["url"]
+            }]
         });
         let participant3 = new Participant({
             _id: id3,
@@ -189,6 +201,28 @@ describe('Participant Tests', () => {
         it('should DELETE the participant with the given ID', (done) => {
             chai.request(server)
                 .del('/participant/' + id3)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                });
+        });
+    });
+
+    describe('/DELETE/:pid/doc/:docId', () => {
+        it('should DELETE the document of the participant by the given IDs', (done) => {
+            chai.request(server)
+                .del('/participant/' + id1 + '/doc/' + docId)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                });
+        });
+    });
+
+    describe('/DELETE/:pid/note/:noteId', () => {
+        it('should DELETE the note of the participant by the given IDs', (done) => {
+            chai.request(server)
+                .del('/participant/' + id1 + '/note/' + noteId)
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();

@@ -46,5 +46,9 @@ export class ParticipantProfileComponent implements OnInit {
         }
       });
   }
+
+  deleteNote(id): void {
+
+  }
 }
 
