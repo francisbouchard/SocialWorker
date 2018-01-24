@@ -14,23 +14,23 @@ public loggedIn: boolean;
   }
 
   public login(email: string, password: string) {
-    return this.http.post<any>('/user/login', { email: email, password: password })
+    return this.http.post<any>('/user/login', { email: email, password: password });
   }
 
   public logout() {
-    return this.http.post<any>('/user/logout', {})
+    return this.http.post<any>('/user/logout', {});
   }
 
   public signUp (email: string, password: string, confirmPassword: string) {
-    return this.http.post<any>('/user/signup', {email: email, password: password, confirmPassword: confirmPassword})
+    return this.http.post<any>('/user/signup', {email: email, password: password, confirmPassword: confirmPassword});
   }
 
-  public heartbeat (){
-    let minutes = 1;
+  public heartbeat () {
+    const minutes = 1;
     return Observable
-            .interval(1000*60*minutes)
+            .interval(1000 * 60 * minutes)
             .startWith(0)
-            .flatMap((i) => this.http.post<any>('/user/heartbeat', {}))
+            .flatMap((i) => this.http.post<any>('/user/heartbeat', {}));
   }
   public check() {
     return this.http.get<any>('/api/', {});
