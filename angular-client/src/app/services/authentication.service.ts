@@ -32,5 +32,8 @@ public loggedIn: boolean;
             .startWith(0)
             .flatMap((i) => this.http.post<any>('/user/heartbeat', {}))
   }
+  public check() {
+    return this.http.get<any>('/api/', {});
+  }
 
 }
