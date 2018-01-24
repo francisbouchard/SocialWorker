@@ -51,7 +51,7 @@ export class ParticipantProfileComponent implements OnInit {
    */
   addNote(): void {
     let dialogRef = this.dialog.open(NoteComponent, {
-      width: '250px',
+      width: '66%',
       data: { id: this.participantSelected._id }
     });
 

@@ -1,0 +1,12 @@
+form {
+    position: relative;
+    padding: 0px 15px 0px 15px;
+}
+
+.fileupload {
+    margin-bottom: 1em;
+}
+
+.fileupload input {
+    font-size: 1em;
+}

@@ -1,9 +1,16 @@
 <h1 mat-dialog-title>Create a Note</h1>
-<div mat-dialog-actions>
-  <mat-form-field>
-    <textarea matInput placeholder="Your note" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" [(ngModel)]="note.text"></textarea>
-    <!-- <input type="file" id="file" #upload (change)="handleFileInput(upload.files)"> -->
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="submit()">Submit</button>
-  <button mat-raised-button (click)="cancel()">Close</button>
-</div>
+<mat-dialog-content>
+  <form>
+    <mat-form-field>
+      <textarea matInput placeholder="Your note" name="text" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" [(ngModel)]="note.text"></textarea>
+    </mat-form-field>
+    <div class="fileupload">
+      <h4>Upload File</h4>
+      <input type="file" #upload (change)="handleFileInput(upload.files)">
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+    <button mat-raised-button (click)="cancel()">Close</button>
+</mat-dialog-actions>
