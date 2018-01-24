@@ -69,7 +69,6 @@ app.use('/user', user);
 app.use('/api/participant', participant);
 app.use('/api/resource', resource);
 app.use('/api/request', request);
-app.use(cors())
 
 
 /**
