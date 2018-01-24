@@ -74,9 +74,9 @@ app.use('/api', passportConfig.isAuthenticated);
 // Set our api routes
 app.use('/api', api);
 app.use('/user', user);
-app.use('/participant', participant);
-app.use('/resource', resource);
-app.use('/request', request);
+app.use('/api/participant', participant);
+app.use('/api/resource', resource);
+app.use('/api/request', request);
 app.use(cors())
 
 
