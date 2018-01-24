@@ -3,7 +3,7 @@
   <mat-form-field>
     <textarea matInput placeholder="Your note" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" [(ngModel)]="note.text"></textarea>
     <!-- <input type="file" id="file" #upload (change)="handleFileInput(upload.files)"> -->
-    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
-    <button mat-raised-button (click)="cancel()">Close</button>
   </mat-form-field>
+  <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+  <button mat-raised-button (click)="cancel()">Close</button>
 </div>
