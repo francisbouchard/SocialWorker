@@ -83,6 +83,22 @@ export class ParticipantService {
   }
 
   /**
+   * Delete a participant's note by its ID
+   * 
+   * @param {String} participantID 
+   * @param {String} noteID 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  deleteNote(participantID: String, noteID: String): Observable<Object> {
+    return this.http.delete(`${this.url}/${participantID}/note/${noteID}`)
+      .pipe(
+      tap(_ => this.log("deleted participant's note")),
+      catchError(this.handleError<Object>('deleteNote(participantID, noteID)'))
+      );
+  }
+
+  /**
    * Search participants to see if account email already exists,
    * or it participant ID has already been taken.
    * 
@@ -93,7 +109,7 @@ export class ParticipantService {
   search(participantAttributeValuePair): Observable<Object> {
     return this.http.get(`${this.url}/search/${participantAttributeValuePair}`)
       .pipe(
-      map(participants => participants[0]? true: false),
+      map(participants => participants[0] ? true : false),
       tap(_ => this.log('searched participant')),
       catchError(this.handleError<Object>('search participant information'))
       );

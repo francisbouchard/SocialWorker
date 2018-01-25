@@ -3,5 +3,9 @@
 }
 
 mat-panel-title {
-    width: 10%;
+    max-width: 25%;
+}
+
+mat-panel-description {
+    flex: 1;
 }

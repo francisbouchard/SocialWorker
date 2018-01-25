@@ -23,7 +23,7 @@ export class ParticipantProfileComponent implements OnInit {
   @Input() public participantSelected: Participant;
 
   ngOnInit() {
-    this.getParticipant();
+    this.loadParticipant();
   }
 
   /**
@@ -31,7 +31,7 @@ export class ParticipantProfileComponent implements OnInit {
    * Updates the participant based on the _id
    *
    */
-  getParticipant(): void {
+  loadParticipant(): void {
     const id = this.route.snapshot.paramMap.get('_id');
     this.participantService.get(id).subscribe(participantSelected => {
         if (participantSelected != null) {
@@ -47,8 +47,17 @@ export class ParticipantProfileComponent implements OnInit {
       });
   }
 
-  deleteNote(id): void {
-
+  /**
+   * 
+   * Deletes the selected note
+   * 
+   */
+  deleteNote(noteID): void {
+    this.participantService.deleteNote(this.participantSelected._id, noteID)
+    .subscribe(result => {
+      console.log("note deleted");
+      this.loadParticipant();
+    })
   }
 }
 
