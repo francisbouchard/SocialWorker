@@ -13,6 +13,9 @@
     <p>Address:
       <span *ngIf="participantSelected.address !== ''">{{participantSelected.address}}</span>
     </p>
+    <mat-card-actions>
+      <button mat-raised-button (click)="addNote()">Add Note</button>
+    </mat-card-actions>
   </mat-card>
 
   <h3>Notes</h3>

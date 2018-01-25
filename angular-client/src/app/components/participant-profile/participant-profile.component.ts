@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { ParticipantService } from '../../services/participant.service';
 import { Participant } from '../../classes/participant';
-import { AppModule } from '../../app.module';
+import { NoteComponent } from '../note/note.component';
 
 @Component({
   selector: 'app-participant-profile',
@@ -12,13 +13,14 @@ import { AppModule } from '../../app.module';
   styleUrls: ['./participant-profile.component.css']
 })
 
-/**
- *  This mini-component takes care of a single selected profile of a participant
- */
 export class ParticipantProfileComponent implements OnInit {
   orderedNotes = [];
 
-  constructor(private route: ActivatedRoute, private participantService: ParticipantService, private location: Location
+  constructor(
+    private route: ActivatedRoute,
+    private participantService: ParticipantService,
+    private location: Location,
+    public dialog: MatDialog
   ) { }
   @Input() public participantSelected: Participant;
 
@@ -59,5 +61,22 @@ export class ParticipantProfileComponent implements OnInit {
       this.loadParticipant();
     })
   }
+
+  /**
+   * Add a note to a participant
+   * 
+   * @memberof ParticipantProfileComponent
+   */
+  addNote(): void {
+    let dialogRef = this.dialog.open(NoteComponent, {
+      width: '66%',
+      data: { id: this.participantSelected._id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 }
 

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Participant } from '../classes/participant';
+import { Note } from '../classes/note';
 import { MessageService } from './message.service';
 
 @Injectable()
@@ -64,6 +65,22 @@ export class ParticipantService {
         }
       }),
       catchError(this.handleError<Participant>('save(participantData)'))
+      );
+  }
+
+  /**
+   * Save a note to a participant
+   * 
+   * @param {Note} note 
+   * @param {String} pid 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  saveNote(note: Note, pid: String): Observable<Object> {
+    return this.http.post<Object>(`${this.url}/${pid}/note`, note)
+      .pipe(
+      tap(note => this.log('saved a note to participant')),
+      catchError(this.handleError<Object>('saveNote()'))
       );
   }
 
