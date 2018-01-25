@@ -2,7 +2,8 @@
 <mat-dialog-content>
   <form>
     <mat-form-field>
-      <textarea matInput placeholder="Your note" name="text" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" [(ngModel)]="note.text"></textarea>
+      <textarea matInput placeholder="Your note" name="text" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"
+        [(ngModel)]="note.text"></textarea>
     </mat-form-field>
     <div class="fileupload">
       <h4>Upload File</h4>
@@ -11,9 +12,8 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
-    <button mat-raised-button (click)="cancel()">Close</button>
+  <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+  <button mat-raised-button (click)="cancel()">Close</button>
 </mat-dialog-actions>
-<mat-card>
-    <img [src]="url" height="200"> <br/>
-</mat-card>
+<img *ngIf="note.attachment" [src]="note.attachment">
+<br/>

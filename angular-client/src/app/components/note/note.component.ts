@@ -13,9 +13,8 @@ export class NoteComponent implements OnInit {
   note: Note = {
     text: "",
     date: new Date(),
-    attachment: []
+    attachment: null
   }
-  url: any;
 
   constructor(
     private participantService: ParticipantService,
@@ -41,10 +40,8 @@ export class NoteComponent implements OnInit {
     if(files){
       let reader = new FileReader();
       reader.readAsDataURL(files[0]);
-      
       reader.onload = (event: Event) => {
         this.note.attachment = reader.result;
-        this.url = reader.result;
       }
 
     }
