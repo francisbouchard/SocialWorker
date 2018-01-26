@@ -28,15 +28,15 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authenticationService.login(this.user.email, this.user.password).subscribe(data => {
       this.loading = false;
-      this.authenticationService.loggedIn = true;
-      this.router.navigateByUrl('/dashboard')
-
-    }, err => {
-      console.log(err)
-      this.loading = false;
-      this.error = true;
-      this.msg = err.message;
-
+      if (data) {
+        this.authenticationService.loggedIn = true;
+        this.router.navigateByUrl('/dashboard');
+      } else {
+        this.loading = false;
+        this.error = true;
+        //this.msg = err.error.msg[0].msg;
+        console.log(data)
+      }
     });
   }
 
@@ -44,14 +44,17 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authenticationService.signUp(this.user.rEmail, this.user.rPassword, this.user.rConfirmPassword).subscribe(data => {
       this.loading = false;
-      this.register = false;
-    }, err => {
-      console.log(err);
-      this.loading = false;
-      this.error = true;
-      this.msg = err.message;
+      console.log(data)
 
+      if (data) {
+        this.register = false;
+      } else {
+        this.loading = false;
+        this.error = true;
+        //this.msg = err.error.msg[0].msg;
+      }
     });
+
   }
 
 }
