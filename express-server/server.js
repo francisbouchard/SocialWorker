@@ -3,7 +3,6 @@
 //Get dependencies
 const express = require('express');
 const path = require('path');
-const cors = require('cors');
 const http = require('http');
 const bodyParser = require('body-parser');
 const mongo = require('connect-mongo');
@@ -55,13 +54,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-// CORS
-app.use(cors({
-    origin: '*',
-    withCredentials: false,
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin' ]
-}));
-
 
 // Server public folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -74,10 +66,9 @@ app.use('/api', passportConfig.isAuthenticated);
 // Set our api routes
 app.use('/api', api);
 app.use('/user', user);
-app.use('/participant', participant);
-app.use('/resource', resource);
-app.use('/request', request);
-app.use(cors())
+app.use('/api/participant', participant);
+app.use('/api/resource', resource);
+app.use('/api/request', request);
 
 
 /**
