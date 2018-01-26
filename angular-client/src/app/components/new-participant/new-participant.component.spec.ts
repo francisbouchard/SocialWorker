@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MaterialsModule } from '../../modules/materials.module';
 import { NewParticipantComponent } from './new-participant.component';
+import { ParticipantService } from '../../services/participant.service';
+import { MatDialog } from '@angular/material';
 
 describe('NewParticipantComponent', () => {
   let component: NewParticipantComponent;
@@ -8,7 +10,9 @@ describe('NewParticipantComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewParticipantComponent ]
+      declarations: [ NewParticipantComponent ],
+      imports: [ MaterialsModule ],
+      providers: [ { provide: ParticipantService, useValue: {} }, MatDialog ]
     })
     .compileComponents();
   }));

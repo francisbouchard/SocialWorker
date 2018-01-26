@@ -16,6 +16,7 @@ import {
   MatOptionModule, 
   MatListModule,
   MatGridListModule} from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {
     MatSelectModule,
     MatOptionModule,
     MatListModule,
-    MatGridListModule
+    MatGridListModule,
+    FormsModule
   ]
 })
 export class MaterialsModule { }
