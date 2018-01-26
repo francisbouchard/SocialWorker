@@ -28,14 +28,14 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authenticationService.login(this.user.email, this.user.password).subscribe(data => {
       this.loading = false;
-      if (data) {
+      if (data.status === '200') {
         this.authenticationService.loggedIn = true;
         this.router.navigateByUrl('/dashboard');
       } else {
+        this.authenticationService.loggedIn = false;
         this.loading = false;
         this.error = true;
-        //this.msg = err.error.msg[0].msg;
-        console.log(data)
+        this.msg = data.error.msg;
       }
     });
   }
@@ -44,14 +44,24 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authenticationService.signUp(this.user.rEmail, this.user.rPassword, this.user.rConfirmPassword).subscribe(data => {
       this.loading = false;
-      console.log(data)
 
-      if (data) {
+      if (data.status === '200') {
         this.register = false;
       } else {
+        this.authenticationService.loggedIn = false;
         this.loading = false;
         this.error = true;
-        //this.msg = err.error.msg[0].msg;
+        this.msg = "";
+        console.log(data);
+        console.log(data.error.msg);
+
+        if (Array.isArray(data.error.msg)) {
+          for (let i in data.error.msg) {
+            this.msg += data.error.msg[i].msg? data.error.msg[i].msg : ""  + "\n";
+          }
+        } else {
+          this.msg = data.error.msg;
+        }
       }
     });
 

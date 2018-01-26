@@ -49,7 +49,7 @@ router.post('/signup', (req, res, next) => {
   User.findOne({ email: req.body.email }, (err, existingUser) => {
     if (err) { return next(err); }
     if (existingUser) {
-      return res.status(400).send({ msg: "Account with that email address already exists." });
+      return res.status(400).send({msg: [{ msg: "Account with that email address already exists." }]});
     }
     user.save((err) => {
       if (err) { return next(err); }
@@ -67,7 +67,7 @@ router.delete('/',  (req, res, next) => {
   User.remove({ _id: req.user.id }, (err) => {
     if (err) { return next(err); }
     req.logout();
-    res.send({ msg: "Your account has been deleted." });
+    res.send({msg: [{ msg: "Your account has been deleted." }]});
   });
 });
 
@@ -76,7 +76,7 @@ router.post('/logout', (req, res, next) => {
     req.logout();
     res.send({msg: "Logged out"})
   } else {
-    res.status(400).send({msg: "Not logged in"})
+    res.status(400).send({msg: [{ msg:  "Not logged in"}]})
   }
 });
 
