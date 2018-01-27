@@ -232,7 +232,7 @@ describe('Participant Tests', () => {
     describe('/DELETE/:pid/doc/:docId', () => {
         it('should DELETE the document of the participant by the given IDs', (done) => {
             chai.request(server)
-                .del('/participant/' + id1 + '/doc/' + docId)
+                .del('/api/participant/' + id1 + '/doc/' + docId)
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();
@@ -243,7 +243,7 @@ describe('Participant Tests', () => {
     describe('/DELETE/:pid/note/:noteId', () => {
         it('should DELETE the note of the participant by the given IDs', (done) => {
             chai.request(server)
-                .del('/participant/' + id1 + '/note/' + noteId)
+                .del('/api/participant/' + id1 + '/note/' + noteId)
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();
