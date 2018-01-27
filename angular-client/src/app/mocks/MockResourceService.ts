@@ -105,8 +105,4 @@ export class MockResourceService {
     get(id) {
         return Observable.of(this.testResource);
     }
-
-    deleteNote() {
-        
-    }
 }

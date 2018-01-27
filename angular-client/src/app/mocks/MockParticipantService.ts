@@ -124,7 +124,36 @@ export class MockParticipantService {
         return Observable.of(this.testParticipant);
     }
 
-    deleteNote() {
-        
+    deleteNote(participantID, noteID) {
+        this.testParticipant = {
+            "_id": "frontendtest",
+            "socialmedia": {
+                "service": "Facebook",
+                "username": "test123.com"
+            },
+            "documents": [],
+            "notes": [],
+            "name": "testuser",
+            "email": "testuser@hotmail.com",
+            "telephone": "5146195888",
+            "address": "1650 Av Lincoln",
+            "createdAt": {
+                "$date": "2018-01-27T00:03:29.990Z"
+            },
+            "updatedAt": {
+                "$date": "2018-01-27T00:03:29.990Z"
+            },
+            "__v": 0
+        };
+        return Observable.of({
+            "n": 1,
+            "nModified": 1,
+            "opTime": {
+              "ts": "6515861190743162881",
+              "t": 5
+            },
+            "electionId": "7fffffff0000000000000005",
+            "ok": 1
+          });
     }
 }

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { ParticipantProfileComponent } from './participant-profile.component';
 import { MaterialsModule } from '../../modules/materials.module';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
@@ -44,6 +44,15 @@ describe('ParticipantProfileComponent', () => {
     expect(compiled.querySelector('img')).toBeTruthy();
   });
 
-  
+  it("should refresh resources displayed when one gets deleted", fakeAsync(() => {
+    const compiled = fixture.debugElement.nativeElement;
+    const deleteButton = compiled.querySelector('#deleteBtn');
+    deleteButton.click();
+
+    tick();
+    fixture.detectChanges();
+    
+    expect(compiled.querySelector('div').textContent).toContain('No notes to display.');
+  }));
 
 });
