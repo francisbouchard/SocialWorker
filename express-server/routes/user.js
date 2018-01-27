@@ -12,16 +12,16 @@ router.post('/login', (req, res, next) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    return res.status(500).send({msg: errors});
+    return res.status(500).send({msg: errors, status: "500"});
   }
   passport.authenticate("local", (err, user, info) => {
     if (err) { return next(err); }
     if (!user) {
-      return res.status(401).send({msg: info.message});
+      return res.status(401).send({msg: info.message, status: "401"});
     }
     req.logIn(user, (err) => {
       if (err) { return next(err); }
-      res.send({ msg: "Success! You are logged in." });
+        return res.status(200).send({msg: "Success! You are logged in.", status: "200"});
     });
   })(req, res, next);
 });
@@ -38,7 +38,7 @@ router.post('/signup', (req, res, next) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    return res.status(500).send({msg: errors});
+    return res.status(500).send({msg: errors, status: "500"});
   }
 
   const user = new User({
@@ -49,7 +49,7 @@ router.post('/signup', (req, res, next) => {
   User.findOne({ email: req.body.email }, (err, existingUser) => {
     if (err) { return next(err); }
     if (existingUser) {
-      return res.status(400).send({msg: [{ msg: "Account with that email address already exists." }]});
+      return res.status(400).send({msg: "Account with that email address already exists.", status: "400" });
     }
     user.save((err) => {
       if (err) { return next(err); }
@@ -57,7 +57,7 @@ router.post('/signup', (req, res, next) => {
         if (err) {
           return next(err);
         }
-        res.send({msg: "Logged in"})
+        return res.status(200).send({msg: "Created user"+req.body.email, status: "200"})
       });
     });
   });
@@ -76,7 +76,7 @@ router.post('/logout', (req, res, next) => {
     req.logout();
     res.send({msg: "Logged out"})
   } else {
-    res.status(400).send({msg: [{ msg:  "Not logged in"}]})
+    res.status(400).send({msg:  "Not logged in", status: "400"})
   }
 });
 
