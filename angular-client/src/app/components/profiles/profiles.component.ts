@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ParticipantService } from '../../services/participant.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { RouterModule, Router } from '@angular/router';
 
 
 @Component({
@@ -9,7 +11,7 @@ import { ParticipantService } from '../../services/participant.service';
 })
 export class ProfilesComponent implements OnInit {
   public profiles;
-  constructor(private participantService: ParticipantService) {
+  constructor(private participantService: ParticipantService, public authService: AuthenticationService, public router: Router) {
   }
 
   loadProfiles() {
@@ -36,6 +38,9 @@ export class ProfilesComponent implements OnInit {
 
   ngOnInit() {
     this.loadProfiles();
+    if(!this.authService.loggedIn){
+      this.router.navigateByUrl('login');
+    }
   }
 
 

@@ -9,12 +9,23 @@ let id1 = new mongoose.Types.ObjectId();
 let id2 = null;
 let id3 = new mongoose.Types.ObjectId();
 let id4 = new mongoose.Types.ObjectId();
+let cookie = "connect.sid=s%3A1lS2K83NTmT-TV7lzdP-1zBUs0TovpZS.OOzwP5p4pWO9eYOySivKKyxSfrsDskqVAJ%2FK1cKLaIQ";
 
 chai.use(chaiHttp);
 
 describe('Housing Resources Tests', () => {
 
-    before(() => {
+    before((finished) => {
+        chai.request(server)
+                .post('/user/login')
+                .send({
+                    "email": "test1@test.com",
+                    "password": "test"
+                })
+                .end((err, res) => {
+                    cookie = res.headers['set-cookie'].pop().split(';')[0];
+                    finished();
+                });
         let housing1 = new Housing({
             _id: id1,
             name: "Housing Facility Name",
@@ -41,7 +52,8 @@ describe('Housing Resources Tests', () => {
     describe('/GET', () => {
         it('should GET all the resources', (done) => {
             chai.request(server)
-                .get('/resource')
+                .get('/api/resource')
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -53,7 +65,8 @@ describe('Housing Resources Tests', () => {
     describe('/GET/housing', () => {
         it('should GET all the housing resources', (done) => {
             chai.request(server)
-                .get('/resource/housing')
+                .get('/api/resource/housing')
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -65,7 +78,8 @@ describe('Housing Resources Tests', () => {
     describe('/GET/:id', () => {
         it('should GET a resource with the given ID', (done) => {
             chai.request(server)
-                .get('/resource/' + id1)
+                .get('/api/resource/' + id1)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -81,7 +95,8 @@ describe('Housing Resources Tests', () => {
         });
         it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
-                .get('/resource/' + id3)
+                .get('/api/resource/' + id3)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -98,7 +113,8 @@ describe('Housing Resources Tests', () => {
                 phone: "514-1234567"
             }
             chai.request(server)
-                .post('/resource/housing')
+                .post('/api/resource/housing')
+                .set('Cookie', cookie)
                 .send(housing)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -117,7 +133,8 @@ describe('Housing Resources Tests', () => {
                 term: "2 months"
             }
             chai.request(server)
-                .post('/resource/housing')
+                .post('/api/resource/housing')
+                .set('Cookie', cookie)
                 .send(housing)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -138,7 +155,8 @@ describe('Housing Resources Tests', () => {
             let notes = "Housing Facility Notes";
             let term = "4 months";
             chai.request(server)
-                .put('/resource/housing/' + id1)
+                .put('/api/resource/housing/' + id1)
+                .set('Cookie', cookie)
                 .send({notes: notes, term: term})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -152,7 +170,8 @@ describe('Housing Resources Tests', () => {
     describe('/DELETE/:id', () => {
         it('should DELETE the housing resource with the given ID', (done) => {
             chai.request(server)
-                .del('/resource/' + id4)
+                .del('/api/resource/' + id4)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();

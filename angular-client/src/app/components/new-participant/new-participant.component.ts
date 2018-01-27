@@ -3,6 +3,9 @@ import { ParticipantService } from '../../services/participant.service';
 import { Participant } from '../../classes/participant';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertModalComponent } from '../alert-modal/alert-modal.component';
+import { AuthenticationService } from '../../services/authentication.service';
+import { RouterModule, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-new-participant',
@@ -23,10 +26,13 @@ export class NewParticipantComponent implements OnInit {
   isAlreadyAParticipantID = false;
   isAlreadyAParticipantEmail = false;
 
-  constructor(private participantService: ParticipantService, public dialog: MatDialog) {
+  constructor(private participantService: ParticipantService, public dialog: MatDialog, public authService: AuthenticationService, public router: Router) {
   }
 
   ngOnInit() {
+    if(!this.authService.loggedIn){
+      this.router.navigateByUrl('login');
+    }
   }
 
   /**

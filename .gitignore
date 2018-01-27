@@ -69,3 +69,7 @@ express-server/public/
 
 # Visual Studio Code
 .vscode/
+
+# other
+public/
+.idea/
