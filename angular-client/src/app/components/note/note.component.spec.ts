@@ -5,7 +5,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MockParticipantService } from '../../mocks/MockParticipantService';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
-
+import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { Router } from '@angular/router';
 import { NoteComponent } from './note.component';
 
 describe('NoteComponent', () => {
@@ -20,7 +21,10 @@ describe('NoteComponent', () => {
         { provide: ParticipantService, useClass: MockParticipantService },
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
-        { provide: AuthenticationService}
+        { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } },
+        { provide: ParticipantService, useClass: MockParticipantService },
+        MatDialog
       ]
     })
       .compileComponents();
