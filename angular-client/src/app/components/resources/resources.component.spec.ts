@@ -7,6 +7,9 @@ import { ViewResourcesComponent } from './view-resources/view-resources.componen
 import { AddResourceComponent } from './add-resource/add-resource.component';
 import { EditResourceComponent } from './edit-resource/edit-resource.component';
 import { MockResourceService } from '../../mocks/MockResourceService';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
+import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
 
 describe('ResourcesComponent', () => {
   let component: ResourcesComponent;
@@ -16,7 +19,9 @@ describe('ResourcesComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ResourcesComponent, ViewResourcesComponent, AddResourceComponent, EditResourceComponent ],
       imports: [ MaterialsModule, RouterTestingModule ],
-      providers: [ { provide: ResourceService, useClass: MockResourceService } ]
+      providers: [ { provide: ResourceService, useClass: MockResourceService },
+        { provide: AuthenticationService, useClass: MockAuthenticationService }, 
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } } ]
     })
     .compileComponents();
   }));

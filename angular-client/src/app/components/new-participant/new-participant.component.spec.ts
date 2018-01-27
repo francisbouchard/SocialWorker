@@ -4,6 +4,9 @@ import { NewParticipantComponent } from './new-participant.component';
 import { ParticipantService } from '../../services/participant.service';
 import { MatDialog } from '@angular/material';
 import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { AuthenticationService } from '../../services/authentication.service';
+import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { Router } from '@angular/router';
 
 describe('NewParticipantComponent', () => {
   let component: NewParticipantComponent;
@@ -13,7 +16,10 @@ describe('NewParticipantComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ NewParticipantComponent ],
       imports: [ MaterialsModule ],
-      providers: [ { provide: ParticipantService, useClass: MockParticipantService }, MatDialog ]
+      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService }, 
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } }, 
+        { provide: ParticipantService, useClass: MockParticipantService }, 
+        MatDialog ]
     })
     .compileComponents();
   }));

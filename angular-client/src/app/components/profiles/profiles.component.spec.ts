@@ -4,6 +4,9 @@ import { MaterialsModule } from '../../modules/materials.module';
 import { ParticipantService } from '../../services/participant.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { AuthenticationService } from '../../services/authentication.service';
+import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { Router } from '@angular/router';
 
 describe('ProfilesComponent', () => {
   let component: ProfilesComponent;
@@ -13,7 +16,9 @@ describe('ProfilesComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ProfilesComponent ],
       imports: [ MaterialsModule, RouterTestingModule ],
-      providers: [ { provide: ParticipantService, useClass: MockParticipantService } ]
+      providers: [ { provide: ParticipantService, useClass: MockParticipantService },
+        { provide: AuthenticationService, useClass: MockAuthenticationService }, 
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } } ]
     })
     .compileComponents();
   }));

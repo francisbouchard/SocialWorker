@@ -2,6 +2,9 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { MaterialsModule } from './modules/materials.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthenticationService } from './services/authentication.service';
+import { MockAuthenticationService } from './mocks/MockAuthenticationService';
+import { Router } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -11,6 +14,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService }, 
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } } ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
