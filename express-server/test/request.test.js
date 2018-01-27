@@ -35,13 +35,13 @@ describe('Request Tests', () => {
                 });
         let participant1 = new Participant({
             _id: participantId1,
-            name: "participant1",
-            email: "participant1@email.com"
+            name: "reqParticipant1",
+            email: "reqParticipant1@email.com"
         });
         let participant2 = new Participant({
             _id: participantId2,
-            name: "participant2",
-            email: "participant2@email.com"
+            name: "reqParticipant2",
+            email: "reqParticipant2@email.com"
         });
         participant1.save().then(data => { }, err => {
             console.log(err);
