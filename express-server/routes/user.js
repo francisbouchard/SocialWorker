@@ -12,7 +12,7 @@ router.post('/login', (req, res, next) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    return res.status(500).send({msg: errors, status: "500"});
+    return res.status(500).send({msg: errors[0].msg, status: "500"});
   }
   passport.authenticate("local", (err, user, info) => {
     if (err) { return next(err); }
