@@ -1,5 +1,5 @@
 <mat-card>
-  <form class="form">
+  <form class="form" #userForm="ngForm">
 
     <mat-form-field>
       <input matInput required placeholder="Name" name="name" [(ngModel)]="participantData.name">
@@ -19,7 +19,7 @@
 
     <mat-form-field>
       <span matPrefix>+1 &nbsp;</span>
-      <input type="tel" matInput placeholder="Telephone" name="telephone" [(ngModel)]="participantData.telephone">
+      <input required type="tel" matInput placeholder="Telephone" name="telephone" [(ngModel)]="participantData.telephone">
     </mat-form-field>
 
     <mat-form-field>
@@ -31,7 +31,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput (keyup.enter)="onKey('email', email.value)" (blur)="onKey('email', email.value)" #email placeholder="Email address" name="email" [(ngModel)]="participantData.email">
+      <input required matInput (keyup.enter)="onKey('email', email.value)" (blur)="onKey('email', email.value)" #email placeholder="Email address" name="email" [(ngModel)]="participantData.email">
     </mat-form-field>
     <!-- TODO: use mat-error -->
     <div *ngIf="isAlreadyAParticipantEmail" style="color:red">This is already associated to a participant!</div>
@@ -43,7 +43,6 @@
         <strong>This is strictly optional.</strong>
       </mat-hint>
     </mat-form-field>
-
   </form>
-  <button mat-raised-button (click)="submit()">Submit</button>
+    <button mat-raised-button (click)="submit()" [disabled]="!userForm.valid">Submit</button>
 </mat-card>
