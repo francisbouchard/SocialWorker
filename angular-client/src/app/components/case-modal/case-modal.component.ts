@@ -18,6 +18,7 @@ export class CaseModalComponent implements OnInit {
     participant: '',
     status: 'In progress',
     notes: '',
+    urgency: 'Regular',
     contactedResources: []
   };
 

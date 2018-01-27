@@ -8,6 +8,7 @@ const casefileSchema = new Schema({
     status: String
   }],
   status: String,
+  urgency: String,
   notes: [String],
   date: { type: Date, default: Date.now }
 }, { timestamps: true });

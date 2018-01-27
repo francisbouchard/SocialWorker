@@ -56,6 +56,7 @@ router.post('/', (req, res) => {
         participant: req.body.participant,
         notes: [req.body.notes],
         status: req.body.status,
+        urgency: req.body.urgency,
         contactedResources: req.body.contactedResources
     });
     casefile.save().then(data => {
