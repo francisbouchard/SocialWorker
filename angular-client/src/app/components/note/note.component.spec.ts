@@ -4,6 +4,7 @@ import { ParticipantService } from '../../services/participant.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MockParticipantService } from '../../mocks/MockParticipantService';
 import { FormsModule } from '@angular/forms';
+import { AuthenticationService } from '../../services/authentication.service';
 
 import { NoteComponent } from './note.component';
 
