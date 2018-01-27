@@ -1,40 +1,40 @@
 <div>
 <mat-card>
-  <form class="form">
+  <form class="form" #resourceForm="ngForm">
     <mat-form-field>
       <input matInput required placeholder="Name" name="name" [(ngModel)]="housing.name">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Email" name="email" [(ngModel)]="housing.email">
+      <input matInput required  placeholder="Email" name="email" [(ngModel)]="housing.email">
     </mat-form-field>
 
     <mat-form-field>
       <span matPrefix>+1 &nbsp;</span>
-      <input type="tel" matInput placeholder="Telephone" name="telephone" [(ngModel)]="housing.phone">
+      <input type="tel" required matInput placeholder="Telephone" name="telephone" [(ngModel)]="housing.phone">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Location" name="location" [(ngModel)]="housing.location">
+      <input matInput required placeholder="Location" name="location" [(ngModel)]="housing.location">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Notes" name="notes" [(ngModel)]="housing.notes">
+      <input matInput required placeholder="Notes" name="notes" [(ngModel)]="housing.notes">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Term" name="term" [(ngModel)]="housing.term">
+      <input matInput required placeholder="Term" name="term" [(ngModel)]="housing.term">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Gender" name="gender" [(ngModel)]="housing.gender">
+      <input matInput required placeholder="Gender" name="gender" [(ngModel)]="housing.gender">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Constraints" name="constraints" [(ngModel)]="housing.constraints">
+      <input matInput required placeholder="Constraints" name="constraints" [(ngModel)]="housing.constraints">
     </mat-form-field>
 
   </form>
-  <button mat-raised-button (click)="submit()">Submit</button>
+  <button mat-raised-button (click)="submit()"  [disabled]="!resourceForm.valid">Submit</button>
 </mat-card>
 </div>
