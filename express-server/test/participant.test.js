@@ -13,7 +13,17 @@ chai.use(chaiHttp);
 
 describe('Participant Tests', () => {
 
-    before(() => {
+    before((finished) => {
+        chai.request(server)
+                .post('/user/login')
+                .send({
+                    "email": "test1@test.com",
+                    "password": "test"
+                })
+                .end((err, res) => {
+                    cookie = res.headers['set-cookie'].pop().split(';')[0];
+                    finished();
+                });
         let participant1 = new Participant({
             _id: id1,
             name: "participant1",

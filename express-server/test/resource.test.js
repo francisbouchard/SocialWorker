@@ -15,7 +15,17 @@ chai.use(chaiHttp);
 
 describe('Housing Resources Tests', () => {
 
-    before(() => {
+    before((finished) => {
+        chai.request(server)
+                .post('/user/login')
+                .send({
+                    "email": "test1@test.com",
+                    "password": "test"
+                })
+                .end((err, res) => {
+                    cookie = res.headers['set-cookie'].pop().split(';')[0];
+                    finished();
+                });
         let housing1 = new Housing({
             _id: id1,
             name: "Housing Facility Name",

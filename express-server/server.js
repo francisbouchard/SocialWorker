@@ -57,7 +57,7 @@ app.use(flash());
 
 // Server public folder
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/*', express.static(path.join(__dirname, 'public', 'index.html')));
+app.use(/^\/(?!api).*/, express.static(path.join(__dirname, 'public', 'index.html')));
 
 
 //all urls with /api must be authenticated

@@ -22,7 +22,17 @@ chai.use(chaiHttp);
 
 describe('Request Tests', () => {
 
-    before(() => {
+    before((finished) => {
+        chai.request(server)
+                .post('/user/login')
+                .send({
+                    "email": "test1@test.com",
+                    "password": "test"
+                })
+                .end((err, res) => {
+                    cookie = res.headers['set-cookie'].pop().split(';')[0];
+                    finished();
+                });
         let participant1 = new Participant({
             _id: participantId1,
             name: "participant1",
