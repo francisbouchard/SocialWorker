@@ -12,16 +12,16 @@ router.post('/login', (req, res, next) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    return res.status(500).send({msg: errors[0].msg, status: "500"});
+    return res.status(500).send({msg: errors[0].msg});
   }
   passport.authenticate("local", (err, user, info) => {
     if (err) { return next(err); }
     if (!user) {
-      return res.status(401).send({msg: info.message, status: "401"});
+      return res.status(401).send({msg: info.message});
     }
     req.logIn(user, (err) => {
       if (err) { return next(err); }
-        return res.status(200).send({msg: "Success! You are logged in.", status: "200"});
+        return res.status(200).send({msg: "Success! You are logged in."});
     });
   })(req, res, next);
 });
@@ -38,7 +38,7 @@ router.post('/signup', (req, res, next) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    return res.status(500).send({msg: errors, status: "500"});
+    return res.status(500).send({msg: errors});
   }
 
   const user = new User({
@@ -49,7 +49,7 @@ router.post('/signup', (req, res, next) => {
   User.findOne({ email: req.body.email }, (err, existingUser) => {
     if (err) { return next(err); }
     if (existingUser) {
-      return res.status(400).send({msg: "Account with that email address already exists.", status: "400" });
+      return res.status(400).send({msg: "Account with that email address already exists."});
     }
     user.save((err) => {
       if (err) { return next(err); }
@@ -57,7 +57,7 @@ router.post('/signup', (req, res, next) => {
         if (err) {
           return next(err);
         }
-        return res.status(200).send({msg: "Created user"+req.body.email, status: "200"})
+        return res.status(200).send({msg: "Created user"+req.body.email})
       });
     });
   });
@@ -76,7 +76,7 @@ router.post('/logout', (req, res, next) => {
     req.logout();
     res.send({msg: "Logged out"})
   } else {
-    res.status(400).send({msg:  "Not logged in", status: "400"})
+    res.status(400).send({msg:  "Not logged in"})
   }
 });
 

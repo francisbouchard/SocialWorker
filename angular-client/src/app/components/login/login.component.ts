@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.error = false;
     this.authenticationService.login(this.user.email, this.user.password).subscribe(data => {
       this.loading = false;
-      if (data.status === '200') {
+      if (!data.error) {
         this.authenticationService.loggedIn = true;
         this.router.navigateByUrl('/dashboard');
       } else {
@@ -49,15 +49,13 @@ export class LoginComponent implements OnInit {
     this.authenticationService.signUp(this.user.rEmail, this.user.rPassword, this.user.rConfirmPassword).subscribe(data => {
       this.loading = false;
 
-      if (data.status === '200') {
+      if (!data.error) {
         this.register = false;
       } else {
         this.authenticationService.loggedIn = false;
         this.loading = false;
         this.error = true;
         this.msg = '';
-        console.log(data);
-        console.log(data.error.msg);
 
         if (Array.isArray(data.error.msg)) {
           for (const i in data.error.msg) {
