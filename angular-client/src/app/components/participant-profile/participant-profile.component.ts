@@ -2,10 +2,13 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
+import { NoteComponent } from '../note/note.component';
+import { AuthenticationService } from '../../services/authentication.service';
 import { ParticipantService } from '../../services/participant.service';
 import { Participant } from '../../classes/participant';
-import { NoteComponent } from '../note/note.component';
+
+import { RouterModule, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-participant-profile',
@@ -19,12 +22,17 @@ export class ParticipantProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private participantService: ParticipantService,
     private location: Location,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public authService: AuthenticationService,
+    public router: Router
   ) { }
   @Input() public participantSelected: Participant;
 
   ngOnInit() {
     this.getParticipant();
+    if (!this.authService.loggedIn) {
+      this.router.navigateByUrl('login');
+    }
   }
 
   /**

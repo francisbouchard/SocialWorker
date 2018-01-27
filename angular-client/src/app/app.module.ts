@@ -20,12 +20,14 @@ import { ResourcesComponent } from './components/resources/resources.component';
 import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
+import { LoginComponent } from './components/login/login.component';
+import { AuthenticationService } from './services/authentication.service';
 import { ResourceService } from './services/resource.service';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/profiles',
     pathMatch: 'full'
   },
   {
@@ -39,6 +41,10 @@ const routes: Routes = [
   {
     path: 'new-participant',
     component: NewParticipantComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'resources',
@@ -61,6 +67,9 @@ const routes: Routes = [
     NewParticipantComponent,
     ParticipantProfileComponent,
     ProfilesComponent,
+    AlertModalComponent,
+    LoginComponent,
+    ParticipantProfileComponent,
     ResourcesComponent,
     ViewResourcesComponent,
     NoteComponent
@@ -78,6 +87,7 @@ const routes: Routes = [
   providers: [
     ParticipantService,
     MessageService,
+    AuthenticationService,
     ResourceService
   ],
   bootstrap: [AppComponent]

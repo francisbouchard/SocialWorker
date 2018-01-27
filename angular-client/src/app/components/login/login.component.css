@@ -1,0 +1,9 @@
+.mat-card {
+    max-width: 450px;
+    width: 66%;
+    margin: 1em;
+}
+
+a {
+    color: blueviolet;
+}
