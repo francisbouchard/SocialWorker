@@ -17,6 +17,7 @@ export class NewParticipantComponent implements OnInit {
     address: '',
     telephone: '',
     email: '',
+    cases: new Set<String>(),
     socialmedia: {service: '', username: '' }
   };
 

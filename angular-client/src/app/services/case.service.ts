@@ -27,7 +27,7 @@ export class CaseService {
   get(caseID): Observable<Object> {
     return this.http.get(`${this.url}/${caseID}`)
       .pipe(
-      tap(_ => this.log('fecthed a case')),
+      tap(_ => this.log('fetched a case')),
       catchError(this.handleError<Object>('get(caseID)'))
       );
   }
@@ -42,15 +42,15 @@ export class CaseService {
   getByParticipant(participantID): Observable<Object> {
     return this.http.get(`${this.url}/${participantID}`)
       .pipe(
-      tap(cases => this.log('fecthed a case')),
+      tap(cases => this.log('fetched a case')),
       catchError(this.handleError<Object>('getByParticipant(participantID)'))
       );
   }
 
   /**
    * Get all cases
-   * 
-   * @returns {Observable<Object>} 
+   *
+   * @returns {Observable<Object>}
    * @memberof CaseService
    */
   getAll(): Observable<Object> {

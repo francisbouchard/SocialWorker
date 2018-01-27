@@ -16,12 +16,12 @@ export class CaseModalComponent implements OnInit {
   selectedUrgency: String;
   resources: Object;
   case: Case = {
-    _id: '',
+    _id: 'someid',
+    participant: '',
     status: 'In progress',
     urgency: 'Regular',
-    comment: '',
-    shelters: new Map<String, String>(),
-    shelterchosen: '',
+    notes: '',
+    contactedResources: new Map<String, String>(),
   };
 
   /**

@@ -2,9 +2,9 @@ import { Participant } from './participant';
 
 export class Case {
     _id: String;
+    participant: String;
     status: String;
     urgency: String;
-    comment: String;
-    shelters: Map<String, String> = new Map<String, String>();
-    shelterchosen: String;
+    notes: String;
+    contactedResources: Map<String, String>;
 }

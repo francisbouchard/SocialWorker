@@ -7,13 +7,13 @@
   </mat-radio-group>
 <br>
   <mat-form-field>
-    <input matInput placeholder="Enter any relevant notes here" value="">
+    <input matInput placeholder="Enter any relevant notes here" value="" [(ngModel)]="case.notes" name="notes">
   </mat-form-field>
 
 <br>
 <div class="hint">Select the shelters for this case</div>
   <mat-form-field>
-    <mat-select multiple>
+    <mat-select multiple [(ngModel)]="case.contactedResources" name="contactedResources">
         <mat-option *ngFor="let resource of resources" [value]="resource.name">
             {{resource.name}}
           </mat-option>
