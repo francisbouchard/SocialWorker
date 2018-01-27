@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ParticipantProfileComponent } from './participant-profile.component';
 import { MaterialsModule } from '../../modules/materials.module';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { ParticipantService } from '../../services/participant.service';
 import { MessageService } from '../../services/message.service';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -20,7 +20,7 @@ describe('ParticipantProfileComponent', () => {
       providers: [
         MessageService,
         { provide: ParticipantService, useClass: MockParticipantService}, 
-        { provide: ActivatedRoute, useValue: {} }
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({_id: "frontendtest"}) } } }
       ]
     });
     location = TestBed.get(Location);
@@ -32,4 +32,18 @@ describe('ParticipantProfileComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it("should display name of the user", () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('testuser');
+  });
+
+  it("should display user's note and its attachd image", () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('mat-expansion-panel').textContent).toContain('Note for testing');
+    expect(compiled.querySelector('img')).toBeTruthy();
+  });
+
+  
+
 });
