@@ -3,12 +3,16 @@
 //Get dependencies
 const express = require('express');
 const path = require('path');
-var cors = require('cors')
 const http = require('http');
 const bodyParser = require('body-parser');
-const mongo = require('mongo');
+const mongo = require('connect-mongo');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('express-flash');
+const expressValidator  = require('express-validator');
 
+const passportConfig = require("./config/passport");
 
 // Get our API routes
 const api = require('./routes/api');
@@ -17,34 +21,15 @@ const participant = require('./routes/participant.route');
 const resource = require('./routes/resource.route');
 const request = require('./routes/request.route');
 
-const app = express();
-
-// Parsers for POST data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// CORS
-var cors = require('cors');		
-app.use(cors({  		
-    origin: '*',		
-    withCredentials: false,		
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin' ]		
-}));
-
-// Set our api routes
-app.use('/', api);
-app.use('/user', user);
-app.use('/participant', participant);
-app.use('/resource', resource);
-app.use('/request', request);
-app.use(cors())
-
+const MongoStore = mongo(session);
 
 // Load environment variables from .env file
 const dotenv = require('dotenv').config();
+const app = express();
 
 //Connect to mongo
 const mongoUrl = process.env.MONGOLAB_URL;
+
 mongoose.connect(mongoUrl, {}).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
@@ -52,16 +37,49 @@ mongoose.connect(mongoUrl, {}).then(
   // process.exit();
 });
 
+// Parsers for POST data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: process.env.SESSION_SECRET,
+  store: new MongoStore({
+    url: mongoUrl,
+    autoReconnect: true
+  })
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+
+//all urls with /api must be authenticated
+app.use('/api', passportConfig.isAuthenticated);
+
+// Set our api routes
+app.use('/api', api);
+app.use('/user', user);
+app.use('/api/participant', participant);
+app.use('/api/resource', resource);
+app.use('/api/request', request);
+
+
+// Server public folder
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(/^\/(?!api)\/.*/, express.static(path.join(__dirname, 'public', 'index.html')));
+
+
 /**
 * Get port from environment and store in Express.
 */
-
 const port = process.env.PORT || '3000';
 app.set('port', port);
+
 /**
 * Create HTTP server.
 */
-
 const server = http.createServer(app);
 
 /**

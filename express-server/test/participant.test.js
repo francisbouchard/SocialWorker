@@ -10,12 +10,23 @@ let id2 = "testingID2";
 let id3 = "testingID3";
 let noteId = new mongoose.Types.ObjectId();
 let docId = new mongoose.Types.ObjectId();
+let cookie = "connect.sid=s%3A1lS2K83NTmT-TV7lzdP-1zBUs0TovpZS.OOzwP5p4pWO9eYOySivKKyxSfrsDskqVAJ%2FK1cKLaIQ";
 
 chai.use(chaiHttp);
 
 describe('Participant Tests', () => {
 
-    before(() => {
+    before((finished) => {
+        chai.request(server)
+                .post('/user/login')
+                .send({
+                    "email": "test1@test.com",
+                    "password": "test"
+                })
+                .end((err, res) => {
+                    cookie = res.headers['set-cookie'].pop().split(';')[0];
+                    finished();
+                });
         let participant1 = new Participant({
             _id: id1,
             name: "participant1",
@@ -50,7 +61,8 @@ describe('Participant Tests', () => {
     describe('/GET', () => {
         it('should GET all the participants', (done) => {
             chai.request(server)
-                .get('/participant')
+                .get('/api/participant')
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -62,7 +74,8 @@ describe('Participant Tests', () => {
     describe('/GET/:pid', () => {
         it('should GET a participant with the given ID', (done) => {
             chai.request(server)
-                .get('/participant/' + id1)
+                .get('/api/participant/' + id1)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -77,7 +90,8 @@ describe('Participant Tests', () => {
         });
         it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
-                .get('/participant/' + 'p123')
+                .get('/api/participant/' + 'p123')
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -91,7 +105,8 @@ describe('Participant Tests', () => {
         it('should GET the participants matching the given values', (done) => {
             let values = "name=participant1"
             chai.request(server)
-                .get('/participant/search/' + values)
+                .get('/api/participant/search/' + values)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -102,7 +117,8 @@ describe('Participant Tests', () => {
         it('should not GET any participants matching the given values', (done) => {
             let values = "name=participant500"
             chai.request(server)
-                .get('/participant/search/' + values)
+                .get('/api/participant/search/' + values)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -120,7 +136,8 @@ describe('Participant Tests', () => {
                 telephone: "514-1234567"
             }
             chai.request(server)
-                .post('/participant')
+                .post('/api/participant')
+                .set('Cookie', cookie)
                 .send(participant)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -139,7 +156,8 @@ describe('Participant Tests', () => {
                 telephone: "514-1234567"
             }
             chai.request(server)
-                .post('/participant')
+                .post('/api/participant')
+                .set('Cookie', cookie)
                 .send(participant)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -162,7 +180,8 @@ describe('Participant Tests', () => {
             Participant.findById(id1).then(participant => {
                 let numOfDocs = participant.documents.length;
                 chai.request(server)
-                    .post('/participant/' + id1 + '/doc')
+                    .post('/api/participant/' + id1 + '/doc')
+                    .set('Cookie', cookie)
                     .send(document)
                     .end((err, res) => {
                         res.should.have.status(200);
@@ -184,7 +203,8 @@ describe('Participant Tests', () => {
             Participant.findById(id1).then(participant => {
                 let numOfNotes = participant.notes.length;
                 chai.request(server)
-                    .post('/participant/' + id1 + '/note')
+                    .post('/api/participant/' + id1 + '/note')
+                    .set('Cookie', cookie)
                     .send(note)
                     .end((err, res) => {
                         res.should.have.status(200);
@@ -200,7 +220,8 @@ describe('Participant Tests', () => {
     describe('/DELETE/:pid', () => {
         it('should DELETE the participant with the given ID', (done) => {
             chai.request(server)
-                .del('/participant/' + id3)
+                .del('/api/participant/' + id3)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();
