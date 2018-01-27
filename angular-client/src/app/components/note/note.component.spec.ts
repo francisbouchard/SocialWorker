@@ -14,11 +14,16 @@ describe('NoteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoteComponent ],
-      imports: [ MaterialsModule, FormsModule ],
-      providers: [ { provide: ParticipantService, useClass: MockParticipantService }, {provide: MAT_DIALOG_DATA, useValue: {}}, {provide: MatDialogRef, useValue: {}} ]
+      declarations: [NoteComponent],
+      imports: [MaterialsModule, FormsModule],
+      providers: [
+        { provide: ParticipantService, useClass: MockParticipantService },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} },
+        { provide: AuthenticationService}
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
