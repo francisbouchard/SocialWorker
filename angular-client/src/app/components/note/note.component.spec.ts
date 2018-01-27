@@ -3,6 +3,7 @@ import { NoteComponent } from './note.component';
 import { ParticipantService } from '../../services/participant.service';
 import { MaterialsModule } from '../../modules/materials.module';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MockParticipantService } from '../../mocks/MockParticipantService';
 
 describe('NoteComponent', () => {
   let component: NoteComponent;
@@ -12,7 +13,7 @@ describe('NoteComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ NoteComponent ],
       imports: [ MaterialsModule ],
-      providers: [ { provide: ParticipantService, useValue: {} }, {provide: MatDialogRef, useValue: {}}, {provide: MAT_DIALOG_DATA, useValue: {}} ]
+      providers: [ { provide: ParticipantService, useClass: MockParticipantService }, {provide: MatDialogRef, useValue: {}}, {provide: MAT_DIALOG_DATA, useValue: {}} ]
     })
     .compileComponents();
   }));

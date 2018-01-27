@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EditResourceComponent } from './edit-resource.component';
+import { MaterialsModule } from '../../../modules/materials.module';
+import { ResourceService } from '../../../services/resource.service';
 
 describe('EditResourceComponent', () => {
   let component: EditResourceComponent;
@@ -8,7 +9,9 @@ describe('EditResourceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditResourceComponent ]
+      declarations: [ EditResourceComponent ],
+      // imports: [ MaterialsModule ],
+      providers: [ { provide: ResourceService, useValue: {} } ]
     })
     .compileComponents();
   }));

@@ -3,6 +3,7 @@ import { MaterialsModule } from '../../modules/materials.module';
 import { NewParticipantComponent } from './new-participant.component';
 import { ParticipantService } from '../../services/participant.service';
 import { MatDialog } from '@angular/material';
+import { MockParticipantService } from '../../mocks/MockParticipantService';
 
 describe('NewParticipantComponent', () => {
   let component: NewParticipantComponent;
@@ -12,7 +13,7 @@ describe('NewParticipantComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ NewParticipantComponent ],
       imports: [ MaterialsModule ],
-      providers: [ { provide: ParticipantService, useValue: {} }, MatDialog ]
+      providers: [ { provide: ParticipantService, useClass: MockParticipantService }, MatDialog ]
     })
     .compileComponents();
   }));

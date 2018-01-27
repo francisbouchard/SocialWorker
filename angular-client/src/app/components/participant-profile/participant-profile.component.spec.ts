@@ -6,10 +6,7 @@ import { ParticipantService } from '../../services/participant.service';
 import { MessageService } from '../../services/message.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Location } from '@angular/common';
-
-class MockParticipantService {
-
-}
+import { MockParticipantService } from '../../mocks/MockParticipantService';
 
 describe('ParticipantProfileComponent', () => {
   let component: ParticipantProfileComponent;

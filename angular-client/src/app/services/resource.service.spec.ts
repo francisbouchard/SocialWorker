@@ -1,11 +1,13 @@
 import { TestBed, inject } from '@angular/core/testing';
-
 import { ResourceService } from './resource.service';
+import { HttpClientModule } from '@angular/common/http';
+import { MessageService } from './message.service';
 
 describe('ResourceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ResourceService]
+      imports: [ HttpClientModule ],
+      providers: [ ResourceService, MessageService ]
     });
   });
 
