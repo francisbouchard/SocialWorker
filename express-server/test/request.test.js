@@ -16,6 +16,7 @@ let id2 = new mongoose.Types.ObjectId();
 let id3 = new mongoose.Types.ObjectId();
 let id4 = null;
 let id5 = new mongoose.Types.ObjectId();
+let cookie = "connect.sid=s%3A1lS2K83NTmT-TV7lzdP-1zBUs0TovpZS.OOzwP5p4pWO9eYOySivKKyxSfrsDskqVAJ%2FK1cKLaIQ";
 
 chai.use(chaiHttp);
 
@@ -80,7 +81,8 @@ describe('Request Tests', () => {
     describe('/GET', () => {
         it('should GET all requests', (done) => {
             chai.request(server)
-                .get('/request')
+                .get('/api/request')
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -92,7 +94,8 @@ describe('Request Tests', () => {
     describe('/GET/:id', () => {
         it('should GET a request with the given ID', (done) => {
             chai.request(server)
-                .get('/request/' + id1)
+                .get('/api/request/' + id1)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -105,7 +108,8 @@ describe('Request Tests', () => {
         });
         it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
-                .get('/request/' + id2)
+                .get('/api/request/' + id2)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -118,7 +122,8 @@ describe('Request Tests', () => {
     describe('/GET/participant/:id', () => {
         it('should GET requests with the given participant ID', (done) => {
             chai.request(server)
-                .get('/request/participant/' + participantId1)
+                .get('/api/request/participant/' + participantId1)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -128,7 +133,8 @@ describe('Request Tests', () => {
         });
         it('should be empty for GET with nonexisting participant ID', (done) => {
             chai.request(server)
-                .get('/request/participant/' + 'p123')
+                .get('/api/request/participant/' + 'p123')
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
@@ -141,7 +147,8 @@ describe('Request Tests', () => {
     describe('/GET/:id/resource/:resId', () => {
         it('should GET the contacted resource of the request with the given request and resource IDs', (done) => {
             chai.request(server)
-                .get('/request/' + id1 + '/resource/' + housingId2)
+                .get('/api/request/' + id1 + '/resource/' + housingId2)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -154,7 +161,8 @@ describe('Request Tests', () => {
         });
         it('should be empty for GET with nonexisting request ID', (done) => {
             chai.request(server)
-                .get('/request/' + new mongoose.Types.ObjectId() + '/resource/' + housingId2)
+                .get('/api/request/' + new mongoose.Types.ObjectId() + '/resource/' + housingId2)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -164,7 +172,8 @@ describe('Request Tests', () => {
         });
         it('should be empty for GET with nonexisting resource ID', (done) => {
             chai.request(server)
-                .get('/request/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
+                .get('/api/request/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -178,7 +187,8 @@ describe('Request Tests', () => {
         it('should not POST a request without a participant ID', (done) => {
             let request = {notes: "testing notes"};
             chai.request(server)
-                .post('/request')
+                .post('/api/request')
+                .set('Cookie', cookie)
                 .send(request)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -195,7 +205,8 @@ describe('Request Tests', () => {
                 note: "testing notes"
             }
             chai.request(server)
-                .post('/request')
+                .post('/api/request')
+                .set('Cookie', cookie)
                 .send(request)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -216,7 +227,8 @@ describe('Request Tests', () => {
                 status: "pending"
             }
             chai.request(server)
-                .post('/request/' + id3 + '/resource')
+                .post('/api/request/' + id3 + '/resource')
+                .set('Cookie', cookie)
                 .send(contactedResource)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -231,7 +243,8 @@ describe('Request Tests', () => {
                 status: "pending"
             }
             chai.request(server)
-                .post('/request/' + id1 + '/resource')
+                .post('/api/request/' + id1 + '/resource')
+                .set('Cookie', cookie)
                 .send(contactedResource)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -246,7 +259,8 @@ describe('Request Tests', () => {
                 status: "pending"
             }
             chai.request(server)
-                .post('/request/' + id1 + '/resource')
+                .post('/api/request/' + id1 + '/resource')
+                .set('Cookie', cookie)
                 .send(contactedResource)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -264,7 +278,8 @@ describe('Request Tests', () => {
                 status: "pending"
             }
             chai.request(server)
-                .put('/request/' + id3 + '/resource/' + housingId1)
+                .put('/api/request/' + id3 + '/resource/' + housingId1)
+                .set('Cookie', cookie)
                 .send(contactedResource)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -275,7 +290,8 @@ describe('Request Tests', () => {
         });
         it('should not update a contacted resource with an invalid resource ID', (done) => {
             chai.request(server)
-                .put('/request/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
+                .put('/api/request/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
+                .set('Cookie', cookie)
                 .send({status: "accepted"})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -286,7 +302,8 @@ describe('Request Tests', () => {
         });
         it('should update the status of a contacted resource given request and resource IDs', (done) => {
             chai.request(server)
-                .put('/request/' + id1 + '/resource/' + housingId1)
+                .put('/api/request/' + id1 + '/resource/' + housingId1)
+                .set('Cookie', cookie)
                 .send({status: "accepted"})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -300,7 +317,8 @@ describe('Request Tests', () => {
     describe('/PUT/:id/status', () => {
         it('should not update a request with an invalid ID', (done) => {
             chai.request(server)
-                .put('/request/' + id3 + '/status')
+                .put('/api/request/' + id3 + '/status')
+                .set('Cookie', cookie)
                 .send({status: "finalized"})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -311,7 +329,8 @@ describe('Request Tests', () => {
         });
         it('should update the status of the request with the given ID', (done) => {
             chai.request(server)
-                .put('/request/' + id1 + '/status')
+                .put('/api/request/' + id1 + '/status')
+                .set('Cookie', cookie)
                 .send({status: "finalized"})
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -325,7 +344,8 @@ describe('Request Tests', () => {
     describe('/DELETE/:id', () => {
         it('should DELETE the request with the given ID', (done) => {
             chai.request(server)
-                .del('/request/' + id5)
+                .del('/api/request/' + id5)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();
