@@ -55,11 +55,6 @@ app.use(passport.session());
 app.use(flash());
 
 
-// Server public folder
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(/^\/(?!api)\/.*/, express.static(path.join(__dirname, 'public', 'index.html')));
-
-
 //all urls with /api must be authenticated
 app.use('/api', passportConfig.isAuthenticated);
 
@@ -69,6 +64,11 @@ app.use('/user', user);
 app.use('/api/participant', participant);
 app.use('/api/resource', resource);
 app.use('/api/request', request);
+
+
+// Server public folder
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(/^\/(?!api)\/.*/, express.static(path.join(__dirname, 'public', 'index.html')));
 
 
 /**
