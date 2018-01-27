@@ -35,7 +35,7 @@
       </div>
     </mat-card>
     <div fxFlex="100" fxLayoutAlign="space-around start">
-      <a href="javascript:;" (click)="register=true">Don't have an account? Sign up here.</a>
+      <a href="javascript:;" (click)="register=true; error=false;">Don't have an account? Sign up here.</a>
     </div>
   </div>
 
@@ -84,7 +84,7 @@
         </div>
       </mat-card>
     <div fxFlex="100" fxLayoutAlign="space-around left">
-      <a href="javascript:;" (click)="register=false">Already have an account? Login here.</a>
+      <a href="javascript:;" (click)="register=false; error=false">Already have an account? Login here.</a>
     </div>
   </div>
 

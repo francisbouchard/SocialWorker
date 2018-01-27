@@ -26,6 +26,8 @@ export class LoginComponent implements OnInit {
 
   public login () {
     this.loading = true;
+    this.msg = '';
+    this.error = false;
     this.authenticationService.login(this.user.email, this.user.password).subscribe(data => {
       this.loading = false;
       if (data.status === '200') {
@@ -42,6 +44,8 @@ export class LoginComponent implements OnInit {
 
   public signUp () {
     this.loading = true;
+    this.msg = '';
+    this.error = false;
     this.authenticationService.signUp(this.user.rEmail, this.user.rPassword, this.user.rConfirmPassword).subscribe(data => {
       this.loading = false;
 
@@ -51,13 +55,15 @@ export class LoginComponent implements OnInit {
         this.authenticationService.loggedIn = false;
         this.loading = false;
         this.error = true;
-        this.msg = "";
+        this.msg = '';
         console.log(data);
         console.log(data.error.msg);
 
         if (Array.isArray(data.error.msg)) {
-          for (let i in data.error.msg) {
-            this.msg += data.error.msg[i].msg? data.error.msg[i].msg : ""  + "\n";
+          for (const i in data.error.msg) {
+            if (data.error.msg[i] != null) {
+            this.msg += data.error.msg[i].msg + '\n';
+          }
           }
         } else {
           this.msg = data.error.msg;
