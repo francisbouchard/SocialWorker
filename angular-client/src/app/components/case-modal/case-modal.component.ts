@@ -13,16 +13,25 @@ import { Case } from '../../classes/case';
 export class CaseModalComponent implements OnInit {
   statuses = ['In progress', 'Completed'];
   urgencies = ['Regular', 'Urgent'];
-  selectedUrgency: String;
   resources: Object;
-  case: Case = {
-    _id: 'someid',
+  mycase: Case = {
     participant: '',
     status: 'In progress',
-    urgency: 'Regular',
     notes: '',
     contactedResources: new Map<String, String>(),
   };
+
+  constructor(
+    private caseService: CaseService,
+    private resourceService: ResourceService,
+    public dialogRef: MatDialogRef<CaseModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
+
+  ngOnInit() {
+    this.mycase.participant = this.data.pid;
+    this.loadAllResources();
+  }
 
   /**
    * Load all resources
@@ -38,20 +47,8 @@ export class CaseModalComponent implements OnInit {
   }
 
 
-  constructor(
-    private caseService: CaseService,
-    private resourceService: ResourceService,
-    public dialogRef: MatDialogRef<CaseModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-  }
-
-
-  ngOnInit() {
-    this.loadAllResources();
-  }
-
   submit(): void {
-    this.caseService.save(this.case)
+    this.caseService.save(this.mycase)
     .subscribe(data => {
       console.log(data);
       this.dialogRef.close();
