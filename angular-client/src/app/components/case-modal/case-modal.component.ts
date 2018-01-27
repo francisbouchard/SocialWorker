@@ -18,7 +18,7 @@ export class CaseModalComponent implements OnInit {
     participant: '',
     status: 'In progress',
     notes: '',
-    contactedResources: new Map<String, String>(),
+    contactedResources: []
   };
 
   constructor(
@@ -46,8 +46,16 @@ export class CaseModalComponent implements OnInit {
       });
   }
 
+  makeResourceArray(): void {
+    const arrayOfResources = this.mycase.contactedResources;
+    this.mycase.contactedResources = [];
+    arrayOfResources.forEach(element => {
+      this.mycase.contactedResources.push({_id: element, status: ''});
+    });
+  }
 
   submit(): void {
+    this.makeResourceArray();
     this.caseService.save(this.mycase)
     .subscribe(data => {
       console.log(data);

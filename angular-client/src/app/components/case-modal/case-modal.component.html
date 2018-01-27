@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>New Housing Case</h1>
 <h5>Participant: {{data.pid}}</h5>
 <form>
-  <div class="hint">Select urgency of request</div>
+  <!-- <div class="hint">Select urgency of request</div>
   <mat-radio-group >
     <mat-radio-button *ngFor="let urgency of urgencies" [value]="urgency">{{urgency}}&nbsp;&nbsp;</mat-radio-button>
-  </mat-radio-group>
+  </mat-radio-group> -->
 <br>
   <mat-form-field>
     <input matInput placeholder="Enter any relevant notes here" value="" [(ngModel)]="mycase.notes" name="notes">
@@ -13,8 +13,8 @@
 <br>
 <div class="hint">Select the shelters for this case</div>
   <mat-form-field>
-    <mat-select multiple>
-        <mat-option *ngFor="let resource of resources" [value]="resource.name">
+    <mat-select multiple [(ngModel)]="mycase.contactedResources" name="contactedResources">
+        <mat-option *ngFor="let resource of resources" [value]="resource._id">
             {{resource.name}}
           </mat-option>
     </mat-select>

@@ -4,5 +4,5 @@ export class Case {
     participant: String;
     status: String;
     notes: String;
-    contactedResources: Map<String, String>;
+    contactedResources: Array<any>;
 }
