@@ -24,7 +24,22 @@ export class LoginComponent implements OnInit {
 
   }
 
-  public login () {
+  /**
+   * Toggle between login and signup 
+   * 
+   * @memberof LoginComponent
+   */
+  public toggleLogin() {
+    this.register = !this.register;
+    this.error = false;
+  }
+
+  /**
+   * Login with account credentials
+   * 
+   * @memberof LoginComponent
+   */
+  public login() {
     this.loading = true;
     this.msg = '';
     this.error = false;
@@ -42,7 +57,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public signUp () {
+  /**
+   * Sign up as a new account 
+   * 
+   * @memberof LoginComponent
+   */
+  public signUp() {
     this.loading = true;
     this.msg = '';
     this.error = false;
@@ -60,8 +80,8 @@ export class LoginComponent implements OnInit {
         if (Array.isArray(data.error.msg)) {
           for (const i in data.error.msg) {
             if (data.error.msg[i] != null) {
-            this.msg += data.error.msg[i].msg + '\n';
-          }
+              this.msg += data.error.msg[i].msg + '\n';
+            }
           }
         } else {
           this.msg = data.error.msg;
