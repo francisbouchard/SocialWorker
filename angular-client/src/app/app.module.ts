@@ -26,7 +26,7 @@ import { ResourceService } from './services/resource.service';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/profiles',
     pathMatch: 'full'
   },
   {
