@@ -107,7 +107,7 @@ public loggedIn: boolean;
    * @memberof AuthenticationService
    */
   private log(message: String) {
-    this.messageService.add('Participant Service: ' + message);
+    this.messageService.add('Authentication Service: ' + message);
   }
 
   /**
