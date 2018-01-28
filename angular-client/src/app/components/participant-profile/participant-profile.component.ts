@@ -21,14 +21,16 @@ export class ParticipantProfileComponent implements OnInit {
   @Input() public participantSelected: Participant;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private participantService: ParticipantService,
     private location: Location,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public authService: AuthenticationService,
   ) { }
 
   ngOnInit() {
     this.getParticipant();
-    if(!this.authService.loggedIn){
+    if (!this.authService.loggedIn) {
       this.router.navigateByUrl('login');
     }
   }

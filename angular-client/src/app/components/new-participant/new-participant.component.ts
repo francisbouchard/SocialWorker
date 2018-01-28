@@ -27,11 +27,15 @@ export class NewParticipantComponent implements OnInit {
   isAlreadyAParticipantID = false;
   isAlreadyAParticipantEmail = false;
 
-  constructor(private participantService: ParticipantService, public dialog: MatDialog, public authService: AuthenticationService, public router: Router) {
+  constructor(
+    private participantService: ParticipantService,
+    public dialog: MatDialog,
+    public authService: AuthenticationService,
+    public router: Router) {
   }
 
   ngOnInit() {
-    if(!this.authService.loggedIn){
+    if (!this.authService.loggedIn) {
       this.router.navigateByUrl('login');
     }
   }
@@ -44,14 +48,14 @@ export class NewParticipantComponent implements OnInit {
    * @memberof NewParticipantComponent
    */
   onKey(attribute: String, value: String) {
-    let query = attribute + '=' + value;
-    let that = this;
+    const query = attribute + '=' + value;
+    const that = this;
     this.participantService.search(query)
       .subscribe(data => {
-        if (attribute == "_id") {
-          that.isAlreadyAParticipantID = (data == true) ? true : false;
+        if (attribute === '_id') {
+          that.isAlreadyAParticipantID = (data === true) ? true : false;
         } else {
-          that.isAlreadyAParticipantEmail = (data == true) ? true : false;
+          that.isAlreadyAParticipantEmail = (data === true) ? true : false;
         }
       });
   }
@@ -63,7 +67,7 @@ export class NewParticipantComponent implements OnInit {
    * @memberof NewParticipantComponent
    */
   alertModal(message): void {
-    let dialogRef = this.dialog.open(AlertModalComponent, {
+    const dialogRef = this.dialog.open(AlertModalComponent, {
       width: '250px',
       data: { message: message }
     });
@@ -88,6 +92,6 @@ export class NewParticipantComponent implements OnInit {
         } else {
           this.alertModal("New participant successfully added.")
         }
-      })
+      });
   }
 }
