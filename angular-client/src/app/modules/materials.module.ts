@@ -6,16 +6,19 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { CdkTableModule} from '@angular/cdk/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { 
-  MatButtonModule, 
+  MatButtonModule,
   MatCardModule,
   MatDialogModule,
-  MatIconModule, 
-  MatInputModule, 
+  MatIconModule,
+  MatInputModule,
   MatRadioModule,
   MatSelectModule,
   MatTabsModule,
-  MatToolbarModule,  
-  MatOptionModule } from '@angular/material';
+  MatToolbarModule,
+  MatOptionModule,
+  MatListModule,
+  MatGridListModule} from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -34,6 +37,9 @@ import {
     MatExpansionModule,
     MatSelectModule,
     MatOptionModule,
+    MatListModule,
+    MatGridListModule,
+    FormsModule,
     MatProgressSpinnerModule
   ]
 })

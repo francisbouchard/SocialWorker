@@ -1,0 +1,16 @@
+img {
+    width: 100%;
+}
+
+.mat-form-field {
+    width: 66%;
+}
+
+.fileupload {
+    margin-bottom: 1em;
+}
+
+.fileupload input {
+    font-size: 1em;
+}
+

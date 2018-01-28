@@ -16,7 +16,7 @@ let id2 = new mongoose.Types.ObjectId();
 let id3 = new mongoose.Types.ObjectId();
 let id4 = null;
 let id5 = new mongoose.Types.ObjectId();
-let cookie = "connect.sid=s%3A1lS2K83NTmT-TV7lzdP-1zBUs0TovpZS.OOzwP5p4pWO9eYOySivKKyxSfrsDskqVAJ%2FK1cKLaIQ";
+let cookie;
 
 chai.use(chaiHttp);
 

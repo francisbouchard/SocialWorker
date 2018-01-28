@@ -1,31 +1,35 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MaterialsModule } from '../../modules/materials.module';
-import { NewParticipantComponent } from './new-participant.component';
 import { ParticipantService } from '../../services/participant.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
 import { Router } from '@angular/router';
+import { NoteComponent } from './note.component';
 
-describe('NewParticipantComponent', () => {
-  let component: NewParticipantComponent;
-  let fixture: ComponentFixture<NewParticipantComponent>;
+describe('NoteComponent', () => {
+  let component: NoteComponent;
+  let fixture: ComponentFixture<NoteComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewParticipantComponent ],
-      imports: [ MaterialsModule ],
-      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService }, 
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } }, 
+      declarations: [ NoteComponent ],
+      imports: [ MaterialsModule, FormsModule ],
+      providers: [ 
         { provide: ParticipantService, useClass: MockParticipantService }, 
-        MatDialog ]
+        {provide: MatDialogRef, useValue: {} }, 
+        {provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewParticipantComponent);
+    fixture = TestBed.createComponent(NoteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
