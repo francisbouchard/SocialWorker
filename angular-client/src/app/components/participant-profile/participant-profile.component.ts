@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-
+import { AuthenticationService } from '../../services/authentication.service';
 import { ParticipantService } from '../../services/participant.service';
 import { Participant } from '../../classes/participant';
 import { AppModule } from '../../app.module';
+import { RouterModule, Router } from '@angular/router';
 
 import { CaseModalComponent } from '../case-modal/case-modal.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -17,9 +18,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 
 export class ParticipantProfileComponent implements OnInit {
-
   @Input() public participantSelected: Participant;
-  
   constructor(
     private route: ActivatedRoute,
     private participantService: ParticipantService,
@@ -29,6 +28,9 @@ export class ParticipantProfileComponent implements OnInit {
 
   ngOnInit() {
     this.getParticipant();
+    if(!this.authService.loggedIn){
+      this.router.navigateByUrl('login');
+    }
   }
 
   /**
