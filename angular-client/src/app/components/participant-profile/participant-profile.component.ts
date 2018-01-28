@@ -85,5 +85,13 @@ export class ParticipantProfileComponent implements OnInit {
     });
   }
 
+  completeCase(): void {
+    // TODO set case status to done
+  }
+
+  updateCase(): void {
+    // TODO update case
+  }
+
 }
 
