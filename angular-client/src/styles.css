@@ -6,10 +6,6 @@ body {
     margin: 0;
   }
 
-.mat-toolbar.mat-primary{
-  background: rgb(76, 24, 105);
-}
-
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
   border-color: rgb(64, 48, 117);
 }
