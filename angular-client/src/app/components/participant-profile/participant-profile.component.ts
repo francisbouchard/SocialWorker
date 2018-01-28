@@ -57,10 +57,10 @@ export class ParticipantProfileComponent implements OnInit {
       });
   }
 
-  newCase(name): void {
+  newCase(): void {
     const dialogRef = this.dialog.open(CaseModalComponent, {
       width: '66%',
-      data: { pid: name }
+      data: { participant: this.participantSelected }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

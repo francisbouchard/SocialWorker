@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CasefileService } from '../../services/casefile.service';
 import { ResourceService } from '../../services/resource.service';
 import { Casefile } from '../../classes/case';
+import { Participant } from '../../classes/participant';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class CaseModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mycase.participant = this.data.pid;
+    this.mycase.participant = this.data.participant._id;
     this.loadAllResources();
   }
 

@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>New Housing Case</h1>
-<h5>Participant: {{data.pid}}</h5>
+<h5>Participant: {{data.participant.name}}</h5>
 <form>
   <div class="hint">Select urgency of request</div>
   <mat-radio-group [(ngModel)]="mycase.urgency" name="urgency" ng-checked="urgency[0]">
