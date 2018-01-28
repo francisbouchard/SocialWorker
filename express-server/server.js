@@ -68,7 +68,9 @@ app.use('/api/request', request);
 
 // Server public folder
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(/^\/(?!api)\/.*/, express.static(path.join(__dirname, 'public', 'index.html')));
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "/public", "index.html"));
+});
 
 
 /**
