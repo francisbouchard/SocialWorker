@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { CaseService } from '../../services/case.service';
+import { CasefileService } from '../../services/casefile.service';
 import { ResourceService } from '../../services/resource.service';
 import { Casefile } from '../../classes/case';
 
@@ -23,7 +23,7 @@ export class CaseModalComponent implements OnInit {
   };
 
   constructor(
-    private caseService: CaseService,
+    private caseService: CasefileService,
     private resourceService: ResourceService,
     public dialogRef: MatDialogRef<CaseModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {

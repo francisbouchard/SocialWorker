@@ -17,12 +17,12 @@ describe('NoteComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ NoteComponent ],
       imports: [ MaterialsModule, FormsModule ],
-      providers: [ 
-        { provide: ParticipantService, useClass: MockParticipantService }, 
-        {provide: MatDialogRef, useValue: {} }, 
+      providers: [
+        { provide: ParticipantService, useClass: MockParticipantService },
+        {provide: MatDialogRef, useValue: {} },
         {provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: AuthenticationService, useClass: MockAuthenticationService },
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } }
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } }
       ]
     })
       .compileComponents();

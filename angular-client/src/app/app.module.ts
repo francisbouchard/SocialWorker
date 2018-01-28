@@ -24,7 +24,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthenticationService } from './services/authentication.service';
 import { ResourceService } from './services/resource.service';
 import { CaseModalComponent } from './components/case-modal/case-modal.component';
-import { CaseService } from './services/case.service';
+import { CasefileService } from './services/casefile.service';
 
 const routes: Routes = [
   {
@@ -97,7 +97,7 @@ const routes: Routes = [
     ParticipantService,
     MessageService,
     ResourceService,
-    CaseService,
+    CasefileService,
     AuthenticationService
   ],
   bootstrap: [AppComponent]

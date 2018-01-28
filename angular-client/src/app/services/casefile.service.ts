@@ -8,7 +8,7 @@ import { MessageService } from './message.service';
 
 
 @Injectable()
-export class CaseService {
+export class CasefileService {
 
   private url = 'http://localhost:3000/api/casefile/';
 
@@ -20,15 +20,15 @@ export class CaseService {
   /**
    * Get a case by ID
    * 
-   * @param {any} caseID 
-   * @returns {Observable<Object>} 
-   * @memberof CaseService
+   * @param {any} casefileID
+   * @returns {Observable<Object>}
+   * @memberof CasefileService
    */
-  get(caseID): Observable<Object> {
-    return this.http.get(`${this.url}/${caseID}`)
+  get(casefileID): Observable<Object> {
+    return this.http.get(`${this.url}/${casefileID}`)
       .pipe(
       tap(_ => this.log('fetched a case')),
-      catchError(this.handleError<Object>('get(caseID)'))
+      catchError(this.handleError<Object>('get(casefileID)'))
       );
   }
 
@@ -37,7 +37,7 @@ export class CaseService {
    * 
    * @param {any} participantID 
    * @returns {Observable<Object>} 
-   * @memberof CaseService
+   * @memberof CasefileService
    */
   getByParticipant(participantID): Observable<Object> {
     return this.http.get(`${this.url}/${participantID}`)
@@ -51,7 +51,7 @@ export class CaseService {
    * Get all cases
    *
    * @returns {Observable<Object>}
-   * @memberof CaseService
+   * @memberof CasefileService
    */
   getAll(): Observable<Object> {
     return this.http.get(this.url)
@@ -66,14 +66,14 @@ export class CaseService {
    * 
    * @param {any} caseData 
    * @returns {Observable<Object>} 
-   * @memberof CaseService
+   * @memberof CasefileService
    */
   save(caseData): Observable<Object> {
     return this.http.post<Object>(this.url, caseData)
       .pipe(
       tap(c => {
-        if (c.hasOwnProperty("errmsg")) {
-          console.log("has err msg");
+        if (c.hasOwnProperty('errmsg')) {
+          console.log('has err msg');
           this.log('did not save new case');
         } else {
           this.log('saved new case');
@@ -86,85 +86,85 @@ export class CaseService {
   /**
    * Add a contacted resource to the case with the given ID
    * 
-   * @param {any} caseID 
+   * @param {any} casefileID 
    * @param {any} resourceData 
    * @returns {Observable<Object>} 
-   * @memberof CaseService
+   * @memberof CasefileService
    */
-  addContactedResource(caseID, resourceData): Observable<Object> {
-    return this.http.post<Object>(`${this.url}/${caseID}/resource`, resourceData)
+  addContactedResource(casefileID, resourceData): Observable<Object> {
+    return this.http.post<Object>(`${this.url}/${casefileID}/resource`, resourceData)
       .pipe(
       tap(c => {
-        if (c.hasOwnProperty("errmsg")) {
-          console.log("has err msg");
+        if (c.hasOwnProperty('errmsg')) {
+          console.log('has err msg');
           this.log('did not add contacted resource to case');
         } else {
           this.log('added contacted resource to case');
         }
       }),
-      catchError(this.handleError<Object>('addContactedResource(caseID, resourceData)'))
+      catchError(this.handleError<Object>('addContactedResource(casefileID, resourceData)'))
       );
   }
 
   /**
    * Update the status of a contacted resource in the case
    * 
-   * @param {any} caseID 
+   * @param {any} casefileID 
    * @param {any} resourceID 
    * @param {any} status 
    * @returns {Observable<Object>} 
-   * @memberof CaseService
+   * @memberof CasefileService
    */
-  updateResourceStatus(caseID, resourceID, status): Observable<Object> {
-    return this.http.put<Object>(`${this.url}/${caseID}/resource/${resourceID}`, status)
+  updateResourceStatus(casefileID, resourceID, status): Observable<Object> {
+    return this.http.put<Object>(`${this.url}/${casefileID}/resource/${resourceID}`, status)
       .pipe(
       tap(c => {
-        if (c.hasOwnProperty("errmsg")) {
-          console.log("has err msg");
+        if (c.hasOwnProperty('errmsg')) {
+          console.log('has err msg');
           this.log('did not update contacted resource status');
         } else {
           this.log('updated contacted resource status');
         }
       }),
-      catchError(this.handleError<Object>('updateResourceStatus(caseID, resourceID, status)'))
+      catchError(this.handleError<Object>('updateResourceStatus(casefileID, resourceID, status)'))
       );
   }
 
   /**
    * Update the overall status of the case
    * 
-   * @param {any} caseID 
+   * @param {any} casefileID 
    * @param {any} status 
    * @returns {Observable<Object>} 
-   * @memberof CaseService
+   * @memberof CasefileService
    */
-  updateCaseStatus(caseID, status): Observable<Object> {
-    return this.http.put<Object>(`${this.url}/${caseID}/status`, status)
+  updateCaseStatus(casefileID, status): Observable<Object> {
+    return this.http.put<Object>(`${this.url}/${casefileID}/status`, status)
       .pipe(
       tap(c => {
-        if (c.hasOwnProperty("errmsg")) {
-          console.log("has err msg");
+        if (c.hasOwnProperty('errmsg')) {
+          console.log('has err msg');
           this.log('did not update case status');
         } else {
           this.log('updated case status');
         }
       }),
-      catchError(this.handleError<Object>('updateCaseStatus(caseID, status)'))
+      catchError(this.handleError<Object>('updateCaseStatus(casefileID, status)'))
       );
   }
 
   /**
    * Delete a case by ID
    * 
-   * @param {any} caseID 
+   * @param {any} casefileID 
    * @returns {Observable<Object>} 
-   * @memberof CaseService
+   * @memberof CasefileService
    */
-  delete(caseID): Observable<Object> {
-    return this.http.delete(`${this.url}/${caseID}`)
+  delete(casefileID): Observable<Object> {
+    return this.http.delete(`${this.url}/${casefileID}`)
       .pipe(
       tap(_ => this.log('deleted case')),
-      catchError(this.handleError<Object>('delete(caseID)'))
+      catchError(this.handleError<Object>('delete(casefileID)'))
       );
   }
 

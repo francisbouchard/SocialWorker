@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  title = 'SocialWorker';
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router
