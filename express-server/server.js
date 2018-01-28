@@ -21,32 +21,7 @@ const participant = require('./routes/participant.route');
 const resource = require('./routes/resource.route');
 const casefile = require('./routes/casefile.route');
 
-<<<<<<< HEAD
-const app = express();
-
-// Parsers for POST data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// CORS
-var cors = require('cors');		
-app.use(cors({  		
-    origin: '*',		
-    withCredentials: false,		
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin' ]		
-}));
-
-// Set our api routes
-app.use('/', api);
-app.use('/user', user);
-app.use('/participant', participant);
-app.use('/resource', resource);
-app.use('/casefile', casefile);
-app.use(cors())
-
-=======
 const MongoStore = mongo(session);
->>>>>>> 26d654c58ab94afd3b5c35afc96031a508d67bd3
 
 // Load environment variables from .env file
 const dotenv = require('dotenv').config();
@@ -88,7 +63,7 @@ app.use('/api', api);
 app.use('/user', user);
 app.use('/api/participant', participant);
 app.use('/api/resource', resource);
-app.use('/api/request', request);
+app.use('/api/casefile', casefile);
 
 
 // Server public folder
