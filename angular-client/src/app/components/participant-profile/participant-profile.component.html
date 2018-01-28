@@ -1,17 +1,17 @@
 <div class="profile-div" *ngIf="participantSelected">
   <mat-card>
     <h2>{{participantSelected.name}}</h2>
-    <p>Email:
-      <span *ngIf="participantSelected.email !== ''">{{participantSelected.email}}</span>
+    <p *ngIf="participantSelected.email !== ''">Email:
+      {{participantSelected.email}}
     </p>
-    <p>Phone number:
-      <span *ngIf="participantSelected.telephone !== ''">{{participantSelected.telephone}}</span>
+    <p *ngIf="participantSelected.telephone !== ''">Phone number:
+      {{participantSelected.telephone}}
     </p>
-    <p>Social media:
-      <span *ngIf="participantSelected.socialmedia !== undefined">{{participantSelected.socialmedia.service}} {{participantSelected.socialmedia.username}}</span>
+    <p *ngIf="participantSelected.socialmedia !== undefined">Social media:
+      {{participantSelected.socialmedia.service}} {{participantSelected.socialmedia.username}}
     </p>
-    <p>Address:
-      <span *ngIf="participantSelected.address !== ''">{{participantSelected.address}}</span>
+    <p *ngIf="participantSelected.address !== ''">Address:
+      {{participantSelected.address}}
     </p>
     <mat-card-actions>
       <button mat-raised-button (click)="addNote()">Add Note</button>
@@ -32,6 +32,7 @@
           {{note.text | slice:0:100}}...
         </mat-panel-description>
       </mat-expansion-panel-header>
+      <h4>Note:</h4>
       {{note.text}}
       <br><br>
       <h4>Attachments:</h4>
