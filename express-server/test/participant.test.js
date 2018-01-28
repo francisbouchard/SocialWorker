@@ -233,6 +233,7 @@ describe('Participant Tests', () => {
         it('should DELETE the document of the participant by the given IDs', (done) => {
             chai.request(server)
                 .del('/api/participant/' + id1 + '/doc/' + docId)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();
@@ -244,6 +245,7 @@ describe('Participant Tests', () => {
         it('should DELETE the note of the participant by the given IDs', (done) => {
             chai.request(server)
                 .del('/api/participant/' + id1 + '/note/' + noteId)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();
