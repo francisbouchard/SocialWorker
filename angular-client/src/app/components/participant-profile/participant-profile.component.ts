@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Location } from '@angular/common';
-import { ParticipantService } from '../../services/participant.service';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Participant } from '../../classes/participant';
 import { NoteComponent } from '../note/note.component';
-import { AuthenticationService } from '../../services/authentication.service';
-import { AppModule } from '../../app.module';
-import { ActivatedRoute, RouterModule, Router } from '@angular/router';
-
 import { CaseModalComponent } from '../case-modal/case-modal.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AuthenticationService } from '../../services/authentication.service';
+import { ParticipantService } from '../../services/participant.service';
+import { CasefileService } from '../../services/casefile.service';
+
 
 
 @Component({
@@ -26,6 +26,7 @@ export class ParticipantProfileComponent implements OnInit {
     private participantService: ParticipantService,
     private location: Location,
     private dialog: MatDialog,
+    private casefileService: CasefileService,
     public authService: AuthenticationService,
   ) { }
 
@@ -37,9 +38,9 @@ export class ParticipantProfileComponent implements OnInit {
   }
 
   /**
+   * Load a participant's profile
    *
-   * Updates the participant based on the _id
-   *
+   * @memberof ParticipantProfileComponent
    */
   loadParticipant(): void {
     const id = this.route.snapshot.paramMap.get('_id');
@@ -50,6 +51,7 @@ export class ParticipantProfileComponent implements OnInit {
         this.orderedNotes = this.participantSelected.notes.sort((note1, note2) => {
           return new Date(note2.date).getTime() - new Date(note1.date).getTime();
         });
+        this.loadCases();
       } else {
         console.log('Participant does not exist anymore.');
         this.location.back();
@@ -68,22 +70,29 @@ export class ParticipantProfileComponent implements OnInit {
     });
   }
 
-  /**
-   * 
-   * Deletes the selected note
-   * 
-   */
-  deleteNote(noteID): void {
-    this.participantService.deleteNote(this.participantSelected._id, noteID)
-    .subscribe(result => {
-      console.log('note deleted');
-      this.loadParticipant();
+  loadCases(): void {
+    this.casefileService.getByParticipant(this.participantSelected._id)
+    .subscribe(cases => {
+      console.log(cases);
     });
   }
 
   /**
+   * Deletes selected note
+   *
+   * @param {any} noteID
+   * @memberof ParticipantProfileComponent
+   */
+  deleteNote(noteID): void {
+    this.participantService.deleteNote(this.participantSelected._id, noteID)
+      .subscribe(result => {
+        this.loadParticipant();
+      });
+  }
+
+  /**
    * Add a note to a participant
-   * 
+   *
    * @memberof ParticipantProfileComponent
    */
   addNote(): void {

@@ -33,16 +33,16 @@ export class CasefileService {
   }
 
   /**
-   * Get a case by participant ID
+   * Get cases by participant ID
    *
    * @param {any} participantID
    * @returns {Observable<Object>}
    * @memberof CasefileService
    */
   getByParticipant(participantID): Observable<Object> {
-    return this.http.get(`${this.url}/${participantID}`)
+    return this.http.get(`${this.url}/participant/${participantID}`)
       .pipe(
-      tap(cases => this.log('fetched a case')),
+      tap(cases => this.log('fetched cases')),
       catchError(this.handleError<Object>('getByParticipant(participantID)'))
       );
   }
