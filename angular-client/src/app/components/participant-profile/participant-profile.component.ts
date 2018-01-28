@@ -44,17 +44,17 @@ export class ParticipantProfileComponent implements OnInit {
   loadParticipant(): void {
     const id = this.route.snapshot.paramMap.get('_id');
     this.participantService.get(id).subscribe(participantSelected => {
-        if (participantSelected != null) {
-          this.participantSelected = participantSelected as Participant;
-          // order notes of participant in reverse chronological order
-          this.orderedNotes = this.participantSelected.notes.sort((note1, note2) => {
-            return new Date(note2.date).getTime() - new Date(note1.date).getTime();
-          });
-        } else {
-          console.log('Participant does not exist anymore.');
-          this.location.back();
-        }
-      });
+      if (participantSelected != null) {
+        this.participantSelected = participantSelected as Participant;
+        // order notes of participant in reverse chronological order
+        this.orderedNotes = this.participantSelected.notes.sort((note1, note2) => {
+          return new Date(note2.date).getTime() - new Date(note1.date).getTime();
+        });
+      } else {
+        console.log('Participant does not exist anymore.');
+        this.location.back();
+      }
+    });
   }
 
   newCase(): void {
@@ -94,8 +94,8 @@ export class ParticipantProfileComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      console.log(result);
+      this.loadParticipant();
     });
   }
-}
 
+}
