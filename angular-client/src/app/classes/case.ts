@@ -1,6 +1,6 @@
 import { Participant } from './participant';
 
-export class Case {
+export class Casefile {
     participant: String;
     status: String;
     urgency: String;

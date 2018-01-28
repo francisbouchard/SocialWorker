@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CaseService } from '../../services/case.service';
 import { ResourceService } from '../../services/resource.service';
-import { Case } from '../../classes/case';
+import { Casefile } from '../../classes/case';
 
 
 @Component({
@@ -14,7 +14,7 @@ export class CaseModalComponent implements OnInit {
   statuses = ['In progress', 'Completed'];
   urgencies = ['Regular', 'Urgent'];
   resources: Object;
-  mycase: Case = {
+  mycase: Casefile = {
     participant: '',
     status: 'In progress',
     notes: '',
