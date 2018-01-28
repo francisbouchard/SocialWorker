@@ -9,6 +9,8 @@ import { CasefileService } from '../../services/casefile.service';
 import { MockCasefileService } from '../../mocks/MockCasefileService';
 
 import { Router } from '@angular/router';
+import { MockResourceService } from '../../mocks/MockResourceService';
+import { ResourceService } from '../../services/resource.service';
 
 describe('CaseModalComponent', () => {
   let component: CaseModalComponent;
@@ -21,7 +23,8 @@ describe('CaseModalComponent', () => {
         {provide: MatDialogRef, useValue: {}},
         {provide: MAT_DIALOG_DATA, useValue: {}},
         {provide: AuthenticationService, useClass: MockAuthenticationService },
-        {provide: CasefileService, useClass: MockCasefileService }
+        {provide: CasefileService, useClass: MockCasefileService },
+        {provide: ResourceService, useClass: MockResourceService}
       ],
       declarations: [ CaseModalComponent ]
     })
