@@ -47,6 +47,11 @@ export class CaseModalComponent implements OnInit {
       });
   }
 
+  /**
+   * Changes the array on contacteResources
+   * from an array of Strings to an array 
+   * of key-value pairs _id:String status:String
+   */
   makeResourceArray(): void {
     const arrayOfResources = this.mycase.contactedResources;
     this.mycase.contactedResources = [];

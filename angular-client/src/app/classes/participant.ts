@@ -1,4 +1,4 @@
-import { Case } from './case';
+import { Casefile    } from './case';
 
 export class Participant {
     _id: String;

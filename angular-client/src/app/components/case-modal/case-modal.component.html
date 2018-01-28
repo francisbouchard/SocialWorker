@@ -5,12 +5,9 @@
   <mat-radio-group [(ngModel)]="mycase.urgency" name="urgency" ng-checked="urgency[0]">
     <mat-radio-button *ngFor="let urgency of urgencies" [value]="urgency">{{urgency}}&nbsp;&nbsp;</mat-radio-button>
   </mat-radio-group>
-<br>
   <mat-form-field>
     <input matInput placeholder="Enter any relevant notes here" value="" [(ngModel)]="mycase.notes" name="notes">
   </mat-form-field>
-
-<br>
 <div class="hint">Select the shelters for this case</div>
   <mat-form-field>
     <mat-select multiple [(ngModel)]="mycase.contactedResources" name="contactedResources">
@@ -22,7 +19,7 @@
 </form>
 
 
-<div mat-dialog-actions>
+<mat-dialog-actions>
   <button mat-button (click)="submit()">Submit</button>
   <button mat-button (click)="cancel()">Cancel</button>
-</div>
+</mat-dialog-actions>

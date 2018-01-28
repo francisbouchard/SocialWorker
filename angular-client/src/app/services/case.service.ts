@@ -10,7 +10,7 @@ import { MessageService } from './message.service';
 @Injectable()
 export class CaseService {
 
-  private url = 'http://localhost:3000/casefile/';
+  private url = 'http://localhost:3000/api/casefile/';
 
   constructor(private http: HttpClient,
     private messageService: MessageService) {
