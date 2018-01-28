@@ -23,6 +23,8 @@ import { ParticipantService } from './services/participant.service';
 import { LoginComponent } from './components/login/login.component';
 import { AuthenticationService } from './services/authentication.service';
 import { ResourceService } from './services/resource.service';
+import { CaseModalComponent } from './components/case-modal/case-modal.component';
+import { CasefileService } from './services/casefile.service';
 
 const routes: Routes = [
   {
@@ -71,7 +73,10 @@ const routes: Routes = [
     LoginComponent,
     ParticipantProfileComponent,
     ResourcesComponent,
+    AddResourceComponent,
     ViewResourcesComponent,
+    ParticipantProfileComponent,
+    CaseModalComponent,
     NoteComponent
   ],
   imports: [
@@ -83,12 +88,17 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
-  entryComponents: [ AlertModalComponent, NoteComponent ],
+  entryComponents: [
+    AlertModalComponent,
+    CaseModalComponent,
+    NoteComponent
+  ],
   providers: [
     ParticipantService,
     MessageService,
-    AuthenticationService,
-    ResourceService
+    ResourceService,
+    CasefileService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

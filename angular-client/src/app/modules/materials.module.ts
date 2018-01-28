@@ -6,15 +6,16 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { CdkTableModule} from '@angular/cdk/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { 
-  MatButtonModule, 
+  MatButtonModule,
   MatCardModule,
   MatDialogModule,
-  MatIconModule, 
-  MatInputModule, 
-  MatTabsModule,
-  MatToolbarModule,  
+  MatIconModule,
+  MatInputModule,
+  MatRadioModule,
   MatSelectModule,
-  MatOptionModule, 
+  MatTabsModule,
+  MatToolbarModule,
+  MatOptionModule,
   MatListModule,
   MatGridListModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
@@ -30,6 +31,7 @@ import { FormsModule } from '@angular/forms';
     MatDialogModule,
     MatInputModule,
     MatIconModule,
+    MatRadioModule,
     MatTabsModule,
     MatToolbarModule,
     MatExpansionModule,
