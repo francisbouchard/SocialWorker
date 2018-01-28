@@ -15,16 +15,14 @@ describe('NoteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NoteComponent],
-      imports: [MaterialsModule, FormsModule],
-      providers: [
-        { provide: ParticipantService, useClass: MockParticipantService },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} },
+      declarations: [ NoteComponent ],
+      imports: [ MaterialsModule, FormsModule ],
+      providers: [ 
+        { provide: ParticipantService, useClass: MockParticipantService }, 
+        {provide: MatDialogRef, useValue: {} }, 
+        {provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: AuthenticationService, useClass: MockAuthenticationService },
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } },
-        { provide: ParticipantService, useClass: MockParticipantService },
-        MatDialog
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } }
       ]
     })
       .compileComponents();

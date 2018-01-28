@@ -14,7 +14,10 @@ import {
   MatTabsModule,
   MatToolbarModule,  
   MatSelectModule,
-  MatOptionModule } from '@angular/material';
+  MatOptionModule, 
+  MatListModule,
+  MatGridListModule} from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -32,6 +35,9 @@ import {
     MatExpansionModule,
     MatSelectModule,
     MatOptionModule,
+    MatListModule,
+    MatGridListModule,
+    FormsModule,
     MatProgressSpinnerModule
   ]
 })

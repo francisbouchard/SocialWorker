@@ -9,7 +9,7 @@ let id1 = new mongoose.Types.ObjectId();
 let id2 = null;
 let id3 = new mongoose.Types.ObjectId();
 let id4 = new mongoose.Types.ObjectId();
-let cookie = "connect.sid=s%3A1lS2K83NTmT-TV7lzdP-1zBUs0TovpZS.OOzwP5p4pWO9eYOySivKKyxSfrsDskqVAJ%2FK1cKLaIQ";
+let cookie;
 
 chai.use(chaiHttp);
 
@@ -17,15 +17,15 @@ describe('Housing Resources Tests', () => {
 
     before((finished) => {
         chai.request(server)
-                .post('/user/login')
-                .send({
-                    "email": "test1@test.com",
-                    "password": "test"
-                })
-                .end((err, res) => {
-                    cookie = res.headers['set-cookie'].pop().split(';')[0];
-                    finished();
-                });
+            .post('/user/login')
+            .send({
+                "email": "test1@test.com",
+                "password": "test"
+            })
+            .end((err, res) => {
+                cookie = res.headers['set-cookie'].pop().split(';')[0];
+                finished();
+            });
         let housing1 = new Housing({
             _id: id1,
             name: "Housing Facility Name",
@@ -157,7 +157,7 @@ describe('Housing Resources Tests', () => {
             chai.request(server)
                 .put('/api/resource/housing/' + id1)
                 .set('Cookie', cookie)
-                .send({notes: notes, term: term})
+                .send({ notes: notes, term: term })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.have.property('notes').eql(notes);
@@ -180,10 +180,10 @@ describe('Housing Resources Tests', () => {
     });
 
     after(() => {
-        Housing.findByIdAndRemove(id1).then(data => {}, err => {
+        Housing.findByIdAndRemove(id1).then(data => { }, err => {
             console.log(err);
         });
-        Housing.findByIdAndRemove(id2).then(data => {}, err => {
+        Housing.findByIdAndRemove(id2).then(data => { }, err => {
             console.log(err);
         });
     });

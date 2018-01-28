@@ -20,7 +20,8 @@ export class NewParticipantComponent implements OnInit {
     address: '',
     telephone: '',
     email: '',
-    socialmedia: {service: '', username: '' }
+    socialmedia: {service: '', username: '' },
+    notes: [{}]
   };
 
   isAlreadyAParticipantID = false;

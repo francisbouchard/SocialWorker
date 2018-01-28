@@ -5,4 +5,5 @@ export class Participant {
     telephone: String;
     email: String;
     socialmedia: { service: String, username: String };
+    notes: [any];
 }

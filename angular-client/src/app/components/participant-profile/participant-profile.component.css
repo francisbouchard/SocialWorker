@@ -1,3 +1,15 @@
-.mat-card {
-    margin: 1.5em;
+.history-header {
+    margin-left: 24px;
+}
+
+.profile-div {
+    padding: 1%;
+}
+
+mat-panel-title {
+    max-width: 25%;
+}
+
+mat-panel-description {
+    flex: 1;
 }
