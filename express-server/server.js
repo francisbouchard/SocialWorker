@@ -19,7 +19,7 @@ const api = require('./routes/api');
 const user = require('./routes/user');
 const participant = require('./routes/participant.route');
 const resource = require('./routes/resource.route');
-const request = require('./routes/request.route');
+const casefile = require('./routes/casefile.route');
 
 const MongoStore = mongo(session);
 
@@ -63,7 +63,7 @@ app.use('/api', api);
 app.use('/user', user);
 app.use('/api/participant', participant);
 app.use('/api/resource', resource);
-app.use('/api/request', request);
+app.use('/api/casefile', casefile);
 
 
 // Server public folder
