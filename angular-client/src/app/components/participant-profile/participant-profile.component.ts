@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Participant } from '../../classes/participant';
+import { Casefile } from '../../classes/case';
 import { NoteComponent } from '../note/note.component';
 import { CaseModalComponent } from '../case-modal/case-modal.component';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -18,8 +19,11 @@ import { CasefileService } from '../../services/casefile.service';
 })
 
 export class ParticipantProfileComponent implements OnInit {
+
+  orderedCases = [];
   orderedNotes = [];
   @Input() public participantSelected: Participant;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -47,11 +51,11 @@ export class ParticipantProfileComponent implements OnInit {
     this.participantService.get(id).subscribe(participantSelected => {
       if (participantSelected != null) {
         this.participantSelected = participantSelected as Participant;
+        this.loadCases();
         // order notes of participant in reverse chronological order
         this.orderedNotes = this.participantSelected.notes.sort((note1, note2) => {
           return new Date(note2.date).getTime() - new Date(note1.date).getTime();
         });
-        this.loadCases();
       } else {
         console.log('Participant does not exist anymore.');
         this.location.back();
@@ -72,8 +76,13 @@ export class ParticipantProfileComponent implements OnInit {
 
   loadCases(): void {
     this.casefileService.getByParticipant(this.participantSelected._id)
-    .subscribe(cases => {
-      console.log(cases);
+    .subscribe(data => {
+      if (data[0]) {
+        this.orderedCases = data as Array<Casefile>;
+      } else {
+        this.orderedCases = [];
+      }
+      console.log(data);
     });
   }
 

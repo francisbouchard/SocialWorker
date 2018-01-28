@@ -19,25 +19,26 @@
     </mat-card-actions>
   </mat-card>
 
-  <!-- <h3 class="history-header">Cases</h3>
+  <h3 class="history-header">Cases</h3>
   <mat-card *ngIf="orderedCases.length == 0">
     No cases to display.
   </mat-card>
   <mat-accordion *ngIf="orderedCases.length > 0">
-    <mat-expansion-panel *ngFor="let case of orderedCases">
+    <mat-expansion-panel *ngFor="let casefile of orderedCases">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{case.date | date: 'fullDate'}}
+          {{casefile.date | date: 'fullDate'}}
         </mat-panel-title>
         <mat-panel-description>
-          {{case.text | slice:0:100}}...
+          {{casefile.status | slice:0:100}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <h4>Case note:</h4>
-      {{case.text}}
-      <button id="deleteBtn" mat-raised-button (click)="completeCase()">Completed</button>
+      <h4>Urgency:  {{casefile.urgency}} </h4>
+      <h4 *ngIf="casefile.notes[0]">Notes:</h4>
+      <div>{{casefile.notes[0]}}</div>
+      <!-- <button id="deleteBtn" mat-raised-button (click)="completeCase()">Completed</button> -->
     </mat-expansion-panel>
-  </mat-accordion> -->
+  </mat-accordion>
 
   <h3 class="history-header">Notes</h3>
   <mat-card *ngIf="orderedNotes.length == 0">
