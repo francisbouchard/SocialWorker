@@ -1,9 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoteComponent } from './note.component';
-import { ParticipantService } from '../../services/participant.service';
 import { MaterialsModule } from '../../modules/materials.module';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ParticipantService } from '../../services/participant.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { FormsModule } from '@angular/forms';
+import { AuthenticationService } from '../../services/authentication.service';
+import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { Router } from '@angular/router';
+import { NoteComponent } from './note.component';
 
 describe('NoteComponent', () => {
   let component: NoteComponent;
@@ -12,10 +16,16 @@ describe('NoteComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ NoteComponent ],
-      imports: [ MaterialsModule ],
-      providers: [ { provide: ParticipantService, useClass: MockParticipantService }, {provide: MatDialogRef, useValue: {}}, {provide: MAT_DIALOG_DATA, useValue: {}} ]
+      imports: [ MaterialsModule, FormsModule ],
+      providers: [ 
+        { provide: ParticipantService, useClass: MockParticipantService }, 
+        {provide: MatDialogRef, useValue: {} }, 
+        {provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
