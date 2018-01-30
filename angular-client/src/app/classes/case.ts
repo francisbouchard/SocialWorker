@@ -1,5 +1,3 @@
-import { Participant } from './participant';
-
 export class Casefile {
     participant: String;
     status: String;

@@ -69,7 +69,6 @@ export class ParticipantProfileComponent implements OnInit {
       data: { participant: this.participantSelected }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.loadParticipant();
     });
   }
@@ -79,6 +78,7 @@ export class ParticipantProfileComponent implements OnInit {
     .subscribe(data => {
       if (data[0]) {
         this.orderedCases = data as Array<Casefile>;
+        // TODO order cases by chrono order!
       } else {
         this.orderedCases = [];
       }
@@ -124,7 +124,6 @@ export class ParticipantProfileComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.loadParticipant();
     });
   }

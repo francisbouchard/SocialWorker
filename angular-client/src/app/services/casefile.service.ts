@@ -73,7 +73,6 @@ export class CasefileService {
       .pipe(
       tap(c => {
         if (c.hasOwnProperty('errmsg')) {
-          console.log('has err msg');
           this.log('did not save new case');
         } else {
           this.log('saved new case');

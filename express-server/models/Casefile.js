@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const casefileSchema = new Schema({
   participant: { type: String, ref: 'Participant', required: true },
   contactedResources: [{
-    _id: { type: Schema.Types.ObjectId, ref: 'Resource', sparse: true, required: true },
+    resource: { type: Schema.Types.ObjectId, ref: 'Resource', sparse: true, required: true },
     status: String
   }],
   status: String,

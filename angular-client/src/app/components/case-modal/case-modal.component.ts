@@ -43,7 +43,6 @@ export class CaseModalComponent implements OnInit {
   loadAllResources() {
     this.resourceService.getAll()
       .subscribe(data => {
-        console.log(data);
         this.resources = data;
       });
   }
@@ -51,13 +50,13 @@ export class CaseModalComponent implements OnInit {
   /**
    * Changes the array on contacteResources
    * from an array of Strings to an array 
-   * of key-value pairs _id:String status:String
+   * of key-value pairs resource:String status:String
    */
   makeResourceArray(): void {
     const arrayOfResources = this.mycase.contactedResources;
     this.mycase.contactedResources = [];
     arrayOfResources.forEach(element => {
-      this.mycase.contactedResources.push({_id: element, status: ''});
+      this.mycase.contactedResources.push({resource: element, status: ''});
     });
   }
 
@@ -65,7 +64,6 @@ export class CaseModalComponent implements OnInit {
     this.makeResourceArray();
     this.caseService.save(this.mycase)
     .subscribe(data => {
-      console.log(data);
       this.dialogRef.close();
     });
   }
