@@ -71,7 +71,7 @@ describe('Casefile Tests', () => {
             participant: participantId1,
             notes: "testing",
             contactedResources: [{
-                _id: housingId2,
+                resource: housingId2,
                 status: "pending"
             }]
         });
@@ -164,7 +164,7 @@ describe('Casefile Tests', () => {
                     res.body.should.be.a('object');
                     res.body.should.have.property('_id');
                     res.body.should.have.property('contactedResources');
-                    res.body.contactedResources[0].should.have.property('_id');
+                    res.body.contactedResources[0].should.have.property('resource');
                     res.body.contactedResources[0].should.have.property('status');
                     done();
                 });
