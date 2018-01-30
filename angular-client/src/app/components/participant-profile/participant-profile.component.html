@@ -30,12 +30,14 @@
           {{casefile.date | date: 'fullDate'}}
         </mat-panel-title>
         <mat-panel-description>
-          {{casefile.status | slice:0:100}}
+          Status:  {{casefile.status | slice:0:100}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <h4>Urgency:  {{casefile.urgency}} </h4>
+      <h4>Urgency: </h4>{{casefile.urgency}}
       <h4 *ngIf="casefile.notes[0]">Notes:</h4>
-      <div>{{casefile.notes[0]}}</div>
+      <p>{{casefile.notes[0]}}</p>
+      <h4>Resources:</h4>
+      <p *ngFor="let case of casefile.contactedResources">{{case.resource.name}}</p>
      <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
     </mat-expansion-panel>
   </mat-accordion>
