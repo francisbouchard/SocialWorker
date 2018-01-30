@@ -41,7 +41,7 @@ export class ParticipantService {
   getAll(): Observable<Object> {
     return this.http.get(this.url)
       .pipe(
-      tap(participants => this.log('fecthed all participants')),
+      tap(participants => this.log('fetched all participants')),
       catchError(this.handleError<Object>('getAll()'))
       );
   }
@@ -108,7 +108,7 @@ export class ParticipantService {
    * @memberof ParticipantService
    */
   deleteCasefile(casefileID: String): Observable<Object> {
-    return this.http.delete(`${this.url}/casefile/${casefileID}`)
+    return this.http.delete(`${this.url}/${casefileID}`)
       .pipe(
       tap(_ => this.log('deleted casefile')),
       catchError(this.handleError<Object>('deleteCasefile(casefileID)'))

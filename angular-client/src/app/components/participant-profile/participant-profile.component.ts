@@ -108,6 +108,7 @@ export class ParticipantProfileComponent implements OnInit {
   deleteCasefile(casefileID): void {
     this.participantService.deleteCasefile(casefileID)
       .subscribe(result => {
+        console.log('Deleted: ' + result);
         this.loadParticipant();
       });
   }
