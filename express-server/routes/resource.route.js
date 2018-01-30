@@ -81,6 +81,8 @@ router.put('/housing/:id', (req, res) => {
     })
 });
 
+
+
 /**
  * Delete a resource with the given ID
  */

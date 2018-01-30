@@ -106,7 +106,7 @@ export class ParticipantProfileComponent implements OnInit {
    * @memberof ParticipantProfileComponent
    */
   deleteCasefile(casefileID): void {
-    this.participantService.deleteNote(this.participantSelected._id, casefileID)
+    this.participantService.deleteCasefile(casefileID)
       .subscribe(result => {
         this.loadParticipant();
       });
