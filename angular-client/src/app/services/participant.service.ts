@@ -86,9 +86,9 @@ export class ParticipantService {
 
   /**
    * Delete a participant by ID
-   * 
-   * @param {any} participantID 
-   * @returns {Observable<Object>} 
+   *
+   * @param {any} participantID
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   delete(participantID): Observable<Object> {
@@ -98,23 +98,6 @@ export class ParticipantService {
       catchError(this.handleError<Object>('delete(participantID)'))
       );
   }
-
-    /**
-   * Delete a participant's casefile by its ID
-   * 
-   * @param {String} participantID 
-   * @param {String} casefileID 
-   * @returns {Observable<Object>} 
-   * @memberof ParticipantService
-   */
-  deleteCasefile(casefileID: String): Observable<Object> {
-    return this.http.delete(`${this.url}/${casefileID}`)
-      .pipe(
-      tap(_ => this.log('deleted casefile')),
-      catchError(this.handleError<Object>('deleteCasefile(casefileID)'))
-      );
-  }
-
 
   /**
    * Delete a participant's note by its ID
@@ -135,9 +118,9 @@ export class ParticipantService {
   /**
    * Search participants to see if account email already exists,
    * or it participant ID has already been taken.
-   * 
-   * @param {any} participantAttributeValuePair 
-   * @returns {Observable<Object>} 
+   *
+   * @param {any} participantAttributeValuePair
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   search(participantAttributeValuePair): Observable<Object> {

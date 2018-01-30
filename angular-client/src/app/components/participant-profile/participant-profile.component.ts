@@ -102,13 +102,12 @@ export class ParticipantProfileComponent implements OnInit {
   /**
    * Deletes selected casefile
    *
-   * @param {any} noteID
+   * @param {any} casefileID
    * @memberof ParticipantProfileComponent
    */
   deleteCasefile(casefileID): void {
-    this.participantService.deleteCasefile(casefileID)
+    this.casefileService.delete(casefileID)
       .subscribe(result => {
-        console.log('Deleted: ' + result);
         this.loadParticipant();
       });
   }
