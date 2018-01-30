@@ -37,7 +37,9 @@
       <h4 *ngIf="casefile.notes[0]">Notes:</h4>
       <p>{{casefile.notes[0]}}</p>
       <h4>Resources:</h4>
-      <p *ngFor="let case of casefile.contactedResources">{{case.resource.name}}</p>
+      <p *ngFor="let case of casefile.contactedResources">{{case.resource.name}}
+        <mat-slide-toggle color="accent">Contacted</mat-slide-toggle>
+      </p>
      <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
     </mat-expansion-panel>
   </mat-accordion>

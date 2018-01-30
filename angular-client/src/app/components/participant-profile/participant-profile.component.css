@@ -6,6 +6,16 @@
     padding: 1%;
 }
 
+p {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+mat-slide-toggle {
+    margin-left: 5px;
+}
+
 mat-panel-title {
     max-width: 25%;
 }
