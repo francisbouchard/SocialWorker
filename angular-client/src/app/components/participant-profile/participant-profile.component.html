@@ -34,20 +34,18 @@
       <p>{{casefile.notes[0]}}</p>
       <h4>Resources:</h4>
       <form>
-      <div class="resource" *ngFor="let case of casefile.contactedResources">
-        <p>{{case.resource.name}}</p> 
-        <mat-slide-toggle color="accent">Contacted</mat-slide-toggle>
-        <!-- <mat-form-field>
-            <input matInput placeholder="Date Contacted" [value]="date">
-            <mat-datepicker-toggle></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field> -->
-        <mat-form-field>
+        <div class="resource" *ngFor="let case of casefile.contactedResources">
+          <p>{{case.resource.name}}</p>
+          <mat-slide-toggle color="accent">Contacted</mat-slide-toggle>
+          <mat-form-field>
             <input matInput [matDatepicker]="picker" placeholder="Contacted when?">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
           </mat-form-field>
-      </div>
+          <mat-form-field>
+            <input matInput placeholder="Note" value="Placeholder text">
+          </mat-form-field>
+        </div>
       </form>
       <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
     </mat-expansion-panel>
