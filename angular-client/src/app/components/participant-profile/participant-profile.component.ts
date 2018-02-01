@@ -9,7 +9,7 @@ import { CaseModalComponent } from '../case-modal/case-modal.component';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ParticipantService } from '../../services/participant.service';
 import { CasefileService } from '../../services/casefile.service';
-
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -22,6 +22,7 @@ export class ParticipantProfileComponent implements OnInit {
 
   orderedCases = [];
   orderedNotes = [];
+  date = new Date(1990, 0, 1);
   @Input() public participantSelected: Participant;
 
   constructor(

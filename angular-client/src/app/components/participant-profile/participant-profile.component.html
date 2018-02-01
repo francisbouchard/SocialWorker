@@ -1,20 +1,16 @@
 <div class="profile-div" *ngIf="participantSelected">
   <mat-card>
     <h2>{{participantSelected.name}}</h2>
-    <p *ngIf="participantSelected.email !== ''">Email:
-      {{participantSelected.email}}
+    <p *ngIf="participantSelected.email !== ''">Email: {{participantSelected.email}}
     </p>
-    <p *ngIf="participantSelected.telephone !== ''">Phone number:
-      {{participantSelected.telephone}}
+    <p *ngIf="participantSelected.telephone !== ''">Phone number: {{participantSelected.telephone}}
     </p>
-    <p *ngIf="participantSelected.socialmedia !== undefined">Social media:
-      {{participantSelected.socialmedia.service}} {{participantSelected.socialmedia.username}}
+    <p *ngIf="participantSelected.socialmedia !== undefined">Social media: {{participantSelected.socialmedia.service}} {{participantSelected.socialmedia.username}}
     </p>
-    <p *ngIf="participantSelected.address !== ''">Address:
-      {{participantSelected.address}}
+    <p *ngIf="participantSelected.address !== ''">Address: {{participantSelected.address}}
     </p>
     <mat-card-actions>
-        <button mat-raised-button (click)="newCase()">New case</button>
+      <button mat-raised-button (click)="newCase()">New case</button>
       <button mat-raised-button (click)="addNote()">Add Note</button>
     </mat-card-actions>
   </mat-card>
@@ -30,17 +26,30 @@
           {{casefile.date | date: 'fullDate'}}
         </mat-panel-title>
         <mat-panel-description>
-          Status:  {{casefile.status | slice:0:100}}
+          Status: {{casefile.status | slice:0:100}}
         </mat-panel-description>
       </mat-expansion-panel-header>
       <h4>Urgency: </h4>{{casefile.urgency}}
       <h4 *ngIf="casefile.notes[0]">Notes:</h4>
       <p>{{casefile.notes[0]}}</p>
       <h4>Resources:</h4>
-      <p *ngFor="let case of casefile.contactedResources">{{case.resource.name}}
+      <form>
+      <div class="resource" *ngFor="let case of casefile.contactedResources">
+        <p>{{case.resource.name}}</p> 
         <mat-slide-toggle color="accent">Contacted</mat-slide-toggle>
-      </p>
-     <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
+        <!-- <mat-form-field>
+            <input matInput placeholder="Date Contacted" [value]="date">
+            <mat-datepicker-toggle></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> -->
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Contacted when?">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+      </div>
+      </form>
+      <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
     </mat-expansion-panel>
   </mat-accordion>
 
@@ -60,11 +69,12 @@
       </mat-expansion-panel-header>
       <h4>Note:</h4>
       {{note.text}}
-      <br><br>
+      <br>
+      <br>
       <h4>Attachments:</h4>
       <mat-grid-list cols="2" *ngFor="let attach of note.attachment">
         <!-- <mat-grid-tile> -->
-          <img [src]="attach">
+        <img [src]="attach">
         <!-- </mat-grid-tile> -->
       </mat-grid-list>
       <br>
