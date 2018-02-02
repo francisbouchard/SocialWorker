@@ -37,7 +37,7 @@ export class ProfilesComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(!this.authService.loggedIn){
+    if (!this.authService.loggedIn) {
       this.router.navigateByUrl('login');
     } else {
       this.loadProfiles();

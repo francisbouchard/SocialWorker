@@ -6,6 +6,7 @@ const Note = require('../models/Note').schema;
 const participantSchema = new Schema({
   _id: { type: String, required: true },
   name: String,
+  pronouns: String,
   email: { type: String, sparse: true },
   telephone: String,
   address: String,

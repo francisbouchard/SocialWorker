@@ -5,9 +5,9 @@ const mongoose = require('mongoose');
 const server = require('../server');
 const Participant = require('../models/Participant');
 
-let id1 = "testingID1";
-let id2 = "testingID2";
-let id3 = "testingID3";
+let id1 = 'testingID1';
+let id2 = 'testingID2';
+let id3 = 'testingID3';
 let noteId = new mongoose.Types.ObjectId();
 let docId = new mongoose.Types.ObjectId();
 let cookie;
@@ -20,8 +20,8 @@ describe('Participant Tests', () => {
         chai.request(server)
                 .post('/user/login')
                 .send({
-                    "email": "test1@test.com",
-                    "password": "test"
+                    'email': 'test1@test.com',
+                    'password': 'test'
                 })
                 .end((err, res) => {
                     cookie = res.headers['set-cookie'].pop().split(';')[0];
@@ -29,26 +29,27 @@ describe('Participant Tests', () => {
                 });
         let participant1 = new Participant({
             _id: id1,
-            name: "participant1",
-            email: "participant1@p.com",
-            telephone: "514-1234567",
-            address: "1234 Sherbrooke",
-            socialmedia: { service: "facebook", username: "participant1" },
+            name: 'participant1',
+            pronouns: 'she/her',
+            email: 'participant1@p.com',
+            telephone: '514-1234567',
+            address: '1234 Sherbrooke',
+            socialmedia: { service: 'facebook', username: 'participant1' },
             notes: [{
                 _id: noteId,
-                text: "some notes"
+                text: 'some notes'
             }],
             documents: [{
                 _id: docId,
-                type: "Form XYZ",
-                attachment: ["url"]
+                type: 'Form XYZ',
+                attachment: ['url']
             }]
         });
         let participant3 = new Participant({
             _id: id3,
-            name: "participant3",
-            email: "participant3@p.com",
-            telephone: "514-1234567"
+            name: 'participant3',
+            email: 'participant3@p.com',
+            telephone: '514-1234567'
         });
         participant1.save().then(data => {}, err => {
             console.log(err);
@@ -81,6 +82,7 @@ describe('Participant Tests', () => {
                     res.body.should.be.a('object');
                     res.body.should.have.property('_id');
                     res.body.should.have.property('name');
+                    res.body.should.have.property('pronouns');
                     res.body.should.have.property('email');
                     res.body.should.have.property('telephone');
                     res.body.should.have.property('address');
@@ -103,7 +105,7 @@ describe('Participant Tests', () => {
 
     describe('/GET/search/:values', () => {
         it('should GET the participants matching the given values', (done) => {
-            let values = "name=participant1"
+            let values = 'name=participant1'
             chai.request(server)
                 .get('/api/participant/search/' + values)
                 .set('Cookie', cookie)
@@ -115,7 +117,7 @@ describe('Participant Tests', () => {
                 });
         });
         it('should not GET any participants matching the given values', (done) => {
-            let values = "name=participant500"
+            let values = 'name=participant500'
             chai.request(server)
                 .get('/api/participant/search/' + values)
                 .set('Cookie', cookie)
@@ -131,9 +133,9 @@ describe('Participant Tests', () => {
     describe('/POST', () => {
         it('should not POST a participant without _id', (done) => {
             let participant = {
-                name: "participant",
-                email: "participant@p.com",
-                telephone: "514-1234567"
+                name: 'participant',
+                email: 'participant@p.com',
+                telephone: '514-1234567'
             }
             chai.request(server)
                 .post('/api/participant')
@@ -151,9 +153,9 @@ describe('Participant Tests', () => {
         it('should POST a participant', (done) => {
             let participant = {
                 _id: id2,
-                name: "participant",
-                email: "participant2@p.com",
-                telephone: "514-1234567"
+                name: 'participant',
+                email: 'participant2@p.com',
+                telephone: '514-1234567'
             }
             chai.request(server)
                 .post('/api/participant')
@@ -164,6 +166,7 @@ describe('Participant Tests', () => {
                     res.body.should.be.a('object');
                     res.body.should.have.property('_id');
                     res.body.should.have.property('name');
+                    res.body.should.have.property('pronouns');
                     res.body.should.have.property('email');
                     res.body.should.have.property('telephone');
                     done();
@@ -174,8 +177,8 @@ describe('Participant Tests', () => {
     describe('/POST/:pid/doc', () => {
         it('should POST a document to given participant', (done) => {
             let document = {
-                type: "A123 Form",
-                attachment: "url"
+                type: 'A123 Form',
+                attachment: 'url'
             }
             Participant.findById(id1).then(participant => {
                 let numOfDocs = participant.documents.length;
@@ -197,8 +200,8 @@ describe('Participant Tests', () => {
     describe('/POST/:pid/note', () => {
         it('should POST a note to given participant', (done) => {
             let note = {
-                text: "notes taken",
-                attachment: "url"
+                text: 'notes taken',
+                attachment: 'url'
             }
             Participant.findById(id1).then(participant => {
                 let numOfNotes = participant.notes.length;

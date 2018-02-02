@@ -18,6 +18,10 @@
     <div *ngIf="isAlreadyAParticipantID" style="color:red">This is already associated to a participant!</div>
 
     <mat-form-field>
+      <input matInput placeholder="Pronouns" name="pronouns" [(ngModel)]="participantData.pronouns">
+    </mat-form-field>
+
+    <mat-form-field>
       <span matPrefix>+1 &nbsp;</span>
       <input type="tel" matInput placeholder="Telephone" name="telephone" [(ngModel)]="participantData.telephone">
     </mat-form-field>
