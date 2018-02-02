@@ -5,8 +5,11 @@ const casefileSchema = new Schema({
   participant: { type: String, ref: 'Participant', required: true },
   contactedResources: [{
     resource: { type: Schema.Types.ObjectId, ref: 'Resource', sparse: true, required: true },
-    status: String
+    status: String,
+    dateContacted: Date,
+    note: String
   }],
+  selectedResource: { type: Schema.Types.ObjectId, ref: 'Resource', sparse: true, required: true },
   status: String,
   urgency: String,
   notes: [String],

@@ -57,7 +57,9 @@ router.post('/', (req, res) => {
         notes: [req.body.notes],
         status: req.body.status,
         urgency: req.body.urgency,
-        contactedResources: req.body.contactedResources
+        contactedResources: req.body.contactedResources,
+        selectedResource: req.body.selectedResource,
+        date: req.body.date
     });
     casefile.save().then(data => {
         res.send(data);
@@ -75,7 +77,9 @@ router.post('/:id/resource', (req, res) => {
 
         let contResource = {
             resource: req.body.resourceId,
-            status: req.body.status
+            status: req.body.status,
+            dateContacted: req.body.dateContacted,
+            note: req.body.note
         };
         Casefile.update({ _id: req.params.id }, { $push: { contactedResources: contResource } }).then(data => {
             res.send(data);
@@ -98,6 +102,28 @@ router.put('/:id/resource/:resId', (req, res) => {
         }, err => {
             res.send(err);
         })
+});
+
+/**
+ * Update a contacted resource's details
+ */
+router.put('/:id/resource/:resId', (req, res) => {
+    Resource.update({ _id: req.params.id },
+        { $pull: { contactedResources: {resource: req.params.resId} } }).then(contResource => {
+        if (!contResource) return res.send({ err: "Contacted Resource does not exist." });
+
+        contResource.status = req.body.status || contResource.status;
+        contResource.dateContacted = req.body.dateContacted || contResource.dateContacted;
+        contResource.note = req.body.note || contResource.note;
+
+        Casefile.update({ _id: req.params.id }, { $push: { contactedResources: contResource } }).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+    }, err => {
+        res.send(err);
+    });
 });
 
 /**
