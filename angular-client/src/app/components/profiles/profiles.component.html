@@ -6,6 +6,7 @@
     <mat-card-title><b>Name: {{profile.name}}</b></mat-card-title>
     <mat-card-subtitle>Username: {{profile._id}}</mat-card-subtitle>
   </mat-card-header>
+  
   <mat-card-content>
    <div *ngIf="profile.pronouns !== undefined && profile.pronouns !== ''"><b> Pronouns: </b> {{profile.pronouns}} <br></div>
    <div *ngIf="profile.email !== undefined && profile.email !== ''"><b> Email: </b> {{profile.email}} <br></div>
