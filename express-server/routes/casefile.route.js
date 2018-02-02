@@ -40,7 +40,7 @@ router.get('/participant/:id', (req, res) => {
  * Get a contacted resource of a Casefile by resource ID
  */
 router.get('/:id/resource/:resId', (req, res) => {
-    Casefile.findOne({ _id: req.params.id, 'contactedResources._id': req.params.resId },
+    Casefile.findOne({ _id: req.params.id, 'contactedResources.resource': req.params.resId },
         { 'contactedResources.$': 1 }).then(data => {
         res.send(data);
     }, err => {
@@ -74,7 +74,7 @@ router.post('/:id/resource', (req, res) => {
         if (!resource) return res.send({ err: "Resource ID does not exist." });
 
         let contResource = {
-            _id: req.body.resourceId,
+            resource: req.body.resourceId,
             status: req.body.status
         };
         Casefile.update({ _id: req.params.id }, { $push: { contactedResources: contResource } }).then(data => {
@@ -91,7 +91,7 @@ router.post('/:id/resource', (req, res) => {
  * Update status of a contacted resource
  */
 router.put('/:id/resource/:resId', (req, res) => {
-    Casefile.update({ '_id': req.params.id, 'contactedResources._id': req.params.resId },
+    Casefile.update({ '_id': req.params.id, 'contactedResources.resource': req.params.resId },
         { '$set': { 'contactedResources.$.status': req.body.status } })
         .then(data => {
             res.send(data);

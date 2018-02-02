@@ -162,7 +162,6 @@ describe('Casefile Tests', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
-                    res.body.should.have.property('resource');
                     res.body.should.have.property('contactedResources');
                     res.body.contactedResources[0].should.have.property('resource');
                     res.body.contactedResources[0].should.have.property('status');
