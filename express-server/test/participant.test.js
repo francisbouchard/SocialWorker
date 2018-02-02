@@ -154,6 +154,7 @@ describe('Participant Tests', () => {
             let participant = {
                 _id: id2,
                 name: 'participant',
+                pronouns: 'they/them',
                 email: 'participant2@p.com',
                 telephone: '514-1234567'
             }
