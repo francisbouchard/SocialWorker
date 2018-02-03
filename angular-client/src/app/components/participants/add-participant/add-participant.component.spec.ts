@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MaterialsModule } from '../../../modules/materials.module';
-import { AddParticipantComponent } from './new-participant.component';
+import { AddParticipantComponent } from './add-participant.component';
 import { ParticipantService } from '../../../services/participant.service';
 import { MatDialog } from '@angular/material';
 import { MockParticipantService } from '../../../mocks/MockParticipantService';

@@ -5,8 +5,9 @@ import { MaterialsModule } from '../../modules/materials.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ViewParticipantsComponent } from './view-participants/view-participants.component';
 import { AddParticipantComponent } from './add-participant/add-participant.component';
-//import { EditParticipantComponent } from './edit-participant/edit-participant.component'; //TODO
+// import { EditParticipantComponent } from './edit-participant/edit-participant.component'; //TODO
 import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { ParticipantService } from '../../services/participant.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
@@ -19,7 +20,7 @@ describe('ParticipantsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ParticipantsComponent, ViewParticipantsComponent, AddParticipantComponent], // EditParticipantComponent ],
       imports: [ MaterialsModule, RouterTestingModule ],
-      providers: [ { provide: ResourceService, useClass: MockParticipantService },
+      providers: [ { provide: ParticipantService, useClass: MockParticipantService },
         { provide: AuthenticationService, useClass: MockAuthenticationService },
         { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } } ]
     })
