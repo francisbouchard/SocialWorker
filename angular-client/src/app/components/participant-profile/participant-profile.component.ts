@@ -98,4 +98,8 @@ export class ParticipantProfileComponent implements OnInit {
     });
   }
 
+  addDocument() {
+    // TODO open modal
+  }
+
 }
