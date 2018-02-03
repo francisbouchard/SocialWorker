@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { ParticipantService } from '../../services/participant.service';
-import { AuthenticationService } from '../../services/authentication.service';
+import { ParticipantService } from '../../../services/participant.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-profiles',
-  templateUrl: './profiles.component.html',
-  styleUrls: ['./profiles.component.css']
+  selector: 'app-participants',
+  templateUrl: './view-participants.component.html',
+  styleUrls: ['./view-participants.component.css']
 })
-export class ProfilesComponent implements OnInit {
+export class ViewParticipantsComponent implements OnInit {
   public profiles;
   constructor(private participantService: ParticipantService, public authService: AuthenticationService, public router: Router) {
   }
 
-  loadProfiles() {
+  loadParticipants() {
     this.participantService.getAll()
     .subscribe(data => {
       this.profiles = data;
     });
   }
 
-  getProfile(pid) {
+  getParticipant(pid) {
     this.participantService.get(pid)
     .subscribe(data => {
       this.profiles = [data];
@@ -32,15 +32,15 @@ export class ProfilesComponent implements OnInit {
     this.participantService.delete(pid)
     .subscribe(data => {
       console.log('Deleted: ' + data);
-      this.loadProfiles();
+      this.loadParticipants();
     });
   }
 
   ngOnInit() {
-    if(!this.authService.loggedIn){
+    if (!this.authService.loggedIn) {
       this.router.navigateByUrl('login');
     } else {
-      this.loadProfiles();
+      this.loadParticipants();
     }
   }
 

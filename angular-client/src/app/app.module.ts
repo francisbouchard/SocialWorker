@@ -12,10 +12,10 @@ import { AlertModalComponent } from './components/alert-modal/alert-modal.compon
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { AddParticipantComponent } from './components/profiles/add-participant/add-participant.component';
+import { AddParticipantComponent } from './components/participants/add-participant/add-participant.component';
 import { NoteComponent } from './components/note/note.component';
 import { ParticipantProfileComponent } from './components/participant-profile/participant-profile.component';
-import { ProfilesComponent } from './components/profiles/profiles.component';
+import { ProfilesComponent } from './components/participants/view-participants/view-participants.component';
 import { ResourcesComponent } from './components/resources/resources.component';
 import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 import { MessageService } from './services/message.service';
