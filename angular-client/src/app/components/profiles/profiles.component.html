@@ -6,11 +6,13 @@
     <mat-card-title><b>Name: {{profile.name}}</b></mat-card-title>
     <mat-card-subtitle>Username: {{profile._id}}</mat-card-subtitle>
   </mat-card-header>
+  
   <mat-card-content>
-   <div *ngIf="profile.email !== ''"><b> Email: </b> {{profile.email}} <br></div>
-   <div *ngIf="profile.telephone !== '' "><b> Phone number: </b> {{profile.telephone}} <br></div>
-   <div *ngIf="profile.socialmedia !== undefined"><b> Social media: </b> {{profile.socialmedia.service}}  {{profile.socialmedia.username}}<br></div>
-   <div *ngIf="profile.address !== '' "><b> Address: </b> {{profile.address}}<br></div>
+   <div *ngIf="profile.pronouns !== undefined && profile.pronouns !== ''"><b> Pronouns: </b> {{profile.pronouns}} <br></div>
+   <div *ngIf="profile.email !== undefined && profile.email !== ''"><b> Email: </b> {{profile.email}} <br></div>
+   <div *ngIf="profile.telephone !== undefined && profile.telephone !== '' "><b> Phone number: </b> {{profile.telephone}} <br></div>
+   <div *ngIf="profile.socialmedia !== undefined && profile.socialmedia !== undefined"><b> Social media: </b> {{profile.socialmedia.service}}  {{profile.socialmedia.username}}<br></div>
+   <div *ngIf="profile.address !== undefined && profile.address !== '' "><b> Address: </b> {{profile.address}}<br></div>
   </mat-card-content>
   <mat-card-actions>
       <a routerLink="/participant-profile/{{profile._id}}"><button mat-raised-button>View Profile</button></a>

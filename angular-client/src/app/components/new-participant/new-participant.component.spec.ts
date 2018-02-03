@@ -16,8 +16,8 @@ describe('NewParticipantComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ NewParticipantComponent ],
       imports: [ MaterialsModule ],
-      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService }, 
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } }, 
+      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } },
         { provide: ParticipantService, useClass: MockParticipantService }, 
         MatDialog ]
     })

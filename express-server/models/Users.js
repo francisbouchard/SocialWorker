@@ -13,9 +13,9 @@ const userSchema = new mongoose.Schema({
     }
   }, { timestamps: true });
 
-  userSchema.pre("save", function save(next) {
+  userSchema.pre('save', function save(next) {
     const user = this;
-    if (!user.isModified("password")) { return next(); }
+    if (!user.isModified('password')) { return next(); }
     bcrypt.genSalt(10, (err, salt) => {
       if (err) { return next(err); }
       bcrypt.hash(user.password, salt, undefined, (err, hash) => {
@@ -32,6 +32,6 @@ const userSchema = new mongoose.Schema({
     });
   };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

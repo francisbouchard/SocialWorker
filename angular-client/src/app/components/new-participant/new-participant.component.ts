@@ -17,6 +17,7 @@ export class NewParticipantComponent implements OnInit {
   participantData: Participant = {
     _id: '',
     name: '',
+    pronouns: '',
     address: '',
     telephone: '',
     email: '',
@@ -81,16 +82,16 @@ export class NewParticipantComponent implements OnInit {
 
   /**
    * Submit new participant profile information.
-   * 
+   *
    * @memberof NewParticipantComponent
    */
   submit() {
     this.participantService.save(this.participantData)
       .subscribe(data => {
-        if (data.hasOwnProperty("errmsg")) {
-          this.alertModal("Could not add new participant.");
+        if (data.hasOwnProperty('errmsg')) {
+          this.alertModal('Could not add new participant.');
         } else {
-          this.alertModal("New participant successfully added.")
+          this.alertModal('New participant successfully added.');
         }
       });
   }

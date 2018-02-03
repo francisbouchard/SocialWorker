@@ -57,8 +57,8 @@ export class ParticipantService {
     return this.http.post<Object>(this.url, participantData)
       .pipe(
       tap(p => {
-        if (p.hasOwnProperty("errmsg")) {
-          console.log("has err msg");
+        if (p.hasOwnProperty('errmsg')) {
+          console.log('has err msg');
           this.log('did not save new participant');
         } else {
           this.log('saved new participant');
@@ -110,7 +110,7 @@ export class ParticipantService {
   deleteNote(participantID: String, noteID: String): Observable<Object> {
     return this.http.delete(`${this.url}/${participantID}/note/${noteID}`)
       .pipe(
-      tap(_ => this.log("deleted participant's note")),
+      tap(_ => this.log('deleted participant\'s note')),
       catchError(this.handleError<Object>('deleteNote(participantID, noteID)'))
       );
   }

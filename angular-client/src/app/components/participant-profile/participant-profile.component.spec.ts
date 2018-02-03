@@ -23,8 +23,8 @@ describe('ParticipantProfileComponent', () => {
         MessageService,
         { provide: ParticipantService, useClass: MockParticipantService}, 
         { provide: AuthenticationService, useClass: MockAuthenticationService }, 
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } },
-        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({_id: "frontendtest"}) } } }
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } },
+        { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({_id: 'frontendtest'}) } } }
       ]
     });
     location = TestBed.get(Location);
@@ -37,25 +37,23 @@ describe('ParticipantProfileComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should display name of the user", () => {
+  it('should display name of the user', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h2').textContent).toContain('testuser');
   });
 
-  it("should display user's note and its attachd image", () => {
+  it('should display user\'s note and its attached image', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('mat-expansion-panel').textContent).toContain('Note for testing');
     expect(compiled.querySelector('img')).toBeTruthy();
   });
 
-  it("should refresh resources displayed when one gets deleted", fakeAsync(() => {
+  it('should refresh resources displayed when one gets deleted', fakeAsync(() => {
     const compiled = fixture.debugElement.nativeElement;
     const deleteButton = compiled.querySelector('#deleteBtn');
     deleteButton.click();
-
     tick();
     fixture.detectChanges();
-    
     expect(compiled.querySelector('div').textContent).toContain('No notes to display.');
   }));
 
