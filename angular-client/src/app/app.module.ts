@@ -25,6 +25,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { ResourceService } from './services/resource.service';
 import { CaseModalComponent } from './components/case-modal/case-modal.component';
 import { CasefileService } from './services/casefile.service';
+import { DocumentComponent } from './components/document/document.component';
 
 const routes: Routes = [
   {
@@ -77,7 +78,8 @@ const routes: Routes = [
     ViewResourcesComponent,
     ParticipantProfileComponent,
     CaseModalComponent,
-    NoteComponent
+    NoteComponent,
+    DocumentComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +93,7 @@ const routes: Routes = [
   entryComponents: [
     AlertModalComponent,
     CaseModalComponent,
+    DocumentComponent,
     NoteComponent
   ],
   providers: [
