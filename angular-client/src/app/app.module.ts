@@ -29,7 +29,7 @@ import { CasefileService } from './services/casefile.service';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/profiles',
+    redirectTo: '/participants',
     pathMatch: 'full'
   },
   {
@@ -71,11 +71,9 @@ const routes: Routes = [
     ViewParticipantsComponent,
     AlertModalComponent,
     LoginComponent,
-    ParticipantProfileComponent,
     ResourcesComponent,
     AddResourceComponent,
     ViewResourcesComponent,
-    ParticipantProfileComponent,
     CaseModalComponent,
     NoteComponent
   ],

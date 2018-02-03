@@ -5,7 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-participants',
+  selector: 'app-view-participants',
   templateUrl: './view-participants.component.html',
   styleUrls: ['./view-participants.component.css']
 })
