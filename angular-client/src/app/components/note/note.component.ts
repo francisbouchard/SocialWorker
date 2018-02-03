@@ -16,7 +16,7 @@ export class NoteComponent implements OnInit {
     text: "",
     date: new Date(),
     attachment: null
-  }
+  };
 
   constructor(
     private participantService: ParticipantService,
@@ -32,7 +32,7 @@ export class NoteComponent implements OnInit {
   }
 
   /**
-   * Submit to save a new note for a participant 
+   * Submit to save a new note for a participant
    * 
    * @memberof NoteComponent
    */
@@ -64,7 +64,7 @@ export class NoteComponent implements OnInit {
       reader.readAsDataURL(files[0]);
       reader.onload = (event: Event) => {
         this.note.attachment = reader.result;
-      }
+      };
 
     }
   }

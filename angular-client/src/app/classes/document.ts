@@ -1,5 +1,5 @@
-export class Note {
-    text: String;
+export class Document {
+    type: String;
     date: Date;
     attachment: Array<any>;
 }
