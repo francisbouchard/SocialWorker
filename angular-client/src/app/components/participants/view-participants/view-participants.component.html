@@ -7,6 +7,7 @@
     <mat-card-subtitle>Username: {{participant._id}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
+   <div *ngIf="participant.pronouns !== undefined && participant.pronouns !== ''"><b> Pronouns: </b> {{participant.pronouns}} <br></div>
    <div *ngIf="participant.email !== ''"><b> Email: </b> {{participant.email}} <br></div>
    <div *ngIf="participant.telephone !== '' "><b> Phone number: </b> {{participant.telephone}} <br></div>
    <div *ngIf="participant.socialmedia !== undefined"><b> Social media: </b> {{participant.socialmedia.service}}  {{participant.socialmedia.username}}<br></div>

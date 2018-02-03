@@ -52,10 +52,8 @@ describe('ParticipantProfileComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     const deleteButton = compiled.querySelector('#deleteBtn');
     deleteButton.click();
-
     tick();
     fixture.detectChanges();
-
     expect(compiled.querySelector('div').textContent).toContain('No notes to display.');
   }));
 

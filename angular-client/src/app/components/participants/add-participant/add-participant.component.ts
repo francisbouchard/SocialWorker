@@ -17,6 +17,7 @@ export class AddParticipantComponent implements OnInit {
   participantData: Participant = {
     _id: '',
     name: '',
+    pronouns: '',
     address: '',
     telephone: '',
     email: '',
