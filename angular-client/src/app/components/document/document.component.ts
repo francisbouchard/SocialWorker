@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-document',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<DocumentComponent>,
+    private authService: AuthenticationService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    if (!this.authService.loggedIn) {
+      this.router.navigateByUrl('login');
+    }
   }
 
 }
