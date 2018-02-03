@@ -1,18 +1,18 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ParticipantService } from '../../services/participant.service';
-import { Participant } from '../../classes/participant';
+import { ParticipantService } from '../../../services/participant.service';
+import { Participant } from '../../../classes/participant';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AlertModalComponent } from '../alert-modal/alert-modal.component';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AlertModalComponent } from '../../alert-modal/alert-modal.component';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-new-participant',
-  templateUrl: './new-participant.component.html',
-  styleUrls: ['./new-participant.component.css']
+  selector: 'app-add-participant',
+  templateUrl: './add-participant.component.html',
+  styleUrls: ['./add-participant.component.css']
 })
-export class NewParticipantComponent implements OnInit {
+export class AddParticipantComponent implements OnInit {
 
   participantData: Participant = {
     _id: '',
@@ -45,7 +45,7 @@ export class NewParticipantComponent implements OnInit {
    * already been associated to a participant.
    * 
    * @param {*} event 
-   * @memberof NewParticipantComponent
+   * @memberof AddParticipantComponent
    */
   onKey(attribute: String, value: String) {
     const query = attribute + '=' + value;
@@ -64,7 +64,7 @@ export class NewParticipantComponent implements OnInit {
    * Alert user of response success or fail.
    * 
    * @param {any} message 
-   * @memberof NewParticipantComponent
+   * @memberof AddParticipantComponent
    */
   alertModal(message): void {
     const dialogRef = this.dialog.open(AlertModalComponent, {
@@ -82,15 +82,15 @@ export class NewParticipantComponent implements OnInit {
   /**
    * Submit new participant profile information.
    * 
-   * @memberof NewParticipantComponent
+   * @memberof AddParticipantComponent
    */
   submit() {
     this.participantService.save(this.participantData)
       .subscribe(data => {
-        if (data.hasOwnProperty("errmsg")) {
-          this.alertModal("Could not add new participant.");
+        if (data.hasOwnProperty('errmsg')) {
+          this.alertModal('Could not add new participant.');
         } else {
-          this.alertModal("New participant successfully added.")
+          this.alertModal('New participant successfully added.')
         }
       });
   }
