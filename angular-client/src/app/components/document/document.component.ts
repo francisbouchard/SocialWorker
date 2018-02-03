@@ -36,8 +36,13 @@ export class DocumentComponent implements OnInit {
     console.log(this.document);
   }
 
+  /**
+   * Close the document dialog modal
+   *
+   * @memberof DocumentComponent
+   */
   cancel() {
-    // TODO
+    this.dialogRef.close();
   }
 
 }
