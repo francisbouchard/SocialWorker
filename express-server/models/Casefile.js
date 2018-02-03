@@ -9,7 +9,7 @@ const casefileSchema = new Schema({
     dateContacted: Date,
     note: String
   }],
-  selectedResource: { type: Schema.Types.ObjectId, ref: 'Resource', sparse: true, required: true },
+  selectedResource: { type: Schema.Types.ObjectId },
   status: String,
   urgency: String,
   notes: [String],

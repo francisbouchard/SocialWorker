@@ -42,10 +42,10 @@ router.get('/participant/:id', (req, res) => {
 router.get('/:id/resource/:resId', (req, res) => {
     Casefile.findOne({ _id: req.params.id, 'contactedResources.resource': req.params.resId },
         { 'contactedResources.$': 1 }).then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    })
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
 });
 
 /**
@@ -92,38 +92,27 @@ router.post('/:id/resource', (req, res) => {
 });
 
 /**
- * Update status of a contacted resource
+ * Update a contacted resource's details
  */
 router.put('/:id/resource/:resId', (req, res) => {
-    Casefile.update({ '_id': req.params.id, 'contactedResources.resource': req.params.resId },
-        { '$set': { 'contactedResources.$.status': req.body.status } })
+    let statusStr = 'contactedResources.$.status';
+    let dateStr = 'contactedResources.$.dateContacted';
+    let noteStr = 'contactedResources.$.note';
+    let setObj = {};
+    if (req.body.status) {
+        setObj['contactedResources.$.status'] = req.body.status;
+    } if (req.body.dateContacted) {
+        setObj['contactedResources.$.dateContacted'] = req.body.dateContacted;
+    } if (req.body.note) {
+        setObj['contactedResources.$.note'] = req.body.note;
+    }
+
+    Casefile.update({ _id: req.params.id, 'contactedResources.resource': req.params.resId }, { '$set': setObj })
         .then(data => {
             res.send(data);
         }, err => {
             res.send(err);
-        })
-});
-
-/**
- * Update a contacted resource's details
- */
-router.put('/:id/resource/:resId', (req, res) => {
-    Resource.update({ _id: req.params.id },
-        { $pull: { contactedResources: {resource: req.params.resId} } }).then(contResource => {
-        if (!contResource) return res.send({ err: "Contacted Resource does not exist." });
-
-        contResource.status = req.body.status || contResource.status;
-        contResource.dateContacted = req.body.dateContacted || contResource.dateContacted;
-        contResource.note = req.body.note || contResource.note;
-
-        Casefile.update({ _id: req.params.id }, { $push: { contactedResources: contResource } }).then(data => {
-            res.send(data);
-        }, err => {
-            res.send(err);
-        })
-    }, err => {
-        res.send(err);
-    });
+        });
 });
 
 /**

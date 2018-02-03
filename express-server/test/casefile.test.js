@@ -72,7 +72,9 @@ describe('Casefile Tests', () => {
             notes: "testing",
             contactedResources: [{
                 resource: housingId2,
-                status: "pending"
+                status: "pending",
+                dateContacted: new Date(),
+                note: "some note"
             }]
         });
         let casefile2 = new CaseFile({
@@ -165,6 +167,8 @@ describe('Casefile Tests', () => {
                     res.body.should.have.property('contactedResources');
                     res.body.contactedResources[0].should.have.property('resource');
                     res.body.contactedResources[0].should.have.property('status');
+                    res.body.contactedResources[0].should.have.property('dateContacted');
+                    res.body.contactedResources[0].should.have.property('note');
                     done();
                 });
         });
@@ -281,13 +285,14 @@ describe('Casefile Tests', () => {
     });
 
     describe('/PUT/:id/resource/:resId', () => {
-        it('should not update a contacted resource with an invalid casefile ID', (done) => {
+        it('should not update contacted resource details with an invalid casefile ID', (done) => {
             let contactedResource = {
-                resourceId: housingId1,
-                status: "pending"
+                resourceId: housingId2,
+                status: "contacted",
+                dateContacted: new Date()
             }
             chai.request(server)
-                .put('/api/casefile/' + id3 + '/resource/' + housingId1)
+                .put('/api/casefile/' + id3 + '/resource/' + housingId2)
                 .set('Cookie', cookie)
                 .send(contactedResource)
                 .end((err, res) => {
@@ -297,7 +302,7 @@ describe('Casefile Tests', () => {
                     done();
                 });
         });
-        it('should not update a contacted resource with an invalid resource ID', (done) => {
+        it('should not update contacted resource details with an invalid resource ID', (done) => {
             chai.request(server)
                 .put('/api/casefile/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
                 .set('Cookie', cookie)
@@ -309,9 +314,9 @@ describe('Casefile Tests', () => {
                     done();
                 });
         });
-        it('should update the status of a contacted resource given casefile and resource IDs', (done) => {
+        it('should update the details of a contacted resource given casefile and resource IDs', (done) => {
             chai.request(server)
-                .put('/api/casefile/' + id1 + '/resource/' + housingId1)
+                .put('/api/casefile/' + id1 + '/resource/' + housingId2)
                 .set('Cookie', cookie)
                 .send({status: "accepted"})
                 .end((err, res) => {
