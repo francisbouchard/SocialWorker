@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Location } from '@angular/common';
-import { ParticipantService } from '../../services/participant.service';
-import { Participant } from '../../classes/participant';
-import { NoteComponent } from '../note/note.component';
-import { AuthenticationService } from '../../services/authentication.service';
-import { AppModule } from '../../app.module';
+import { ParticipantService } from '../../../services/participant.service';
+import { Participant } from '../../../classes/participant';
+import { NoteComponent } from '../../note/note.component';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { AppModule } from '../../../app.module';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
-import { CaseModalComponent } from '../case-modal/case-modal.component';
+import { CaseModalComponent } from '../../case-modal/case-modal.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 

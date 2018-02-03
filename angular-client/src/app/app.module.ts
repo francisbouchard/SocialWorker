@@ -14,8 +14,8 @@ import { EditResourceComponent } from './components/resources/edit-resource/edit
 import { MessagesComponent } from './components/messages/messages.component';
 import { AddParticipantComponent } from './components/participants/add-participant/add-participant.component';
 import { NoteComponent } from './components/note/note.component';
-import { ParticipantProfileComponent } from './components/participant-profile/participant-profile.component';
-import { ProfilesComponent } from './components/participants/view-participants/view-participants.component';
+import { ParticipantProfileComponent } from './components/participants/participant-profile/participant-profile.component';
+import { ViewParticipantsComponent } from './components/participants/view-participants/view-participants.component';
 import { ResourcesComponent } from './components/resources/resources.component';
 import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 import { MessageService } from './services/message.service';
@@ -37,8 +37,8 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
-    path: 'profiles',
-    component: ProfilesComponent
+    path: 'participants',
+    component: ViewParticipantsComponent
   },
   {
     path: 'new-participant',
@@ -68,7 +68,7 @@ const routes: Routes = [
     MessagesComponent,
     AddParticipantComponent,
     ParticipantProfileComponent,
-    ProfilesComponent,
+    ViewParticipantsComponent,
     AlertModalComponent,
     LoginComponent,
     ParticipantProfileComponent,
