@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ParticipantService } from '../../../services/participant.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
@@ -10,6 +10,8 @@ import { RouterModule, Router } from '@angular/router';
   styleUrls: ['./view-participants.component.css']
 })
 export class ViewParticipantsComponent implements OnInit {
+  @Input() hasTabChanged: boolean;
+
   public profiles;
   constructor(private participantService: ParticipantService, public authService: AuthenticationService, public router: Router) {
   }

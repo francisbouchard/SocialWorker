@@ -16,6 +16,7 @@ import { AddParticipantComponent } from './components/participants/add-participa
 import { NoteComponent } from './components/note/note.component';
 import { ParticipantProfileComponent } from './components/participants/participant-profile/participant-profile.component';
 import { ViewParticipantsComponent } from './components/participants/view-participants/view-participants.component';
+import { ParticipantsComponent } from './components/participants/participants.component';
 import { ResourcesComponent } from './components/resources/resources.component';
 import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 import { MessageService } from './services/message.service';
@@ -38,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'participants',
-    component: ViewParticipantsComponent
+    component: ParticipantsComponent
   },
   {
     path: 'new-participant',
@@ -68,6 +69,7 @@ const routes: Routes = [
     MessagesComponent,
     AddParticipantComponent,
     ParticipantProfileComponent,
+    ParticipantsComponent,
     ViewParticipantsComponent,
     AlertModalComponent,
     LoginComponent,

@@ -17,7 +17,7 @@ describe('ParticipantsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ParticipantsComponent, ViewParticipantsComponent, AddParticipantComponent, EditParticipantComponent ],
+      declarations: [ ParticipantsComponent, ViewParticipantsComponent, AddParticipantComponent], // EditParticipantComponent ],
       imports: [ MaterialsModule, RouterTestingModule ],
       providers: [ { provide: ResourceService, useClass: MockParticipantService },
         { provide: AuthenticationService, useClass: MockAuthenticationService },
