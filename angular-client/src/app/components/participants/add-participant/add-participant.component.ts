@@ -91,7 +91,7 @@ export class AddParticipantComponent implements OnInit {
         if (data.hasOwnProperty('errmsg')) {
           this.alertModal('Could not add new participant.');
         } else {
-          this.alertModal('New participant successfully added.')
+          this.alertModal('New participant successfully added.');
         }
       });
   }
