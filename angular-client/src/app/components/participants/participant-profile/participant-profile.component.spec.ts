@@ -1,14 +1,14 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { ParticipantProfileComponent } from './participant-profile.component';
-import { MaterialsModule } from '../../modules/materials.module';
+import { MaterialsModule } from '../../../modules/materials.module';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
-import { ParticipantService } from '../../services/participant.service';
-import { MessageService } from '../../services/message.service';
+import { ParticipantService } from '../../../services/participant.service';
+import { MessageService } from '../../../services/message.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Location } from '@angular/common';
-import { MockParticipantService } from '../../mocks/MockParticipantService';
-import { AuthenticationService } from '../../services/authentication.service';
-import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { MockParticipantService } from '../../../mocks/MockParticipantService';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
 
 describe('ParticipantProfileComponent', () => {
   let component: ParticipantProfileComponent;
@@ -21,8 +21,8 @@ describe('ParticipantProfileComponent', () => {
       declarations: [ ParticipantProfileComponent ],
       providers: [
         MessageService,
-        { provide: ParticipantService, useClass: MockParticipantService}, 
-        { provide: AuthenticationService, useClass: MockAuthenticationService }, 
+        { provide: ParticipantService, useClass: MockParticipantService},
+        { provide: AuthenticationService, useClass: MockAuthenticationService },
         { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } },
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({_id: 'frontendtest'}) } } }
       ]
