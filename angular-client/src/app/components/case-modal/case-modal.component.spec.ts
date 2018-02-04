@@ -24,7 +24,7 @@ describe('CaseModalComponent', () => {
       imports: [ MaterialsModule, MatDialogModule, FormsModule ],
       providers: [
         {provide: MatDialogRef, useValue: {}},
-        {provide: MAT_DIALOG_DATA, useValue: {}},
+        {provide: MAT_DIALOG_DATA, useValue: {participant: {_id: 'testID'}}},
         {provide: AuthenticationService, useClass: MockAuthenticationService },
         {provide: CasefileService, useClass: MockCasefileService },
         {provide: ResourceService, useClass: MockResourceService},
