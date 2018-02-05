@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertModalComponent } from '../alert-modal/alert-modal.component';
 import { AuthenticationService } from '../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
+import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 
 
 @Component({
@@ -14,25 +15,41 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class NewParticipantComponent implements OnInit {
 
-  participantData: Participant = {
-    _id: '',
-    name: '',
-    address: '',
-    telephone: '',
-    email: '',
-    socialmedia: {service: '', username: '' }
-  };
+  form: FormGroup;
+
+  // participantData: Participant = {
+  //   _id: '',
+  //   name: '',
+  //   address: '',
+  //   telephone: '',
+  //   email: '',
+  //   socialmedia: {service: '', username: '' }
+  // };
 
   isAlreadyAParticipantID = false;
   isAlreadyAParticipantEmail = false;
 
-  constructor(private participantService: ParticipantService, public dialog: MatDialog, public authService: AuthenticationService, public router: Router) {
+  constructor(private fb :FormBuilder,private participantService: ParticipantService, public dialog: MatDialog, public authService: AuthenticationService, public router: Router) {
+   this.form = this.fb.group({
+            name: ['', Validators.required ],
+            _id: ['', Validators.required ],
+           // password:new FormControl('',Validators.required),
+            address:['', Validators.required ],
+            telephone:['', Validators.required ],
+            email:['', Validators.required ],
+            socialmedia:this.fb.group({ // <-- the child FormGroup
+              username: ['', Validators.required ],
+              service: ['', Validators.required ],
+     }),
+});
   }
 
   ngOnInit() {
     if(!this.authService.loggedIn){
       this.router.navigateByUrl('login');
     }
+    
+     
   }
 
   /**
@@ -74,19 +91,29 @@ export class NewParticipantComponent implements OnInit {
   }
 
 
+   /**
+   * Submit new participant profile information.
+   * 
+   * @memberof NewParticipantComponent
+   */
+  onSubmit() {
+        console.log("model-based form submitted");
+        console.log(this.form.value);
+}
+
   /**
    * Submit new participant profile information.
    * 
    * @memberof NewParticipantComponent
    */
-  submit() {
-    this.participantService.save(this.participantData)
-      .subscribe(data => {
-        if (data.hasOwnProperty("errmsg")) {
-          this.alertModal("Could not add new participant.");
-        } else {
-          this.alertModal("New participant successfully added.")
-        }
-      })
-  }
+  // submit() {
+  //   this.participantService.save(this.participantData)
+  //     .subscribe(data => {
+  //       if (data.hasOwnProperty("errmsg")) {
+  //         this.alertModal("Could not add new participant.");
+  //       } else {
+  //         this.alertModal("New participant successfully added.")
+  //       }
+  //     })
+  // }
 }
