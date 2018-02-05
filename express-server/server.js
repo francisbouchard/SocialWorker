@@ -16,7 +16,7 @@ const passportConfig = require("./config/passport");
 
 // Get our API routes
 const api = require('./routes/api');
-const user = require('./routes/user');
+const user = require('./routes/user.route');
 const participant = require('./routes/participant.route');
 const resource = require('./routes/resource.route');
 const casefile = require('./routes/casefile.route');

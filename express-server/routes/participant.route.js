@@ -3,6 +3,7 @@ const router = express.Router();
 const Participant = require('../models/Participant');
 const Document = require('../models/Document');
 const Note = require('../models/Note');
+const User = require('../models/User');
 
 /**
  * Get all participants
@@ -55,6 +56,7 @@ router.post('/', (req, res) => {
             service: req.body.service,
             username: req.body.username
         },
+        socialworkers: [req.body.workerID]
     });
     participant.save().then(data => {
         res.send(data);
@@ -72,7 +74,25 @@ router.delete('/:pid', (req, res) => {
     }, err => {
         res.send(err);
     })
-})
+});
+
+/**
+ * Add a social worker to participant
+ */
+router.post('/:pid/worker', (req, res) => {
+    User.findById(req.body.workerID).then(user => {
+        if (!user) return res.send({ err: "User (social worker) does not exist." });
+
+        Participant.update({ _id: req.params.pid }, { $push: { socialworkers: req.body.workerID } })
+            .then(data => {
+                res.send(data);
+            }, err => {
+                res.send(err);
+            })
+    }, err => {
+        res.send(err);
+    });
+});
 
 /**
  * Add a document to participant
@@ -103,8 +123,8 @@ router.post('/:pid/doc', (req, res) => {
  * Delete a participant's document by the document ID
  */
 router.delete('/:pid/doc/:docId', (req, res) => {
-    Participant.update({_id: req.params.pid},
-        { $pull: { documents: {_id: req.params.docId} } }    
+    Participant.update({ _id: req.params.pid },
+        { $pull: { documents: { _id: req.params.docId } } }
     ).then(data => {
         res.send(data);
     }, err => {
@@ -141,8 +161,8 @@ router.post('/:pid/note', (req, res) => {
  * Delete a participant's note by the note ID
  */
 router.delete('/:pid/note/:noteId', (req, res) => {
-    Participant.update({_id: req.params.pid},
-        { $pull: { notes: {_id: req.params.noteId} } }    
+    Participant.update({ _id: req.params.pid },
+        { $pull: { notes: { _id: req.params.noteId } } }
     ).then(data => {
         res.send(data);
     }, err => {

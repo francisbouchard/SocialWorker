@@ -15,7 +15,8 @@ const participantSchema = new Schema({
     username: String
   },
   documents: [Document],
-  notes: [Note]
+  notes: [Note],
+  socialworkers: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 }, { _id: false, timestamps: true });
 
 const Participant = mongoose.model('Participant', participantSchema);

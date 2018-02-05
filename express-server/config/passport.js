@@ -3,7 +3,7 @@ const passportLocal = require("passport-local");
 const _ = require("lodash");
 
 // import { User, UserType } from '../models/User';
-const User = require("../models/Users");
+const User = require("../models/User");
 
 const LocalStrategy = passportLocal.Strategy;
 

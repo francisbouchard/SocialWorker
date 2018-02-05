@@ -10,6 +10,7 @@ let id2 = 'testingID2';
 let id3 = 'testingID3';
 let noteId = new mongoose.Types.ObjectId();
 let docId = new mongoose.Types.ObjectId();
+let workerId = new mongoose.Types.ObjectId("5a77bbfe31a27d54ffafee77");
 let cookie;
 
 chai.use(chaiHttp);
@@ -18,15 +19,15 @@ describe('Participant Tests', () => {
 
     before((finished) => {
         chai.request(server)
-                .post('/user/login')
-                .send({
-                    'email': 'test1@test.com',
-                    'password': 'test'
-                })
-                .end((err, res) => {
-                    cookie = res.headers['set-cookie'].pop().split(';')[0];
-                    finished();
-                });
+            .post('/user/login')
+            .send({
+                'email': 'test1@test.com',
+                'password': 'test'
+            })
+            .end((err, res) => {
+                cookie = res.headers['set-cookie'].pop().split(';')[0];
+                finished();
+            });
         let participant1 = new Participant({
             _id: id1,
             name: 'participant1',
@@ -51,10 +52,10 @@ describe('Participant Tests', () => {
             email: 'participant3@p.com',
             telephone: '514-1234567'
         });
-        participant1.save().then(data => {}, err => {
+        participant1.save().then(data => { }, err => {
             console.log(err);
         });
-        participant3.save().then(data => {}, err => {
+        participant3.save().then(data => { }, err => {
             console.log(err);
         })
     });
@@ -175,6 +176,45 @@ describe('Participant Tests', () => {
         });
     });
 
+    describe('/POST/:pid/worker', () => {
+        it('should not add a social worker to participant with invalid participant ID', (done) => {
+            chai.request(server)
+                .post('/api/participant/' + new mongoose.Types.ObjectId() + '/worker')
+                .set('Cookie', cookie)
+                .send({ workerID: workerId })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(0);
+                    done();
+                });
+        });
+        it('should not add a social worker to participant with invalid worker ID', (done) => {
+            chai.request(server)
+                .post('/api/participant/' + id1 + '/worker')
+                .set('Cookie', cookie)
+                .send({ workerID: new mongoose.Types.ObjectId() })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('err');
+                    done();
+                });
+        });
+        it('should add a social worker to participant with given ID', (done) => {
+            chai.request(server)
+                .post('/api/participant/' + id1 + '/worker')
+                .set('Cookie', cookie)
+                .send({ workerID: workerId })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(1);
+                    done();
+                });
+        });
+    });
+
     describe('/POST/:pid/doc', () => {
         it('should POST a document to given participant', (done) => {
             let document = {
@@ -258,10 +298,10 @@ describe('Participant Tests', () => {
     });
 
     after(() => {
-        Participant.findByIdAndRemove(id1).then(data => {}, err => {
+        Participant.findByIdAndRemove(id1).then(data => { }, err => {
             console.log(err);
         });
-        Participant.findByIdAndRemove(id2).then(data => {}, err => {
+        Participant.findByIdAndRemove(id2).then(data => { }, err => {
             console.log(err);
         });
     });
