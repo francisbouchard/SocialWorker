@@ -18,7 +18,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 
 export class ParticipantProfileComponent implements OnInit {
+
   orderedNotes = [];
+  orderedDocuments = [];
+
   @Input() public participantSelected: Participant;
   constructor(
     private route: ActivatedRoute,
@@ -46,7 +49,10 @@ export class ParticipantProfileComponent implements OnInit {
     this.participantService.get(id).subscribe(participantSelected => {
       if (participantSelected != null) {
         this.participantSelected = participantSelected as Participant;
-        // order notes of participant in reverse chronological order
+        // order documents and notes of participant in reverse chronological order
+        this.orderedDocuments = this.participantSelected.documents.sort((doc1, doc2) => {
+          return new Date(doc2.date).getTime() - new Date(doc1.date).getTime();
+        });
         this.orderedNotes = this.participantSelected.notes.sort((note1, note2) => {
           return new Date(note2.date).getTime() - new Date(note1.date).getTime();
         });
@@ -57,6 +63,11 @@ export class ParticipantProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Create a new casefile for a participant 
+   *
+   * @memberof ParticipantProfileComponent
+   */
   newCase(): void {
     const dialogRef = this.dialog.open(CaseModalComponent, {
       width: '66%',
@@ -69,21 +80,22 @@ export class ParticipantProfileComponent implements OnInit {
   }
 
   /**
-   * 
-   * Deletes the selected note
-   * 
+   * Delete a participant's note
+   *
+   * @param {any} noteID
+   * @memberof ParticipantProfileComponent
    */
   deleteNote(noteID): void {
     this.participantService.deleteNote(this.participantSelected._id, noteID)
-    .subscribe(result => {
-      console.log('note deleted');
-      this.loadParticipant();
-    });
+      .subscribe(result => {
+        console.log('note deleted');
+        this.loadParticipant();
+      });
   }
 
   /**
    * Add a note to a participant
-   * 
+   *
    * @memberof ParticipantProfileComponent
    */
   addNote(): void {
