@@ -88,7 +88,6 @@ export class ParticipantProfileComponent implements OnInit {
   deleteNote(noteID): void {
     this.participantService.deleteNote(this.participantSelected._id, noteID)
       .subscribe(result => {
-        console.log('note deleted');
         this.loadParticipant();
       });
   }
@@ -109,6 +108,24 @@ export class ParticipantProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Delete a document of a participant
+   *
+   * @param {any} documentID 
+   * @memberof ParticipantProfileComponent
+   */
+  deleteDocument(documentID): void {
+    this.participantService.deleteDocument(this.participantSelected._id, documentID)
+      .subscribe(result => {
+        this.loadParticipant();
+      });
+  }
+
+  /**
+   * Add a document to a participant profile
+   *
+   * @memberof ParticipantProfileComponent
+   */
   addDocument(): void {
     const dialogRef = this.dialog.open(DocumentComponent, {
       width: '66%',
