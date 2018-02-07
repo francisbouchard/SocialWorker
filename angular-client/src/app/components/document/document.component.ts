@@ -24,7 +24,7 @@ export class DocumentComponent implements OnInit {
     public dialogRef: MatDialogRef<DocumentComponent>,
     private authService: AuthenticationService,
     private router: Router,
-    @Inject(MAT_DIALOG_DATA) private participantID: any
+    @Inject(MAT_DIALOG_DATA) private participant: any
   ) { }
 
   ngOnInit() {
@@ -39,7 +39,7 @@ export class DocumentComponent implements OnInit {
    * @memberof DocumentComponent
    */
   submit() {
-    this.participantService.saveDocument(this.document, this.participantID)
+    this.participantService.saveDocument(this.document, this.participant.id)
       .subscribe(data => {
         this.dialogRef.close();
       });
