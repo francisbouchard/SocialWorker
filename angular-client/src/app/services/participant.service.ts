@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Participant } from '../classes/participant';
 import { Note } from '../classes/note';
+import { Document } from '../classes/document';
 import { MessageService } from './message.service';
 
 @Injectable()
@@ -79,8 +80,24 @@ export class ParticipantService {
   saveNote(note: Note, pid: String): Observable<Object> {
     return this.http.post<Object>(`${this.url}/${pid}/note`, note)
       .pipe(
-      tap(note => this.log('saved a note to participant')),
+      tap(_ => this.log('saved a note to participant')),
       catchError(this.handleError<Object>('saveNote()'))
+      );
+  }
+
+  /**
+   * Save a document to a participant
+   *
+   * @param {Document} document
+   * @param {String} pid
+   * @returns {Observable<Object>}
+   * @memberof ParticipantService
+   */
+  saveDocument(document: Document, pid: String): Observable<Object> {
+    return this.http.post<Object>(`${this.url}/${pid}/doc`, document)
+      .pipe(
+      tap(_ => this.log('saved a document to participant')),
+      catchError(this.handleError<Object>('saveDocument()'))
       );
   }
 
@@ -112,6 +129,22 @@ export class ParticipantService {
       .pipe(
       tap(_ => this.log('deleted participant\'s note')),
       catchError(this.handleError<Object>('deleteNote(participantID, noteID)'))
+      );
+  }
+
+  /**
+   * Delete a participant's document by its ID
+   *
+   * @param {String} participantID
+   * @param {String} documentID
+   * @returns {Observable<Object>}
+   * @memberof ParticipantService
+   */
+  deleteDocument(participantID: String, documentID: String): Observable<Object> {
+    return this.http.delete(`${this.url}/${participantID}/doc/${documentID}`)
+      .pipe(
+      tap(_ => this.log('deleted participant\'s document')),
+      catchError(this.handleError<Object>('deleteDocument(participantID, documentID)'))
       );
   }
 

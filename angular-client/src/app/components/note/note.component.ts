@@ -55,12 +55,12 @@ export class NoteComponent implements OnInit {
   /**
    * Read file input and store as attachment
    * 
-   * @param {any} files 
+   * @param {any} files
    * @memberof NoteComponent
    */
   handleFileInput(files) {
     if (files) {
-      let reader = new FileReader();
+      const reader = new FileReader();
       reader.readAsDataURL(files[0]);
       reader.onload = (event: Event) => {
         this.note.attachment = reader.result;

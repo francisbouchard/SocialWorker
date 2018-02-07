@@ -5,9 +5,14 @@
       <textarea matInput placeholder="Document Type" name="text" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"
         [(ngModel)]="document.type"></textarea>
     </mat-form-field>
+    <div class="fileupload">
+      <h4>Upload Document</h4>
+      <input type="file" #upload (change)="handleFileInput(upload.files)">
+    </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button color="primary" (click)="submit()">Submit</button>
   <button mat-raised-button (click)="cancel()">Close</button>
 </mat-dialog-actions>
+<img *ngIf="document.attachment" [src]="document.attachment">
