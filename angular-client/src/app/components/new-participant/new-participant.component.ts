@@ -22,7 +22,8 @@ export class NewParticipantComponent implements OnInit {
     telephone: '',
     email: '',
     socialmedia: {service: '', username: '' },
-    notes: [{}]
+    notes: [{}],
+    documents: [{}]
   };
 
   isAlreadyAParticipantID = false;
