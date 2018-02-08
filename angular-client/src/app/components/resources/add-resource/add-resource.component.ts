@@ -3,6 +3,8 @@ import { ResourceService } from '../../../services/resource.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertModalComponent } from '../../alert-modal/alert-modal.component';
 import { Housing } from '../../../classes/housing';
+import { FormGroup, FormControl, Validators,ValidatorFn, FormBuilder,ValidationErrors } from "@angular/forms";
+
 
 @Component({
   selector: 'app-add-resource',
@@ -10,6 +12,8 @@ import { Housing } from '../../../classes/housing';
   styleUrls: ['./add-resource.component.css']
 })
 export class AddResourceComponent implements OnInit {
+
+  form: FormGroup;
 
   housing: Housing = {
     name: null,
@@ -22,7 +26,18 @@ export class AddResourceComponent implements OnInit {
     constraints: null
   }
 
-  constructor(private resourceService: ResourceService, public dialog: MatDialog) { }
+  constructor(private fb :FormBuilder,private resourceService: ResourceService, public dialog: MatDialog) {
+      this.form = this.fb.group({
+            name: ['', Validators.required ],
+            email: ['', Validators.required ],
+            telephone:['', Validators.required ],
+            location:['', Validators.required],
+            notes:['', Validators.required],
+            term:['', Validators.required],
+            gender:['', Validators.required],
+            constraints:['', Validators.required],
+});
+   }
 
   ngOnInit() {
   }
@@ -50,7 +65,7 @@ export class AddResourceComponent implements OnInit {
    * @memberof AddResourceComponent
    */
   submit() {
-    this.resourceService.save('housing', this.housing)
+    this.resourceService.save('housing', this.form.value)
       .subscribe(data => {
         if (data.hasOwnProperty("errmsg")) {
           this.alertModal("Could not add new resource.");
