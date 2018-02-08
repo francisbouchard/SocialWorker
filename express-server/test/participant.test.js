@@ -10,7 +10,8 @@ let id2 = 'testingID2';
 let id3 = 'testingID3';
 let noteId = new mongoose.Types.ObjectId();
 let docId = new mongoose.Types.ObjectId();
-let workerId = new mongoose.Types.ObjectId("5a77bbfe31a27d54ffafee77");
+let workerId1 = new mongoose.Types.ObjectId("5a77bbfe31a27d54ffafee77");
+let workerId2 = new mongoose.Types.ObjectId("5a7b95c49a80678d70defa7e");
 let cookie;
 
 chai.use(chaiHttp);
@@ -44,7 +45,8 @@ describe('Participant Tests', () => {
                 _id: docId,
                 type: 'Form XYZ',
                 attachment: ['url']
-            }]
+            }],
+            socialworkers: [ workerId2 ]
         });
         let participant3 = new Participant({
             _id: id3,
@@ -99,6 +101,30 @@ describe('Participant Tests', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.be.empty;
+                    done();
+                });
+        });
+    });
+
+    describe('/GET/worker/:id', () => {
+        it('should GET all participant associated with the given social worker ID', (done) => {
+            chai.request(server)
+                .get('/api/participant/worker/' + workerId2)
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    done();
+                });
+        });
+        it('should be empty for GET with nonexisting social worker ID', (done) => {
+            chai.request(server)
+                .get('/api/participant/worker/' + 'sw123')
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(0);
                     done();
                 });
         });
@@ -181,7 +207,7 @@ describe('Participant Tests', () => {
             chai.request(server)
                 .post('/api/participant/' + new mongoose.Types.ObjectId() + '/worker')
                 .set('Cookie', cookie)
-                .send({ workerID: workerId })
+                .send({ workerID: workerId1 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -205,7 +231,7 @@ describe('Participant Tests', () => {
             chai.request(server)
                 .post('/api/participant/' + id1 + '/worker')
                 .set('Cookie', cookie)
-                .send({ workerID: workerId })
+                .send({ workerID: workerId1 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');

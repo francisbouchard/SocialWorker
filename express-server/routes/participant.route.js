@@ -28,6 +28,17 @@ router.get('/:pid', (req, res) => {
 });
 
 /**
+ * Get all participants of a social worker
+ */
+router.get('/worker/:id', (req, res) => {
+    Participant.find({ socialworkers: { $elemMatch: { _id: req.params.id } } }).then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+});
+
+/**
  * Search for an existing attribute and value pair
  * Query example: /participant/search/name=Sandy
  */
