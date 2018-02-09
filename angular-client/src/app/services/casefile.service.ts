@@ -106,16 +106,17 @@ export class CasefileService {
   }
 
   /**
-   * Update the status of a contacted resource in the case
-   * 
+   * Update the state of a contacted resource in the case.
+   * You can update: status, dateContacted, note.
+   *
    * @param {any} casefileID
    * @param {any} resourceID
-   * @param {any} status
+   * @param {any} updatedParams
    * @returns {Observable<Object>}
    * @memberof CasefileService
    */
-  updateResourceStatus(casefileID, resourceID, status): Observable<Object> {
-    return this.http.put<Object>(`${this.url}/${casefileID}/resource/${resourceID}`, status)
+  updateCaseContactedResource(casefileID, resourceID, updatedParams): Observable<Object> {
+    return this.http.put<Object>(`${this.url}/${casefileID}/resource/${resourceID}`, updatedParams)
       .pipe(
       tap(c => {
         if (c.hasOwnProperty('errmsg')) {

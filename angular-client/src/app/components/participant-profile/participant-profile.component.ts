@@ -133,9 +133,11 @@ export class ParticipantProfileComponent implements OnInit {
     // TODO set case status to done
   }
 
-  updateCase(isResourceContacted, resourceID): void {
-    console.log(resourceID);
-    console.log(isResourceContacted);
+  updateCase(isResourceContacted, casefileID, resourceID): void {
+    this.casefileService.updateCaseContactedResource(casefileID, resourceID, {'status': 'ANNNAAAAA LOL'})
+    .subscribe(result => {
+      console.log(result);
+    });
   }
 
 }
