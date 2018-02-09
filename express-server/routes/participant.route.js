@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 /**
  * Get a participant by ID
  */
-router.get('/:pid', (req, res) => {
+router.get('/id/:pid', (req, res) => {
     Participant.findById(req.params.pid).then(data => {
         res.send(data);
     }, err => {
@@ -30,8 +30,11 @@ router.get('/:pid', (req, res) => {
 /**
  * Get all participants of a social worker
  */
-router.get('/worker/:id', (req, res) => {
-    Participant.find({ socialworkers: { $elemMatch: { _id: req.params.id } } }).then(data => {
+router.get('/worker', (req, res) => {
+    if (!req.user || !req.user._id) {
+        return res.status(401).send({err: "No user ID provided. User must be logged in."})
+    }
+    Participant.find({ socialworkers: { $elemMatch: { _id: req.user._id } } }).then(data => {
         res.send(data);
     }, err => {
         res.send(err);
@@ -67,7 +70,7 @@ router.post('/', (req, res) => {
             service: req.body.service,
             username: req.body.username
         },
-        socialworkers: [req.body.workerID]
+        socialworkers: [req.user._id] // add creator's ID by default
     });
     participant.save().then(data => {
         res.send(data);

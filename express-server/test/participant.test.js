@@ -11,7 +11,6 @@ let id3 = 'testingID3';
 let noteId = new mongoose.Types.ObjectId();
 let docId = new mongoose.Types.ObjectId();
 let workerId1 = new mongoose.Types.ObjectId("5a77bbfe31a27d54ffafee77");
-let workerId2 = new mongoose.Types.ObjectId("5a7b95c49a80678d70defa7e");
 let cookie;
 
 chai.use(chaiHttp);
@@ -45,8 +44,7 @@ describe('Participant Tests', () => {
                 _id: docId,
                 type: 'Form XYZ',
                 attachment: ['url']
-            }],
-            socialworkers: [ workerId2 ]
+            }]
         });
         let participant3 = new Participant({
             _id: id3,
@@ -75,10 +73,10 @@ describe('Participant Tests', () => {
         });
     });
 
-    describe('/GET/:pid', () => {
+    describe('/GET/id/:pid', () => {
         it('should GET a participant with the given ID', (done) => {
             chai.request(server)
-                .get('/api/participant/' + id1)
+                .get('/api/participant/id/' + id1)
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -90,12 +88,14 @@ describe('Participant Tests', () => {
                     res.body.should.have.property('telephone');
                     res.body.should.have.property('address');
                     res.body.should.have.property('socialmedia');
+                    res.body.should.have.property('notes');
+                    res.body.should.have.property('documents');
                     done();
                 });
         });
         it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
-                .get('/api/participant/' + 'p123')
+                .get('/api/participant/id/' + 'p123')
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -106,10 +106,10 @@ describe('Participant Tests', () => {
         });
     });
 
-    describe('/GET/worker/:id', () => {
+    describe('/GET/worker', () => {
         it('should GET all participant associated with the given social worker ID', (done) => {
             chai.request(server)
-                .get('/api/participant/worker/' + workerId2)
+                .get('/api/participant/worker')
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -117,14 +117,11 @@ describe('Participant Tests', () => {
                     done();
                 });
         });
-        it('should be empty for GET with nonexisting social worker ID', (done) => {
+        it('should not proceed with GET when social worker ID not provided through the cookie', (done) => {
             chai.request(server)
-                .get('/api/participant/worker/' + 'sw123')
-                .set('Cookie', cookie)
+                .get('/api/participant/worker')
                 .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('array');
-                    res.body.length.should.be.eql(0);
+                    res.should.have.status(401);
                     done();
                 });
         });
@@ -197,6 +194,8 @@ describe('Participant Tests', () => {
                     res.body.should.have.property('pronouns');
                     res.body.should.have.property('email');
                     res.body.should.have.property('telephone');
+                    res.body.should.have.property('socialworkers');
+                    res.body.socialworkers.length.should.be.eql(1);
                     done();
                 });
         });
