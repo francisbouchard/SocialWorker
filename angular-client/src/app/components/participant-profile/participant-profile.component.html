@@ -35,7 +35,7 @@
       <h4>Resources:</h4>
       <form>
         <div class="resource" *ngFor="let caseResource of casefile.contactedResources">
-          <p>{{caseResource.resource.name}}</p>
+          <p class="name">{{caseResource.resource.name}}</p>
           <mat-slide-toggle #contactToggle (change)="updateCase(contactToggle._checked, caseResource._id)" color="accent">Contacted</mat-slide-toggle>
           <mat-form-field>
             <input matInput [matDatepicker]="picker" placeholder="Contacted when?">
@@ -43,7 +43,7 @@
             <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Note" value="Placeholder text">
+            <input class="caseNotes" matInput placeholder="Note" >
           </mat-form-field>
         </div>
       </form>
