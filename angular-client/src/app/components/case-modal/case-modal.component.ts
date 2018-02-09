@@ -56,7 +56,7 @@ export class CaseModalComponent implements OnInit {
     const arrayOfResources = this.mycase.contactedResources;
     this.mycase.contactedResources = [];
     arrayOfResources.forEach(element => {
-      this.mycase.contactedResources.push({resource: element, status: ''});
+      this.mycase.contactedResources.push({resource: element, status: 'To Contact', dateContacted: null, note: ''});
     });
   }
 
