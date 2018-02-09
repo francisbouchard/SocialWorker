@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const ObjectId = require('mongoose').Types.ObjectId;
 const Participant = require('../models/Participant');
 const Document = require('../models/Document');
 const Note = require('../models/Note');
@@ -34,7 +35,7 @@ router.get('/worker', (req, res) => {
     if (!req.user || !req.user._id) {
         return res.status(401).send({err: "No user ID provided. User must be logged in."})
     }
-    Participant.find({ socialworkers: { $elemMatch: { _id: req.user._id } } }).then(data => {
+    Participant.find({ socialworkers: new ObjectId(req.user._id) }).then(data => {
         res.send(data);
     }, err => {
         res.send(err);
