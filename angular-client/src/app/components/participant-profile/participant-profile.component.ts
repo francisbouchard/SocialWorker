@@ -133,8 +133,9 @@ export class ParticipantProfileComponent implements OnInit {
     // TODO set case status to done
   }
 
-  updateCase(): void {
-    // TODO update case
+  updateCase(isResourceContacted, resourceID): void {
+    console.log(resourceID);
+    console.log(isResourceContacted);
   }
 
 }

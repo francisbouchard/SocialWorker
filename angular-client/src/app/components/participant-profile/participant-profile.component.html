@@ -34,9 +34,9 @@
       <p>{{casefile.notes[0]}}</p>
       <h4>Resources:</h4>
       <form>
-        <div class="resource" *ngFor="let case of casefile.contactedResources">
-          <p>{{case.resource.name}}</p>
-          <mat-slide-toggle color="accent">Contacted</mat-slide-toggle>
+        <div class="resource" *ngFor="let caseResource of casefile.contactedResources">
+          <p>{{caseResource.resource.name}}</p>
+          <mat-slide-toggle #contactToggle (change)="updateCase(contactToggle._checked, caseResource._id)" color="accent">Contacted</mat-slide-toggle>
           <mat-form-field>
             <input matInput [matDatepicker]="picker" placeholder="Contacted when?">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
