@@ -22,7 +22,7 @@ export class ParticipantProfileComponent implements OnInit {
 
   orderedCases = [];
   orderedNotes = [];
-  date = new Date(1990, 0, 1);
+  today = Date.now();
   @Input() public participantSelected: Participant;
 
   constructor(
