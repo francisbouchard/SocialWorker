@@ -15,7 +15,7 @@ export class ProfilesComponent implements OnInit {
   }
 
   loadProfiles() {
-    this.participantService.getAll()
+    this.participantService.getBySocialWorker()
     .subscribe(data => {
       this.profiles = data;
     });
