@@ -134,18 +134,28 @@ export class ParticipantProfileComponent implements OnInit {
     // TODO set case status to done
   }
 
-  updateCaseToggle(isResourceContacted, casefileID, resourceID): void {
-    this.casefileService.updateCaseContactedResource(casefileID, resourceID, {'status': 'Contacted'})
+  updateCaseToggle(isResourceContacted, casefileID, resourceID, dateContacted, casefileIndex, resourceIndex): void {
+    const status = (isResourceContacted) ? 'Contacted' : 'To Contact';
+    console.log('toggle');
+    console.log(this.orderedCases);
+    this.orderedCases[casefileIndex].contactedResources[resourceIndex].status = status;
+    let date;
+    if (isResourceContacted) {
+      date = (dateContacted) ? dateContacted : new Date();
+    } else {
+      date = null;
+    }
+    this.orderedCases[casefileIndex].contactedResources[resourceIndex].dateContacted = date;
+    this.casefileService.updateCaseContactedResource(casefileID, resourceID, {'status': status, 'dateContacted' : date})
     .subscribe(result => {
       console.log(result);
+      console.log(this.orderedCases);
     });
   }
 
-  updateCaseDate() {
-    // TODO set case dateContacted to this
-    console.log('date');
+  updateCaseDate(casefile, caseResource, resourceIndex, casefileIndex) {
+
+    this.updateCaseToggle(true, casefile._id, caseResource.resource._id, caseResource.dateContacted, resourceIndex, casefileIndex);
   }
-
-
 
 }
