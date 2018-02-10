@@ -5,7 +5,7 @@
  * @returns middleware function
  */
 function permit(...allowed) {
-  const isAllowed = role => allowed === role;
+  const isAllowed = role => allowed.indexOf(role) > -1;
 
   return (req, res, next) => {
     if (req.user && isAllowed(req.user.role))

@@ -287,13 +287,33 @@ describe('Participant Tests', () => {
     });
 
     describe('/DELETE/:pid', () => {
-        it('should DELETE the participant with the given ID', (done) => {
+        it('should not permanently DELETE the participant with the given ID when user is not admin', (done) => {
             chai.request(server)
                 .del('/api/participant/' + id3)
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('deleted').eql(true);
                     done();
+                });
+        });
+        it('should permanently DELETE the participant with the given ID when user is admin', (done) => {
+            chai.request(server)
+                .post('/user/login')
+                .send({
+                    'email': 'test2@test.com',
+                    'password': 'test123'
+                })
+                .end((err, res) => {
+                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
+                    chai.request(server)
+                        .del('/api/participant/' + id3)
+                        .set('Cookie', adminCookie)
+                        .end((err, res) => {
+                            res.should.have.status(200);
+                            done();
+                        });
                 });
         });
     });

@@ -95,7 +95,7 @@ router.delete('/:pid', (req, res) => {
             res.send(err);
         })
     } else {
-        Participant.findByIdAndUpdate(req.params.pid, {deleted: true}).then(data => {
+        Participant.findByIdAndUpdate(req.params.pid, { deleted: true }, { new: true }).then(data => {
             res.send(data);
         }, err => {
             res.send(err);

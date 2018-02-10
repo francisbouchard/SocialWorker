@@ -11,17 +11,27 @@ var Cookies;
 
 describe('User Tests', () => {
     describe('Register', () => {
-        it('should register a user', (done) => {
+        it('should register a user via a logged in admin', (done) => {
             chai.request(server)
-                .post('/user/signup')
+                .post('/user/login')
                 .send({
-                    'email': 'testing@test.com',
-                    'password': 'hunter1',
-                    'confirmPassword': 'hunter1'
+                    'email': 'test2@test.com',
+                    'password': 'test123'
                 })
                 .end((err, res) => {
-                    res.should.have.status(200);
-                    done();
+                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
+                    chai.request(server)
+                        .post('/user/signup')
+                        .set('Cookie', adminCookie)
+                        .send({
+                            'email': 'testing@test.com',
+                            'password': 'hunter1',
+                            'confirmPassword': 'hunter1'
+                        })
+                        .end((err, res) => {
+                            res.should.have.status(200);
+                            done();
+                        });
                 });
         });
     });
@@ -35,7 +45,7 @@ describe('User Tests', () => {
                     'password': 'hunter1'
                 })
                 .end((err, res) => {
-                    res.should.have.cookie('connect.sid');                    
+                    res.should.have.cookie('connect.sid');
                     Cookies = res.headers['set-cookie'].pop().split(';')[0];
                     res.should.have.status(200);
                     done();
@@ -56,7 +66,7 @@ describe('User Tests', () => {
     });
 
     after(() => {
-        Users.find({email: 'testing@test.com'}).remove().then(data => {
+        Users.find({ email: 'testing@test.com' }).remove().then(data => {
             console.log('CLEANUP:');
             console.log('Test user successfully removed');
         }, err => {
