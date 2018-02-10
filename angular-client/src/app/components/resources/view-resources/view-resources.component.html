@@ -1,5 +1,11 @@
 <div *ngIf="checkResources()">
-
+  <div>
+    <mat-form-field>
+      <input matInput  placeholder="Search" [(ngModel)]="query">
+    </mat-form-field>
+  </div>
+  <br>
+  <br>
   <mat-form-field>
     <mat-select placeholder="Sort by" [(value)]="sortProperty">
       <mat-option value="name">Name</mat-option>
@@ -10,7 +16,7 @@
   <button mat-raised-button (click)="reverse=!reverse">{{reverse? 'Descending': 'Ascending'}}</button>
 
 
-  <mat-card  *ngFor="let resource of (resources| orderBy: sortProperty: reverse)" >
+  <mat-card  *ngFor="let resource of ((resources| search:'name':query) | orderBy: sortProperty: reverse)" >
     <div *ngIf="!(editingResource == resource)">
       <mat-card-header>
         <!-- <mat-icon>house</mat-icon> -->

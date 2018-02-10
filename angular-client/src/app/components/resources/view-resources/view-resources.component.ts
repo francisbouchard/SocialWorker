@@ -14,6 +14,7 @@ export class ViewResourcesComponent implements OnInit {
   editingResource = Housing;
   public sortProperty = 'name';
   public reverse = false;
+  public query: string;
 
   constructor(private resourceService: ResourceService) { }
 

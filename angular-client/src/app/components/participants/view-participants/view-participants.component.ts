@@ -15,6 +15,7 @@ export class ViewParticipantsComponent implements OnInit {
   public profiles;
   public sortProperty = 'name';
   public reverse = false;
+  public query: string;
 
   constructor(private participantService: ParticipantService, public authService: AuthenticationService, public router: Router) {
   }

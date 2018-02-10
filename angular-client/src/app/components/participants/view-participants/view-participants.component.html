@@ -1,5 +1,11 @@
 <br>
-
+<div>
+  <mat-form-field>
+    <input matInput  placeholder="Search" [(ngModel)]="query">
+  </mat-form-field>
+</div>
+<br>
+<br>
 <mat-form-field>
   <mat-select placeholder="Sort by" [(value)]="sortProperty">
     <mat-option value="name">Name</mat-option>
@@ -9,7 +15,7 @@
 
 <button mat-raised-button (click)="reverse=!reverse">{{reverse? 'Descending': 'Ascending'}}</button>
 
-<div *ngFor="let participant of (profiles | orderBy: sortProperty: reverse)">
+<div *ngFor="let participant of ((profiles| search:'name':query) | orderBy: sortProperty: reverse)">
 <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>

@@ -4,7 +4,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class OrderByPipe implements PipeTransform {
   transform(array: Array<any>, property: string, reverse: boolean): Array<any> {
 
-    if (!array) {
+    if (!array || array.length === 0) {
       return array;
     }
 
@@ -20,7 +20,7 @@ export class OrderByPipe implements PipeTransform {
       });
       return reverse? array.reverse(): array;
     } else {
-      return array;
+      return [];
     }
   }
 }
