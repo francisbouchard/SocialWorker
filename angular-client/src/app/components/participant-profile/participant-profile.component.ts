@@ -134,11 +134,18 @@ export class ParticipantProfileComponent implements OnInit {
     // TODO set case status to done
   }
 
-  updateCase(isResourceContacted, casefileID, resourceID): void {
+  updateCaseToggle(isResourceContacted, casefileID, resourceID): void {
     this.casefileService.updateCaseContactedResource(casefileID, resourceID, {'status': 'Contacted'})
     .subscribe(result => {
       console.log(result);
     });
   }
+
+  updateCaseDate() {
+    // TODO set case dateContacted to this
+    console.log('date');
+  }
+
+
 
 }
