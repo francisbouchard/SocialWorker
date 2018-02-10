@@ -17,6 +17,7 @@ export class DocumentComponent implements OnInit {
     date: new Date(),
     attachment: null
   };
+  file: FormData;
 
 
   constructor(
@@ -39,7 +40,7 @@ export class DocumentComponent implements OnInit {
    * @memberof DocumentComponent
    */
   submit() {
-    this.participantService.saveDocument(this.document, this.participant.id)
+    this.participantService.saveDocument(this.file, this.document, this.participant.id)
       .subscribe(data => {
         this.dialogRef.close();
       });
@@ -63,12 +64,10 @@ export class DocumentComponent implements OnInit {
    */
   handleFileInput(files) {
     if (files) {
-      const reader = new FileReader();
-      reader.readAsDataURL(files[0]);
-      reader.onload = (event: Event) => {
-        this.document.attachment = reader.result;
-      };
-
+      const formData = new FormData();
+      formData.append("attachment", files[0]);
+      this.document.attachment = files[0].name;
+      this.file = formData;
     }
   }
 

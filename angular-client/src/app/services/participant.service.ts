@@ -72,7 +72,8 @@ export class ParticipantService {
   /**
    * Save a note to a participant
    * 
-   * @param  {HttpParams} note 
+   * @param {FormData} file
+   * @param {Note} note 
    * @param {String} pid 
    * @returns {Observable<Object>} 
    * @memberof ParticipantService
@@ -88,13 +89,14 @@ export class ParticipantService {
   /**
    * Save a document to a participant
    *
+   * @param {FormData} file
    * @param {Document} document
    * @param {String} pid
    * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
-  saveDocument(document: Document, pid: String): Observable<Object> {
-    return this.http.post<Object>(`${this.url}/${pid}/doc`, document)
+  saveDocument(file: FormData, document,  pid: String): Observable<Object> {
+    return this.http.post<Object>(`${this.url}/${pid}/doc`, file, {params: document})
       .pipe(
       tap(_ => this.log('saved a document to participant')),
       catchError(this.handleError<Object>('saveDocument()'))

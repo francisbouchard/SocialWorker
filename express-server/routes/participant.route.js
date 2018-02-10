@@ -80,23 +80,60 @@ router.delete('/:pid', (req, res) => {
  */
 router.post('/:pid/doc', (req, res) => {
     let document = new Document({
-        type: req.body.type,
-        date: req.body.date,
-        attachment: req.body.attachment
+        type: req.query.type,
+        date: req.query.date,
+        attachment: req.query.attachment
     });
-    Participant.findById(req.params.pid).then(participant => {
-        if (!participant.documents) {
-            participant.documents = [];
+    fs.exists(path.join(__dirname, "../documents", req.params.pid), exists => {
+        if(!exists){
+            fs.mkdir(path.join(__dirname, "../documents", req.params.pid), err => {
+                if(err){
+                    res.status(500).send(err)
+                }else {
+                    req.files.attachment.mv(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), err => {
+                        if(err){
+                            res.status(500).send(err);
+                        } else {
+                            Participant.findById(req.params.pid).then(participant => {
+                                if (!participant.documents) {
+                                    participant.documents = [];
+                                }
+                                participant.documents.push(document);
+                        
+                                participant.save().then(data => {
+                                    res.send(data);
+                                }, err => {
+                                    res.send(err);
+                                })
+                            }, err => {
+                                res.send(err);
+                            })
+                        }
+                    })
+                }
+            })
+        } else {
+            req.files.attachment.mv(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), err => {
+                if(err){
+                    res.status(500).send(err);
+                } else {
+                    Participant.findById(req.params.pid).then(participant => {
+                        if (!participant.documents) {
+                            participant.documents = [];
+                        }
+                        participant.documents.push(document);
+                
+                        participant.save().then(data => {
+                            res.send(data);
+                        }, err => {
+                            res.send(err);
+                        })
+                    }, err => {
+                        res.send(err);
+                    })
+                }
+            })
         }
-        participant.documents.push(document);
-
-        participant.save().then(data => {
-            res.send(data);
-        }, err => {
-            res.send(err);
-        })
-    }, err => {
-        res.send(err);
     })
 });
 
