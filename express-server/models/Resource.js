@@ -6,7 +6,8 @@ const resourceSchema = new Schema({
     email: { type: String, sparse: true },
     phone: String,
     location: String,
-    notes: String
+    notes: String,
+    deleted: { type: Boolean, default: false }
   }, { discriminatorKey: 'kind', timestamps: true });
 
 const Resource = mongoose.model('Resource', resourceSchema);
