@@ -4,7 +4,7 @@
  * @param {any} allowed 
  * @returns middleware function
  */
-export default function permit(...allowed) {
+function permit(...allowed) {
   const isAllowed = role => allowed === role;
 
   return (req, res, next) => {
@@ -15,3 +15,5 @@ export default function permit(...allowed) {
     }
   }
 }
+
+module.exports = permit;

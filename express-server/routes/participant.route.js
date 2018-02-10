@@ -30,12 +30,13 @@ router.get('/id/:pid', (req, res) => {
 
 /**
  * Get all participants of a social worker
+ * Returns only participants who were not flagged as deleted
  */
 router.get('/worker', (req, res) => {
     if (!req.user || !req.user._id) {
-        return res.status(401).send({err: "No user ID provided. User must be logged in."})
+        return res.status(401).send({ err: "No user ID provided. User must be logged in." })
     }
-    Participant.find({ socialworkers: new ObjectId(req.user._id) }).then(data => {
+    Participant.find({ deleted: false, socialworkers: new ObjectId(req.user._id) }).then(data => {
         res.send(data);
     }, err => {
         res.send(err);
@@ -82,13 +83,24 @@ router.post('/', (req, res) => {
 
 /**
  * Delete a participant by ID
+ * 
+ * If the user making this request is an administrator, the participant's record will be 
+ * permanently deleted. Otherwise, it will only be flagged as deleted.
  */
 router.delete('/:pid', (req, res) => {
-    Participant.findByIdAndRemove(req.params.pid).then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    })
+    if (req.user.role === "admin") {
+        Participant.findByIdAndRemove(req.params.pid).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+    } else {
+        Participant.findByIdAndUpdate(req.params.pid, {deleted: true}).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+    }
 });
 
 /**
