@@ -1,0 +1,52 @@
+<div class="profile-div" *ngIf="participantSelected">
+  <mat-card>
+    <h2>{{participantSelected.name}}</h2>
+    <p *ngIf="participantSelected.pronouns !== undefined && participantSelected.pronouns !== ''">Pronouns:
+      {{participantSelected.pronouns}}
+    </p>
+    <p *ngIf="participantSelected.email !== undefined && participantSelected.email !== ''">Email:
+      {{participantSelected.email}}
+    </p>
+    <p *ngIf="participantSelected.telephone !== undefined && participantSelected.telephone !== ''">Phone number:
+      {{participantSelected.telephone}}
+    </p>
+    <p *ngIf="participantSelected.socialmedia !== undefined">Social media:
+      {{participantSelected.socialmedia.service}} {{participantSelected.socialmedia.username}}
+    </p>
+    <p *ngIf="participantSelected.address !== undefined && participantSelected.address !== ''">Address:
+      {{participantSelected.address}}
+    </p>
+    <mat-card-actions>
+        <button mat-raised-button (click)="newCase()">New case</button>
+      <button mat-raised-button (click)="addNote()">Add Note</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <h3 class="history-header">Notes</h3>
+  <mat-card *ngIf="orderedNotes.length == 0">
+    No notes to display.
+  </mat-card>
+  <mat-accordion *ngIf="orderedNotes.length > 0">
+    <mat-expansion-panel *ngFor="let note of orderedNotes">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{note.date | date: 'fullDate'}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{note.text | slice:0:100}}...
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h4>Note:</h4>
+      {{note.text}}
+      <br><br>
+      <h4>Attachments:</h4>
+      <mat-grid-list cols="2" *ngFor="let attach of note.attachment">
+        <!-- <mat-grid-tile> -->
+          <img [src]="attach">
+        <!-- </mat-grid-tile> -->
+      </mat-grid-list>
+      <br>
+      <button id="deleteBtn" mat-raised-button (click)="deleteNote(note._id)">Delete Note</button>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

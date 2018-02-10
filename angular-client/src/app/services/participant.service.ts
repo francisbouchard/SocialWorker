@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Participant } from '../classes/participant';
+import { Note } from '../classes/note';
 import { MessageService } from './message.service';
 
 @Injectable()
@@ -56,14 +57,30 @@ export class ParticipantService {
     return this.http.post<Object>(this.url, participantData)
       .pipe(
       tap(p => {
-        if (p.hasOwnProperty("errmsg")) {
-          console.log("has err msg");
+        if (p.hasOwnProperty('errmsg')) {
+          console.log('has err msg');
           this.log('did not save new participant');
         } else {
           this.log('saved new participant');
         }
       }),
       catchError(this.handleError<Participant>('save(participantData)'))
+      );
+  }
+
+  /**
+   * Save a note to a participant
+   * 
+   * @param {Note} note 
+   * @param {String} pid 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  saveNote(note: Note, pid: String): Observable<Object> {
+    return this.http.post<Object>(`${this.url}/${pid}/note`, note)
+      .pipe(
+      tap(note => this.log('saved a note to participant')),
+      catchError(this.handleError<Object>('saveNote()'))
       );
   }
 
@@ -83,6 +100,22 @@ export class ParticipantService {
   }
 
   /**
+   * Delete a participant's note by its ID
+   * 
+   * @param {String} participantID 
+   * @param {String} noteID 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  deleteNote(participantID: String, noteID: String): Observable<Object> {
+    return this.http.delete(`${this.url}/${participantID}/note/${noteID}`)
+      .pipe(
+      tap(_ => this.log('deleted participant\'s note')),
+      catchError(this.handleError<Object>('deleteNote(participantID, noteID)'))
+      );
+  }
+
+  /**
    * Search participants to see if account email already exists,
    * or it participant ID has already been taken.
    * 
@@ -93,7 +126,7 @@ export class ParticipantService {
   search(participantAttributeValuePair): Observable<Object> {
     return this.http.get(`${this.url}/search/${participantAttributeValuePair}`)
       .pipe(
-      map(participants => participants[0]? true: false),
+      map(participants => participants[0] ? true : false),
       tap(_ => this.log('searched participant')),
       catchError(this.handleError<Object>('search participant information'))
       );

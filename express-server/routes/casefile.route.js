@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Request = require('../models/Request');
+const Casefile = require('../models/Casefile');
 const Resource = require('../models/Resource');
 
 /**
- * Get all requests
+ * Get all Cases
  */
 router.get('/', (req, res) => {
-    Request.find().then(data => {
+    Casefile.find().then(data => {
         res.send(data);
     }, err => {
         res.send(err);
@@ -15,10 +15,10 @@ router.get('/', (req, res) => {
 });
 
 /**
- * Get a request by ID
+ * Get a Casefile by ID
  */
 router.get('/:id', (req, res) => {
-    Request.findById(req.params.id).then(data => {
+    Casefile.findById(req.params.id).then(data => {
         res.send(data);
     }, err => {
         res.send(err);
@@ -26,10 +26,10 @@ router.get('/:id', (req, res) => {
 });
 
 /**
- * Get a request by participant ID
+ * Get a Casefile by participant ID
  */
 router.get('/participant/:id', (req, res) => {
-    Request.find({ participant: req.params.id }).then(data => {
+    Casefile.find({ participant: req.params.id }).then(data => {
         res.send(data);
     }, err => {
         res.send(err);
@@ -37,10 +37,10 @@ router.get('/participant/:id', (req, res) => {
 });
 
 /**
- * Get a contacted resource of a request by resource ID
+ * Get a contacted resource of a Casefile by resource ID
  */
 router.get('/:id/resource/:resId', (req, res) => {
-    Request.findOne({ _id: req.params.id, 'contactedResources._id': req.params.resId },
+    Casefile.findOne({ _id: req.params.id, 'contactedResources._id': req.params.resId },
         { 'contactedResources.$': 1 }).then(data => {
         res.send(data);
     }, err => {
@@ -49,16 +49,17 @@ router.get('/:id/resource/:resId', (req, res) => {
 });
 
 /**
- * Create a new request
+ * Create a new Casefile
  */
 router.post('/', (req, res) => {
-    let request = new Request({
+    let casefile = new Casefile({
         participant: req.body.participant,
         notes: [req.body.notes],
         status: req.body.status,
+        urgency: req.body.urgency,
         contactedResources: req.body.contactedResources
     });
-    request.save().then(data => {
+    casefile.save().then(data => {
         res.send(data);
     }, err => {
         res.send(err);
@@ -66,7 +67,7 @@ router.post('/', (req, res) => {
 });
 
 /**
- * Add a contacted resource to request
+ * Add a contacted resource to Casefile
  */
 router.post('/:id/resource', (req, res) => {
     Resource.findById(req.body.resourceId).then(resource => {
@@ -76,7 +77,7 @@ router.post('/:id/resource', (req, res) => {
             _id: req.body.resourceId,
             status: req.body.status
         };
-        Request.update({ _id: req.params.id }, { $push: { contactedResources: contResource } }).then(data => {
+        Casefile.update({ _id: req.params.id }, { $push: { contactedResources: contResource } }).then(data => {
             res.send(data);
         }, err => {
             res.send(err);
@@ -90,7 +91,7 @@ router.post('/:id/resource', (req, res) => {
  * Update status of a contacted resource
  */
 router.put('/:id/resource/:resId', (req, res) => {
-    Request.update({ '_id': req.params.id, 'contactedResources._id': req.params.resId },
+    Casefile.update({ '_id': req.params.id, 'contactedResources._id': req.params.resId },
         { '$set': { 'contactedResources.$.status': req.body.status } })
         .then(data => {
             res.send(data);
@@ -100,10 +101,10 @@ router.put('/:id/resource/:resId', (req, res) => {
 });
 
 /**
- * Update status of a request
+ * Update status of a Casefile
  */
 router.put('/:id/status', (req, res) => {
-    Request.update({ '_id': req.params.id }, { '$set': { status: req.body.status } })
+    Casefile.update({ '_id': req.params.id }, { '$set': { status: req.body.status } })
         .then(data => {
             res.send(data);
         }, err => {
@@ -112,10 +113,10 @@ router.put('/:id/status', (req, res) => {
 });
 
 /**
- * Delete a request with the given ID
+ * Delete a Casefile with the given ID
  */
 router.delete('/:id', (req, res) => {
-    Request.findByIdAndRemove(req.params.id).then(data => {
+    Casefile.findByIdAndRemove(req.params.id).then(data => {
         res.send(data);
     }, err => {
         res.send(err);

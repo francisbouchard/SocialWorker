@@ -40,8 +40,6 @@ router.get('/search/:values', (req, res) => {
     })
 })
 
-
-
 /**
  * Create a new participant
  */
@@ -50,6 +48,7 @@ router.post('/', (req, res) => {
         _id: req.body._id,
         name: req.body.name,
         email: req.body.email,
+        pronouns: req.body.pronouns,
         telephone: req.body.telephone,
         address: req.body.address,
         socialmedia: {
@@ -101,6 +100,19 @@ router.post('/:pid/doc', (req, res) => {
 });
 
 /**
+ * Delete a participant's document by the document ID
+ */
+router.delete('/:pid/doc/:docId', (req, res) => {
+    Participant.update({_id: req.params.pid},
+        { $pull: { documents: {_id: req.params.docId} } }    
+    ).then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+})
+
+/**
  * Add a note to participant
  */
 router.post('/:pid/note', (req, res) => {
@@ -124,5 +136,18 @@ router.post('/:pid/note', (req, res) => {
         res.send(err);
     })
 });
+
+/**
+ * Delete a participant's note by the note ID
+ */
+router.delete('/:pid/note/:noteId', (req, res) => {
+    Participant.update({_id: req.params.pid},
+        { $pull: { notes: {_id: req.params.noteId} } }    
+    ).then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+})
 
 module.exports = router;

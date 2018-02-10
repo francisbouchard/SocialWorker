@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertModalComponent } from '../../alert-modal/alert-modal.component';
 import { Housing } from '../../../classes/housing';
 import { FormGroup, FormControl, Validators,ValidatorFn, FormBuilder,ValidationErrors } from "@angular/forms";
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-resource',
@@ -24,9 +24,10 @@ export class AddResourceComponent implements OnInit {
     term: null,
     gender: null,
     constraints: null
-  }
+  };
 
-  constructor(private fb :FormBuilder,private resourceService: ResourceService, public dialog: MatDialog) {
+  constructor(private fb :FormBuilder,private resourceService: ResourceService, public dialog: MatDialog,private router: Router
+) {
       this.form = this.fb.group({
             name: ['', Validators.required ],
             email: ['', Validators.required ],
@@ -39,17 +40,18 @@ export class AddResourceComponent implements OnInit {
 });
    }
 
+
   ngOnInit() {
   }
 
   /**
    * Alert user of response success or fail.
-   * 
-   * @param {any} message 
+   *
+   * @param {any} message
    * @memberof AddResourceComponent
    */
   alertModal(message): void {
-    let dialogRef = this.dialog.open(AlertModalComponent, {
+    const dialogRef = this.dialog.open(AlertModalComponent, {
       width: '250px',
       data: { message: message }
     });
@@ -67,10 +69,11 @@ export class AddResourceComponent implements OnInit {
   submit() {
     this.resourceService.save('housing', this.form.value)
       .subscribe(data => {
-        if (data.hasOwnProperty("errmsg")) {
-          this.alertModal("Could not add new resource.");
+        if (data.hasOwnProperty('errmsg')) {
+          this.alertModal('Could not add new resource.');
         } else {
-          this.alertModal("New resource successfully added.")
+          this.alertModal('New resource successfully added.');
+          this.router.navigateByUrl('/resources');
         }
       });
   }

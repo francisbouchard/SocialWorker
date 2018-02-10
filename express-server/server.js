@@ -19,7 +19,7 @@ const api = require('./routes/api');
 const user = require('./routes/user');
 const participant = require('./routes/participant.route');
 const resource = require('./routes/resource.route');
-const request = require('./routes/request.route');
+const casefile = require('./routes/casefile.route');
 
 const MongoStore = mongo(session);
 
@@ -55,11 +55,6 @@ app.use(passport.session());
 app.use(flash());
 
 
-// Server public folder
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(/^\/(?!api)\/.*/, express.static(path.join(__dirname, 'public', 'index.html')));
-
-
 //all urls with /api must be authenticated
 app.use('/api', passportConfig.isAuthenticated);
 
@@ -68,7 +63,14 @@ app.use('/api', api);
 app.use('/user', user);
 app.use('/api/participant', participant);
 app.use('/api/resource', resource);
-app.use('/api/request', request);
+app.use('/api/casefile', casefile);
+
+
+// Server public folder
+app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "/public", "index.html"));
+});
 
 
 /**

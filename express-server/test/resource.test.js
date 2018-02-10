@@ -9,7 +9,7 @@ let id1 = new mongoose.Types.ObjectId();
 let id2 = null;
 let id3 = new mongoose.Types.ObjectId();
 let id4 = new mongoose.Types.ObjectId();
-let cookie = "connect.sid=s%3A1lS2K83NTmT-TV7lzdP-1zBUs0TovpZS.OOzwP5p4pWO9eYOySivKKyxSfrsDskqVAJ%2FK1cKLaIQ";
+let cookie;
 
 chai.use(chaiHttp);
 
@@ -17,29 +17,29 @@ describe('Housing Resources Tests', () => {
 
     before((finished) => {
         chai.request(server)
-                .post('/user/login')
-                .send({
-                    "email": "test1@test.com",
-                    "password": "test"
-                })
-                .end((err, res) => {
-                    cookie = res.headers['set-cookie'].pop().split(';')[0];
-                    finished();
-                });
+            .post('/user/login')
+            .send({
+                'email': 'test1@test.com',
+                'password': 'test'
+            })
+            .end((err, res) => {
+                cookie = res.headers['set-cookie'].pop().split(';')[0];
+                finished();
+            });
         let housing1 = new Housing({
             _id: id1,
-            name: "Housing Facility Name",
-            email: "housing@resource.com",
-            phone: "514-1234567",
-            location: "the location",
-            term: "15 weeks",
-            constraints: ["some constraints"]
+            name: 'Housing Facility Name',
+            email: 'housing@resource.com',
+            phone: '514-1234567',
+            location: 'the location',
+            term: '15 weeks',
+            constraints: ['some constraints']
         });
         let housing2 = new Housing({
             _id: id4,
-            name: "Housing Facility 4 Name",
-            email: "housing4@resource.com",
-            term: "5 weeks"
+            name: 'Housing Facility 4 Name',
+            email: 'housing4@resource.com',
+            term: '5 weeks'
         });
         housing1.save().then(data => { }, err => {
             console.log(err);
@@ -109,8 +109,8 @@ describe('Housing Resources Tests', () => {
     describe('/POST/housing', () => {
         it('should not POST a housing resource without a name', (done) => {
             let housing = {
-                email: "housing2@resource.com",
-                phone: "514-1234567"
+                email: 'housing2@resource.com',
+                phone: '514-1234567'
             }
             chai.request(server)
                 .post('/api/resource/housing')
@@ -127,10 +127,10 @@ describe('Housing Resources Tests', () => {
         });
         it('should POST a housing resource', (done) => {
             let housing = {
-                name: "Housing Facility 2 Name",
-                email: "housing2@resource.com",
-                phone: "514-1234567",
-                term: "2 months"
+                name: 'Housing Facility 2 Name',
+                email: 'housing2@resource.com',
+                phone: '514-1234567',
+                term: '2 months'
             }
             chai.request(server)
                 .post('/api/resource/housing')
@@ -152,12 +152,12 @@ describe('Housing Resources Tests', () => {
 
     describe('/PUT/housing/:id', () => {
         it('should update (PUT) properties of the housing resource with given ID', (done) => {
-            let notes = "Housing Facility Notes";
-            let term = "4 months";
+            let notes = 'Housing Facility Notes';
+            let term = '4 months';
             chai.request(server)
                 .put('/api/resource/housing/' + id1)
                 .set('Cookie', cookie)
-                .send({notes: notes, term: term})
+                .send({ notes: notes, term: term })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.have.property('notes').eql(notes);
@@ -180,10 +180,10 @@ describe('Housing Resources Tests', () => {
     });
 
     after(() => {
-        Housing.findByIdAndRemove(id1).then(data => {}, err => {
+        Housing.findByIdAndRemove(id1).then(data => { }, err => {
             console.log(err);
         });
-        Housing.findByIdAndRemove(id2).then(data => {}, err => {
+        Housing.findByIdAndRemove(id2).then(data => { }, err => {
             console.log(err);
         });
     });

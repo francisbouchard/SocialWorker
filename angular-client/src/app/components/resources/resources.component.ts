@@ -15,7 +15,7 @@ export class ResourcesComponent implements OnInit {
   constructor(private resourceService: ResourceService, public authService: AuthenticationService, public router: Router) { }
 
   ngOnInit() {
-    if(!this.authService.loggedIn){
+    if (!this.authService.loggedIn) {
       this.router.navigateByUrl('login');
     }
   }

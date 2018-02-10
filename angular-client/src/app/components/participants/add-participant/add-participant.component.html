@@ -18,11 +18,15 @@
     <div *ngIf="isAlreadyAParticipantID" style="color:red">This is already associated to a participant!</div>
 
     <mat-form-field>
+      <input matInput placeholder="Pronouns" formControlName="pronouns">
+    </mat-form-field>
+
+    <mat-form-field>
       <span matPrefix>+1 &nbsp;</span>
       <input  type="tel" matInput placeholder="Telephone" formControlName="telephone">
     </mat-form-field>
 
-    <div formGroupName="socialmedia" class="well well-lg">
+    <div  class="well well-lg">
     <mat-form-field>
       <input matInput placeholder="Social media provider (Twitter, Facebook)" formControlName="service">
     </mat-form-field>
