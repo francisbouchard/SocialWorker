@@ -34,7 +34,7 @@
       <p>{{casefile.notes[0]}}</p>
       <h4>Resources:</h4>
       <form>
-        <div class="resource headerResources">
+        <div class="resource headerResources" *ngIf="casefile.contactedResources[0]">
           <span class="name primary">Name</span>
           <span class="contacted primary">Contacted</span>
           <span class="datePicker primary datePicker">Date</span>
