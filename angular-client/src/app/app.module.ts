@@ -25,6 +25,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { ResourceService } from './services/resource.service';
 import { CaseModalComponent } from './components/case-modal/case-modal.component';
 import { CasefileService } from './services/casefile.service';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterUserComponent
   },
   {
     path: 'resources',
@@ -77,7 +82,8 @@ const routes: Routes = [
     ViewResourcesComponent,
     ParticipantProfileComponent,
     CaseModalComponent,
-    NoteComponent
+    NoteComponent,
+    RegisterUserComponent
   ],
   imports: [
     BrowserModule,

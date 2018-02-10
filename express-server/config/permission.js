@@ -11,7 +11,7 @@ function permit(...allowed) {
     if (req.user && isAllowed(req.user.role))
       next();
     else {
-      response.status(403).json({ message: "Forbidden for this user role" });
+      res.status(403).json({ message: "Forbidden for this user role" });
     }
   }
 }
