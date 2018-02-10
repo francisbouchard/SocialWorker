@@ -6,7 +6,7 @@
         [(ngModel)]="note.text"></textarea>
     </mat-form-field>
     <div class="fileupload">
-      <h4>Upload Image</h4>
+      <h4>Upload File</h4>
       <input type="file" #upload (change)="handleFileInput(upload.files)">
     </div>
   </form>
@@ -15,5 +15,3 @@
   <button mat-raised-button color="primary" (click)="submit()">Submit</button>
   <button mat-raised-button (click)="cancel()">Cancel</button>
 </mat-dialog-actions>
-<img *ngIf="note.attachment" [src]="note.attachment">
-<br/>

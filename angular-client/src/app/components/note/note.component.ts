@@ -16,7 +16,8 @@ export class NoteComponent implements OnInit {
     text: "",
     date: new Date(),
     attachment: null
-  };
+  }
+  file: FormData;
 
   constructor(
     private participantService: ParticipantService,
@@ -37,7 +38,7 @@ export class NoteComponent implements OnInit {
    * @memberof NoteComponent
    */
   submit(): void {
-    this.participantService.saveNote(this.note, this.participant.id)
+    this.participantService.saveNote(this.file, this.note, this.participant.id)
       .subscribe(data => {
         this.dialogRef.close();
       });
@@ -60,12 +61,10 @@ export class NoteComponent implements OnInit {
    */
   handleFileInput(files) {
     if (files) {
-      const reader = new FileReader();
-      reader.readAsDataURL(files[0]);
-      reader.onload = (event: Event) => {
-        this.note.attachment = reader.result;
-      };
-
+      const formData = new FormData();
+      formData.append("attachment", files[0]);
+      this.note.attachment = files[0].name;
+      this.file = formData;
     }
   }
 

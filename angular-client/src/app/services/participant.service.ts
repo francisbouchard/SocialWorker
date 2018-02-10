@@ -72,13 +72,13 @@ export class ParticipantService {
   /**
    * Save a note to a participant
    * 
-   * @param {Note} note 
+   * @param  {HttpParams} note 
    * @param {String} pid 
    * @returns {Observable<Object>} 
    * @memberof ParticipantService
    */
-  saveNote(note: Note, pid: String): Observable<Object> {
-    return this.http.post<Object>(`${this.url}/${pid}/note`, note)
+  saveNote(file: FormData, note, pid: String): Observable<Object> {
+    return this.http.post<Object>(`${this.url}/${pid}/note`, file, {params: note})
       .pipe(
       tap(_ => this.log('saved a note to participant')),
       catchError(this.handleError<Object>('saveNote()'))

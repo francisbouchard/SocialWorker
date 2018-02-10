@@ -36,12 +36,7 @@
       {{note.text}}
       <br>
       <br>
-      <h4>Attachments:</h4>
-      <mat-grid-list cols="2" *ngFor="let attach of note.attachment">
-        <!-- <mat-grid-tile> -->
-        <img [src]="attach">
-        <!-- </mat-grid-tile> -->
-      </mat-grid-list>
+      <h4>Attachments: {{note.attachment}}</h4>
       <br>
       <button id="deleteBtn" mat-raised-button (click)="deleteNote(note._id)">Delete Note</button>
     </mat-expansion-panel>
