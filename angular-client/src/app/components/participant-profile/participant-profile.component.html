@@ -42,11 +42,11 @@
         </div>
         <div class="resource" *ngFor="let caseResource of casefile.contactedResources; let resourceIndex = index">
           <p class="name">{{caseResource.resource.name}}</p>
-          <mat-slide-toggle #contactToggle [checked]="caseResource.dateContacted != null" (change)="updateCaseToggle(contactToggle._checked, casefile._id, caseResource.resource._id, caseResource.dateContacted, caseIndex, resourceIndex)" color="accent"  class="contacted"></mat-slide-toggle>
+          <mat-slide-toggle #contactToggle [checked]="caseResource.dateContacted != null" (change)="updateCaseDate(contactToggle._checked, casefile, caseResource.resource, caseIndex, resourceIndex)" color="accent"  class="contacted"></mat-slide-toggle>
           <mat-form-field class="datePicker">
-            <input  matInput name="date" #dateContacted [matDatepicker]="picker" (keyup.enter)="updateCaseDate(casefile, caseResource, caseIndex, resourceIndex)" (blur)="updateCaseDate(casefile, caseResource, caseIndex, resourceIndex)" value="caseResource.dateContacted">        
+            <input  matInput name="date" type="text" #dateContacted [matDatepicker]="picker" placeholder="mm/dd/yyyy" (keyup.enter)="updateCaseDate(true, casefile, caseResource, caseIndex, resourceIndex)" (blur)="updateCaseDate(true, casefile, caseResource, caseIndex, resourceIndex)">        
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker startView="month" [startAt]="startDate" (closed)="updateCaseDate(casefile, caseResource, caseIndex, resourceIndex)"></mat-datepicker>
+            <mat-datepicker #picker startView="month" [startAt]="startDate" (closed)="updateCaseDate(true, casefile, caseResource, caseIndex, resourceIndex)"></mat-datepicker>
           </mat-form-field>
           <mat-form-field class="caseNotes">
             <input matInput placeholder="Note" >
