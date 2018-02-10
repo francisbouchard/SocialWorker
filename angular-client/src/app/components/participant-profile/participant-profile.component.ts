@@ -20,6 +20,7 @@ import { FormControl } from '@angular/forms';
 
 export class ParticipantProfileComponent implements OnInit {
 
+  deleteme = true;
   orderedCases = [];
   orderedNotes = [];
   today = Date.now();
@@ -134,7 +135,7 @@ export class ParticipantProfileComponent implements OnInit {
   }
 
   updateCase(isResourceContacted, casefileID, resourceID): void {
-    this.casefileService.updateCaseContactedResource(casefileID, resourceID, {'status': 'ANNNAAAAA LOL'})
+    this.casefileService.updateCaseContactedResource(casefileID, resourceID, {'status': 'Contacted'})
     .subscribe(result => {
       console.log(result);
     });

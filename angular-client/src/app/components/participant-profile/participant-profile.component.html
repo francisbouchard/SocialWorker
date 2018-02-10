@@ -36,7 +36,7 @@
       <form>
         <div class="resource" *ngFor="let caseResource of casefile.contactedResources">
           <p class="name">{{caseResource.resource.name}}</p>
-          <mat-slide-toggle #contactToggle (change)="updateCase(contactToggle._checked, casefile._id, caseResource._id)" color="accent">Contacted</mat-slide-toggle>
+          <mat-slide-toggle #contactToggle [checked]="caseResource.status == 'Contacted'" (change)="updateCase(contactToggle._checked, casefile._id, caseResource.resource._id)" color="accent">Contacted</mat-slide-toggle>
           <mat-form-field>
             <input matInput [matDatepicker]="picker" placeholder="{{this.today| date:'M/d/yyyy' }}">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
