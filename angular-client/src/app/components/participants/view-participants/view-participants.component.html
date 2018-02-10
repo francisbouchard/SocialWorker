@@ -1,5 +1,14 @@
 <br>
 
+<mat-form-field>
+  <mat-select placeholder="Sort by" [(value)]="sortProperty">
+    <mat-option value="name">Name</mat-option>
+    <mat-option value="updatedAt">Last Updated</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-raised-button (click)="reverse=!reverse">{{reverse? 'Descending': 'Ascending'}}</button>
+
 <div *ngFor="let participant of (profiles | orderBy: sortProperty: reverse)">
 <mat-card class="example-card">
   <mat-card-header>
