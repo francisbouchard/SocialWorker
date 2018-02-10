@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
   loading: boolean = false;
   error: boolean = false;
   msg: string = "";
-  register: boolean = false;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -22,16 +21,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
-  }
-
-  /**
-   * Toggle between login and signup 
-   * 
-   * @memberof LoginComponent
-   */
-  public toggleLogin() {
-    this.register = !this.register;
-    this.error = false;
   }
 
   /**
@@ -69,9 +58,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.signUp(this.user.rEmail, this.user.rPassword, this.user.rConfirmPassword).subscribe(data => {
       this.loading = false;
 
-      if (!data.error) {
-        this.register = false;
-      } else {
+      if (data.error) {
         this.authenticationService.loggedIn = false;
         this.loading = false;
         this.error = true;
