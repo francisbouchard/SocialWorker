@@ -3,16 +3,19 @@ import { ParticipantService } from '../../../services/participant.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-view-participants',
   templateUrl: './view-participants.component.html',
-  styleUrls: ['./view-participants.component.css']
+  styleUrls: ['./view-participants.component.css'],
 })
+
 export class ViewParticipantsComponent implements OnInit {
   @Input() hasTabChanged: boolean;
 
   public profiles;
+  public sortProperty = 'name';
+  public reverse = false;
+
   constructor(private participantService: ParticipantService, public authService: AuthenticationService, public router: Router) {
   }
 
