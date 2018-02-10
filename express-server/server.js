@@ -13,6 +13,7 @@ const flash = require('express-flash');
 const expressValidator  = require('express-validator');
 
 const passportConfig = require("./config/passport");
+const permit = require("./config/permission");
 
 // Get our API routes
 const api = require('./routes/api');
@@ -57,6 +58,7 @@ app.use(flash());
 
 //all urls with /api must be authenticated
 app.use('/api', passportConfig.isAuthenticated);
+app.use('/user/signup', permit('admin'));
 
 // Set our api routes
 app.use('/api', api);
