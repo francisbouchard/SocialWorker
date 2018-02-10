@@ -10,6 +10,18 @@ body {
   border-color: rgb(64, 48, 117);
 }
 
+button.mat-raised-button.reverseBtn{
+  width: 8em;
+}
+
+div.sortNSearchToolbar{
+  margin-top: 2.5em;
+}
+
+mat-form-field.searchBox{
+  padding-left: 0.5em;
+}
+
 .mat-radio-button.mat-accent .mat-radio-inner-circle {
   background-color: rgb(	136, 45, 96);
 }
