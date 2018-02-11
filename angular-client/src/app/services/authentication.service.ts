@@ -9,12 +9,14 @@ import { MessageService } from "./message.service";
 
 @Injectable()
 export class AuthenticationService {
-public loggedIn: boolean;
+  public loggedIn: boolean;
+  public role: String;
+
   constructor(
     private http: HttpClient,
     private messageService: MessageService
 
-) {
+  ) {
 
   }
 
@@ -25,17 +27,18 @@ public loggedIn: boolean;
    * @returns {Observable<Object>}
    * @memberof AuthenticationService
    */
-  public login(email: string, password: string) : Observable<any> {
+  public login(email: string, password: string): Observable<any> {
     return this.http.post<any>('/user/login', { email: email, password: password })
       .pipe(
-        tap(p => {
-          if (p.error) {
-            this.log('Problem login out.');
-          } else {
-            this.log('Successful logout.');
-          }
-        }),
-        catchError(this.handleError<any>('login(email, password)'))
+      tap(p => {
+        if (p.error) {
+          this.log('Problem logging in.');
+        } else {
+          this.role = p.role;
+          this.log('Successful login.');
+        }
+      }),
+      catchError(this.handleError<any>('login(email, password)'))
       );
   }
 
@@ -44,17 +47,17 @@ public loggedIn: boolean;
    * @returns {Observable<Object>}
    * @memberof AuthenticationService
    */
-  public logout() : Observable<any> {
+  public logout(): Observable<any> {
     return this.http.post<any>('/user/logout', {})
       .pipe(
-        tap(p => {
-          if (p.error) {
-            this.log('Problem login in.');
-          } else {
-            this.log('Successful login.');
-          }
-        }),
-        catchError(this.handleError<any>('login(email, password)'))
+      tap(p => {
+        if (p.error) {
+          this.log('Problem logging out.');
+        } else {
+          this.log('Successful logout.');
+        }
+      }),
+      catchError(this.handleError<any>('logout()'))
       );
   }
 
@@ -66,17 +69,17 @@ public loggedIn: boolean;
    * @returns {Observable<Object>}
    * @memberof AuthenticationService
    */
-  public signUp (email: string, password: string, confirmPassword: string) : Observable<any>  {
-    return this.http.post<any>('/user/signup', {email: email, password: password, confirmPassword: confirmPassword})
+  public signUp(email: string, password: string, confirmPassword: string): Observable<any> {
+    return this.http.post<any>('/user/signup', { email: email, password: password, confirmPassword: confirmPassword })
       .pipe(
-        tap(p => {
-          if (p.error) {
-            this.log('Problem signing up.');
-          } else {
-            this.log('Successful sign up.');
-          }
-        }),
-        catchError(this.handleError<any>('signUp(email, password, confirmPassword)'))
+      tap(p => {
+        if (p.error) {
+          this.log('Problem signing up.');
+        } else {
+          this.log('Successful sign up.');
+        }
+      }),
+      catchError(this.handleError<any>('signUp(email, password, confirmPassword)'))
       );
   }
 
@@ -85,17 +88,17 @@ public loggedIn: boolean;
    * @returns {Observable<Object>}
    * @memberof AuthenticationService
    */
-  public heartbeat () : Observable<any>  {
+  public heartbeat(): Observable<any> {
     let minutes = 1;
     return Observable
-            .interval(1000*60*minutes)
-            .startWith(0)
-            .flatMap((i) => this.http.post<any>('/user/heartbeat', {}))
+      .interval(1000 * 60 * minutes)
+      .startWith(0)
+      .flatMap((i) => this.http.post<any>('/user/heartbeat', {}))
       .pipe(
-        tap(p => {
-          this.log('Hearbeat success.');
-        }),
-        catchError(this.handleError<any>('heartbeat()'))
+      tap(p => {
+        this.log('Hearbeat success.');
+      }),
+      catchError(this.handleError<any>('heartbeat()'))
       );
   }
 

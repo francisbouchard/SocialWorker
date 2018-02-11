@@ -21,25 +21,32 @@ export class ViewParticipantsComponent implements OnInit {
   }
 
   loadParticipants() {
-    this.participantService.getAll()
-    .subscribe(data => {
-      this.profiles = data;
-    });
+    if (this.authService.role == "admin") {
+      this.participantService.getAll()
+        .subscribe(data => {
+          this.profiles = data;
+        });
+    } else {
+      this.participantService.getBySocialWorker()
+        .subscribe(data => {
+          this.profiles = data;
+        });
+    }
   }
 
   getParticipant(pid) {
     this.participantService.get(pid)
-    .subscribe(data => {
-      this.profiles = [data];
-    });
+      .subscribe(data => {
+        this.profiles = [data];
+      });
   }
 
   delete(pid) {
     this.participantService.delete(pid)
-    .subscribe(data => {
-      console.log('Deleted: ' + data);
-      this.loadParticipants();
-    });
+      .subscribe(data => {
+        console.log('Deleted: ' + data);
+        this.loadParticipants();
+      });
   }
 
   ngOnInit() {
