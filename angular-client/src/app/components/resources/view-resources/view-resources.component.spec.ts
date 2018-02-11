@@ -4,6 +4,8 @@ import { ResourceService } from '../../../services/resource.service';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { MockResourceService } from '../../../mocks/MockResourceService';
 import { EditResourceComponent } from '../edit-resource/edit-resource.component';
+import { OrderByPipe } from '../../../pipes/orderBy.pipe';
+import { SearchPipe } from '../../../pipes/search.pipe';
 
 describe('ViewResourcesComponent', () => {
   let component: ViewResourcesComponent;
@@ -11,7 +13,7 @@ describe('ViewResourcesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewResourcesComponent, EditResourceComponent ],
+      declarations: [ ViewResourcesComponent, EditResourceComponent, OrderByPipe, SearchPipe ],
       imports: [ MaterialsModule ],
       providers: [ { provide: ResourceService, useClass: MockResourceService } ]
     })

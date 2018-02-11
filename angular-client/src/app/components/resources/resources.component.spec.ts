@@ -10,6 +10,8 @@ import { MockResourceService } from '../../mocks/MockResourceService';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { OrderByPipe } from '../../pipes/orderBy.pipe';
+import { SearchPipe } from '../../pipes/search.pipe';
 
 describe('ResourcesComponent', () => {
   let component: ResourcesComponent;
@@ -17,7 +19,7 @@ describe('ResourcesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResourcesComponent, ViewResourcesComponent, AddResourceComponent, EditResourceComponent ],
+      declarations: [ ResourcesComponent, ViewResourcesComponent, AddResourceComponent, EditResourceComponent, OrderByPipe, SearchPipe ],
       imports: [ MaterialsModule, RouterTestingModule ],
       providers: [ { provide: ResourceService, useClass: MockResourceService },
         { provide: AuthenticationService, useClass: MockAuthenticationService },
