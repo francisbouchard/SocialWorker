@@ -134,8 +134,14 @@ export class ParticipantProfileComponent implements OnInit {
     });
   }
 
-  completeCaseFile(): void {
-    // TODO set case status to done
+  completeCasefile(casefile, casefileIndex): void {
+    this.orderedCases[casefileIndex].status = 'Completed';
+    this.casefileService.updateCaseStatus(casefile._id, 'Completed').subscribe();
+  }
+
+  reopenCasefile(casefile, casefileIndex): void {
+    this.orderedCases[casefileIndex].status = 'In progress';
+    this.casefileService.updateCaseStatus(casefile._id, 'In progress').subscribe();
   }
 
   updateCaseDate(isResourceContacted, casefile, resource, casefileIndex, resourceIndex, dateInput: Date): void {

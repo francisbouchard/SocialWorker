@@ -60,11 +60,13 @@
             <input matInput placeholder="Note" #resourceNote (key.enter)="updateCaseResourceNote(casefile, caseResource, resourceNote.value)" (blur)="updateCaseResourceNote(casefile, caseResource, resourceNote.value)">
           </mat-form-field>
         </div>
+        <div class="bottomMenu">
+            <button *ngIf="casefile.status == 'In progress' "  mat-raised-button (click)="completeCasefile(casefile, caseIndex)">Finalize Casefile</button>
+            <button *ngIf="casefile.status == 'Completed' "  mat-raised-button (click)="reopenCasefile(casefile, caseIndex)">Reopen Casefile</button>
+            <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
+          </div>
       </form>
-      <div class="bottomMenu">
-        <button *ngIf="casefile.status != 'Completed' " id="finalizeCaseBtn" mat-raised-button (click)="finalizeCasefile(casefile._id)">Finalize Casefile</button>
-        <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
-      </div>
+
 
     </mat-expansion-panel>
   </mat-accordion>
