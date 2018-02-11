@@ -16,26 +16,33 @@ export class ViewParticipantsComponent implements OnInit {
   constructor(private participantService: ParticipantService, public authService: AuthenticationService, public router: Router) {
   }
 
-loadParticipants() {
-    this.participantService.getBySocialWorker()
-    .subscribe(data => {
-      this.profiles = data;
-    });
+  loadParticipants() {
+    if (this.authService.role == "admin") {
+      this.participantService.getAll()
+        .subscribe(data => {
+          this.profiles = data;
+        });
+    } else {
+      this.participantService.getBySocialWorker()
+        .subscribe(data => {
+          this.profiles = data;
+        });
+    }
   }
 
   getParticipant(pid) {
     this.participantService.get(pid)
-    .subscribe(data => {
-      this.profiles = [data];
-    });
+      .subscribe(data => {
+        this.profiles = [data];
+      });
   }
 
   delete(pid) {
     this.participantService.delete(pid)
-    .subscribe(data => {
-      console.log('Deleted: ' + data);
-      this.loadParticipants();
-    });
+      .subscribe(data => {
+        console.log('Deleted: ' + data);
+        this.loadParticipants();
+      });
   }
 
   ngOnInit() {
