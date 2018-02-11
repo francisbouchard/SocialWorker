@@ -10,6 +10,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { ParticipantService } from '../../services/participant.service';
 import { CasefileService } from '../../services/casefile.service';
 import { FormControl } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 @Component({
@@ -77,15 +78,15 @@ export class ParticipantProfileComponent implements OnInit {
 
   loadCases(): void {
     this.casefileService.getByParticipant(this.participantSelected._id)
-    .subscribe(data => {
-      if (data[0]) {
-        this.orderedCases = data as Array<Casefile>;
-        // TODO order cases by chrono order!
-      } else {
-        this.orderedCases = [];
-      }
-      console.log(data);
-    });
+      .subscribe(data => {
+        if (data[0]) {
+          this.orderedCases = data as Array<Casefile>;
+          // TODO order cases by chrono order!
+        } else {
+          this.orderedCases = [];
+        }
+        console.log(data);
+      });
   }
 
   /**
@@ -134,26 +135,22 @@ export class ParticipantProfileComponent implements OnInit {
     // TODO set case status to done
   }
 
-  updateCaseDate(isResourceContacted, casefile, resource, casefileIndex, resourceIndex): void {
-    
+  updateCaseDate(isResourceContacted, casefile, resource, casefileIndex, resourceIndex, dateInput: Date): void {
+
     const casefileID = casefile._id;
     const resourceID = resource._id;
     const dateContacted = casefile.dateContacted;
     const status = (isResourceContacted) ? 'Contacted' : 'To Contact';
     let date;
     if (isResourceContacted) {
-      date = (dateContacted) ? dateContacted : new Date();
+      date = (dateContacted) ? dateContacted : (dateInput || new Date());
     } else {
       date = null;
     }
     this.orderedCases[casefileIndex].contactedResources[resourceIndex].dateContacted = date;
     this.orderedCases[casefileIndex].contactedResources[resourceIndex].status = status;
 
-    this.casefileService.updateCaseContactedResource(casefileID, resourceID, {'status': status, 'dateContacted' : date})
-    .subscribe(result => {
-      console.log(result);
-      console.log(this.orderedCases);
-    });
+    this.casefileService.updateCaseContactedResource(casefileID, resourceID, { 'status': status, 'dateContacted': date }).subscribe();
   }
 
 }
