@@ -7,9 +7,9 @@ import { FormControl } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ParticipantService } from '../../../services/participant.service';
 import { Participant } from '../../../classes/participant';
+import { DocumentComponent } from '../../document/document.component';
 import { NoteComponent } from '../../note/note.component';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { AppModule } from '../../../app.module';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
 import { CaseModalComponent } from '../../modals/case-modal/case-modal.component';
@@ -25,6 +25,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class ParticipantProfileComponent implements OnInit {
 
   orderedCases = [];
+  orderedDocuments = [];
   orderedNotes = [];
   today = Date.now();
   @Input() public participantSelected: Participant;
@@ -57,7 +58,10 @@ export class ParticipantProfileComponent implements OnInit {
       if (participantSelected != null) {
         this.participantSelected = participantSelected as Participant;
         this.loadCases();
-        // order notes of participant in reverse chronological order
+        // order documents and notes of participant in reverse chronological order
+        this.orderedDocuments = this.participantSelected.documents.sort((doc1, doc2) => {
+          return new Date(doc2.date).getTime() - new Date(doc1.date).getTime();
+        });
         this.orderedNotes = this.participantSelected.notes.sort((note1, note2) => {
           return new Date(note2.date).getTime() - new Date(note1.date).getTime();
         });
@@ -146,10 +150,39 @@ export class ParticipantProfileComponent implements OnInit {
   }
 
   /**
-   * Complete a casefile 
+   * Delete a document of a participant
    *
-   * @param {any} casefile 
-   * @param {any} casefileIndex 
+   * @param {any} documentID
+   * @memberof ParticipantProfileComponent
+   */
+  deleteDocument(documentID): void {
+    this.participantService.deleteDocument(this.participantSelected._id, documentID)
+      .subscribe(result => {
+        this.loadParticipant();
+      });
+  }
+
+  /**
+   * Add a document to a participant profile
+   *
+   * @memberof ParticipantProfileComponent
+   */
+  addDocument(): void {
+    const dialogRef = this.dialog.open(DocumentComponent, {
+      width: '66%',
+      data: { id: this.participantSelected._id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadParticipant();
+    });
+  }
+
+  /**
+   * Complete a casefile
+   *
+   * @param {any} casefile
+   * @param {any} casefileIndex
    * @memberof ParticipantProfileComponent
    */
   completeCasefile(casefile, casefileIndex): void {

@@ -1,0 +1,11 @@
+img {
+    width: 33%;
+}
+
+.fileupload {
+    margin-bottom: 1em;
+}
+
+.fileupload input {
+    font-size: 1em;
+}
