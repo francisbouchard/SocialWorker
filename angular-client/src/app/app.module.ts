@@ -27,6 +27,8 @@ import { ResourceService } from './services/resource.service';
 import { CaseModalComponent } from './components/case-modal/case-modal.component';
 import { CasefileService } from './services/casefile.service';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { OrderByPipe } from './pipes/orderBy.pipe';
+import { SearchPipe }  from './pipes/search.pipe';
 
 const routes: Routes = [
   {
@@ -83,7 +85,12 @@ const routes: Routes = [
     ViewResourcesComponent,
     CaseModalComponent,
     NoteComponent,
+<<<<<<< HEAD
     RegisterUserComponent
+=======
+    OrderByPipe,
+    SearchPipe
+>>>>>>> origin/master
   ],
   imports: [
     BrowserModule,

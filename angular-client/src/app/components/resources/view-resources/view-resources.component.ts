@@ -12,6 +12,9 @@ export class ViewResourcesComponent implements OnInit {
   @Input() hasTabChanged: boolean;
   resources: Object;
   editingResource = Housing;
+  public sortProperty = 'name';
+  public reverse = false;
+  public query: string;
 
   constructor(private resourceService: ResourceService) { }
 
@@ -21,7 +24,7 @@ export class ViewResourcesComponent implements OnInit {
 
   /**
    * Load all resources
-   * 
+   *
    * @memberof ViewResourcesComponent
    */
   loadAllResources() {
@@ -34,8 +37,8 @@ export class ViewResourcesComponent implements OnInit {
 
   /**
    * Delete resource by id
-   * 
-   * @param {any} id 
+   *
+   * @param {any} id
    * @memberof ViewResourcesComponent
    */
   delete(id) {
@@ -48,9 +51,9 @@ export class ViewResourcesComponent implements OnInit {
 
   /**
    * Specify which resource is currently in edit mode
-   * 
-   * @param {any} id 
-   * @param {any} resource 
+   *
+   * @param {any} id
+   * @param {any} resource
    * @memberof ViewResourcesComponent
    */
   edit(id, resource) {
@@ -59,9 +62,9 @@ export class ViewResourcesComponent implements OnInit {
 
   /**
    * Update resource with new attributes
-   * 
-   * @param {any} id 
-   * @param {any} resource 
+   *
+   * @param {any} id
+   * @param {any} resource
    * @memberof ViewResourcesComponent
    */
   update(id, resource) {
@@ -74,7 +77,7 @@ export class ViewResourcesComponent implements OnInit {
 
   /**
    * Cancel edit mode and return to view mode
-   * 
+   *
    * @memberof ViewResourcesComponent
    */
   cancel() {
@@ -84,8 +87,8 @@ export class ViewResourcesComponent implements OnInit {
 
   /**
    * Reload resources after navigating between tabs
-   * 
-   * @returns {boolean} 
+   *
+   * @returns {boolean}
    * @memberof ViewResourcesComponent
    */
   checkResources(): boolean {
