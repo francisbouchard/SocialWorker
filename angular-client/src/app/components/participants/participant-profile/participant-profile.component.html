@@ -60,7 +60,7 @@
         </div>
         <h4>Selected Resource:</h4>
         <mat-form-field>
-          <mat-select [(value)]="selectedResource" placeholder="Resource" (selectionChange)="updateCaseSelectedResource(selectedResource)">
+          <mat-select [(value)]="selectedResource" placeholder="Resource" (selectionChange)="updateCaseSelectedResource(casefile, selectedResource)">
             <mat-option *ngFor="let caseResource of casefile.contactedResources" value="{{caseResource.resource._id}}">
               {{caseResource.resource.name}}
             </mat-option>

@@ -114,6 +114,15 @@ router.put('/:id/resource/:resId', (req, res) => {
         });
 });
 
+router.put('/:id/selection', (req, res) => {
+    Casefile.update({ '_id': req.params.id }, { '$set': { selectedResource: req.body.selectedResource}})
+    .then(date => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    });
+});
+
 /**
  * Update status of a Casefile
  */

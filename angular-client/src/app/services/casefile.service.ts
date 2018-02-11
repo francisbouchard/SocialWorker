@@ -121,12 +121,27 @@ export class CasefileService {
       tap(c => {
         if (c.hasOwnProperty('errmsg')) {
           console.log('has err msg');
-          this.log('did not update contacted resource status');
+          this.log('did not update contacted resource');
         } else {
-          this.log('updated contacted resource status');
+          this.log('updated contacted resource');
         }
       }),
       catchError(this.handleError<Object>('updateResourceStatus(casefileID, resourceID, status)'))
+      );
+  }
+
+  updateCaseSelectedResource(casefileID, selectedResource): Observable<Object> {
+    return this.http.put<Object>(`${this.url}/${casefileID}/selection`, selectedResource)
+      .pipe(
+      tap(c => {
+        if (c.hasOwnProperty('errmsg')) {
+          console.log('has err msg');
+          this.log('did not update casefile selection');
+        } else {
+          this.log('updated casefile');
+        }
+      }),
+      catchError(this.handleError<Object>('updateCaseSelectedResource(casefileID, resourceID)'))
       );
   }
 
