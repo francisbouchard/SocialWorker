@@ -12,7 +12,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { AppModule } from '../../../app.module';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
-import { CaseModalComponent } from '../../case-modal/case-modal.component';
+import { CaseModalComponent } from '../../modals/case-modal/case-modal.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 

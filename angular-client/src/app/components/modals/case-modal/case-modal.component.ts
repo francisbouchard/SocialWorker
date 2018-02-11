@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { CasefileService } from '../../services/casefile.service';
-import { ResourceService } from '../../services/resource.service';
-import { Casefile } from '../../classes/case';
-import { Participant } from '../../classes/participant';
+import { CasefileService } from '../../../services/casefile.service';
+import { ResourceService } from '../../../services/resource.service';
+import { Casefile } from '../../../classes/case';
+import { Participant } from '../../../classes/participant';
 
 
 @Component({
