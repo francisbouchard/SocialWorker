@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
 import { AppComponent } from './app.component';
 import { AddResourceComponent } from './components/resources/add-resource/add-resource.component';
-import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
+import { AlertModalComponent } from './components/modals/alert-modal/alert-modal.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
 import { MessagesComponent } from './components/messages/messages.component';
@@ -24,11 +24,11 @@ import { ParticipantService } from './services/participant.service';
 import { LoginComponent } from './components/login/login.component';
 import { AuthenticationService } from './services/authentication.service';
 import { ResourceService } from './services/resource.service';
-import { CaseModalComponent } from './components/case-modal/case-modal.component';
+import { CaseModalComponent } from './components/modals/case-modal/case-modal.component';
 import { CasefileService } from './services/casefile.service';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
 import { OrderByPipe } from './pipes/orderBy.pipe';
-import { SearchPipe }  from './pipes/search.pipe';
+import { SearchPipe } from './pipes/search.pipe';
 
 const routes: Routes = [
   {

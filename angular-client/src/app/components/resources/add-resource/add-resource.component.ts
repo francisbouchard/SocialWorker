@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourceService } from '../../../services/resource.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AlertModalComponent } from '../../alert-modal/alert-modal.component';
+import { AlertModalComponent } from '../../modals/alert-modal/alert-modal.component';
 import { Housing } from '../../../classes/housing';
 import { Router } from '@angular/router';
 

@@ -41,7 +41,7 @@ export class ParticipantService {
   getAll(): Observable<Object> {
     return this.http.get(this.url)
       .pipe(
-      tap(participants => this.log('fecthed all participants')),
+      tap(participants => this.log('fetched all participants')),
       catchError(this.handleError<Object>('getAll()'))
       );
   }
@@ -93,16 +93,16 @@ export class ParticipantService {
   saveNote(note: Note, pid: String): Observable<Object> {
     return this.http.post<Object>(`${this.url}/${pid}/note`, note)
       .pipe(
-      tap(note => this.log('saved a note to participant')),
+      tap(vnote => this.log('saved a note to participant')),
       catchError(this.handleError<Object>('saveNote()'))
       );
   }
 
   /**
    * Delete a participant by ID
-   * 
-   * @param {any} participantID 
-   * @returns {Observable<Object>} 
+   *
+   * @param {any} participantID
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   delete(participantID): Observable<Object> {
@@ -132,9 +132,9 @@ export class ParticipantService {
   /**
    * Search participants to see if account email already exists,
    * or it participant ID has already been taken.
-   * 
-   * @param {any} participantAttributeValuePair 
-   * @returns {Observable<Object>} 
+   *
+   * @param {any} participantAttributeValuePair
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   search(participantAttributeValuePair): Observable<Object> {

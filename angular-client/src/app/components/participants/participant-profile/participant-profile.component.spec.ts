@@ -9,6 +9,10 @@ import { Location } from '@angular/common';
 import { MockParticipantService } from '../../../mocks/MockParticipantService';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { CasefileService } from '../../../services/casefile.service';
+import { MockCasefileService } from '../../../mocks/MockCasefileService';
+
+
 
 describe('ParticipantProfileComponent', () => {
   let component: ParticipantProfileComponent;
@@ -23,6 +27,7 @@ describe('ParticipantProfileComponent', () => {
         MessageService,
         { provide: ParticipantService, useClass: MockParticipantService},
         { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: CasefileService, useClass: MockCasefileService },
         { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } },
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({_id: 'frontendtest'}) } } }
       ]
@@ -50,7 +55,7 @@ describe('ParticipantProfileComponent', () => {
 
   it('should refresh resources displayed when one gets deleted', fakeAsync(() => {
     const compiled = fixture.debugElement.nativeElement;
-    const deleteButton = compiled.querySelector('#deleteBtn');
+    const deleteButton = compiled.querySelector('#deleteNoteBtn');
     deleteButton.click();
     tick();
     fixture.detectChanges();
