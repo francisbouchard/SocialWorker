@@ -62,7 +62,7 @@
         </div>
       </form>
       <div class="bottomMenu">
-        <button id="finalizeCaseBtn" mat-raised-button (click)="finalizeCasefile(casefile._id)">Finalize Casefile</button>
+        <button *ngIf="casefile.status != 'Done' " id="finalizeCaseBtn" mat-raised-button (click)="finalizeCasefile(casefile._id)">Finalize Casefile</button>
         <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
       </div>
 
