@@ -34,7 +34,7 @@ export class AddResourceComponent implements OnInit {
             telephone:[''],
             location:[''],
             notes:[''],
-            term:['',Validators.required],
+            term:[''],
             gender:[''],
             constraints:[''],
 });
