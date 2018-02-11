@@ -1,27 +1,28 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ResourcesComponent } from './resources.component';
+import { ParticipantsComponent } from './participants.component';
 import { ResourceService } from '../../services/resource.service';
 import { MaterialsModule } from '../../modules/materials.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ViewResourcesComponent } from './view-resources/view-resources.component';
-import { AddResourceComponent } from './add-resource/add-resource.component';
-import { EditResourceComponent } from './edit-resource/edit-resource.component';
-import { MockResourceService } from '../../mocks/MockResourceService';
+import { ViewParticipantsComponent } from './view-participants/view-participants.component';
+import { AddParticipantComponent } from './add-participant/add-participant.component';
+// import { EditParticipantComponent } from './edit-participant/edit-participant.component'; //TODO
+import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { ParticipantService } from '../../services/participant.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
 import { OrderByPipe } from '../../pipes/orderBy.pipe';
 import { SearchPipe } from '../../pipes/search.pipe';
 
-describe('ResourcesComponent', () => {
-  let component: ResourcesComponent;
-  let fixture: ComponentFixture<ResourcesComponent>;
+describe('ParticipantsComponent', () => {
+  let component: ParticipantsComponent;
+  let fixture: ComponentFixture<ParticipantsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResourcesComponent, ViewResourcesComponent, AddResourceComponent, EditResourceComponent, OrderByPipe, SearchPipe ],
+      declarations: [ ParticipantsComponent, ViewParticipantsComponent, AddParticipantComponent, OrderByPipe, SearchPipe ],
       imports: [ MaterialsModule, RouterTestingModule ],
-      providers: [ { provide: ResourceService, useClass: MockResourceService },
+      providers: [ { provide: ParticipantService, useClass: MockParticipantService },
         { provide: AuthenticationService, useClass: MockAuthenticationService },
         { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } } ]
     })
@@ -29,7 +30,7 @@ describe('ResourcesComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ResourcesComponent);
+    fixture = TestBed.createComponent(ParticipantsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

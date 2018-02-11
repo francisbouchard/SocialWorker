@@ -24,15 +24,15 @@ describe('Casefile Tests', () => {
 
     before((finished) => {
         chai.request(server)
-                .post('/user/login')
-                .send({
-                    'email': 'test1@test.com',
-                    'password': 'test'
-                })
-                .end((err, res) => {
-                    cookie = res.headers['set-cookie'].pop().split(';')[0];
-                    finished();
-                });
+            .post('/user/login')
+            .send({
+                'email': 'test1@test.com',
+                'password': 'test'
+            })
+            .end((err, res) => {
+                cookie = res.headers['set-cookie'].pop().split(';')[0];
+                finished();
+            });
         let participant1 = new Participant({
             _id: participantId1,
             name: 'reqParticipant1',
@@ -59,10 +59,10 @@ describe('Casefile Tests', () => {
             name: 'Housing Facility for CaseFile Testing 2',
             term: '2 months'
         });
-        housing1.save().then(data => {}, err => {
+        housing1.save().then(data => { }, err => {
             console.log(err);
         });
-        housing2.save().then(data => {}, err => {
+        housing2.save().then(data => { }, err => {
             console.log(err);
         });
 
@@ -71,8 +71,10 @@ describe('Casefile Tests', () => {
             participant: participantId1,
             notes: 'testing',
             contactedResources: [{
-                _id: housingId2,
-                status: 'pending'
+                resource: housingId2,
+                status: "pending",
+                dateContacted: new Date(),
+                note: "some note"
             }]
         });
         let casefile2 = new CaseFile({
@@ -162,10 +164,11 @@ describe('Casefile Tests', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
-                    res.body.should.have.property('_id');
                     res.body.should.have.property('contactedResources');
-                    res.body.contactedResources[0].should.have.property('_id');
+                    res.body.contactedResources[0].should.have.property('resource');
                     res.body.contactedResources[0].should.have.property('status');
+                    res.body.contactedResources[0].should.have.property('dateContacted');
+                    res.body.contactedResources[0].should.have.property('note');
                     done();
                 });
         });
@@ -195,7 +198,7 @@ describe('Casefile Tests', () => {
 
     describe('/POST', () => {
         it('should not POST a casefile without a participant ID', (done) => {
-            let casefile = {notes: 'testing notes'};
+            let casefile = { notes: 'testing notes' };
             chai.request(server)
                 .post('/api/casefile')
                 .set('Cookie', cookie)
@@ -282,13 +285,14 @@ describe('Casefile Tests', () => {
     });
 
     describe('/PUT/:id/resource/:resId', () => {
-        it('should not update a contacted resource with an invalid casefile ID', (done) => {
+        it('should not update contacted resource details with an invalid casefile ID', (done) => {
             let contactedResource = {
-                resourceId: housingId1,
-                status: 'pending'
+                resourceId: housingId2,
+                status: "contacted",
+                dateContacted: new Date()
             }
             chai.request(server)
-                .put('/api/casefile/' + id3 + '/resource/' + housingId1)
+                .put('/api/casefile/' + id3 + '/resource/' + housingId2)
                 .set('Cookie', cookie)
                 .send(contactedResource)
                 .end((err, res) => {
@@ -298,11 +302,11 @@ describe('Casefile Tests', () => {
                     done();
                 });
         });
-        it('should not update a contacted resource with an invalid resource ID', (done) => {
+        it('should not update contacted resource details with an invalid resource ID', (done) => {
             chai.request(server)
                 .put('/api/casefile/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
                 .set('Cookie', cookie)
-                .send({status: 'accepted'})
+                .send({ status: 'accepted' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -310,11 +314,38 @@ describe('Casefile Tests', () => {
                     done();
                 });
         });
-        it('should update the status of a contacted resource given casefile and resource IDs', (done) => {
+        it('should update the details of a contacted resource given casefile and resource IDs', (done) => {
             chai.request(server)
-                .put('/api/casefile/' + id1 + '/resource/' + housingId1)
+                .put('/api/casefile/' + id1 + '/resource/' + housingId2)
                 .set('Cookie', cookie)
-                .send({status: 'accepted'})
+                .send({ status: 'accepted' })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(1);
+                    done();
+                });
+        });
+    });
+
+    describe('/PUT/:id/selection', () => {
+        it('should not update a casefile with an invalid ID', (done) => {
+            chai.request(server)
+                .put('/api/casefile/' + id3 + '/selection')
+                .set('Cookie', cookie)
+                .send({ status: 'finalized' })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(0);
+                    done();
+                });
+        });
+        it('should update the selected resource of the casefile with the given ID', (done) => {
+            chai.request(server)
+                .put('/api/casefile/' + id1 + '/selection')
+                .set('Cookie', cookie)
+                .send({ selectedResource: housingId1 })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -329,7 +360,7 @@ describe('Casefile Tests', () => {
             chai.request(server)
                 .put('/api/casefile/' + id3 + '/status')
                 .set('Cookie', cookie)
-                .send({status: 'finalized'})
+                .send({ status: 'finalized' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -341,7 +372,7 @@ describe('Casefile Tests', () => {
             chai.request(server)
                 .put('/api/casefile/' + id1 + '/status')
                 .set('Cookie', cookie)
-                .send({status: 'finalized'})
+                .send({ status: 'finalized' })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -352,13 +383,33 @@ describe('Casefile Tests', () => {
     });
 
     describe('/DELETE/:id', () => {
-        it('should DELETE the casefile with the given ID', (done) => {
+        it('should not permanently DELETE the casefile with the given ID when user is not admin', (done) => {
             chai.request(server)
                 .del('/api/casefile/' + id5)
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('deleted').eql(true);
                     done();
+                });
+        });
+        it('should permanently DELETE the casefile with the given ID when user is admin', (done) => {
+            chai.request(server)
+                .post('/user/login')
+                .send({
+                    'email': 'test2@test.com',
+                    'password': 'test123'
+                })
+                .end((err, res) => {
+                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
+                    chai.request(server)
+                        .del('/api/casefile/' + id5)
+                        .set('Cookie', adminCookie)
+                        .end((err, res) => {
+                            res.should.have.status(200);
+                            done();
+                        });
                 });
         });
     });
@@ -373,16 +424,16 @@ describe('Casefile Tests', () => {
         CaseFile.findByIdAndRemove(id4).then(data => { }, err => {
             console.log(err);
         });
-        Participant.findByIdAndRemove(participantId1).then(data => {}, err => {
+        Participant.findByIdAndRemove(participantId1).then(data => { }, err => {
             console.log(err);
         });
-        Participant.findByIdAndRemove(participantId2).then(data => {}, err => {
+        Participant.findByIdAndRemove(participantId2).then(data => { }, err => {
             console.log(err);
         });
-        Housing.findByIdAndRemove(housingId1).then(data => {}, err => {
+        Housing.findByIdAndRemove(housingId1).then(data => { }, err => {
             console.log(err);
         });
-        Housing.findByIdAndRemove(housingId2).then(data => {}, err => {
+        Housing.findByIdAndRemove(housingId2).then(data => { }, err => {
             console.log(err);
         });
     });

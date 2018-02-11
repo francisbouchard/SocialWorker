@@ -10,6 +10,7 @@ let id2 = 'testingID2';
 let id3 = 'testingID3';
 let noteId = new mongoose.Types.ObjectId();
 let docId = new mongoose.Types.ObjectId();
+let workerId1 = new mongoose.Types.ObjectId("5a7f87c0e146e233d707518b");
 let cookie;
 
 chai.use(chaiHttp);
@@ -18,15 +19,15 @@ describe('Participant Tests', () => {
 
     before((finished) => {
         chai.request(server)
-                .post('/user/login')
-                .send({
-                    'email': 'test1@test.com',
-                    'password': 'test'
-                })
-                .end((err, res) => {
-                    cookie = res.headers['set-cookie'].pop().split(';')[0];
-                    finished();
-                });
+            .post('/user/login')
+            .send({
+                'email': 'test1@test.com',
+                'password': 'test'
+            })
+            .end((err, res) => {
+                cookie = res.headers['set-cookie'].pop().split(';')[0];
+                finished();
+            });
         let participant1 = new Participant({
             _id: id1,
             name: 'participant1',
@@ -51,10 +52,10 @@ describe('Participant Tests', () => {
             email: 'participant3@p.com',
             telephone: '514-1234567'
         });
-        participant1.save().then(data => {}, err => {
+        participant1.save().then(data => { }, err => {
             console.log(err);
         });
-        participant3.save().then(data => {}, err => {
+        participant3.save().then(data => { }, err => {
             console.log(err);
         })
     });
@@ -72,10 +73,10 @@ describe('Participant Tests', () => {
         });
     });
 
-    describe('/GET/:pid', () => {
+    describe('/GET/id/:pid', () => {
         it('should GET a participant with the given ID', (done) => {
             chai.request(server)
-                .get('/api/participant/' + id1)
+                .get('/api/participant/id/' + id1)
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -87,17 +88,40 @@ describe('Participant Tests', () => {
                     res.body.should.have.property('telephone');
                     res.body.should.have.property('address');
                     res.body.should.have.property('socialmedia');
+                    res.body.should.have.property('notes');
+                    res.body.should.have.property('documents');
                     done();
                 });
         });
         it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
-                .get('/api/participant/' + 'p123')
+                .get('/api/participant/id/' + 'p123')
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.be.empty;
+                    done();
+                });
+        });
+    });
+
+    describe('/GET/worker', () => {
+        it('should GET all participant associated with the given social worker ID', (done) => {
+            chai.request(server)
+                .get('/api/participant/worker')
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    done();
+                });
+        });
+        it('should not proceed with GET when social worker ID not provided through the cookie', (done) => {
+            chai.request(server)
+                .get('/api/participant/worker')
+                .end((err, res) => {
+                    res.should.have.status(401);
                     done();
                 });
         });
@@ -170,6 +194,47 @@ describe('Participant Tests', () => {
                     res.body.should.have.property('pronouns');
                     res.body.should.have.property('email');
                     res.body.should.have.property('telephone');
+                    res.body.should.have.property('socialworkers');
+                    res.body.socialworkers.length.should.be.eql(1);
+                    done();
+                });
+        });
+    });
+
+    describe('/POST/:pid/worker', () => {
+        it('should not add a social worker to participant with invalid participant ID', (done) => {
+            chai.request(server)
+                .post('/api/participant/' + new mongoose.Types.ObjectId() + '/worker')
+                .set('Cookie', cookie)
+                .send({ workerID: workerId1 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(0);
+                    done();
+                });
+        });
+        it('should not add a social worker to participant with invalid worker ID', (done) => {
+            chai.request(server)
+                .post('/api/participant/' + id1 + '/worker')
+                .set('Cookie', cookie)
+                .send({ workerID: new mongoose.Types.ObjectId() })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('err');
+                    done();
+                });
+        });
+        it('should add a social worker to participant with given ID', (done) => {
+            chai.request(server)
+                .post('/api/participant/' + id1 + '/worker')
+                .set('Cookie', cookie)
+                .send({ workerID: workerId1 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(1);
                     done();
                 });
         });
@@ -222,13 +287,33 @@ describe('Participant Tests', () => {
     });
 
     describe('/DELETE/:pid', () => {
-        it('should DELETE the participant with the given ID', (done) => {
+        it('should not permanently DELETE the participant with the given ID when user is not admin', (done) => {
             chai.request(server)
                 .del('/api/participant/' + id3)
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('deleted').eql(true);
                     done();
+                });
+        });
+        it('should permanently DELETE the participant with the given ID when user is admin', (done) => {
+            chai.request(server)
+                .post('/user/login')
+                .send({
+                    'email': 'test2@test.com',
+                    'password': 'test123'
+                })
+                .end((err, res) => {
+                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
+                    chai.request(server)
+                        .del('/api/participant/' + id3)
+                        .set('Cookie', adminCookie)
+                        .end((err, res) => {
+                            res.should.have.status(200);
+                            done();
+                        });
                 });
         });
     });
@@ -258,10 +343,10 @@ describe('Participant Tests', () => {
     });
 
     after(() => {
-        Participant.findByIdAndRemove(id1).then(data => {}, err => {
+        Participant.findByIdAndRemove(id1).then(data => { }, err => {
             console.log(err);
         });
-        Participant.findByIdAndRemove(id2).then(data => {}, err => {
+        Participant.findByIdAndRemove(id2).then(data => { }, err => {
             console.log(err);
         });
     });

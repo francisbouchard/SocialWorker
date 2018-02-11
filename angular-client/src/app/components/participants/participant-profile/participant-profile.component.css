@@ -1,0 +1,62 @@
+.history-header {
+    margin-left: 24px;
+}
+
+.profile-div {
+    padding: 1%;
+}
+
+.resource {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.name {
+    width: 18%;
+} 
+
+.datePicker {
+    width: 10%;
+    margin-left: 5px;
+}
+
+headerResources {
+    width: 100%;
+    margin-bottom: 1.8em;
+}
+
+div.bottomMenu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+}
+
+.contacted {
+    max-width: 10%;
+}
+
+.primary {
+    color: blueviolet;  /* TODO Primary */ 
+}
+
+span.filler{
+    width: 18%;
+}
+
+.caseNotes {
+    width: 36%;
+}
+
+mat-slide-toggle {
+    margin-left: 5px;
+}
+
+mat-panel-title {
+    max-width: 25%;
+}
+
+mat-panel-description {
+    flex: 1;
+}

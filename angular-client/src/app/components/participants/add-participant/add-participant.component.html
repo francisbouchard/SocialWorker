@@ -2,7 +2,7 @@
   <form class="form">
 
     <mat-form-field>
-      <input matInput required placeholder="Name" name="name" [(ngModel)]="participantData.name">
+      <input matInput required placeholder="First Name" name="name" [(ngModel)]="participantData.name">
       <mat-hint align="start">
         <strong>Do not use participant's legal name</strong>
       </mat-hint>
@@ -28,10 +28,16 @@
 
     <mat-form-field>
       <input matInput placeholder="Social media provider (Twitter, Facebook)" name="service" [(ngModel)]="participantData.service">
+      <mat-hint align="start">
+          <strong>Optional: choose platform</strong>
+        </mat-hint>
     </mat-form-field>
 
     <mat-form-field >
       <input matInput placeholder="Social media account (@username)" name="username" [(ngModel)]="participantData.username">
+      <mat-hint align="start">
+          <strong>Optional: choose account handle</strong>
+        </mat-hint>
     </mat-form-field>
 
     <mat-form-field>
