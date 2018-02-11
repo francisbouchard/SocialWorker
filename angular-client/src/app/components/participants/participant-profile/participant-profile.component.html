@@ -1,19 +1,15 @@
 <div class="profile-div" *ngIf="participantSelected">
   <mat-card>
     <h2>{{participantSelected.name}}</h2>
-    <p *ngIf="participantSelected.pronouns !== undefined && participantSelected.pronouns !== ''">Pronouns:
-      {{participantSelected.pronouns}}
+    <p *ngIf="participantSelected.pronouns !== undefined && participantSelected.pronouns !== ''">Pronouns: {{participantSelected.pronouns}}
     </p>
-    <p *ngIf="participantSelected.email !== undefined && participantSelected.email !== ''">Email:
-      {{participantSelected.email}}
+    <p *ngIf="participantSelected.email !== undefined && participantSelected.email !== ''">Email: {{participantSelected.email}}
     </p>
-    <p *ngIf="participantSelected.telephone !== undefined && participantSelected.telephone !== ''">Phone number:
-      {{participantSelected.telephone}}
+    <p *ngIf="participantSelected.telephone !== undefined && participantSelected.telephone !== ''">Phone number: {{participantSelected.telephone}}
     </p>
     <p *ngIf="participantSelected.socialmedia !== undefined">Social media: {{participantSelected.socialmedia.service}} {{participantSelected.socialmedia.username}}
     </p>
-    <p *ngIf="participantSelected.address !== undefined && participantSelected.address !== ''">Address:
-      {{participantSelected.address}}
+    <p *ngIf="participantSelected.address !== undefined && participantSelected.address !== ''">Address: {{participantSelected.address}}
     </p>
     <mat-card-actions>
       <button mat-raised-button (click)="newCase()">New case</button>
@@ -46,27 +42,30 @@
           <span class="datePicker primary datePicker">Date</span>
           <span class="caseNotes primary">Comment</span>
         </div>
+        <!-- BEGIN RESOURCE LOOP -->
         <div class="resource" *ngFor="let caseResource of casefile.contactedResources; let resourceIndex = index">
           <p class="name" *ngIf="caseResource.resource">{{caseResource.resource.name}}</p>
-          <mat-slide-toggle #contactToggle [checked]="caseResource.dateContacted != null" (change)="updateCaseDate(contactToggle._checked, casefile, caseResource, caseIndex, resourceIndex, null)" color="accent"  class="contacted"></mat-slide-toggle>
+          <mat-slide-toggle #contactToggle [checked]="caseResource.dateContacted != null" (change)="updateCaseDate(contactToggle._checked, casefile, caseResource, caseIndex, resourceIndex, null)"
+            color="accent" class="contacted"></mat-slide-toggle>
           <p class="datePicker" *ngIf="caseResource.dateContacted != null">{{caseResource.dateContacted | date:'M/d/yyyy'}}</p>
           <mat-form-field class="datePicker" *ngIf="caseResource.dateContacted == null">
-            <input  matInput #dateinput name="date" [matDatepicker]="picker" placeholder="mm/dd/YYYY" (dateInput)="updateCaseDate(true, casefile, caseResource, caseIndex, resourceIndex, $event.value)">        
+            <input matInput #dateinput name="date" [matDatepicker]="picker" placeholder="m/dd/yyyy" (dateChange)="updateCaseDate(true, casefile, caseResource, caseIndex, resourceIndex, $event.value)">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
           </mat-form-field>
           <p class="caseNotes" *ngIf="caseResource.note">{{caseResource.note}}</p>
           <mat-form-field class="caseNotes" *ngIf="caseResource.note != null && caseResource.note.length==0">
-            <input matInput placeholder="Note" #resourceNote (key.enter)="updateCaseResourceNote(casefile, caseResource, resourceNote.value)" (blur)="updateCaseResourceNote(casefile, caseResource, resourceNote.value)">
+            <input matInput placeholder="Comments related to this resource" #resourceNote (key.enter)="updateCaseResourceNote(casefile, caseResource, resourceNote.value)"
+              (blur)="updateCaseResourceNote(casefile, caseResource, resourceNote.value)">
           </mat-form-field>
         </div>
-        <div class="bottomMenu">
-            <button *ngIf="casefile.status == 'In progress' "  mat-raised-button (click)="completeCasefile(casefile, caseIndex)">Finalize Casefile</button>
-            <button *ngIf="casefile.status == 'Completed' "  mat-raised-button (click)="reopenCasefile(casefile, caseIndex)">Reopen Casefile</button>
-            <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
-          </div>
+        <!-- END RESOURCE LOOP -->
       </form>
-
+      <div class="bottomMenu">
+        <button *ngIf="casefile.status == 'In progress' " mat-raised-button (click)="completeCasefile(casefile, caseIndex)">Finalize Casefile</button>
+        <button *ngIf="casefile.status == 'Completed' " mat-raised-button (click)="reopenCasefile(casefile, caseIndex)">Reopen Casefile</button>
+        <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
+      </div>
 
     </mat-expansion-panel>
   </mat-accordion>
