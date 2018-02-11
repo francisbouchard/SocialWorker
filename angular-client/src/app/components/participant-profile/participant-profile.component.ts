@@ -138,8 +138,8 @@ export class ParticipantProfileComponent implements OnInit {
   updateCaseDate(isResourceContacted, casefile, resource, casefileIndex, resourceIndex, dateInput: Date): void {
 
     const casefileID = casefile._id;
-    const resourceID = resource._id;
-    const dateContacted = casefile.dateContacted;
+    const resourceID = resource.resource._id;
+    const dateContacted = resource.dateContacted;
     const status = (isResourceContacted) ? 'Contacted' : 'To Contact';
     let date;
     if (isResourceContacted) {
