@@ -68,6 +68,11 @@ export class ParticipantProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Open casefile modal to create a new casefile
+   *
+   * @memberof ParticipantProfileComponent
+   */
   newCase(): void {
     const dialogRef = this.dialog.open(CaseModalComponent, {
       width: '66%',
@@ -78,12 +83,19 @@ export class ParticipantProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Load cases for a participant
+   *
+   * @memberof ParticipantProfileComponent
+   */
   loadCases(): void {
     this.casefileService.getByParticipant(this.participantSelected._id)
       .subscribe(data => {
         if (data[0]) {
-          this.orderedCases = data as Array<Casefile>;
-          // TODO order cases by chrono order!
+          const cases = data as Array<Casefile>;
+          this.orderedCases = cases.sort((case1, case2) => {
+            return new Date(case2.date).getTime() - new Date(case1.date).getTime();
+          });
         } else {
           this.orderedCases = [];
         }
@@ -133,11 +145,25 @@ export class ParticipantProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Complete a casefile 
+   *
+   * @param {any} casefile 
+   * @param {any} casefileIndex 
+   * @memberof ParticipantProfileComponent
+   */
   completeCasefile(casefile, casefileIndex): void {
     this.orderedCases[casefileIndex].status = 'Completed';
     this.casefileService.updateCaseStatus(casefile._id, { status: 'Completed' }).subscribe();
   }
 
+  /**
+   * Reopen a casefile
+   *
+   * @param {any} casefile 
+   * @param {any} casefileIndex 
+   * @memberof ParticipantProfileComponent
+   */
   reopenCasefile(casefile, casefileIndex): void {
     this.orderedCases[casefileIndex].status = 'In progress';
     this.casefileService.updateCaseStatus(casefile._id, { status: 'In progress' }).subscribe();
@@ -187,8 +213,8 @@ export class ParticipantProfileComponent implements OnInit {
   /**
    * Update casefile with selected resource
    *
-   * @param {any} casefile 
-   * @param {any} selection 
+   * @param {any} casefile
+   * @param {any} selection
    * @memberof ParticipantProfileComponent
    */
   updateCaseSelectedResource(casefile, selection) {

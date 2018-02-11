@@ -4,4 +4,5 @@ export class Casefile {
     urgency: String;
     notes: String;
     contactedResources: Array<any>;
+    date: Date;
 }

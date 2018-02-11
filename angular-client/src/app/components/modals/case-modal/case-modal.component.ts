@@ -20,7 +20,8 @@ export class CaseModalComponent implements OnInit {
     status: 'In progress',
     notes: '',
     urgency: 'Regular',
-    contactedResources: []
+    contactedResources: [],
+    date: new Date()
   };
 
   constructor(
