@@ -27,6 +27,12 @@ headerResources {
     margin-bottom: 1.8em;
 }
 
+div.bottomMenu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+}
+
 .contacted {
     max-width: 10%;
 }
