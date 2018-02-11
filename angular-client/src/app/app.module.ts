@@ -85,12 +85,9 @@ const routes: Routes = [
     ViewResourcesComponent,
     CaseModalComponent,
     NoteComponent,
-<<<<<<< HEAD
-    RegisterUserComponent
-=======
+    RegisterUserComponent,
     OrderByPipe,
     SearchPipe
->>>>>>> origin/master
   ],
   imports: [
     BrowserModule,
