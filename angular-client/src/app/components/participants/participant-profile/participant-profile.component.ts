@@ -134,7 +134,7 @@ export class ParticipantProfileComponent implements OnInit {
     });
   }
 
-  completeCase(): void {
+  completeCaseFile(): void {
     // TODO set case status to done
   }
 
