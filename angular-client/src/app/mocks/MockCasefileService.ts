@@ -55,21 +55,21 @@ export class MockCasefileService {
         },
         {
           '_id' : '5a6d0c3587753f20fae48204',
-          'contactedResources' : [ 
+          'contactedResources' : [
               {
                   '_id' : '5a5a6899d77cc82527c5dc48',
                   'status' : ''
-              }, 
+              },
               {
                   '_id' : '5a5aa41d8d31db2a0377415a',
                   'status' : ''
-              }, 
+              },
               {
                   '_id' : '5a5d3f4d03af28260c70dc4e',
                   'status' : ''
               }
           ],
-          'notes' : [ 
+          'notes' : [
               'Liuuuaaaii'
           ],
           'date' : '2018-01-27T23:33:09.530Z',
