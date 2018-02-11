@@ -24,7 +24,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export class ParticipantProfileComponent implements OnInit {
 
-  deleteme = true;
+  // TODO this variable is in the case object
+  selectedResource = '';
   orderedCases = [];
   orderedNotes = [];
   today = Date.now();
