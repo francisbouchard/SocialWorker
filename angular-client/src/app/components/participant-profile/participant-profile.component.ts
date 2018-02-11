@@ -153,4 +153,10 @@ export class ParticipantProfileComponent implements OnInit {
     this.casefileService.updateCaseContactedResource(casefileID, resourceID, { 'status': status, 'dateContacted': date }).subscribe();
   }
 
+  updateCaseResourceNote(casefile, resource, note) {
+    console.log(note);
+
+    this.casefileService.updateCaseContactedResource(casefile._id, resource.resource._id, { 'note': note}).subscribe();
+  }
+
 }

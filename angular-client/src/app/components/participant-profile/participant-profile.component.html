@@ -49,8 +49,9 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
           </mat-form-field>
-          <mat-form-field class="caseNotes">
-            <input matInput placeholder="Note" >
+          <p class="caseNotes" *ngIf="caseResource.note.length > 0">{{caseResource.note}}</p>
+          <mat-form-field class="caseNotes" *ngIf="caseResource.note.length==0">
+            <input matInput placeholder="Note" #resourceNote (key.enter)="updateCaseResourceNote(casefile, caseResource, resourceNote.value)" (blur)="updateCaseResourceNote(casefile, caseResource, resourceNote.value)">
           </mat-form-field>
         </div>
       </form>
