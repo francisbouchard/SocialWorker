@@ -5,6 +5,21 @@ const Document = require('../models/Document');
 const Note = require('../models/Note');
 const fs = require('fs');
 const path = require('path');
+
+fs.exists(path.join(__dirname, "../notes"), exists =>{
+if(!exists){
+    fs.mkdir(path.join(__dirname, "../notes"), err =>{
+        console.log(err)
+    })
+}
+})
+fs.exists(path.join(__dirname, "../documents"), exists =>{
+if(!exists){
+    fs.mkdir(path.join(__dirname, "../documents"), err =>{
+        console.log(err)
+    })
+}
+})
 /**
  * Get all participants
  */
