@@ -121,4 +121,9 @@ export class MockCasefileService {
     get(id) {
         return Observable.of(this.testCasefile);
     }
+
+    getByParticipant(pid) {
+        return Observable.of(this.testCasefile);
+    }
+
 }
