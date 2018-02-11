@@ -128,13 +128,24 @@ router.put('/:id/status', (req, res) => {
 
 /**
  * Delete a Casefile with the given ID
+ * 
+ * If the user making this request is an administrator, the casefile will be permanently deleted. 
+ * Otherwise, it will only be flagged as deleted.
  */
 router.delete('/:id', (req, res) => {
-    Casefile.findByIdAndRemove(req.params.id).then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    })
+    if (req.user.role === "admin") {
+        Casefile.findByIdAndRemove(req.params.id).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+    } else {
+        Casefile.findByIdAndUpdate(req.params.id, { deleted: true }, { new: true }).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+    }
 })
 
 module.exports = router;

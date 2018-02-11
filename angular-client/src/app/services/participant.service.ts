@@ -25,7 +25,7 @@ export class ParticipantService {
    * @memberof ParticipantService
    */
   get(participantID): Observable<Object> {
-    return this.http.get(`${this.url}/${participantID}`)
+    return this.http.get(`${this.url}/id/${participantID}`)
       .pipe(
       tap(participant => this.log('fetched a participant')),
       catchError(this.handleError<Object>('get(participantID)'))
@@ -43,6 +43,20 @@ export class ParticipantService {
       .pipe(
       tap(participants => this.log('fetched all participants')),
       catchError(this.handleError<Object>('getAll()'))
+      );
+  }
+
+  /**
+   * Get all participants of the logged in social worker
+   * 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  getBySocialWorker(): Observable<Object> {
+    return this.http.get(`${this.url}/worker`)
+      .pipe(
+      tap(participants => this.log('fecthed participants of social worker')),
+      catchError(this.handleError<Object>('getBySocialWorker()'))
       );
   }
 

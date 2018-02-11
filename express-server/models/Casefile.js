@@ -13,7 +13,8 @@ const casefileSchema = new Schema({
   status: String,
   urgency: String,
   notes: [String],
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  deleted: { type: Boolean, default: false }
 }, { timestamps: true });
 
 const Casefile = mongoose.model('Casefile', casefileSchema);
