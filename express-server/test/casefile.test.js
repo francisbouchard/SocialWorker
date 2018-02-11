@@ -328,6 +328,33 @@ describe('Casefile Tests', () => {
         });
     });
 
+    describe('/PUT/:id/selection', () => {
+        it('should not update a casefile with an invalid ID', (done) => {
+            chai.request(server)
+                .put('/api/casefile/' + id3 + '/selection')
+                .set('Cookie', cookie)
+                .send({ status: 'finalized' })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(0);
+                    done();
+                });
+        });
+        it('should update the selected resource of the casefile with the given ID', (done) => {
+            chai.request(server)
+                .put('/api/casefile/' + id1 + '/selection')
+                .set('Cookie', cookie)
+                .send({ selectedResource: housingId1 })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(1);
+                    done();
+                });
+        });
+    });
+
     describe('/PUT/:id/status', () => {
         it('should not update a casefile with an invalid ID', (done) => {
             chai.request(server)
