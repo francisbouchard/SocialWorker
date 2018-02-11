@@ -30,13 +30,13 @@ export class AddResourceComponent implements OnInit {
 ) {
       this.form = this.fb.group({
             name: ['', Validators.required ],
-            email: ['', Validators.required ],
-            telephone:['', Validators.required ],
-            location:['', Validators.required],
-            notes:['', Validators.required],
-            term:['', Validators.required],
-            gender:['', Validators.required],
-            constraints:['', Validators.required],
+            email: [''],
+            telephone:[''],
+            location:[''],
+            notes:[''],
+            term:['',Validators.required],
+            gender:[''],
+            constraints:[''],
 });
    }
 

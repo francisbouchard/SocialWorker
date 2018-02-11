@@ -2,36 +2,36 @@
 <mat-card>
   <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
     <mat-form-field>
-      <input matInput required placeholder="Name" formControlName="name">
+      <input matInput placeholder="Name" formControlName="name">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput required  placeholder="Email" formControlName="email">
+      <input matInput placeholder="Email" formControlName="email">
     </mat-form-field>
 
     <mat-form-field>
       <span matPrefix>+1 &nbsp;</span>
-      <input type="tel" required matInput placeholder="Telephone" formControlName="telephone">
+      <input type="tel" matInput placeholder="Telephone" formControlName="telephone">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput required placeholder="Location" formControlName="location">
+      <input matInput placeholder="Location" formControlName="location">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput required placeholder="Notes" formControlName="notes">
+      <input matInput placeholder="Notes" formControlName="notes">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput required placeholder="Term" formControlName="term">
+      <input matInput placeholder="Term" formControlName="term">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput required placeholder="Gender" formControlName="gender">
+      <input matInput placeholder="Gender" formControlName="gender">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput required placeholder="Constraints" formControlName="constraints">
+      <input matInput placeholder="Constraints" formControlName="constraints">
     </mat-form-field>
 <button mat-raised-button [disabled]="form.invalid">Submit</button>
   </form>
