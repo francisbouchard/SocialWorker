@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RegisterUserComponent } from './register-user.component';
+import { MaterialsModule } from '../../modules/materials.module';
+import { AuthenticationService } from '../../services/authentication.service';
+import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { Router } from '@angular/router';
 
 describe('RegisterUserComponent', () => {
   let component: RegisterUserComponent;
@@ -8,7 +11,10 @@ describe('RegisterUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegisterUserComponent ]
+      declarations: [ RegisterUserComponent ],
+      imports: [ MaterialsModule ],
+      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService }, 
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } } ]
     })
     .compileComponents();
   }));

@@ -10,7 +10,7 @@ let id2 = 'testingID2';
 let id3 = 'testingID3';
 let noteId = new mongoose.Types.ObjectId();
 let docId = new mongoose.Types.ObjectId();
-let workerId1 = new mongoose.Types.ObjectId("5a77bbfe31a27d54ffafee77");
+let workerId1 = new mongoose.Types.ObjectId("5a7f87c0e146e233d707518b");
 let cookie;
 
 chai.use(chaiHttp);
