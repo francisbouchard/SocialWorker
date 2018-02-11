@@ -136,12 +136,12 @@ export class ParticipantProfileComponent implements OnInit {
 
   completeCasefile(casefile, casefileIndex): void {
     this.orderedCases[casefileIndex].status = 'Completed';
-    this.casefileService.updateCaseStatus(casefile._id, 'Completed').subscribe();
+    this.casefileService.updateCaseStatus(casefile._id, {status:'Completed'}).subscribe();
   }
 
   reopenCasefile(casefile, casefileIndex): void {
     this.orderedCases[casefileIndex].status = 'In progress';
-    this.casefileService.updateCaseStatus(casefile._id, 'In progress').subscribe();
+    this.casefileService.updateCaseStatus(casefile._id, {status:'In progress'}).subscribe();
   }
 
   updateCaseDate(isResourceContacted, casefile, resource, casefileIndex, resourceIndex, dateInput: Date): void {
