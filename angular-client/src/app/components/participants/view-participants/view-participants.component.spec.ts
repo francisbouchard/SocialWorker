@@ -7,6 +7,8 @@ import { MockParticipantService } from '../../../mocks/MockParticipantService';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
 import { Router } from '@angular/router';
+import { OrderByPipe } from '../../../pipes/orderBy.pipe';
+import { SearchPipe } from '../../../pipes/search.pipe';
 
 describe('ViewParticipantsComponent', () => {
   let component: ViewParticipantsComponent;
@@ -14,7 +16,7 @@ describe('ViewParticipantsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewParticipantsComponent ],
+      declarations: [ ViewParticipantsComponent, OrderByPipe, SearchPipe ],
       imports: [ MaterialsModule, RouterTestingModule ],
       providers: [ { provide: ParticipantService, useClass: MockParticipantService },
         { provide: AuthenticationService, useClass: MockAuthenticationService },
