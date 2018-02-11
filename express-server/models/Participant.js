@@ -15,7 +15,9 @@ const participantSchema = new Schema({
     username: String
   },
   documents: [Document],
-  notes: [Note]
+  notes: [Note],
+  socialworkers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  deleted: { type: Boolean, default: false }
 }, { _id: false, timestamps: true });
 
 const Participant = mongoose.model('Participant', participantSchema);

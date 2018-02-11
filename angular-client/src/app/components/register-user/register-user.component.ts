@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: 'login.component.html',
-  styleUrls: ['login.component.css']
+  selector: 'app-register-user',
+  templateUrl: './register-user.component.html',
+  styleUrls: ['./register-user.component.css']
 })
-export class LoginComponent implements OnInit {
+export class RegisterUserComponent implements OnInit {
 
   user: any = {};
   loading: boolean = false;
@@ -20,34 +20,10 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
   }
 
   /**
-   * Login with account credentials
-   * 
-   * @memberof LoginComponent
-   */
-  public login() {
-    this.loading = true;
-    this.msg = '';
-    this.error = false;
-    this.authenticationService.login(this.user.email, this.user.password).subscribe(data => {
-      this.loading = false;
-      if (!data.error) {
-        this.authenticationService.loggedIn = true;
-        this.router.navigateByUrl('/participants');
-      } else {
-        this.authenticationService.loggedIn = false;
-        this.loading = false;
-        this.error = true;
-        this.msg = data.error.msg;
-      }
-    });
-  }
-
-  /**
-   * Sign up as a new account 
+   * Register a new user account 
    * 
    * @memberof LoginComponent
    */
@@ -58,7 +34,9 @@ export class LoginComponent implements OnInit {
     this.authenticationService.signUp(this.user.rEmail, this.user.rPassword, this.user.rConfirmPassword).subscribe(data => {
       this.loading = false;
 
-      if (data.error) {
+      if (!data.error) {
+        this.msg = data.msg;
+      } else {
         this.authenticationService.loggedIn = false;
         this.loading = false;
         this.error = true;
@@ -77,5 +55,4 @@ export class LoginComponent implements OnInit {
     });
 
   }
-
 }

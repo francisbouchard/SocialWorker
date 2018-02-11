@@ -1,5 +1,16 @@
-<br>
-<div *ngFor="let participant of profiles">
+<div class="sortNSearchToolbar">
+<mat-form-field>
+  <mat-select placeholder="Sort by" [(value)]="sortProperty">
+    <mat-option value="name">Name</mat-option>
+    <mat-option value="updatedAt">Updated</mat-option>
+  </mat-select>
+</mat-form-field>
+<button mat-raised-button (click)="reverse=!reverse" class="reverseBtn">{{reverse? 'Descending': 'Ascending'}}</button>
+<mat-form-field class="searchBox">
+    <input matInput  placeholder="Search" [(ngModel)]="query">
+</mat-form-field>
+</div>
+<div *ngFor="let participant of ((profiles| search:'name':query) | orderBy: sortProperty: reverse)">
 <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>

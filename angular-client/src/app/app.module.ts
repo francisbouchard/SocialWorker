@@ -26,6 +26,9 @@ import { AuthenticationService } from './services/authentication.service';
 import { ResourceService } from './services/resource.service';
 import { CaseModalComponent } from './components/case-modal/case-modal.component';
 import { CasefileService } from './services/casefile.service';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { OrderByPipe } from './pipes/orderBy.pipe';
+import { SearchPipe }  from './pipes/search.pipe';
 
 const routes: Routes = [
   {
@@ -48,6 +51,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterUserComponent
   },
   {
     path: 'resources',
@@ -77,7 +84,10 @@ const routes: Routes = [
     AddResourceComponent,
     ViewResourcesComponent,
     CaseModalComponent,
-    NoteComponent
+    NoteComponent,
+    RegisterUserComponent,
+    OrderByPipe,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
