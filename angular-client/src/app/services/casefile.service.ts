@@ -130,6 +130,14 @@ export class CasefileService {
       );
   }
 
+  /**
+   * Update a casefile with the selected resource
+   *
+   * @param {any} casefileID
+   * @param {any} selectedResource
+   * @returns {Observable<Object>}
+   * @memberof CasefileService
+   */
   updateCaseSelectedResource(casefileID, selectedResource): Observable<Object> {
     return this.http.put<Object>(`${this.url}/${casefileID}/selection`, selectedResource)
       .pipe(

@@ -135,14 +135,25 @@ export class ParticipantProfileComponent implements OnInit {
 
   completeCasefile(casefile, casefileIndex): void {
     this.orderedCases[casefileIndex].status = 'Completed';
-    this.casefileService.updateCaseStatus(casefile._id, {status:'Completed'}).subscribe();
+    this.casefileService.updateCaseStatus(casefile._id, { status: 'Completed' }).subscribe();
   }
 
   reopenCasefile(casefile, casefileIndex): void {
     this.orderedCases[casefileIndex].status = 'In progress';
-    this.casefileService.updateCaseStatus(casefile._id, {status:'In progress'}).subscribe();
+    this.casefileService.updateCaseStatus(casefile._id, { status: 'In progress' }).subscribe();
   }
 
+  /**
+   * Update casefile's resource date of contact
+   *
+   * @param {any} isResourceContacted
+   * @param {any} casefile
+   * @param {any} resource
+   * @param {any} casefileIndex
+   * @param {any} resourceIndex
+   * @param {Date} dateInput
+   * @memberof ParticipantProfileComponent
+   */
   updateCaseDate(isResourceContacted, casefile, resource, casefileIndex, resourceIndex, dateInput: Date): void {
 
     const casefileID = casefile._id;
@@ -161,13 +172,28 @@ export class ParticipantProfileComponent implements OnInit {
     this.casefileService.updateCaseContactedResource(casefileID, resourceID, { 'status': status, 'dateContacted': date }).subscribe();
   }
 
-  updateCaseResourceNote(casefile, resource, note) {
-    this.casefileService.updateCaseContactedResource(casefile._id, resource.resource._id, { 'note': note}).subscribe();
+  /**
+   * Update a casefile's resource comment
+   *
+   * @param {any} casefile
+   * @param {any} resource
+   * @param {any} comment
+   * @memberof ParticipantProfileComponent
+   */
+  updateCaseResourceNote(casefile, resource, comment) {
+    this.casefileService.updateCaseContactedResource(casefile._id, resource.resource._id, { 'note': comment }).subscribe();
   }
 
+  /**
+   * Update casefile with selected resource
+   *
+   * @param {any} casefile 
+   * @param {any} selection 
+   * @memberof ParticipantProfileComponent
+   */
   updateCaseSelectedResource(casefile, selection) {
-    const selectedResource = { 'selectedResource' : selection }
-    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResource);
+    const selectedResource = { 'selectedResource': selection };
+    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResource).subscribe();
   }
 
 }
