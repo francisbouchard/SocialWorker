@@ -24,8 +24,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export class ParticipantProfileComponent implements OnInit {
 
-  // TODO this variable is in the case object
-  selectedResource = '';
   orderedCases = [];
   orderedNotes = [];
   today = Date.now();
@@ -165,6 +163,10 @@ export class ParticipantProfileComponent implements OnInit {
 
   updateCaseResourceNote(casefile, resource, note) {
     this.casefileService.updateCaseContactedResource(casefile._id, resource.resource._id, { 'note': note}).subscribe();
+  }
+
+  updateCaseSelectedResource(selection) {
+    console.log('selecting resource: ' + selection);
   }
 
 }
