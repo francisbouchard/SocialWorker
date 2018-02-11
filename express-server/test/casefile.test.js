@@ -7,8 +7,8 @@ const Participant = require('../models/Participant');
 const Housing = require('../models/Housing');
 const CaseFile = require('../models/Casefile');
 
-let participantId1 = "reqParticipant1";
-let participantId2 = "reqParticipant2";
+let participantId1 = 'reqParticipant1';
+let participantId2 = 'reqParticipant2';
 let housingId1 = new mongoose.Types.ObjectId();
 let housingId2 = new mongoose.Types.ObjectId();
 let id1 = new mongoose.Types.ObjectId();
@@ -26,8 +26,8 @@ describe('Casefile Tests', () => {
         chai.request(server)
                 .post('/user/login')
                 .send({
-                    "email": "test1@test.com",
-                    "password": "test"
+                    'email': 'test1@test.com',
+                    'password': 'test'
                 })
                 .end((err, res) => {
                     cookie = res.headers['set-cookie'].pop().split(';')[0];
@@ -35,13 +35,13 @@ describe('Casefile Tests', () => {
                 });
         let participant1 = new Participant({
             _id: participantId1,
-            name: "reqParticipant1",
-            email: "reqParticipant1@email.com"
+            name: 'reqParticipant1',
+            email: 'reqParticipant1@email.com'
         });
         let participant2 = new Participant({
             _id: participantId2,
-            name: "reqParticipant2",
-            email: "reqParticipant2@email.com"
+            name: 'reqParticipant2',
+            email: 'reqParticipant2@email.com'
         });
         participant1.save().then(data => { }, err => {
             console.log(err);
@@ -51,13 +51,13 @@ describe('Casefile Tests', () => {
         });
         let housing1 = new Housing({
             _id: housingId1,
-            name: "Housing Facility for CaseFile Testing",
-            term: "5 weeks"
+            name: 'Housing Facility for CaseFile Testing',
+            term: '5 weeks'
         });
         let housing2 = new Housing({
             _id: housingId2,
-            name: "Housing Facility for CaseFile Testing 2",
-            term: "2 months"
+            name: 'Housing Facility for CaseFile Testing 2',
+            term: '2 months'
         });
         housing1.save().then(data => {}, err => {
             console.log(err);
@@ -69,7 +69,7 @@ describe('Casefile Tests', () => {
         let casefile1 = new CaseFile({
             _id: id1,
             participant: participantId1,
-            notes: "testing",
+            notes: 'testing',
             contactedResources: [{
                 resource: housingId2,
                 status: "pending",
@@ -80,7 +80,7 @@ describe('Casefile Tests', () => {
         let casefile2 = new CaseFile({
             _id: id5,
             participant: participantId2,
-            notes: "testing"
+            notes: 'testing'
         });
         casefile1.save().then(data => { }, err => {
             console.log(err);
@@ -198,7 +198,7 @@ describe('Casefile Tests', () => {
 
     describe('/POST', () => {
         it('should not POST a casefile without a participant ID', (done) => {
-            let casefile = {notes: "testing notes"};
+            let casefile = {notes: 'testing notes'};
             chai.request(server)
                 .post('/api/casefile')
                 .set('Cookie', cookie)
@@ -215,7 +215,7 @@ describe('Casefile Tests', () => {
         it('should POST a casefile', (done) => {
             let casefile = {
                 participant: participantId2,
-                note: "testing notes"
+                note: 'testing notes'
             }
             chai.request(server)
                 .post('/api/casefile')
@@ -237,7 +237,7 @@ describe('Casefile Tests', () => {
         it('should not add a contacted resource with an invalid casefile ID', (done) => {
             let contactedResource = {
                 resourceId: housingId1,
-                status: "pending"
+                status: 'pending'
             }
             chai.request(server)
                 .post('/api/casefile/' + id3 + '/resource')
@@ -253,7 +253,7 @@ describe('Casefile Tests', () => {
         it('should not add a contacted resource with an invalid resource ID', (done) => {
             let contactedResource = {
                 resourceId: new mongoose.Types.ObjectId(),
-                status: "pending"
+                status: 'pending'
             }
             chai.request(server)
                 .post('/api/casefile/' + id1 + '/resource')
@@ -269,7 +269,7 @@ describe('Casefile Tests', () => {
         it('should add a contacted resource to the casefile with the given ID', (done) => {
             let contactedResource = {
                 resourceId: housingId1,
-                status: "pending"
+                status: 'pending'
             }
             chai.request(server)
                 .post('/api/casefile/' + id1 + '/resource')
@@ -306,7 +306,7 @@ describe('Casefile Tests', () => {
             chai.request(server)
                 .put('/api/casefile/' + id1 + '/resource/' + new mongoose.Types.ObjectId())
                 .set('Cookie', cookie)
-                .send({status: "accepted"})
+                .send({status: 'accepted'})
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -318,7 +318,7 @@ describe('Casefile Tests', () => {
             chai.request(server)
                 .put('/api/casefile/' + id1 + '/resource/' + housingId2)
                 .set('Cookie', cookie)
-                .send({status: "accepted"})
+                .send({status: 'accepted'})
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -333,7 +333,7 @@ describe('Casefile Tests', () => {
             chai.request(server)
                 .put('/api/casefile/' + id3 + '/status')
                 .set('Cookie', cookie)
-                .send({status: "finalized"})
+                .send({status: 'finalized'})
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -345,7 +345,7 @@ describe('Casefile Tests', () => {
             chai.request(server)
                 .put('/api/casefile/' + id1 + '/status')
                 .set('Cookie', cookie)
-                .send({status: "finalized"})
+                .send({status: 'finalized'})
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');

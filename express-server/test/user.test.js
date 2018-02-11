@@ -15,9 +15,9 @@ describe('User Tests', () => {
             chai.request(server)
                 .post('/user/signup')
                 .send({
-                    "email": "testing@test.com",
-                    "password": "hunter1",
-                    "confirmPassword": "hunter1"
+                    'email': 'testing@test.com',
+                    'password': 'hunter1',
+                    'confirmPassword': 'hunter1'
                 })
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -31,8 +31,8 @@ describe('User Tests', () => {
             chai.request(server)
                 .post('/user/login')
                 .send({
-                    "email": "testing@test.com",
-                    "password": "hunter1"
+                    'email': 'testing@test.com',
+                    'password': 'hunter1'
                 })
                 .end((err, res) => {
                     res.should.have.cookie('connect.sid');                    
@@ -44,7 +44,7 @@ describe('User Tests', () => {
     });
 
     describe('Delete Account', () => {
-        it("should delete a user's account", (done) => {
+        it('should delete a user\'s account', (done) => {
             chai.request(server)
                 .delete('/user')
                 .set('Cookie', Cookies)
@@ -57,8 +57,8 @@ describe('User Tests', () => {
 
     after(() => {
         Users.find({email: 'testing@test.com'}).remove().then(data => {
-            console.log("CLEANUP:");
-            console.log("Test user successfully removed");
+            console.log('CLEANUP:');
+            console.log('Test user successfully removed');
         }, err => {
             console.log(err);
         });

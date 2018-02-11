@@ -1,5 +1,17 @@
-<div *ngIf="checkResources()">
-  <mat-card  *ngFor="let resource of resources" >
+  <div class="sortNSearchToolbar">
+  <mat-form-field>
+    <mat-select placeholder="Sort by" [(value)]="sortProperty">
+      <mat-option value="name">Name</mat-option>
+      <mat-option value="updatedAt">Updated</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button (click)="reverse=!reverse" class="reverseBtn">{{reverse? 'Descending': 'Ascending'}}</button>
+  <mat-form-field class="searchBox">
+      <input matInput  placeholder="Search" [(ngModel)]="query" >
+  </mat-form-field>
+  </div>
+
+  <mat-card  *ngFor="let resource of ((resources| search:'name':query) | orderBy: sortProperty: reverse)" >
     <div *ngIf="!(editingResource == resource)">
       <mat-card-header>
         <!-- <mat-icon>house</mat-icon> -->
@@ -28,4 +40,3 @@
         </mat-card-actions>
     </div>
   </mat-card>
-</div>

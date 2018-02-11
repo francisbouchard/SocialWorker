@@ -1,14 +1,18 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { ParticipantProfileComponent } from './participant-profile.component';
-import { MaterialsModule } from '../../modules/materials.module';
+import { MaterialsModule } from '../../../modules/materials.module';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
-import { ParticipantService } from '../../services/participant.service';
-import { MessageService } from '../../services/message.service';
+import { ParticipantService } from '../../../services/participant.service';
+import { MessageService } from '../../../services/message.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Location } from '@angular/common';
-import { MockParticipantService } from '../../mocks/MockParticipantService';
-import { AuthenticationService } from '../../services/authentication.service';
-import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { MockParticipantService } from '../../../mocks/MockParticipantService';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { CasefileService } from '../../../services/casefile.service';
+import { MockCasefileService } from '../../../mocks/MockCasefileService';
+
+
 
 describe('ParticipantProfileComponent', () => {
   let component: ParticipantProfileComponent;
@@ -23,6 +27,7 @@ describe('ParticipantProfileComponent', () => {
         MessageService,
         { provide: ParticipantService, useClass: MockParticipantService},
         { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: CasefileService, useClass: MockCasefileService },
         { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } },
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({_id: 'frontendtest'}) } } }
       ]
@@ -42,7 +47,7 @@ describe('ParticipantProfileComponent', () => {
     expect(compiled.querySelector('h2').textContent).toContain('testuser');
   });
 
-  it('should display user\'s note and its attachd image', () => {
+  it('should display user\'s note and its attached image', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('mat-expansion-panel').textContent).toContain('Note for testing');
     expect(compiled.querySelector('img')).toBeTruthy();

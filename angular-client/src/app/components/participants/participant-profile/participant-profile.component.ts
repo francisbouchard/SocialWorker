@@ -1,16 +1,19 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, RouterModule, Router } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Participant } from '../../classes/participant';
-import { Casefile } from '../../classes/case';
-import { NoteComponent } from '../note/note.component';
-import { CaseModalComponent } from '../case-modal/case-modal.component';
-import { AuthenticationService } from '../../services/authentication.service';
-import { ParticipantService } from '../../services/participant.service';
-import { CasefileService } from '../../services/casefile.service';
+
+import { Casefile } from '../../../classes/case';
+import { CasefileService } from '../../../services/casefile.service';
 import { FormControl } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { ParticipantService } from '../../../services/participant.service';
+import { Participant } from '../../../classes/participant';
+import { NoteComponent } from '../../note/note.component';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { AppModule } from '../../../app.module';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+
+import { CaseModalComponent } from '../../case-modal/case-modal.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
 @Component({

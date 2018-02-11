@@ -84,10 +84,10 @@ export class CasefileService {
 
   /**
    * Add a contacted resource to the case with the given ID
-   * 
-   * @param {any} casefileID 
-   * @param {any} resourceData 
-   * @returns {Observable<Object>} 
+   *
+   * @param {any} casefileID
+   * @param {any} resourceData
+   * @returns {Observable<Object>}
    * @memberof CasefileService
    */
   addContactedResource(casefileID, resourceData): Observable<Object> {
@@ -132,7 +132,7 @@ export class CasefileService {
 
   /**
    * Update the overall status of the case
-   * 
+   *
    * @param {any} casefileID
    * @param {any} status
    * @returns {Observable<Object>}

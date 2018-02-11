@@ -37,7 +37,7 @@ export class CaseModalComponent implements OnInit {
 
   /**
    * Load all resources
-   * 
+   *
    * @memberof ViewResourcesComponent
    */
   loadAllResources() {
@@ -49,7 +49,7 @@ export class CaseModalComponent implements OnInit {
 
   /**
    * Changes the array on contacteResources
-   * from an array of Strings to an array 
+   * from an array of Strings to an array
    * of key-value pairs resource:String status:String
    */
   makeResourceArray(): void {
