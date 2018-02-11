@@ -3,6 +3,7 @@ import { AddResourceComponent } from './add-resource.component';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { ResourceService } from '../../../services/resource.service';
 import { MockResourceService } from '../../../mocks/MockResourceService';
+import { Router } from '@angular/router';
 
 describe('AddResourceComponent', () => {
   let component: AddResourceComponent;
@@ -12,7 +13,8 @@ describe('AddResourceComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AddResourceComponent ],
       imports: [ MaterialsModule ],
-      providers: [ { provide: ResourceService, useClass: MockResourceService } ]
+      providers: [ { provide: ResourceService, useClass: MockResourceService },
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } } ]
     })
     .compileComponents();
   }));

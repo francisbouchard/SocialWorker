@@ -12,10 +12,11 @@ import { AlertModalComponent } from './components/alert-modal/alert-modal.compon
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { NewParticipantComponent } from './components/new-participant/new-participant.component';
+import { AddParticipantComponent } from './components/participants/add-participant/add-participant.component';
 import { NoteComponent } from './components/note/note.component';
-import { ParticipantProfileComponent } from './components/participant-profile/participant-profile.component';
-import { ProfilesComponent } from './components/profiles/profiles.component';
+import { ParticipantProfileComponent } from './components/participants/participant-profile/participant-profile.component';
+import { ViewParticipantsComponent } from './components/participants/view-participants/view-participants.component';
+import { ParticipantsComponent } from './components/participants/participants.component';
 import { ResourcesComponent } from './components/resources/resources.component';
 import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 import { MessageService } from './services/message.service';
@@ -30,7 +31,7 @@ import { RegisterUserComponent } from './components/register-user/register-user.
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/profiles',
+    redirectTo: '/participants',
     pathMatch: 'full'
   },
   {
@@ -38,12 +39,12 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
-    path: 'profiles',
-    component: ProfilesComponent
+    path: 'participants',
+    component: ParticipantsComponent
   },
   {
     path: 'new-participant',
-    component: NewParticipantComponent
+    component: AddParticipantComponent
   },
   {
     path: 'login',
@@ -71,16 +72,15 @@ const routes: Routes = [
     DashboardComponent,
     EditResourceComponent,
     MessagesComponent,
-    NewParticipantComponent,
+    AddParticipantComponent,
     ParticipantProfileComponent,
-    ProfilesComponent,
+    ParticipantsComponent,
+    ViewParticipantsComponent,
     AlertModalComponent,
     LoginComponent,
-    ParticipantProfileComponent,
     ResourcesComponent,
     AddResourceComponent,
     ViewResourcesComponent,
-    ParticipantProfileComponent,
     CaseModalComponent,
     NoteComponent,
     RegisterUserComponent
