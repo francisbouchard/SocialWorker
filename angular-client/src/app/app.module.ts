@@ -26,7 +26,8 @@ import { AuthenticationService } from './services/authentication.service';
 import { ResourceService } from './services/resource.service';
 import { CaseModalComponent } from './components/case-modal/case-modal.component';
 import { CasefileService } from './services/casefile.service';
-
+import { OrderByPipe } from './pipes/orderBy.pipe';
+import { SearchPipe }  from './pipes/search.pipe';
 const routes: Routes = [
   {
     path: '',
@@ -77,7 +78,9 @@ const routes: Routes = [
     AddResourceComponent,
     ViewResourcesComponent,
     CaseModalComponent,
-    NoteComponent
+    NoteComponent,
+    OrderByPipe,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
