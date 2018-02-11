@@ -29,7 +29,10 @@ router.get('/:id', (req, res) => {
  * Get a Casefile by participant ID
  */
 router.get('/participant/:id', (req, res) => {
-    Casefile.find({ participant: req.params.id }).populate('contactedResources.resource').then(data => {
+    Casefile.find({ participant: req.params.id })
+    .populate('contactedResources.resource')
+    .populate('selectedResource')
+    .then(data => {
         res.send(data);
     }, err => {
         res.send(err);

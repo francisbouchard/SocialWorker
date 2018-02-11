@@ -59,13 +59,14 @@
           </mat-form-field>
         </div>
         <h4>Selected Resource:</h4>
-        <mat-form-field>
-          <mat-select [(value)]="selectedResource" placeholder="Resource" (selectionChange)="updateCaseSelectedResource(casefile, selectedResource)">
+        <mat-form-field *ngIf="!casefile.selectedResource">
+          <mat-select [(value)]="casefile.selectedResource" placeholder="Resource" (selectionChange)="updateCaseSelectedResource(casefile, casefile.selectedResource)">
             <mat-option *ngFor="let caseResource of casefile.contactedResources" value="{{caseResource.resource._id}}">
               {{caseResource.resource.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <p *ngIf="casefile.selectedResource">{{casefile.selectedResource.name}}</p>
       </form>
       <div class="bottomMenu">
         <button *ngIf="casefile.status == 'In progress' " mat-raised-button (click)="completeCasefile(casefile, caseIndex)">Finalize Casefile</button>
