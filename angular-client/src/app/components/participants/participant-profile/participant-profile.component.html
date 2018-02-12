@@ -55,9 +55,9 @@
           </mat-form-field>
           <div class="caseNotes" *ngIf="caseResource.note">
             <p>{{caseResource.note}}</p>
-            <mat-icon matSuffix>mode_edit</mat-icon>
+            <button mat-icon-button color="primary" type="button" (click)="caseResource.note = null"><mat-icon matSuffix>clear</mat-icon></button>
           </div>
-          <div class="caseNotes"  *ngIf="caseResource.note != null && caseResource.note.length==0">
+          <div class="caseNotes"  *ngIf="caseResource.note == null || caseResource.note.length==0">
           <mat-form-field>
             <input matInput placeholder="Comments related to this resource" #resourceNote (keyup.enter)="updateCaseResourceNote(casefile, caseResource, resourceNote.value, caseIndex, resourceIndex)"
               (blur)="updateCaseResourceNote(casefile, caseResource, resourceNote.value, caseIndex, resourceIndex)">
