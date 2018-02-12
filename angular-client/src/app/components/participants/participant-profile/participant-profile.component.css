@@ -47,6 +47,18 @@ span.filler{
 
 .caseNotes {
     width: 36%;
+    display: inline-flex;
+    align-items: baseline;
+}
+
+.caseNotes mat-form-field {
+    width: 100%;
+}
+
+.caseNotes mat-icon {
+    margin: 14px 0px 14px 10px;
+    align-self: center;
+    font-size: 1.25em;
 }
 
 mat-slide-toggle {
