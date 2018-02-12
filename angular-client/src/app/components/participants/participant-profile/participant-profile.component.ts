@@ -239,7 +239,9 @@ export class ParticipantProfileComponent implements OnInit {
    * @param {any} comment
    * @memberof ParticipantProfileComponent
    */
-  updateCaseResourceNote(casefile, resource, comment) {
+  updateCaseResourceNote(casefile, resource, comment, casefileIndex, resourceIndex) {
+    console.log('updating comment');
+    this.orderedCases[casefileIndex].contactedResources[resourceIndex].note = comment;
     this.casefileService.updateCaseContactedResource(casefile._id, resource.resource._id, { 'note': comment }).subscribe();
   }
 
