@@ -47,7 +47,12 @@
           <p class="name" *ngIf="caseResource.resource">{{caseResource.resource.name}}</p>
           <mat-slide-toggle #contactToggle [checked]="caseResource.dateContacted != null" (change)="updateCaseDate(contactToggle._checked, casefile, caseResource, caseIndex, resourceIndex, null)"
             color="accent" class="contacted"></mat-slide-toggle>
-          <p class="datePicker" *ngIf="caseResource.dateContacted != null">{{caseResource.dateContacted | date:'M/d/yyyy'}}</p>
+          <div class="datePicker" *ngIf="caseResource.dateContacted != null">
+            <p>{{caseResource.dateContacted | date:'M/d/yyyy'}}</p>
+            <button mat-icon-button color="primary" type="button" (click)="updateCaseDate(false, casefile, caseResource, caseIndex, resourceIndex, null)">
+              <mat-icon matSuffix>clear</mat-icon>
+            </button>
+          </div>
           <mat-form-field class="datePicker" *ngIf="caseResource.dateContacted == null">
             <input matInput #dateinput name="date" [matDatepicker]="picker" placeholder="m/dd/yyyy" (dateChange)="updateCaseDate(true, casefile, caseResource, caseIndex, resourceIndex, $event.value)">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -55,14 +60,16 @@
           </mat-form-field>
           <div class="caseNotes" *ngIf="caseResource.note">
             <p>{{caseResource.note}}</p>
-            <button mat-icon-button color="primary" type="button" (click)="caseResource.note = null"><mat-icon matSuffix>clear</mat-icon></button>
+            <button mat-icon-button color="primary" type="button" (click)="updateCaseResourceNote(casefile, caseResource, null, caseIndex, resourceIndex)">
+              <mat-icon matSuffix>clear</mat-icon>
+            </button>
           </div>
-          <div class="caseNotes"  *ngIf="caseResource.note == null || caseResource.note.length==0">
-          <mat-form-field>
-            <input matInput placeholder="Comments related to this resource" #resourceNote (keyup.enter)="updateCaseResourceNote(casefile, caseResource, resourceNote.value, caseIndex, resourceIndex)"
-              (blur)="updateCaseResourceNote(casefile, caseResource, resourceNote.value, caseIndex, resourceIndex)">
-          </mat-form-field>
-        </div>
+          <div class="caseNotes" *ngIf="caseResource.note == null || caseResource.note.length==0">
+            <mat-form-field>
+              <input matInput placeholder="Comments related to this resource" #resourceNote (keyup.enter)="updateCaseResourceNote(casefile, caseResource, resourceNote.value, caseIndex, resourceIndex)"
+                (blur)="updateCaseResourceNote(casefile, caseResource, resourceNote.value, caseIndex, resourceIndex)">
+            </mat-form-field>
+          </div>
         </div>
         <h4>Selected Resource:</h4>
         <mat-form-field *ngIf="!casefile.selectedResource">

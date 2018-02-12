@@ -22,6 +22,10 @@
     margin-left: 5px;
 }
 
+.datePicker p {
+    display: inline-block;
+}
+
 headerResources {
     width: 100%;
     margin-bottom: 1.8em;
@@ -55,7 +59,7 @@ span.filler{
     width: 100%;
 }
 
-.caseNotes mat-icon {
+mat-icon {
     align-self: center;
     font-size: 1.25em;
 }
