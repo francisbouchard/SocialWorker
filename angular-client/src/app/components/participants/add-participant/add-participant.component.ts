@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertModalComponent } from '../../modals/alert-modal/alert-modal.component';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
-import { FormGroup, FormControl, Validators,ValidatorFn, FormBuilder,ValidationErrors } from "@angular/forms";
+import { FormGroup, FormControl, Validators, ValidatorFn, FormBuilder, ValidationErrors } from '@angular/forms';
 
 
 
@@ -17,50 +17,35 @@ import { FormGroup, FormControl, Validators,ValidatorFn, FormBuilder,ValidationE
 export class AddParticipantComponent implements OnInit {
 
   form: FormGroup;
-  socialmedia: FormGroup
-
-  participantData: Participant = {
-    _id: '',
-    name: '',
-    pronouns: '',
-    address: '',
-    telephone: '',
-    email: '',
-    socialmedia: {service: '', username: '' },
-    notes: [{}],
-    documents: [{}]
-  };
+  socialmedia: FormGroup;
 
   isAlreadyAParticipantID = false;
   isAlreadyAParticipantEmail = false;
 
   constructor(
-    private fb:FormBuilder,
+    private fb: FormBuilder,
     private participantService: ParticipantService,
     public dialog: MatDialog,
     public authService: AuthenticationService,
     public router: Router) {
-      
+
     this.form = this.fb.group({
            service: [''],
            username: [''],
             name: ['', Validators.required ],
-          //  socialmedia:{service:"",username:""},
             _id: ['', Validators.required ],
            // password:new FormControl('',Validators.required),
-            address:['', Validators.required ],
-            pronouns:[''],
-            telephone:[''],
-            email:[''],
-            
+            address: ['', Validators.required ],
+            pronouns: [''],
+            telephone: [''],
+            email: [''],
+
 }, {
-      validator:(formgroup:FormGroup)=>{
+      validator: (formgroup: FormGroup) => {
         return this.validateInput(formgroup);
         }
       });
   }
-
-  
 
   ngOnInit() {
     if (!this.authService.loggedIn) {
@@ -68,14 +53,13 @@ export class AddParticipantComponent implements OnInit {
     }
   }
 
-  validateInput(formgroup:FormGroup){
-     let socialun = formgroup.value.username;
-     let socials = formgroup.value.service;
-    if((formgroup.controls["telephone"].value || formgroup.controls["email"].value || socialun && socials)){
+  validateInput(formgroup: FormGroup) {
+    const socialun = formgroup.value.username;
+    const socials = formgroup.value.service;
+    if ((formgroup.controls['telephone'].value || formgroup.controls['email'].value || socialun && socials)) {
   console.log('OK');
   return null;
-  }
-  else {
+  }else {
     console.log('Not OK');
     return {validateInputData: true};
   }
