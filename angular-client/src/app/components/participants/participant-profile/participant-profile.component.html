@@ -79,7 +79,12 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <p *ngIf="casefile.selectedResource">{{casefile.selectedResource.name}}</p>
+        <div *ngIf="casefile.selectedResource" class="selectedResource">
+          <p>{{casefile.selectedResource.name}}</p>
+          <button mat-icon-button color="primary" type="button" (click)="updateCaseSelectedResource(casefile, null)">
+            <mat-icon matSuffix>mode_edit</mat-icon>
+          </button>
+        </div>
       </form>
       <div class="bottomMenu">
         <button *ngIf="casefile.status == 'In progress' " mat-raised-button (click)="completeCasefile(casefile, caseIndex)">Finalize Casefile</button>

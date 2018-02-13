@@ -22,7 +22,7 @@
     margin-left: 5px;
 }
 
-.datePicker p {
+.datePicker p, .selectedResource p {
     display: inline-block;
 }
 
