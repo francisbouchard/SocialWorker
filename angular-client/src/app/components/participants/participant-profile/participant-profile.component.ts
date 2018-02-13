@@ -253,7 +253,8 @@ export class ParticipantProfileComponent implements OnInit {
    * @memberof ParticipantProfileComponent
    */
   updateCaseSelectedResource(casefile, selection) {
-    const selectedResource = { 'selectedResource': selection };
+    casefile.selectedResource = selection.resource;
+    const selectedResource = { 'selectedResource': selection._id };
     this.casefileService.updateCaseSelectedResource(casefile._id, selectedResource).subscribe();
   }
 
