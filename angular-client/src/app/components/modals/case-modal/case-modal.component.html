@@ -1,7 +1,12 @@
-<h1 mat-dialog-title>New Housing Case</h1>
+<h1 mat-dialog-title>New Case</h1>
 <h5>Participant: {{data.participant.name}}</h5>
 <form>
-  <div class="hint">Select urgency of request</div>
+  <mat-form-field>
+    <mat-select placeholder="Case Type" name="caseType" [(ngModel)]="mycase.type">
+      <mat-option *ngFor="let type of resourceTypes" [value]="type">{{type}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p class="hint">Select urgency of request</p>
   <mat-radio-group [(ngModel)]="mycase.urgency" name="urgency" ng-checked="urgency[0]">
     <mat-radio-button *ngFor="let urgency of urgencies" [value]="urgency">{{urgency}}&nbsp;&nbsp;</mat-radio-button>
   </mat-radio-group>

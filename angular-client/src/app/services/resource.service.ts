@@ -16,30 +16,30 @@ export class ResourceService {
 
   /**
  * Get resource by id
- * 
- * @param {any} resourceID 
- * @returns {Observable<Object>} 
+ *
+ * @param {any} resourceID
+ * @returns {Observable<Object>}
  * @memberof ResourceService
  */
-  get(resourceID): Observable<Object> {
-    return this.http.get(`${this.url}/${resourceID}`)
+  get(resourceID): Observable<Object[]> {
+    return this.http.get<Object[]>(`${this.url}/${resourceID}`)
       .pipe(
       tap(_ => this.log('fetching a resource')),
-      catchError(this.handleError<Object>('get()'))
+      catchError(this.handleError<Object[]>('get()'))
       );
   }
 
   /**
    * Get all resources
-   * 
-   * @returns {Observable<Object>} 
+   *
+   * @returns {Observable<Object>}
    * @memberof ResourceService
    */
-  getAll(): Observable<Object> {
-    return this.http.get(this.url)
+  getAll(): Observable<Object[]> {
+    return this.http.get<Object[]>(this.url)
       .pipe(
       tap(_ => this.log('fetching all resources')),
-      catchError(this.handleError<Object>('getAll()'))
+      catchError(this.handleError<Object[]>('getAll()'))
       );
   }
 

@@ -14,14 +14,16 @@ import { Participant } from '../../../classes/participant';
 export class CaseModalComponent implements OnInit {
   statuses = ['In progress', 'Completed'];
   urgencies = ['Regular', 'Urgent'];
-  resources: Object;
+  resources: any[];
+  resourceTypes = [];
   mycase: Casefile = {
     participant: '',
     status: 'In progress',
     notes: '',
     urgency: 'Regular',
     contactedResources: [],
-    date: new Date()
+    date: new Date(),
+    type: ''
   };
 
   constructor(
@@ -45,6 +47,7 @@ export class CaseModalComponent implements OnInit {
     this.resourceService.getAll()
       .subscribe(data => {
         this.resources = data;
+        this.setResourceTypes();
       });
   }
 
@@ -59,6 +62,15 @@ export class CaseModalComponent implements OnInit {
     arrayOfResources.forEach(element => {
       this.mycase.contactedResources.push({resource: element, status: 'To Contact', dateContacted: null, note: ''});
     });
+  }
+
+  setResourceTypes() {
+    for (let i = 0; i < this.resources.length; i++) {
+      if (this.resourceTypes.indexOf(this.resources[i].kind) === -1) {
+        this.resourceTypes.push(this.resources[i].kind);
+      }
+    }
+    this.resourceTypes.sort();
   }
 
   submit(): void {
