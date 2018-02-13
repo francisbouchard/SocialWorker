@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ParticipantService } from '../../../services/participant.service';
 import { Participant } from '../../../classes/participant';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AlertModalComponent } from '../../alert-modal/alert-modal.component';
+import { AlertModalComponent } from '../../modals/alert-modal/alert-modal.component';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators,ValidatorFn, FormBuilder,ValidationErrors } from "@angular/forms";
@@ -27,7 +27,8 @@ export class AddParticipantComponent implements OnInit {
     telephone: '',
     email: '',
     socialmedia: {service: '', username: '' },
-    notes: [{}]
+    notes: [{}],
+    documents: [{}]
   };
 
   isAlreadyAParticipantID = false;
@@ -81,10 +82,10 @@ export class AddParticipantComponent implements OnInit {
 }
 
   /**
-   * Verify if attribute and value of the given input has 
+   * Verify if attribute and value of the given input has
    * already been associated to a participant.
-   * 
-   * @param {*} event 
+   *
+   * @param {*} event
    * @memberof AddParticipantComponent
    */
   onKey(attribute: String, value: String) {
@@ -102,8 +103,8 @@ export class AddParticipantComponent implements OnInit {
 
   /**
    * Alert user of response success or fail.
-   * 
-   * @param {any} message 
+   *
+   * @param {any} message
    * @memberof AddParticipantComponent
    */
   alertModal(message): void {
@@ -121,7 +122,7 @@ export class AddParticipantComponent implements OnInit {
 
   /**
    * Submit new participant profile information.
-   * 
+   *
    * @memberof AddParticipantComponent
    */
   onSubmit() {

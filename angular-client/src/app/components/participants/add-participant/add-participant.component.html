@@ -28,10 +28,16 @@
 
     <div  class="well well-lg">
     <mat-form-field>
-      <input matInput placeholder="Social media provider (Twitter, Facebook)" formControlName="service">
+      <input matInput placeholder="Social media provider (Twitter, Facebook)" name="service" [(ngModel)]="participantData.service">
+      <mat-hint align="start">
+          <strong>Optional: choose platform</strong>
+        </mat-hint>
     </mat-form-field>
     <mat-form-field >
-      <input matInput placeholder="Social media account (@username)" formControlName="username">
+      <input matInput placeholder="Social media account (@username)" name="username" [(ngModel)]="participantData.username">
+      <mat-hint align="start">
+          <strong>Optional: choose account handle</strong>
+        </mat-hint>
     </mat-form-field>
     </div>
 

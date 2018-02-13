@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { CasefileService } from '../../services/casefile.service';
-import { ResourceService } from '../../services/resource.service';
-import { Casefile } from '../../classes/case';
-import { Participant } from '../../classes/participant';
+import { CasefileService } from '../../../services/casefile.service';
+import { ResourceService } from '../../../services/resource.service';
+import { Casefile } from '../../../classes/case';
+import { Participant } from '../../../classes/participant';
 
 
 @Component({
@@ -20,7 +20,8 @@ export class CaseModalComponent implements OnInit {
     status: 'In progress',
     notes: '',
     urgency: 'Regular',
-    contactedResources: []
+    contactedResources: [],
+    date: new Date()
   };
 
   constructor(
@@ -37,27 +38,26 @@ export class CaseModalComponent implements OnInit {
 
   /**
    * Load all resources
-   * 
+   *
    * @memberof ViewResourcesComponent
    */
   loadAllResources() {
     this.resourceService.getAll()
       .subscribe(data => {
-        console.log(data);
         this.resources = data;
       });
   }
 
   /**
    * Changes the array on contacteResources
-   * from an array of Strings to an array 
-   * of key-value pairs _id:String status:String
+   * from an array of Strings to an array
+   * of key-value pairs resource:String status:String
    */
   makeResourceArray(): void {
     const arrayOfResources = this.mycase.contactedResources;
     this.mycase.contactedResources = [];
     arrayOfResources.forEach(element => {
-      this.mycase.contactedResources.push({_id: element, status: ''});
+      this.mycase.contactedResources.push({resource: element, status: 'To Contact', dateContacted: null, note: ''});
     });
   }
 
@@ -65,7 +65,6 @@ export class CaseModalComponent implements OnInit {
     this.makeResourceArray();
     this.caseService.save(this.mycase)
     .subscribe(data => {
-      console.log(data);
       this.dialogRef.close();
     });
   }

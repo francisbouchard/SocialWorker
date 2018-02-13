@@ -33,16 +33,16 @@ export class CasefileService {
   }
 
   /**
-   * Get a case by participant ID
+   * Get cases by participant ID
    *
    * @param {any} participantID
    * @returns {Observable<Object>}
    * @memberof CasefileService
    */
   getByParticipant(participantID): Observable<Object> {
-    return this.http.get(`${this.url}/${participantID}`)
+    return this.http.get(`${this.url}/participant/${participantID}`)
       .pipe(
-      tap(cases => this.log('fetched a case')),
+      tap(cases => this.log('fetched cases')),
       catchError(this.handleError<Object>('getByParticipant(participantID)'))
       );
   }
@@ -73,7 +73,6 @@ export class CasefileService {
       .pipe(
       tap(c => {
         if (c.hasOwnProperty('errmsg')) {
-          console.log('has err msg');
           this.log('did not save new case');
         } else {
           this.log('saved new case');
@@ -85,10 +84,10 @@ export class CasefileService {
 
   /**
    * Add a contacted resource to the case with the given ID
-   * 
-   * @param {any} casefileID 
-   * @param {any} resourceData 
-   * @returns {Observable<Object>} 
+   *
+   * @param {any} casefileID
+   * @param {any} resourceData
+   * @returns {Observable<Object>}
    * @memberof CasefileService
    */
   addContactedResource(casefileID, resourceData): Observable<Object> {
@@ -107,23 +106,24 @@ export class CasefileService {
   }
 
   /**
-   * Update the status of a contacted resource in the case
-   * 
+   * Update the state of a contacted resource in the case.
+   * You can update: status, dateContacted, note.
+   *
    * @param {any} casefileID
    * @param {any} resourceID
-   * @param {any} status
+   * @param {any} updatedParams
    * @returns {Observable<Object>}
    * @memberof CasefileService
    */
-  updateResourceStatus(casefileID, resourceID, status): Observable<Object> {
-    return this.http.put<Object>(`${this.url}/${casefileID}/resource/${resourceID}`, status)
+  updateCaseContactedResource(casefileID, resourceID, updatedParams): Observable<Object> {
+    return this.http.put<Object>(`${this.url}/${casefileID}/resource/${resourceID}`, updatedParams)
       .pipe(
       tap(c => {
         if (c.hasOwnProperty('errmsg')) {
           console.log('has err msg');
-          this.log('did not update contacted resource status');
+          this.log('did not update contacted resource');
         } else {
-          this.log('updated contacted resource status');
+          this.log('updated contacted resource');
         }
       }),
       catchError(this.handleError<Object>('updateResourceStatus(casefileID, resourceID, status)'))
@@ -131,8 +131,31 @@ export class CasefileService {
   }
 
   /**
+   * Update a casefile with the selected resource
+   *
+   * @param {any} casefileID
+   * @param {any} selectedResource
+   * @returns {Observable<Object>}
+   * @memberof CasefileService
+   */
+  updateCaseSelectedResource(casefileID, selectedResource): Observable<Object> {
+    return this.http.put<Object>(`${this.url}/${casefileID}/selection`, selectedResource)
+      .pipe(
+      tap(c => {
+        if (c.hasOwnProperty('errmsg')) {
+          console.log('has err msg');
+          this.log('did not update casefile selection');
+        } else {
+          this.log('updated casefile');
+        }
+      }),
+      catchError(this.handleError<Object>('updateCaseSelectedResource(casefileID, resourceID)'))
+      );
+  }
+
+  /**
    * Update the overall status of the case
-   * 
+   *
    * @param {any} casefileID
    * @param {any} status
    * @returns {Observable<Object>}
