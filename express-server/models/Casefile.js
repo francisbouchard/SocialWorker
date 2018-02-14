@@ -11,6 +11,7 @@ const casefileSchema = new Schema({
   }],
   selectedResource: { type: Schema.Types.ObjectId, ref: 'Resource' },
   status: String,
+  type: String,
   urgency: String,
   notes: [String],
   date: { type: Date, default: Date.now },

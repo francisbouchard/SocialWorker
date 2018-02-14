@@ -59,6 +59,7 @@ router.post('/', (req, res) => {
         participant: req.body.participant,
         notes: [req.body.notes],
         status: req.body.status,
+        type: req.body.type,
         urgency: req.body.urgency,
         contactedResources: req.body.contactedResources,
         selectedResource: req.body.selectedResource,

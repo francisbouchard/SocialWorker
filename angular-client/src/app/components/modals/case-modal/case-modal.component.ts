@@ -60,10 +60,16 @@ export class CaseModalComponent implements OnInit {
     const arrayOfResources = this.mycase.contactedResources;
     this.mycase.contactedResources = [];
     arrayOfResources.forEach(element => {
-      this.mycase.contactedResources.push({resource: element, status: 'To Contact', dateContacted: null, note: ''});
+      this.mycase.contactedResources.push({ resource: element, status: 'To Contact', dateContacted: null, note: '' });
     });
   }
 
+  /**
+   * From all the resources, create a set of resource types.
+   * Ex: Housing, Legal, Job Security.
+   *
+   * @memberof CaseModalComponent
+   */
   setResourceTypes() {
     for (let i = 0; i < this.resources.length; i++) {
       if (this.resourceTypes.indexOf(this.resources[i].kind) === -1) {
@@ -76,9 +82,9 @@ export class CaseModalComponent implements OnInit {
   submit(): void {
     this.makeResourceArray();
     this.caseService.save(this.mycase)
-    .subscribe(data => {
-      this.dialogRef.close();
-    });
+      .subscribe(data => {
+        this.dialogRef.close();
+      });
   }
 
   cancel(): void {

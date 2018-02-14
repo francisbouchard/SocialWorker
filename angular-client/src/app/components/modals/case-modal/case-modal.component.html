@@ -13,7 +13,7 @@
   <mat-form-field>
     <input matInput placeholder="Enter any relevant notes here" value="" [(ngModel)]="mycase.notes" name="notes">
   </mat-form-field>
-<div class="hint">Select the shelters for this case</div>
+<div class="hint">Select the resources for this case</div>
   <mat-form-field>
     <mat-select multiple [(ngModel)]="mycase.contactedResources" name="contactedResources">
         <mat-option *ngFor="let resource of resources" [value]="resource._id">
