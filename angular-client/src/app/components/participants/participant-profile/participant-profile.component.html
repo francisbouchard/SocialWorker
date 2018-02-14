@@ -24,6 +24,7 @@
   </mat-card>
   <mat-accordion *ngIf="orderedCases.length > 0">
     <mat-expansion-panel *ngFor="let casefile of orderedCases; let caseIndex = index">
+
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{casefile.date | date: 'fullDate'}}
@@ -32,12 +33,48 @@
           Status: {{casefile.status | slice:0:100}}
         </mat-panel-description>
       </mat-expansion-panel-header>
+
       <h4>Urgency: </h4>{{casefile.urgency}}
       <h4>Type: </h4>{{casefile.type}}
       <h4 *ngIf="casefile.notes[0]">Notes:</h4>
       <p>{{casefile.notes[0]}}</p>
       <h4>Resources:</h4>
-      <form>
+
+      <div *ngIf="casefile.status == 'Completed'">
+        <div class="resource headerResources" *ngIf="casefile.contactedResources[0]">
+          <span class="name primary">Name</span>
+          <span class="contacted primary">Contacted</span>
+          <span class="datePicker primary datePicker">Date</span>
+          <span class="caseNotes primary">Comment</span>
+        </div>
+        <div class="resource" *ngFor="let caseResource of casefile.contactedResources; let resourceIndex = index">
+          <p class="name" *ngIf="caseResource.resource">{{caseResource.resource.name}}</p>
+          <div class="contacted">
+            <p *ngIf="caseResource.dateContacted != null">Yes</p>
+            <p *ngIf="caseResource.dateContacted == null">No</p>
+          </div>
+          <div class="datePicker" *ngIf="caseResource.dateContacted != null">
+            <p>{{caseResource.dateContacted | date:'M/d/yyyy'}}</p>
+          </div>
+          <div class="datePicker" *ngIf="caseResource.dateContacted == null">
+            <p>-</p>
+          </div>
+          <div class="caseNotes" *ngIf="caseResource.note">
+            <p>{{caseResource.note}}</p>
+          </div>
+          <div class="caseNotes" *ngIf="!caseResource.note || caseResource.note.length == 0">
+            <p>-</p>
+          </div>
+        </div>
+        <h4>Selected Resource:</h4>
+        <div *ngIf="!casefile.selectedResource" class="selectedResource">
+            <p>Nothing selected</p>
+        </div>
+        <div *ngIf="casefile.selectedResource" class="selectedResource">
+            <p>{{casefile.selectedResource.name}}</p>
+        </div>
+      </div>
+      <form *ngIf="casefile.status == 'In progress'">
         <div class="resource headerResources" *ngIf="casefile.contactedResources[0]">
           <span class="name primary">Name</span>
           <span class="contacted primary">Contacted</span>
