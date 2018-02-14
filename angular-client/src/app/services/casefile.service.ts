@@ -177,6 +177,28 @@ export class CasefileService {
   }
 
   /**
+   * Update Casefile note
+   *
+   * @param {any} casefileID
+   * @param {any} note
+   * @returns {Observable<Object>}
+   * @memberof CasefileService
+   */
+  updateCaseNote(casefileID, notes): Observable<Object> {
+    return this.http.put<Object>(`${this.url}/${casefileID}/note`, notes)
+      .pipe(
+      tap(c => {
+        if (c.hasOwnProperty('errmsg')) {
+          this.log('did not update case note');
+        } else {
+          this.log('updated case note');
+        }
+      }),
+      catchError(this.handleError<Object>('updateCaseNote()'))
+      );
+  }
+
+  /**
    * Delete a case by ID
    *
    * @param {any} casefileID

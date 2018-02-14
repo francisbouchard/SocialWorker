@@ -193,8 +193,8 @@ export class ParticipantProfileComponent implements OnInit {
   /**
    * Reopen a casefile
    *
-   * @param {any} casefile 
-   * @param {any} casefileIndex 
+   * @param {any} casefile
+   * @param {any} casefileIndex
    * @memberof ParticipantProfileComponent
    */
   reopenCasefile(casefile, casefileIndex): void {
@@ -257,8 +257,19 @@ export class ParticipantProfileComponent implements OnInit {
     this.casefileService.updateCaseSelectedResource(casefile._id, selectedResource).subscribe();
   }
 
-  updateCaseNote(){
-    console.log('todo: update note');
+  /**
+   * Update casefile note
+   * Casefile note will only update if the text value was changed
+   *
+   * @param {any} casefile
+   * @param {any} updatedNote
+   * @memberof ParticipantProfileComponent
+   */
+  updateCaseNote(casefile, updatedNote) {
+    if (casefile.notes[0] !== updatedNote) {
+      casefile.notes[0] = updatedNote;
+      this.casefileService.updateCaseNote(casefile._id, { notes: updatedNote }).subscribe();
+    }
   }
 
 }

@@ -143,6 +143,18 @@ router.put('/:id/status', (req, res) => {
 });
 
 /**
+ * Update note of a Casefile
+ */
+router.put('/:id/note', (req, res) => {
+    Casefile.update({ '_id': req.params.id }, { '$set': { notes: [req.body.notes] }})
+    .then(data => {
+        res.send(data);
+    }), err => {
+        res.send(err);
+    }
+})
+
+/**
  * Delete a Casefile with the given ID
  * 
  * If the user making this request is an administrator, the casefile will be permanently deleted. 

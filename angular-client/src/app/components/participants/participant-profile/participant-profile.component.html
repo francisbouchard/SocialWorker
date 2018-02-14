@@ -39,8 +39,8 @@
       <h4 *ngIf="casefile.notes[0] || (casefile.status == 'In progress')">Notes:</h4>
       <p *ngIf="casefile.notes[0] && (casefile.status == 'Completed')">{{casefile.notes[0]}}</p>
       <mat-form-field *ngIf="casefile.status == 'In progress'">
-          <textarea matInput name="casefileNote" placeholder="Enter any relevant notes here" matTextareaAutosize matAutosizeMinRows="2"
-          matAutosizeMaxRows="5" [(ngModel)]="casefile.notes[0]" (keyup.enter)="updateCaseNote()" (blur)="updateCaseNote()"></textarea>
+          <textarea #casefileNote matInput placeholder="Any relevant notes" matTextareaAutosize matAutosizeMinRows="2"
+          matAutosizeMaxRows="5" value="{{casefile.notes[0]}}" (keyup.enter)="updateCaseNote(casefile, casefileNote.value)" (blur)="updateCaseNote(casefile, casefileNote.value)"></textarea>
       </mat-form-field>
 
       <h4>Resources:</h4>
