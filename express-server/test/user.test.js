@@ -7,7 +7,8 @@ const Users = require('../models/User');
 
 chai.use(chaiHttp);
 
-var Cookies;
+let cookie;
+let adminCookie;
 
 describe('User Tests', () => {
     describe('Register', () => {
@@ -19,7 +20,7 @@ describe('User Tests', () => {
                     'password': 'test123'
                 })
                 .end((err, res) => {
-                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
+                    adminCookie = res.headers['set-cookie'].pop().split(';')[0];
                     chai.request(server)
                         .post('/user/signup')
                         .set('Cookie', adminCookie)
@@ -46,7 +47,7 @@ describe('User Tests', () => {
                 })
                 .end((err, res) => {
                     res.should.have.cookie('connect.sid');
-                    Cookies = res.headers['set-cookie'].pop().split(';')[0];
+                    cookie = res.headers['set-cookie'].pop().split(';')[0];
                     res.should.have.status(200);
                     done();
                 });
@@ -57,9 +58,31 @@ describe('User Tests', () => {
         it('should delete a user\'s account', (done) => {
             chai.request(server)
                 .delete('/user')
-                .set('Cookie', Cookies)
+                .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
+                    done();
+                });
+        });
+    });
+
+    describe('GET/all', () => {
+        it('should not get all users since user is not admin', (done) => {
+            chai.request(server)
+                .get('/user/all')
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    done();
+                });
+        });
+        it('should get all users for an admin', (done) => {
+            chai.request(server)
+                .get('/user/all')
+                .set('Cookie', adminCookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
                     done();
                 });
         });
