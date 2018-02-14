@@ -1,3 +1,8 @@
-<p>
-  users works!
-</p>
+<mat-tab-group (selectedTabChange)="changeTab()">
+  <mat-tab label="Users">
+    <!-- <app-view-users [hasTabChanged]="hasTabChanged"></app-view-users> -->
+  </mat-tab>
+  <mat-tab label="Add User">
+    <app-register-user></app-register-user>
+  </mat-tab>
+</mat-tab-group>
