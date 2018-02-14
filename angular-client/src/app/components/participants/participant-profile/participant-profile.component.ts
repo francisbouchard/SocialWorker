@@ -257,4 +257,8 @@ export class ParticipantProfileComponent implements OnInit {
     this.casefileService.updateCaseSelectedResource(casefile._id, selectedResource).subscribe();
   }
 
+  updateCaseNote(){
+    console.log('todo: update note');
+  }
+
 }

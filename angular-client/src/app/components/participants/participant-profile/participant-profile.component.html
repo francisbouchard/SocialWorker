@@ -36,10 +36,14 @@
 
       <h4>Urgency: </h4>{{casefile.urgency}}
       <h4>Type: </h4>{{casefile.type}}
-      <h4 *ngIf="casefile.notes[0]">Notes:</h4>
-      <p>{{casefile.notes[0]}}</p>
-      <h4>Resources:</h4>
+      <h4 *ngIf="casefile.notes[0] || (casefile.status == 'In progress')">Notes:</h4>
+      <p *ngIf="casefile.notes[0] && (casefile.status == 'Completed')">{{casefile.notes[0]}}</p>
+      <mat-form-field *ngIf="casefile.status == 'In progress'">
+          <textarea matInput name="casefileNote" placeholder="Enter any relevant notes here" matTextareaAutosize matAutosizeMinRows="2"
+          matAutosizeMaxRows="5" [(ngModel)]="casefile.notes[0]" (keyup.enter)="updateCaseNote()" (blur)="updateCaseNote()"></textarea>
+      </mat-form-field>
 
+      <h4>Resources:</h4>
       <div *ngIf="casefile.status == 'Completed'">
         <div class="resource headerResources" *ngIf="casefile.contactedResources[0]">
           <span class="name primary">Name</span>
@@ -125,9 +129,9 @@
         </div>
       </form>
       <div class="bottomMenu">
-        <button *ngIf="casefile.status == 'In progress' " mat-raised-button (click)="completeCasefile(casefile, caseIndex)">Finalize Casefile</button>
-        <button *ngIf="casefile.status == 'Completed' " mat-raised-button (click)="reopenCasefile(casefile, caseIndex)">Reopen Casefile</button>
-        <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
+        <button type="button" *ngIf="casefile.status == 'In progress' " mat-raised-button (click)="completeCasefile(casefile, caseIndex)">Finalize Casefile</button>
+        <button type="button" *ngIf="casefile.status == 'Completed' " mat-raised-button (click)="reopenCasefile(casefile, caseIndex)">Reopen Casefile</button>
+        <button type="button" id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
       </div>
 
     </mat-expansion-panel>
