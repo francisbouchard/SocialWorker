@@ -31,6 +31,7 @@ import { CasefileService } from './services/casefile.service';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { UsersComponent } from './components/users/users.component';
+import { ViewUsersComponent } from './components/users/view-users/view-users.component';
 
 
 const routes: Routes = [
@@ -92,7 +93,8 @@ const routes: Routes = [
     RegisterUserComponent,
     OrderByPipe,
     SearchPipe,
-    UsersComponent
+    UsersComponent,
+    ViewUsersComponent
   ],
   imports: [
     BrowserModule,
