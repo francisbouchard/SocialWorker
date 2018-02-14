@@ -15,7 +15,7 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { AddParticipantComponent } from './components/participants/add-participant/add-participant.component';
 import { NoteComponent } from './components/note/note.component';
 import { DocumentComponent } from './components/document/document.component';
-import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { RegisterUserComponent } from './components/users/register-user/register-user.component';
 import { ParticipantProfileComponent } from './components/participants/participant-profile/participant-profile.component';
 import { ViewParticipantsComponent } from './components/participants/view-participants/view-participants.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
@@ -30,6 +30,7 @@ import { CaseModalComponent } from './components/modals/case-modal/case-modal.co
 import { CasefileService } from './services/casefile.service';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import { UsersComponent } from './components/users/users.component';
 
 
 const routes: Routes = [
@@ -90,7 +91,8 @@ const routes: Routes = [
     DocumentComponent,
     RegisterUserComponent,
     OrderByPipe,
-    SearchPipe
+    SearchPipe,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
