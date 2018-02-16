@@ -120,6 +120,8 @@ router.put('/:id/resource/:resId', (req, res) => {
 
 /**
  * Update a casefile with a selected resource
+ * selectedResource contains: resource, startDate, endDate
+ *
  */
 router.put('/:id/selection', (req, res) => {
     Casefile.update({ '_id': req.params.id }, { '$set': { selectedResource: req.body.selectedResource}})
