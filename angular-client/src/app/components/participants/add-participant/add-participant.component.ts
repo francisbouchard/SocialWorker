@@ -19,6 +19,18 @@ export class AddParticipantComponent implements OnInit {
   form: FormGroup;
   socialmedia: FormGroup;
 
+  participantData: Participant = {
+    _id: '',
+    name: '',
+    pronouns: '',
+    address: '',
+    telephone: '',
+    email: '',
+    socialmedia: {service: '', username: '' },
+    notes: [{}],
+    documents: [{}]
+  };
+
   isAlreadyAParticipantID = false;
   isAlreadyAParticipantEmail = false;
 
@@ -33,6 +45,7 @@ export class AddParticipantComponent implements OnInit {
            service: [''],
            username: [''],
             name: ['', Validators.required ],
+          //  socialmedia:{service:'',username:''},
             _id: ['', Validators.required ],
            // password:new FormControl('',Validators.required),
             address: ['', Validators.required ],
@@ -47,6 +60,7 @@ export class AddParticipantComponent implements OnInit {
       });
   }
 
+
   ngOnInit() {
     if (!this.authService.loggedIn) {
       this.router.navigateByUrl('login');
@@ -54,12 +68,12 @@ export class AddParticipantComponent implements OnInit {
   }
 
   validateInput(formgroup: FormGroup) {
-    const socialun = formgroup.value.username;
-    const socials = formgroup.value.service;
+     const socialun = formgroup.value.username;
+     const socials = formgroup.value.service;
     if ((formgroup.controls['telephone'].value || formgroup.controls['email'].value || socialun && socials)) {
   console.log('OK');
   return null;
-  }else {
+  } else {
     console.log('Not OK');
     return {validateInputData: true};
   }
