@@ -252,9 +252,19 @@ export class ParticipantProfileComponent implements OnInit {
    * @memberof ParticipantProfileComponent
    */
   updateCaseSelectedResource(casefile, selection) {
-    casefile.selectedResource = (selection) ? selection.resource : null;
-    const selectedResource = { 'selectedResource': (selection) ? selection.resource._id : null };
-    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResource).subscribe();
+    // TODO REFACTOR
+    const selectedResource = {
+        resource: (selection) ? selection.resource._id : null,
+        startDate: null,
+        endDate: null
+    };
+
+    casefile.selectedResource = selectedResource;
+    casefile.selectedResource.resource = (selection) ? selection.resource : null;
+    const selectedResourceObject = { 'selectedResource': selectedResource };
+    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe(data => {
+      console.log(data);
+    });
   }
 
   /**

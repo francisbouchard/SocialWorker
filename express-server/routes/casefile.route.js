@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
 router.get('/participant/:id', (req, res) => {
     Casefile.find({ participant: req.params.id })
     .populate('contactedResources.resource')
-    .populate('selectedResource')
+    .populate('selectedResource.resource')
     .then(data => {
         res.send(data);
     }, err => {

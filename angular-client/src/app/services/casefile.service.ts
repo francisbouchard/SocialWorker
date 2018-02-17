@@ -132,6 +132,7 @@ export class CasefileService {
 
   /**
    * Update a casefile with the selected resource
+   * selectedResource should include fields: resource, startDate, endDate
    *
    * @param {any} casefileID
    * @param {any} selectedResource

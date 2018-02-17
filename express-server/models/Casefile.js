@@ -9,11 +9,11 @@ const casefileSchema = new Schema({
     dateContacted: Date,
     note: String
   }],
-  selectedResource: [{
+  selectedResource: {
     resource: { type: Schema.Types.ObjectId, ref: 'Resource' },
     startDate: Date,
     endDate: Date
-  }],
+  },
   status: String,
   type: String,
   urgency: String,

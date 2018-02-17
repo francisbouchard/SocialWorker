@@ -114,15 +114,27 @@
           </div>
         </div>
         <h4>Selected Resource:</h4>
-        <mat-form-field *ngIf="!casefile.selectedResource">
-          <mat-select [(value)]="casefile.selectedResource" placeholder="Resource" (selectionChange)="updateCaseSelectedResource(casefile, casefile.selectedResource)">
+        <div *ngIf="!casefile.selectedResource || !casefile.selectedResource.resource">
+        <mat-form-field>
+          <mat-select #selectedResource placeholder="Resource" (selectionChange)="updateCaseSelectedResource(casefile, selectedResource.value)">
             <mat-option *ngFor="let caseResource of casefile.contactedResources" [value]="caseResource">
               {{caseResource.resource.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <div *ngIf="casefile.selectedResource" class="selectedResource">
-          <p>{{casefile.selectedResource.name}}</p>
+        <mat-form-field class="datePicker">
+          <input matInput #dateinput name="date" [matDatepicker]="picker2" placeholder="Start date" (dateChange)="updateCaseSelectedResource(casefile, null)">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 startView="month" [startAt]="startDate"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="datePicker">
+          <input matInput name="date" [matDatepicker]="picker" placeholder="End date" (dateChange)="updateCaseSelectedResource(casefile, casefile.selectedResource)">
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate startView="month" [startAt]="startDate"></mat-datepicker>
+        </mat-form-field>
+      </div>
+        <div *ngIf="casefile.selectedResource && casefile.selectedResource.resource" class="selectedResource">
+          <p>{{casefile.selectedResource.resource.name}}</p>
           <button mat-icon-button color="primary" type="button" (click)="updateCaseSelectedResource(casefile, null)">
             <mat-icon matSuffix>mode_edit</mat-icon>
           </button>
