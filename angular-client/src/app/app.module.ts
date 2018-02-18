@@ -31,6 +31,7 @@ import { CasefileService } from './services/casefile.service';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { PhonelogComponent } from './components/phonelog/phonelog.component';
+import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
 
 
 const routes: Routes = [
@@ -96,7 +97,8 @@ const routes: Routes = [
     RegisterUserComponent,
     OrderByPipe,
     SearchPipe,
-    PhonelogComponent
+    PhonelogComponent,
+    EditParticipantComponent
   ],
   imports: [
     BrowserModule,
