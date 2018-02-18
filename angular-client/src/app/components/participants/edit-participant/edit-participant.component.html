@@ -1,3 +1,41 @@
-<p>
-  edit-participant works!
-</p>
+<form class="form">
+    <mat-form-field>
+      <input matInput required placeholder="Name" name="name" [(ngModel)]="participant.name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Username" name="_id" [(ngModel)]="participant._id">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Pronouns" name="pronouns" [(ngModel)]="participant.pronouns">
+    </mat-form-field>
+  
+    <mat-form-field>
+        <span matPrefix>+1 &nbsp;</span>
+        <input type="tel" matInput placeholder="Telephone" name="telephone" [(ngModel)]="participant.telephone">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Social media provider (Twitter, Facebook)" name="service" [(ngModel)]="participant.service">
+        <mat-hint align="start">
+            <strong>Optional: choose platform</strong>
+        </mat-hint>
+    </mat-form-field>
+  
+    <mat-form-field >
+      <input matInput placeholder="Social media account (@username)" name="username" [(ngModel)]="participant.username">
+      <mat-hint align="start">
+        <strong>Optional: choose account handle</strong>
+      </mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Email" name="email" [(ngModel)]="participant.email">
+      </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Physical Address" name="address" [(ngModel)]="participant.address">
+    </mat-form-field>
+
+  </form>

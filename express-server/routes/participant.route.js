@@ -120,10 +120,10 @@ router.delete('/:pid', (req, res) => {
 });
 
 /**
- * Update given participant resource
+ * Update given participant
  */
 router.put('/:pid', (req, res) => {
-    Participant.findById(req.params.id).then(participant => {
+    Participant.findById(req.params.pid).then(participant => {
         participant.name = req.body.name || participant.name;
         participant.pronouns = req.body.pronouns || participant.pronouns;
         participant.address = req.body.address || participant.address;

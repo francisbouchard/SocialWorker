@@ -63,6 +63,15 @@ export class ViewParticipantsComponent implements OnInit {
       });
   }
 
+  /**
+   * Views a single participant
+   *
+   * @param {any} pid
+   * @memberof ViewParticipantsComponent
+   */
+  view(pid) {
+    this.router.navigateByUrl('participant-profile/' + pid);
+  }
 
   /**
    * Specify which participant is currently in edit mode
