@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/rx';
 import { catchError, map, tap } from 'rxjs/operators';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import { of } from 'rxjs/observable/of';
-import { MessageService } from "./message.service";
+import { MessageService } from './message.service';
 
 
 @Injectable()
@@ -89,7 +89,7 @@ export class AuthenticationService {
    * @memberof AuthenticationService
    */
   public heartbeat(): Observable<any> {
-    let minutes = 1;
+    const minutes = 1;
     return Observable
       .interval(1000 * 60 * minutes)
       .startWith(0)
