@@ -66,6 +66,10 @@ const routes: Routes = [
   {
     path: 'participant-profile/:_id',
     component: ParticipantProfileComponent
+  },
+  {
+    path: 'phonelog',
+    component: PhonelogComponent
   }
 ];
 
