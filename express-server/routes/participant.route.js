@@ -129,6 +129,8 @@ router.put('/:pid', (req, res) => {
         participant.address = req.body.address || participant.address;
         participant.telephone = req.body.telephone || participant.telephone;
         participant.email = req.body.email || participant.email;
+        participant.socialmedia.service = req.body.service || participant.socialmedia.service;
+        participant.socialmedia.username = req.body.username || participant.socialmedia.username;
         participant.notes = req.body.notes || participant.notes;
         participant.documents = req.body.documents || participant.documents;
 
