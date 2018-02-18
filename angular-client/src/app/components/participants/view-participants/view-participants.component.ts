@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ParticipantService } from '../../../services/participant.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
+import { Participant } from '../../../classes/participant';
 
 @Component({
   selector: 'app-view-participants',
@@ -11,6 +12,7 @@ import { RouterModule, Router } from '@angular/router';
 
 export class ViewParticipantsComponent implements OnInit {
   @Input() hasTabChanged: boolean;
+  editingParticipang = Participant;
 
   public profiles;
   public sortProperty = 'name';
@@ -21,7 +23,7 @@ export class ViewParticipantsComponent implements OnInit {
   }
 
   loadParticipants() {
-    if (this.authService.role == "admin") {
+    if (this.authService.role === 'admin') {
       this.participantService.getAll()
         .subscribe(data => {
           this.profiles = data;
