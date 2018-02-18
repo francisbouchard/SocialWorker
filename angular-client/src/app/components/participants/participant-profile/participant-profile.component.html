@@ -39,8 +39,8 @@
       <h4 *ngIf="casefile.notes[0] || (casefile.status == 'In progress')">Notes:</h4>
       <p *ngIf="casefile.notes[0] && (casefile.status == 'Completed')">{{casefile.notes[0]}}</p>
       <mat-form-field *ngIf="casefile.status == 'In progress'">
-          <textarea #casefileNote matInput placeholder="Any relevant notes" matTextareaAutosize matAutosizeMinRows="2"
-          matAutosizeMaxRows="5" value="{{casefile.notes[0]}}" (keyup.enter)="updateCaseNote(casefile, casefileNote.value)" (blur)="updateCaseNote(casefile, casefileNote.value)"></textarea>
+        <textarea #casefileNote matInput placeholder="Any relevant notes" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"
+          value="{{casefile.notes[0]}}" (keyup.enter)="updateCaseNote(casefile, casefileNote.value)" (blur)="updateCaseNote(casefile, casefileNote.value)"></textarea>
       </mat-form-field>
 
       <h4>Resources:</h4>
@@ -72,10 +72,10 @@
         </div>
         <h4>Selected Resource:</h4>
         <div *ngIf="!casefile.selectedResource" class="selectedResource">
-            <p>Nothing selected</p>
+          <p>Nothing selected</p>
         </div>
         <div *ngIf="casefile.selectedResource" class="selectedResource">
-            <p>{{casefile.selectedResource.name}}</p>
+          <p>{{casefile.selectedResource.name}}</p>
         </div>
       </div>
       <form *ngIf="casefile.status == 'In progress'">
@@ -114,25 +114,33 @@
           </div>
         </div>
         <h4>Selected Resource:</h4>
-        <div *ngIf="!casefile.selectedResource || !casefile.selectedResource.resource">
-        <mat-form-field>
-          <mat-select #selectedResource placeholder="Resource" (selectionChange)="updateCaseSelectedResource(casefile, selectedResource.value)">
-            <mat-option *ngFor="let caseResource of casefile.contactedResources" [value]="caseResource">
-              {{caseResource.resource.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="datePicker">
-          <input matInput #dateinput name="date" [matDatepicker]="picker2" placeholder="Start date" (dateChange)="updateCaseSelectedResource(casefile, null)">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2 startView="month" [startAt]="startDate"></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field class="datePicker">
-          <input matInput name="date" [matDatepicker]="picker" placeholder="End date" (dateChange)="updateCaseSelectedResource(casefile, casefile.selectedResource)">
-            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-            <mat-datepicker #endDate startView="month" [startAt]="startDate"></mat-datepicker>
-        </mat-form-field>
-      </div>
+        <div class="selectedResource" *ngIf="!casefile.selectedResource || !casefile.selectedResource.resource">
+          <div>
+            <mat-form-field>
+              <mat-select #selectedResource placeholder="Resource" (selectionChange)="updateCaseSelectedResource(casefile, selectedResource.value)">
+                <mat-option *ngFor="let caseResource of casefile.contactedResources" [value]="caseResource">
+                  {{caseResource.resource.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field>
+              <input matInput #dateinput name="date" [matDatepicker]="picker2" placeholder="{{(isDateRange) ? 'Start date' : 'Date'}}" (dateChange)="updateCaseSelectedResource(casefile, null)">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2 startView="month" [startAt]="startDate"></mat-datepicker>
+            </mat-form-field>
+            <button class="dateSwitcher" (click)="switchDateRange()">Switch to single date</button>
+          </div>
+          <div *ngIf="isDateRange">
+            <mat-form-field>
+              <input matInput name="date" [matDatepicker]="picker" placeholder="End date" (dateChange)="updateCaseSelectedResource(casefile, casefile.selectedResource)">
+              <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+              <mat-datepicker #endDate startView="month" [startAt]="startDate"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button type="button">Save selection</button>
+        </div>
         <div *ngIf="casefile.selectedResource && casefile.selectedResource.resource" class="selectedResource">
           <p>{{casefile.selectedResource.resource.name}}</p>
           <button mat-icon-button color="primary" type="button" (click)="updateCaseSelectedResource(casefile, null)">
@@ -141,7 +149,7 @@
         </div>
       </form>
       <div class="bottomMenu">
-        <button type="button" *ngIf="casefile.status == 'In progress' " mat-raised-button (click)="completeCasefile(casefile, caseIndex)">Finalize Casefile</button>
+        <button type="button" *ngIf="casefile.status == 'In progress' " mat-raised-button color="primary" (click)="completeCasefile(casefile, caseIndex)">Finalize Casefile</button>
         <button type="button" *ngIf="casefile.status == 'Completed' " mat-raised-button (click)="reopenCasefile(casefile, caseIndex)">Reopen Casefile</button>
         <button type="button" id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
       </div>

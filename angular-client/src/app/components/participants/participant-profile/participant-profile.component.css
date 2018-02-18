@@ -59,6 +59,28 @@ span.filler{
     width: 100%;
 }
 
+.selectedResource {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 2em;
+}
+
+.selectedResource div {
+    margin-right: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.dateSwitcher {
+    border: none;
+    text-align: left;
+    outline: none;
+    padding: 0px;
+    color: blueviolet; /* TODO Primary */ 
+}
+
+
 mat-icon {
     align-self: center;
     font-size: 1.25em;

@@ -24,6 +24,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export class ParticipantProfileComponent implements OnInit {
 
+  isDateRange = true;
   orderedCases = [];
   orderedDocuments = [];
   orderedNotes = [];
@@ -252,21 +253,27 @@ export class ParticipantProfileComponent implements OnInit {
    * @memberof ParticipantProfileComponent
    */
   updateCaseSelectedResource(casefile, selection) {
+    this.isDateRange = false;
     // TODO REFACTOR
-    const selectedResource = {
-        resource: (selection) ? selection.resource._id : null,
-        startDate: null,
-        endDate: null
-    };
+    // const selectedResource = {
+    //     resource: (selection) ? selection.resource._id : null,
+    //     startDate: null,
+    //     endDate: null
+    // };
 
-    casefile.selectedResource = selectedResource;
-    casefile.selectedResource.resource = (selection) ? selection.resource : null;
-    const selectedResourceObject = { 'selectedResource': selectedResource };
-    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe(data => {
-      console.log(data);
-    });
+    // casefile.selectedResource = selectedResource;
+    // casefile.selectedResource.resource = (selection) ? selection.resource : null;
+    // const selectedResourceObject = { 'selectedResource': selectedResource };
+    // this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe(data => {
+    //   console.log(data);
+    // });
+    console.log('updating resource');
   }
 
+
+  switchDateRange() {
+    this.isDateRange = !this.isDateRange;
+  }
   /**
    * Update casefile note
    * Casefile note will only update if the text value was changed
