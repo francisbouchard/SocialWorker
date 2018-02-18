@@ -26,7 +26,8 @@
   </mat-card-content>
   <mat-card-actions>
       <a routerLink="/participant-profile/{{participant._id}}"><button mat-raised-button>View Participant</button></a>
-    <button mat-raised-button (click)="delete(participant._id)">Delete Participant</button>
+      <button mat-raised-button (click)="edit(participant._id, participant)">Edit Resource</button>
+      <button mat-raised-button (click)="delete(participant._id)">Delete Participant</button>
   </mat-card-actions>
 </mat-card><br>
 </div>
