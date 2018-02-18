@@ -12,7 +12,7 @@ import { Participant } from '../../../classes/participant';
 
 export class ViewParticipantsComponent implements OnInit {
   @Input() hasTabChanged: boolean;
-  editingParticipang = Participant;
+  editingParticipant = Participant;
 
   public profiles;
   public sortProperty = 'name';
@@ -22,6 +22,12 @@ export class ViewParticipantsComponent implements OnInit {
   constructor(private participantService: ParticipantService, public authService: AuthenticationService, public router: Router) {
   }
 
+  /**
+   * Load all participants, depending on access level
+   *
+   * @memberof ViewParticipantsComponent
+   *
+   */
   loadParticipants() {
     if (this.authService.role === 'admin') {
       this.participantService.getAll()
@@ -43,12 +49,55 @@ export class ViewParticipantsComponent implements OnInit {
       });
   }
 
+  /**
+   * Delete participant by id
+   *
+   * @param {any} id
+   * @memberof ViewParticipantsComponent
+   */
   delete(pid) {
     this.participantService.delete(pid)
       .subscribe(data => {
         console.log('Deleted: ' + data);
         this.loadParticipants();
       });
+  }
+
+
+  /**
+   * Specify which participant is currently in edit mode
+   *
+   * @param {any} id
+   * @param {any} participant
+   * @memberof ViewParticipantsComponent
+   */
+  edit(id, participant) {
+    this.editingParticipant = participant;
+  }
+
+    /**
+   * Update participant with new attributes
+   *
+   * @param {any} id
+   * @param {any} participant
+   * @memberof ViewParticipantsComponent
+   */
+  update(id, participant) {
+    this.participantService.update(id, participant) // TODO
+      .subscribe(data => {
+        console.log(data);
+        this.cancel();
+      });
+  }
+
+  /**
+   * Cancel edit mode and return to view mode
+   *
+   * @memberof ViewParticipantsComponent
+   */
+  cancel() {
+    this.edit('', null);
+    this.loadParticipants();
   }
 
   ngOnInit() {

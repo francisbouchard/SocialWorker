@@ -56,7 +56,7 @@ export class ParticipantService {
   getBySocialWorker(): Observable<Object> {
     return this.http.get(`${this.url}/worker`)
       .pipe(
-      tap(participants => this.log('fecthed participants of social worker')),
+      tap(participants => this.log('fetched participants of social worker')),
       catchError(this.handleError<Object>('getBySocialWorker()'))
       );
   }
@@ -80,6 +80,23 @@ export class ParticipantService {
         }
       }),
       catchError(this.handleError<Participant>('save(participantData)'))
+      );
+  }
+
+
+    /**
+   * Update participant with new data
+   *
+   * @param {any} participantID
+   * @param {any} participantData
+   * @returns {Observable<Object>}
+   * @memberof ResourceService
+   */
+  update(participantID, participantData): Observable<Object> {
+    return this.http.put(`${this.url}/${participantID}`, participantData)
+      .pipe(
+      tap(_ => this.log('saving a resource')),
+      catchError(this.handleError<Object>('update()'))
       );
   }
 
