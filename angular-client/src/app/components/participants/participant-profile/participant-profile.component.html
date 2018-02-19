@@ -143,8 +143,8 @@
         </div>
         <div *ngIf="casefile.selectedResource" class="selectedResource">
           <p>{{casefile.selectedResource.resource.name}}</p>
-          <p>Start date: {{casefile.selectedResource.startDate | date:'M/d/yyyy'}}</p>
-          <p>End date: {{casefile.selectedResource.endDate | date:'M/d/yyyy'}}</p>
+          <p *ngIf="casefile.selectedResource.startDate">Date: {{casefile.selectedResource.startDate | date:'M/d/yyyy'}}</p>
+          <p *ngIf="casefile.selectedResource.endDate">- {{casefile.selectedResource.endDate | date:'M/d/yyyy'}}</p>
           <button mat-icon-button color="primary" type="button" (click)="updateCaseSelectedResource(casefile, null)">
             <mat-icon matSuffix>mode_edit</mat-icon>
           </button>
