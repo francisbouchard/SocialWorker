@@ -3,10 +3,11 @@ const Schema = mongoose.Schema;
 
 const phonelogSchema = new Schema({
     name: String,
-    pronoun: String,
+    pronouns: String,
     user: Schema.Types.ObjectId,
     urgent: Boolean,
     phonenumber: String,
+    subject: String,
     notes: [String],
     date: { type: Date, default: Date.now },
     deleted: { type: Boolean, default: false }

@@ -32,6 +32,9 @@ import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { PhonelogComponent } from './components/phonelog/phonelog.component';
 import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
+import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
+import { ViewPhonelogComponent } from './components/phonelog/view-phonelog/view-phonelog.component';
+import { PhonelogService } from './services/phonelog.service';
 
 
 const routes: Routes = [
@@ -98,7 +101,9 @@ const routes: Routes = [
     OrderByPipe,
     SearchPipe,
     PhonelogComponent,
-    EditParticipantComponent
+    EditParticipantComponent,
+    AddPhonelogComponent,
+    ViewPhonelogComponent
   ],
   imports: [
     BrowserModule,
@@ -120,7 +125,8 @@ const routes: Routes = [
     MessageService,
     ResourceService,
     CasefileService,
-    AuthenticationService
+    AuthenticationService,
+    PhonelogService
   ],
   bootstrap: [AppComponent]
 })

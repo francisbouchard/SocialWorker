@@ -19,10 +19,11 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     let phonelog = new Phonelog({
         name: req.body.name,
-        pronoun: req.body.pronoun,
+        pronouns: req.body.pronouns,
         user: req.body.user,
         urgent: req.body.urgent,
         phonenumber: req.body.phonenumber,
+        subject: req.body.subject,
         notes: [req.body.notes],
     });
     phonelog.save().then(data => {

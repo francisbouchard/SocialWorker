@@ -19,8 +19,10 @@ export class ViewParticipantsComponent implements OnInit {
   public reverse = false;
   public query: string;
 
-  constructor(private participantService: ParticipantService, public authService: AuthenticationService, public router: Router) {
-  }
+  constructor(
+    private participantService: ParticipantService,
+    public authService: AuthenticationService,
+    public router: Router) { }
 
   /**
    * Load all participants, depending on access level
