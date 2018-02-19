@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
     let phonelog = new Phonelog({
         name: req.body.name,
         pronouns: req.body.pronouns,
-        user: req.body.user,
+        user: req.user._id,
         urgent: req.body.urgent,
         phonenumber: req.body.phonenumber,
         subject: req.body.subject,

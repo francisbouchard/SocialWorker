@@ -63,9 +63,9 @@ export class AddPhonelogComponent implements OnInit {
     this.phonelogService.save(this.phonelogData)
       .subscribe(data => {
         if (data.hasOwnProperty('errmsg')) {
-          this.alertModal('Could not add new participant.');
+          this.alertModal('Could not add new phonelog entry.');
         } else {
-          this.alertModal('New participant successfully added.');
+          this.alertModal('Phonelog entry successfully added.');
         }
       });
   }
