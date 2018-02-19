@@ -96,6 +96,9 @@ export class AuthenticationService {
       .flatMap((i) => this.http.post<any>('/user/heartbeat', {}))
       .pipe(
       tap(p => {
+        if (!this.role) {
+          this.role = p.role;
+        }
         this.log('Hearbeat success.');
       }),
       catchError(this.handleError<any>('heartbeat()'))
