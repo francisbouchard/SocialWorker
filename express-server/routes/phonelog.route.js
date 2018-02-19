@@ -25,6 +25,7 @@ router.post('/', (req, res) => {
         phonenumber: req.body.phonenumber,
         subject: req.body.subject,
         notes: [req.body.notes],
+        callertype: req.body.callertype,
     });
     phonelog.save().then(data => {
         res.send(data);

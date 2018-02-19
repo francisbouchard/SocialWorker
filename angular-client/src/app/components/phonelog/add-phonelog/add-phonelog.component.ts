@@ -19,8 +19,16 @@ export class AddPhonelogComponent implements OnInit {
     urgent: false,
     phonenumber: '',
     subject: '',
-    notes: ''
+    notes: '',
+    callertype: '',
   };
+
+  callertype = [
+    'trans person',
+    'organization',
+    'social worker',
+    'other person',
+  ];
 
   constructor(
     private phonelogService: PhonelogService,

@@ -9,6 +9,7 @@ const phonelogSchema = new Schema({
     phonenumber: String,
     subject: String,
     notes: [String],
+    callertype: String,
     date: { type: Date, default: Date.now },
     deleted: { type: Boolean, default: false }
 }, { timestamps: true });

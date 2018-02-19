@@ -4,6 +4,13 @@
       <input matInput placeholder="Name of entity calling" name="name" [(ngModel)]="phonelogData.name">
     </mat-form-field>
     <mat-form-field>
+        <mat-select placeholder="Type of caller" name="callertype" [(ngModel)]="phonelogData.callertype">
+          <mat-option *ngFor="let caller of callertype" [value]="caller">
+            {{ caller}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <mat-form-field>
       <input matInput placeholder="Reason for call" name="subject" [(ngModel)]="phonelogData.subject">
     </mat-form-field>
     <mat-form-field>
