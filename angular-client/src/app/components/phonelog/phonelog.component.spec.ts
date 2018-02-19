@@ -4,6 +4,8 @@ import { RouterModule, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { PhonelogService } from '../../services/phonelog.service';
+import { MockPhonelogService } from '../../mocks/MockPhonelogService';
 import { PhonelogComponent } from './phonelog.component';
 import { AddPhonelogComponent } from './add-phonelog/add-phonelog.component';
 import { ViewPhonelogComponent } from './view-phonelog/view-phonelog.component';
@@ -19,6 +21,7 @@ describe('PhonelogComponent', () => {
       imports: [ MaterialsModule, RouterTestingModule ],
       providers: [
         { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: PhonelogService, useClass: MockPhonelogService },
         { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } }
       ]
     })
