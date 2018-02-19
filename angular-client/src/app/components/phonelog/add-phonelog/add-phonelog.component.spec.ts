@@ -1,4 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MaterialsModule } from '../../../modules/materials.module';
+import { MatDialog } from '@angular/material';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { Router } from '@angular/router';
 
 import { AddPhonelogComponent } from './add-phonelog.component';
 
@@ -8,7 +13,12 @@ describe('AddPhonelogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddPhonelogComponent ]
+      declarations: [ AddPhonelogComponent ],
+      imports: [ MaterialsModule ],
+      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService},
+       {provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl')}},
+        MatDialog
+      ]
     })
     .compileComponents();
   }));

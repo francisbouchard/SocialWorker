@@ -5,7 +5,7 @@ import { MaterialsModule } from '../../modules/materials.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ViewParticipantsComponent } from './view-participants/view-participants.component';
 import { AddParticipantComponent } from './add-participant/add-participant.component';
-// import { EditParticipantComponent } from './edit-participant/edit-participant.component'; //TODO
+import { EditParticipantComponent } from './edit-participant/edit-participant.component'; //TODO
 import { MockParticipantService } from '../../mocks/MockParticipantService';
 import { ParticipantService } from '../../services/participant.service';
 import { Router } from '@angular/router';
@@ -20,7 +20,11 @@ describe('ParticipantsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ParticipantsComponent, ViewParticipantsComponent, AddParticipantComponent, OrderByPipe, SearchPipe ],
+      declarations: [ ParticipantsComponent,
+         EditParticipantComponent,
+         ViewParticipantsComponent,
+         AddParticipantComponent,
+         OrderByPipe, SearchPipe ],
       imports: [ MaterialsModule, RouterTestingModule ],
       providers: [ { provide: ParticipantService, useClass: MockParticipantService },
         { provide: AuthenticationService, useClass: MockAuthenticationService },
