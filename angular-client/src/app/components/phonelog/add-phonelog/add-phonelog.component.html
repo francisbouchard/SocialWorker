@@ -6,6 +6,19 @@
     <mat-form-field>
       <input matInput placeholder="Reason for call" name="subject" [(ngModel)]="phonelogData.subject">
     </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Callback number" name="phonenumber" [(ngModel)]="phonelogData.phonenumber">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Pronouns" name="pronouns" [(ngModel)]="phonelogData.pronouns">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Enter any additional notes" name="notes" [(ngModel)]="phonelogData.notes">
+    </mat-form-field>
+    <mat-slide-toggle name="urgent" [(ngModel)]="phonelogData.urgent"
+      [checked]="phonelogData.urgent">
+        Urgent
+    </mat-slide-toggle>
   </form>
-  <button mat-raised-button (click)="submit()">Submit</button>
+  <button mat-raised-button (click)="submit()">Finalize this call</button>
 </mat-card>
