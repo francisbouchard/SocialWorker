@@ -24,7 +24,14 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export class ParticipantProfileComponent implements OnInit {
 
+  dateRange = ['Switch to date range', 'Switch to single date'];
+  dateRangeText = this.dateRange[1];
   isDateRange = true;
+  selectedResource = {
+    resource: null,
+    startDate: null,
+    endDate: null,
+  };
   orderedCases = [];
   orderedDocuments = [];
   orderedNotes = [];
@@ -253,27 +260,62 @@ export class ParticipantProfileComponent implements OnInit {
    * @memberof ParticipantProfileComponent
    */
   updateCaseSelectedResource(casefile, selection) {
-    this.isDateRange = false;
-    // TODO REFACTOR
-    // const selectedResource = {
-    //     resource: (selection) ? selection.resource._id : null,
-    //     startDate: null,
-    //     endDate: null
-    // };
 
-    // casefile.selectedResource = selectedResource;
-    // casefile.selectedResource.resource = (selection) ? selection.resource : null;
-    // const selectedResourceObject = { 'selectedResource': selectedResource };
-    // this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe(data => {
-    //   console.log(data);
-    // });
-    console.log('updating resource');
+    if (selection) {
+      this.selectedResource.resource = selection.resource;
+    } else {
+      this.selectedResource.resource = null;
+      this.selectedResource.startDate = null;
+      this.selectedResource.endDate = null;
+      casefile.selectedResource = null;
+    }
   }
 
+  /**
+   * Add single date or date range to selected resource
+   * Does not save this to the database
+   *
+   * @param {any} casefile
+   * @param {any} input
+   * @memberof ParticipantProfileComponent
+   */
+  updateCaseSelectedResourceDate(casefile, input) {
+    this.selectedResource.startDate = (input.targetElement.name === 'startDate') ? input.value : this.selectedResource.startDate;
+    this.selectedResource.endDate = (input.targetElement.name === 'endDate') ? input.value : this.selectedResource.endDate;
+  }
 
+  /**
+   * Save selected resource to database
+   *
+   * @param {any} casefile
+   * @memberof ParticipantProfileComponent
+   */
+  saveCaseSelectedResource(casefile) {
+    const selectedResourceObject = { 'selectedResource': ((this.selectedResource.resource) ? this.selectedResource : null) };
+    casefile.selectedResource = (this.selectedResource.resource) ? this.selectedResource : null;
+    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe();
+  }
+
+  /**
+   * Switch between date range to single date
+   *
+   * @memberof ParticipantProfileComponent
+   */
   switchDateRange() {
     this.isDateRange = !this.isDateRange;
+    this.dateRangeText = (this.isDateRange) ? this.dateRange[1] : this.dateRange[0];
+    this.selectedResource.endDate = null;
   }
+
+  /**
+   * Reset default values when closing panels
+   *
+   * @memberof ParticipantProfileComponent
+   */
+  resetDateSwitcher() {
+    this.isDateRange = true;
+  }
+
   /**
    * Update casefile note
    * Casefile note will only update if the text value was changed

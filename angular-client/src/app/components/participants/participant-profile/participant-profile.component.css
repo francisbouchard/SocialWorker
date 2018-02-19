@@ -72,6 +72,10 @@ span.filler{
     flex-direction: column;
 }
 
+.selectedResource p {
+    margin-right: 1em;
+}
+
 .dateSwitcher {
     border: none;
     text-align: left;
