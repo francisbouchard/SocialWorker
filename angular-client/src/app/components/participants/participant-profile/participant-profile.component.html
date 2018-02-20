@@ -175,11 +175,9 @@
       </mat-expansion-panel-header>
       <h4>Note:</h4>
       {{note.text}}
-      <br>
-      <br>
-      <h4>Attachments: {{note.attachment}}</h4>
-      <br>
-      <button id="deleteBtn" mat-raised-button (click)="deleteNote(note._id)">Delete Note</button>
+      <h4>Attachments:</h4>
+      <p>{{note.attachment}}</p>
+      <button id="deleteNoteBtn" mat-raised-button (click)="deleteNote(note._id)">Delete Note</button>
     </mat-expansion-panel>
   </mat-accordion>
 
