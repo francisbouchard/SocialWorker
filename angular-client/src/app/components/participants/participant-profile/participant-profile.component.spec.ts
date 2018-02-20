@@ -47,6 +47,12 @@ describe('ParticipantProfileComponent', () => {
     expect(compiled.querySelector('h2').textContent).toContain('testuser');
   });
 
+  it('should display user\'s casefile', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    compiled.querySelectorAll('mat-card')[1].textContent
+    expect(compiled.querySelectorAll('mat-card')[1].textContent).toContain('No cases to display.');
+  });
+
   it('should display user\'s note and its attached image', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('mat-expansion-panel').textContent).toContain('Note for testing');

@@ -141,7 +141,7 @@
           </div>
           <button mat-raised-button type="button" (click)="saveCaseSelectedResource(casefile)">Save selection</button>
         </div>
-        <div *ngIf="casefile.selectedResource" class="selectedResource">
+        <div *ngIf="casefile.selectedResource && casefile.selectedResource.resource" class="selectedResource">
           <p>{{casefile.selectedResource.resource.name}}</p>
           <p *ngIf="casefile.selectedResource.startDate">Date: {{casefile.selectedResource.startDate | date:'M/d/yyyy'}}</p>
           <p *ngIf="casefile.selectedResource.endDate">- {{casefile.selectedResource.endDate | date:'M/d/yyyy'}}</p>
