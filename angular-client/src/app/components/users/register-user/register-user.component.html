@@ -30,6 +30,16 @@
           <div fxFlex="100" style="color:red;" *ngIf="user.rPassword !== user.rConfirmPassword && user.rConfirmPassword">Passwords do not match</div>
         </div>
 
+        <div class="form-group">
+          <mat-form-field fxFlex="100">
+            <label for="rRole">User Role</label>
+            <mat-select [(value)]="user.rRole">
+              <mat-option value="admin">Administrator</mat-option>
+              <mat-option value="user">Regular User</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
         <button mat-raised-button [disabled]="(user.rPassword !== user.rConfirmPassword) || !user.rEmail || !user.rPassword || (user.rPassword.lenght < 4)"
           color="primary" type="submit">Submit</button>
       </mat-card-content>

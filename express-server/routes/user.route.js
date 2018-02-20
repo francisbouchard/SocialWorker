@@ -46,7 +46,8 @@ router.post('/signup', (req, res, next) => {
 
   const user = new User({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    role: req.body.role
   });
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {

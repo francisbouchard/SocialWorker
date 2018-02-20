@@ -46,36 +46,4 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  /**
-   * Sign up as a new account 
-   * 
-   * @memberof LoginComponent
-   */
-  public signUp() {
-    this.loading = true;
-    this.msg = '';
-    this.error = false;
-    this.authenticationService.signUp(this.user.rEmail, this.user.rPassword, this.user.rConfirmPassword).subscribe(data => {
-      this.loading = false;
-
-      if (data.error) {
-        this.authenticationService.loggedIn = false;
-        this.loading = false;
-        this.error = true;
-        this.msg = '';
-
-        if (Array.isArray(data.error.msg)) {
-          for (const i in data.error.msg) {
-            if (data.error.msg[i] != null) {
-              this.msg += data.error.msg[i].msg + '\n';
-            }
-          }
-        } else {
-          this.msg = data.error.msg;
-        }
-      }
-    });
-
-  }
-
 }

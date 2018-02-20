@@ -69,8 +69,8 @@ export class AuthenticationService {
    * @returns {Observable<Object>}
    * @memberof AuthenticationService
    */
-  public signUp(email: string, password: string, confirmPassword: string): Observable<any> {
-    return this.http.post<any>('/user/signup', { email: email, password: password, confirmPassword: confirmPassword })
+  public signUp(email: string, password: string, confirmPassword: string, role: string): Observable<any> {
+    return this.http.post<any>('/user/signup', { email: email, password: password, confirmPassword: confirmPassword, role: role })
       .pipe(
       tap(p => {
         if (p.error) {

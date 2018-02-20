@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterUserComponent implements OnInit {
 
-  user: any = {};
+  user: any = {rRole: "user"};
   loading: boolean = false;
   error: boolean = false;
   msg: string = "";
@@ -31,7 +31,7 @@ export class RegisterUserComponent implements OnInit {
     this.loading = true;
     this.msg = '';
     this.error = false;
-    this.authenticationService.signUp(this.user.rEmail, this.user.rPassword, this.user.rConfirmPassword).subscribe(data => {
+    this.authenticationService.signUp(this.user.rEmail, this.user.rPassword, this.user.rConfirmPassword, this.user.rRole).subscribe(data => {
       this.loading = false;
 
       if (!data.error) {
