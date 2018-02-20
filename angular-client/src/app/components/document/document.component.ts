@@ -65,7 +65,7 @@ export class DocumentComponent implements OnInit {
   handleFileInput(files) {
     if (files) {
       const formData = new FormData();
-      formData.append("attachment", files[0]);
+      formData.append('attachment', files[0]);
       this.document.attachment = files[0].name;
       this.file = formData;
     }
