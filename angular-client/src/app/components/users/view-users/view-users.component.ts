@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 export class ViewUsersComponent implements OnInit {
 
   public users;
+  public sortProperty = 'email';
+  public reverse = false;
+  public query: string;
 
   constructor(private userService: UserService, public authService: AuthenticationService, public router: Router) { }
 
