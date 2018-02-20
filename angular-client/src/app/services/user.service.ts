@@ -20,9 +20,9 @@ export class UserService {
    * @memberof UserService
    */
   getAll(): Observable<Object> {
-    return this.http.get(this.url)
+    return this.http.get(`${this.url}/all`)
       .pipe(
-      tap(participants => this.log('fetched all participants')),
+      tap(users => this.log('fetched all users')),
       catchError(this.handleError<Object>('getAll()'))
       );
   }
@@ -54,7 +54,7 @@ export class UserService {
    * @memberof UserService
    */
   private log(message: String) {
-    this.messageService.add('Participant Service: ' + message);
+    this.messageService.add('User Service: ' + message);
   }
 
 }

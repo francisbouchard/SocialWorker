@@ -32,6 +32,7 @@ import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { UsersComponent } from './components/users/users.component';
 import { ViewUsersComponent } from './components/users/view-users/view-users.component';
+import { UserService } from './services/user.service';
 
 
 const routes: Routes = [
@@ -116,6 +117,7 @@ const routes: Routes = [
     MessageService,
     ResourceService,
     CasefileService,
+    UserService,
     AuthenticationService
   ],
   bootstrap: [AppComponent]

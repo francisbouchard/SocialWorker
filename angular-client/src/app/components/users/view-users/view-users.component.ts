@@ -15,6 +15,11 @@ export class ViewUsersComponent implements OnInit {
   constructor(private userService: UserService, public authService: AuthenticationService, public router: Router) { }
 
   ngOnInit() {
+    if (!this.authService.loggedIn) {
+      this.router.navigateByUrl('login');
+    } else {
+      this.loadUsers();
+    }
   }
 
   loadUsers() {
