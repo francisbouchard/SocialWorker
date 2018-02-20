@@ -1,3 +1,5 @@
+import 'rxjs/Rx' ;
+
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 
@@ -37,8 +39,8 @@ export class ParticipantProfileComponent implements OnInit {
     private location: Location,
     private dialog: MatDialog,
     private casefileService: CasefileService,
-    public authService: AuthenticationService,
-  ) { }
+    public authService: AuthenticationService
+    ) { }
 
   ngOnInit() {
     this.loadParticipant();
@@ -255,4 +257,38 @@ export class ParticipantProfileComponent implements OnInit {
     this.casefileService.updateCaseSelectedResource(casefile._id, selectedResource).subscribe();
   }
 
+  /**
+   * Download attachment related to note. 
+   * @param {any} noteId
+   * @memberof ParticipantProfileComponent
+   */
+  downloadAttachment(noteId) {
+    this.participantService.downloadAttachment(this.participantSelected._id, noteId).subscribe(
+      data => this.downloadFile(data)),
+    error => console.log("Error downloading the file."),
+    () => console.info("OK");
+  }
+
+  /**
+   * Download document.
+   * @param {any} documentId
+   * @memberof ParticipantProfileComponent
+   */
+  downloadDocument(documentId) {
+    this.participantService.downloadDocument(this.participantSelected._id, documentId).subscribe(
+      data => {console.log(data);this.downloadFile(data)}),
+      error => console.log("Error downloading the file."),
+    () => console.info("OK");
+  }
+
+  /**
+   * Download file using web browser.
+   * @param {any} id
+   * @memberof ParticipantProfileComponent
+   */
+  private downloadFile(data: Object) {
+    var blob = new Blob([data], { type: 'text/csv' });
+    var url = window.URL.createObjectURL(blob);
+    window.open(url);
+  }
 }

@@ -98,6 +98,7 @@
       <br>
       <h4>Attachments: {{note.attachment}}</h4>
       <br>
+      <button mat-raised-button (click)="downloadAttachment(note._id)">Download Attachment</button>
       <button id="deleteBtn" mat-raised-button (click)="deleteNote(note._id)">Delete Note</button>
     </mat-expansion-panel>
   </mat-accordion>
@@ -123,6 +124,7 @@
         <!-- </mat-grid-tile> -->
       </mat-grid-list>
       <br>
+      <button mat-raised-button (click)="downloadDocument(document._id)">Download Document</button>
       <button mat-raised-button (click)="deleteDocument(document._id)">Delete Document</button>
     </mat-expansion-panel>
   </mat-accordion>

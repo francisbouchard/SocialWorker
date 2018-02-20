@@ -164,6 +164,37 @@ export class ParticipantService {
       );
   }
 
+ /**
+   * Download note attachment from server.
+   * @param {String} participantID
+   * @param {String} attachmentID 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  downloadAttachment(participantID: String, attachmentID: String): Observable<Object> {
+    return this.http.get(`${this.url}${participantID}/note/${attachmentID}`)
+      .pipe(
+      tap(participants => this.log('Downloaded attachment from server.')),
+      catchError(this.handleError<Object>('downloadAttachment()'))
+      );
+  }
+
+  /**
+   * Download document from server.
+   * @param {String} participantID
+   * @param {String} documentID
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  downloadDocument(participantID: String, documentID: String): Observable<Object> {
+    return this.http.get(`${this.url}${participantID}/doc/${documentID}`)
+      .pipe(
+      tap(participants => this.log('Downloaded document from server.')),
+      catchError(this.handleError<Object>('downloadDocument()'))
+      );
+  }
+
+
   /**
    * Search participants to see if account email already exists,
    * or it participant ID has already been taken.

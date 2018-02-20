@@ -289,4 +289,23 @@ router.delete('/:pid/note/:noteId', (req, res) => {
     })
 })
 
+/**
+ * Get a participant's note by the note ID
+ */
+router.get('/:pid/note/:noteId', (req, res) => {
+    Note.findById(req.params.noteId).then(data => {
+        console.log(data);
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+})
+
+/**
+ * Get a participant's document by the document ID
+ */
+router.get('/:pid/doc/:docId', (req, res) => {
+    res.send(fs.createReadStream("test.txt"));
+})
+
 module.exports = router;
