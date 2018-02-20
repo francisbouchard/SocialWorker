@@ -3,16 +3,22 @@ import 'rxjs/add/observable/of';
 
 export class MockPhonelogService {
     testPhonelog = {
-        'constraints': [],
-        'kind': 'Housing',
-        '_id': '5a6cac2bdf03f80ede3f5c3e',
-        'name': 'Housing Facility 4 Name',
-        'email': 'housing4@resource.com',
-        'term': '5 weeks',
-        'createdAt': '2018-01-27T16:43:26.756Z',
-        'updatedAt': '2018-01-27T16:43:26.756Z',
-        '__v': 0
-      };
+        '_id' : '5a8a1edbf8bc217df1f5228b',
+        'notes' : [
+            ''
+        ],
+        'date' : '2018-02-19T00:48:27.827Z',
+        'deleted' : false,
+        'name' : 'Adrianna',
+        'pronouns' : '',
+        'user' : '5a6ca05f54297a0c500cbd41',
+        'urgent' : false,
+        'phonenumber' : '',
+        'subject' : 'Testing1',
+        'createdAt' : '2018-02-19T00:48:28.903Z',
+        'updatedAt' : '2018-02-19T00:48:28.903Z',
+        '__v' : 0
+    };
 
     getAll() {
         return Observable.of([
@@ -53,7 +59,7 @@ export class MockPhonelogService {
 },
 {
     '_id' : '5a8b4f6dd273167f04510135',
-    'notes' : [ 
+    'notes' : [
         'I am testing this application'
     ],
     'date' : '2018-02-19T22:27:57.248Z',
@@ -70,7 +76,7 @@ export class MockPhonelogService {
 },
 {
     '_id' : '5a8b4fe9d273167f04510136',
-    'notes' : [ 
+    'notes' : [
         'I am testing something'
     ],
     'date' : '2018-02-19T22:30:01.016Z',
@@ -87,7 +93,7 @@ export class MockPhonelogService {
 },
 {
     '_id' : '5a8b53e5daff818ef3b7c20f',
-    'notes' : [ 
+    'notes' : [
         'I am just checking'
     ],
     'date' : '2018-02-19T22:47:01.573Z',

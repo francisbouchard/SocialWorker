@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const phonelogSchema = new Schema({
     name: String,
     pronouns: String,
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     urgent: Boolean,
     phonenumber: String,
     subject: String,
