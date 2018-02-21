@@ -23,6 +23,7 @@
    <div *ngIf="participant.telephone !== '' "><b> Phone number: </b> {{participant.telephone}} <br></div>
    <div *ngIf="participant.socialmedia !== undefined"><b> Social media: </b> {{participant.socialmedia.service}}  {{participant.socialmedia.username}}<br></div>
    <div *ngIf="participant.address !== '' "><b> Address: </b> {{participant.address}}<br></div>
+   <div *ngIf="participant.socialworkers"><b> Social workers assigned: </b> {{participant.socialworkers}}<br></div>
   </mat-card-content>
   <mat-card-actions>
       <a routerLink="/participant-profile/{{participant._id}}"><button mat-raised-button>View Participant</button></a>

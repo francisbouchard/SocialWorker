@@ -22,8 +22,16 @@ export class UserService {
   getAll(): Observable<Object> {
     return this.http.get(`${this.url}/all`)
       .pipe(
-      tap(users => this.log('fetched all users')),
-      catchError(this.handleError<Object>('getAll()'))
+        tap(users => this.log('fetched all users')),
+        catchError(this.handleError<Object>('getAll()'))
+      );
+  }
+
+  delete(id: String): Observable<Object> {
+    return this.http.delete(`${this.url}/${id}`)
+      .pipe(
+        tap(users => this.log('user deleted')),
+        catchError(this.handleError<Object>('delete(id: String)'))
       );
   }
 

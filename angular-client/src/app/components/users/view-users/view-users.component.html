@@ -20,6 +20,9 @@
     <mat-card-content>
       <div *ngIf="user.role && user.role !== ''">Role: {{user.role}}</div>
     </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="delete(user._id)">Delete User</button>
+    </mat-card-actions>
   </mat-card>
   <br>
 </div>

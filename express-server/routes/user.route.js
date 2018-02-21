@@ -65,11 +65,11 @@ router.post('/signup', (req, res, next) => {
 /**
  * Delete a user
  */
-router.delete('/',  (req, res, next) => {
-  User.remove({ _id: req.user.id }, (err) => {
+router.delete('/:id',  (req, res, next) => {
+  User.remove({ _id: req.params.id }, (err) => {
     if (err) { return next(err); }
     req.logout();
-    res.send({msg: [{ msg: 'Your account has been deleted.' }]});
+    res.send({msg: [{ msg: 'The user account has been deleted.' }]});
   });
 });
 
