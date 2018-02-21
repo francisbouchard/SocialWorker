@@ -8,6 +8,6 @@ const housingSchema = new Schema({
     constraints: [String]
   }, { discriminatorKey: 'kind', timestamps: true });
 
-const Housing = Resource.discriminator('Housing', housingSchema, 'housings');
+const Housing = Resource.discriminator('Housing', housingSchema);
 
 module.exports = Housing;
