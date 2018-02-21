@@ -14,6 +14,6 @@ const phonelogSchema = new Schema({
     deleted: { type: Boolean, default: false }
 }, { timestamps: true });
 
-const Phonelog = mongoose.model('Phonelog', phonelogSchema);
+const Phonelog = mongoose.model('Phonelog', phonelogSchema, 'phonelogs');
 
 module.exports = Phonelog;
