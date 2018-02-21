@@ -17,6 +17,6 @@ const casefileSchema = new Schema({
   deleted: { type: Boolean, default: false }
 }, { timestamps: true });
 
-const Casefile = mongoose.model('Casefile', casefileSchema);
+const Casefile = mongoose.model('Casefile', casefileSchema, 'casefiles');
 
 module.exports = Casefile;
