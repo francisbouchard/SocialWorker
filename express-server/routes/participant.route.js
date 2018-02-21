@@ -7,18 +7,23 @@ const Note = require('../models/Note');
 const fs = require('fs');
 const path = require('path');
 const User = require('../models/User');
+const pdfThumbnail = require('../config/pdfThumbnail')
 
 fs.exists(path.join(__dirname, "../notes"), exists =>{
 if(!exists){
     fs.mkdir(path.join(__dirname, "../notes"), err =>{
-        console.log(err)
+        if(err) {
+            console.log(err);
+        }
     })
 }
 })
 fs.exists(path.join(__dirname, "../documents"), exists =>{
 if(!exists){
     fs.mkdir(path.join(__dirname, "../documents"), err =>{
-        console.log(err)
+        if(err) {
+            console.log(err);
+        }
     })
 }
 })
@@ -146,6 +151,7 @@ router.post('/:pid/doc', (req, res) => {
         date: req.query.date,
         attachment: req.query.attachment
     });
+
     fs.exists(path.join(__dirname, "../documents", req.params.pid), exists => {
         if(!exists){
             fs.mkdir(path.join(__dirname, "../documents", req.params.pid), err => {
@@ -215,14 +221,7 @@ router.delete('/:pid/doc/:docId', (req, res) => {
 /**
  * Add a note to participant
  */
-router.post('/:pid/note', (req, res) => {
-
-    let note = new Note({
-        text: req.query.text,
-        date: req.query.date,
-        attachment: req.files.attachment.name
-    });
-    
+router.post('/:pid/note', (req, res) => { 
     fs.exists(path.join(__dirname, "../notes", req.params.pid), exists => {
         if(!exists){
             fs.mkdir(path.join(__dirname, "../notes", req.params.pid), err => {
@@ -233,6 +232,48 @@ router.post('/:pid/note', (req, res) => {
                         if(err){
                             res.status(500).send(err);
                         } else {
+                            if(req.files.attachment.mimetype == "application/pdf"){
+                                pdfThumbnail.makeThumbnail(path.join(__dirname, "../notes", req.params.pid, req.query.attachment), (err, data) => {
+                                    let note = new Note({
+                                        text: req.query.text,
+                                        date: req.query.date,
+                                        attachment: req.files.attachment.name,
+                                        thumbnails: data
+                                    });
+                                    Participant.findById(req.params.pid).then(participant => {
+                                        if (!participant.notes) {
+                                            participant.notes = [];
+                                        }
+                                        participant.notes.push(note);
+                                
+                                        participant.save().then(data => {
+                                            res.send(data);
+                                        }, err => {
+                                            res.send(err);
+                                        })
+                                    }, err => {
+                                        res.send(err);
+                                    })
+                                })
+                            }
+                            
+                        }
+                    })
+                }
+            })
+        } else {
+            req.files.attachment.mv(path.join(__dirname, "../notes", req.params.pid, req.query.attachment), err => {
+                if(err){
+                    res.status(500).send(err);
+                } else {
+                    if(req.files.attachment.mimetype == "application/pdf"){
+                        pdfThumbnail.makeThumbnail(path.join(__dirname, "../notes", req.params.pid, req.query.attachment), (err, data) => {
+                            let note = new Note({
+                                text: req.query.text,
+                                date: req.query.date,
+                                attachment: req.files.attachment.name,
+                                thumbnails: data
+                            });
                             Participant.findById(req.params.pid).then(participant => {
                                 if (!participant.notes) {
                                     participant.notes = [];
@@ -247,29 +288,8 @@ router.post('/:pid/note', (req, res) => {
                             }, err => {
                                 res.send(err);
                             })
-                        }
-                    })
-                }
-            })
-        } else {
-            req.files.attachment.mv(path.join(__dirname, "../notes", req.params.pid, req.query.attachment), err => {
-                if(err){
-                    res.status(500).send(err);
-                } else {
-                    Participant.findById(req.params.pid).then(participant => {
-                        if (!participant.notes) {
-                            participant.notes = [];
-                        }
-                        participant.notes.push(note);
-                
-                        participant.save().then(data => {
-                            res.send(data);
-                        }, err => {
-                            res.send(err);
                         })
-                    }, err => {
-                        res.send(err);
-                    })
+                    }
                 }
             })
         }
