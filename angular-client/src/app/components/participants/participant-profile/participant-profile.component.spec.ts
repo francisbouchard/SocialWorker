@@ -49,23 +49,31 @@ describe('ParticipantProfileComponent', () => {
 
   it('should display user\'s casefile', () => {
     const compiled = fixture.debugElement.nativeElement;
-    compiled.querySelectorAll('mat-card')[1].textContent
-    expect(compiled.querySelectorAll('mat-card')[1].textContent).toContain('No cases to display.');
+    expect(compiled.querySelectorAll('mat-expansion-panel')[0].textContent).toContain('In progress');
   });
 
   it('should display user\'s note and its attached image', () => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('mat-expansion-panel').textContent).toContain('Note for testing');
+    expect(compiled.querySelectorAll('mat-expansion-panel')[1].textContent).toContain('Note for testing');
     // expect(compiled.querySelector('img')).toBeTruthy(); // TODO when image is retrieved from server issue #68, #69
   });
 
-  it('should refresh resources displayed when one gets deleted', fakeAsync(() => {
+  it('should refresh notes displayed when one gets deleted', fakeAsync(() => {
     const compiled = fixture.debugElement.nativeElement;
     const deleteButton = compiled.querySelector('#deleteNoteBtn');
     deleteButton.click();
     tick();
     fixture.detectChanges();
     expect(compiled.querySelector('div').textContent).toContain('No notes to display.');
+  }));
+
+  it('should refresh casefiles displayed when one gets deleted', fakeAsync(() => {
+    const compiled = fixture.debugElement.nativeElement;
+    const deleteCasefileButton = compiled.querySelector('#deleteCaseBtn');
+    deleteCasefileButton.click();
+    tick();
+    fixture.detectChanges();
+    expect(compiled.querySelector('div').textContent).toContain('No cases to display.');
   }));
 
 });
