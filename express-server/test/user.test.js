@@ -25,6 +25,7 @@ describe('User Tests', () => {
                         .post('/user/signup')
                         .set('Cookie', adminCookie)
                         .send({
+                            'name': 'Test',
                             'email': 'testing@test.com',
                             'password': 'hunter1',
                             'confirmPassword': 'hunter1'
