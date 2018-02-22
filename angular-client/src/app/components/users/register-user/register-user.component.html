@@ -7,40 +7,48 @@
       <mat-card-content>
 
         <div class="form-group">
+            <mat-form-field fxFlex="100">
+                <input name="rName"  matInput required placeholder="Name" class="form-control" [(ngModel)]="user.name">
+              </mat-form-field>
+        </div>
+
+        <div class="form-group">
           <mat-form-field fxFlex="100">
-            <label for="rEmail">Email</label>
-            <input name="rEmail" matInput type="email" class="form-control" id="rEmail" [(ngModel)]="user.rEmail" #rEmail="ngModel" required>
+            <input name="rPronouns" matInput placeholder="Pronouns" class="form-control" [(ngModel)]="user.pronouns">
           </mat-form-field>
         </div>
 
         <div class="form-group">
           <mat-form-field fxFlex="100">
-            <label for="rPassword">Password</label>
-            <input matInput name="rPassword" type="password" class="form-control" id="rPassword" [(ngModel)]="user.rPassword" #rPassword="ngModel"
+            <input name="rEmail" matInput type="email" placeholder="Email" class="form-control" id="rEmail" [(ngModel)]="user.email" #rEmail="ngModel" required>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field fxFlex="100">
+            <input matInput name="rPassword" type="password" placeholder="Password" class="form-control" id="rPassword" [(ngModel)]="user.password" #rPassword="ngModel"
               required pattern="^\w{4,12}">
           </mat-form-field>
         </div>
 
         <div class="form-group" fxLayout="row wrap">
           <mat-form-field fxFlex="100">
-            <label for="rConfirmPassword">Confirm Password</label>
-            <input matInput name="rConfirmPassword" type="password" class="form-control" id="rConfirmPassword" [(ngModel)]="user.rConfirmPassword"
+            <input matInput name="rConfirmPassword" type="password" placeholder="Confirm Password" class="form-control" id="rConfirmPassword" [(ngModel)]="user.confirmPassword"
               #rConfirmPassword="ngModel" required pattern="^\w{4,12}" />
           </mat-form-field>
-          <div fxFlex="100" style="color:red;" *ngIf="user.rPassword !== user.rConfirmPassword && user.rConfirmPassword">Passwords do not match</div>
+          <div fxFlex="100" style="color:red;" *ngIf="user.password !== user.confirmPassword && user.confirmPassword">Passwords do not match</div>
         </div>
 
         <div class="form-group">
           <mat-form-field fxFlex="100">
-            <label for="rRole">User Role</label>
-            <mat-select [(value)]="user.rRole">
+            <mat-select [(value)]="user.role">
               <mat-option value="admin">Administrator</mat-option>
               <mat-option value="user">Regular User</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
 
-        <button mat-raised-button [disabled]="(user.rPassword !== user.rConfirmPassword) || !user.rEmail || !user.rPassword || (user.rPassword.lenght < 4)"
+        <button mat-raised-button [disabled]="(!user.name || user.password !== user.confirmPassword) || !user.email || !user.password || (user.password.lenght < 4)"
           color="primary" type="submit">Submit</button>
       </mat-card-content>
     </form>

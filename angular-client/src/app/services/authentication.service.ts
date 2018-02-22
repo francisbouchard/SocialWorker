@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/map'
 import { of } from 'rxjs/observable/of';
 import { MessageService } from "./message.service";
+import { User } from '../classes/user';
 
 
 @Injectable()
@@ -63,14 +64,13 @@ export class AuthenticationService {
 
   /**
    * Registers an account.
-   * @param email
-   * @param password
-   * @param confirmPassword
-   * @returns {Observable<Object>}
+   * 
+   * @param {User} userData 
+   * @returns {Observable<any>} 
    * @memberof AuthenticationService
    */
-  public signUp(email: string, password: string, confirmPassword: string, role: string): Observable<any> {
-    return this.http.post<any>('/user/signup', { email: email, password: password, confirmPassword: confirmPassword, role: role })
+  public signUp(userData: User): Observable<any> {
+    return this.http.post<any>('/user/signup', userData)
       .pipe(
       tap(p => {
         if (p.error) {
