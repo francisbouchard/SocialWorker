@@ -6,6 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  navLinks = [
+    {
+      label: "Users",
+      path: "./view-users"
+    },
+    {
+      label: "Add User",
+      path: "./register-user"
+    }
+  ];
 
   constructor() { }
 

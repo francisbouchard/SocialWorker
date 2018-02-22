@@ -59,7 +59,22 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    component: UsersComponent
+    component: UsersComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'view-users',
+        pathMatch: 'full'
+      },
+      {
+        path: 'register-user',
+        component: RegisterUserComponent
+      },
+      {
+        path: 'view-users',
+        component: ViewUsersComponent
+      }
+    ]
   },
   {
     path: 'resources',
