@@ -17,7 +17,7 @@
       <button mat-raised-button (click)="addDocument()">Add document</button>
     </mat-card-actions>
   </mat-card>
-<!-- 
+
   <h3 class="history-header">Cases</h3>
   <mat-card *ngIf="orderedCases.length == 0">
     No cases to display.
@@ -76,7 +76,7 @@
       </div>
 
     </mat-expansion-panel>
-  </mat-accordion> -->
+  </mat-accordion>
 
   <h3 class="history-header">Notes</h3>
   <mat-card *ngIf="orderedNotes == null || orderedNotes.length == 0">
@@ -117,11 +117,9 @@
           {{document.type}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <h4>Attachments:</h4>
+      <h4>Attachments: {{document.attachment[0]}}</h4>
+      <img *ngFor="let img of document.thumbnails" src="data:image/jpeg;base64,{{img.data}}" alt="thumbnail"  height="800" width="600">
       <mat-grid-list cols="2" *ngFor="let doc of document.attachment">
-        <!-- <mat-grid-tile> -->
-        <img [src]="doc">
-        <!-- </mat-grid-tile> -->
       </mat-grid-list>
       <br>
       <button mat-raised-button (click)="deleteDocument(document._id)">Delete Document</button>

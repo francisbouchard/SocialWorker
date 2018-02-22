@@ -162,6 +162,48 @@ router.post('/:pid/doc', (req, res) => {
                         if(err){
                             res.status(500).send(err);
                         } else {
+                            if(req.files.attachment.mimetype == "application/pdf"){
+                                pdfThumbnail.makeThumbnail(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), (err, data) => {
+                                    let document = new Document({
+                                        text: req.query.text,
+                                        date: req.query.date,
+                                        attachment: req.files.attachment.name,
+                                        thumbnails: data
+                                    });
+                                    Participant.findById(req.params.pid).then(participant => {
+                                        if (!participant.documents) {
+                                            participant.documents = [];
+                                        }
+                                        participant.documents.push(document);
+                                
+                                        participant.save().then(data => {
+                                            res.send(data);
+                                        }, err => {
+                                            res.send(err);
+                                        })
+                                    }, err => {
+                                        res.send(err);
+                                    })
+                                })
+                            }
+                            
+                        }
+                    })
+                }
+            })
+        } else {
+            req.files.attachment.mv(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), err => {
+                if(err){
+                    res.status(500).send(err);
+                } else {
+                    if(req.files.attachment.mimetype == "application/pdf"){
+                        pdfThumbnail.makeThumbnail(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), (err, data) => {
+                            let document = new Document({
+                                text: req.query.text,
+                                date: req.query.date,
+                                attachment: req.files.attachment.name,
+                                thumbnails: data
+                            });
                             Participant.findById(req.params.pid).then(participant => {
                                 if (!participant.documents) {
                                     participant.documents = [];
@@ -176,29 +218,8 @@ router.post('/:pid/doc', (req, res) => {
                             }, err => {
                                 res.send(err);
                             })
-                        }
-                    })
-                }
-            })
-        } else {
-            req.files.attachment.mv(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), err => {
-                if(err){
-                    res.status(500).send(err);
-                } else {
-                    Participant.findById(req.params.pid).then(participant => {
-                        if (!participant.documents) {
-                            participant.documents = [];
-                        }
-                        participant.documents.push(document);
-                
-                        participant.save().then(data => {
-                            res.send(data);
-                        }, err => {
-                            res.send(err);
                         })
-                    }, err => {
-                        res.send(err);
-                    })
+                    }
                 }
             })
         }
