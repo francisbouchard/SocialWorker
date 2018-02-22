@@ -26,11 +26,12 @@ if(!exists){
  * Get all participants
  */
 router.get('/', (req, res) => {
-    Participant.find().then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    })
+    Participant.find().populate("socialworkers")
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
 });
 
 /**
@@ -52,10 +53,11 @@ router.get('/worker', (req, res) => {
     if (!req.user || !req.user._id) {
         return res.status(401).send({ err: "No user ID provided. User must be logged in." })
     }
-    Participant.find({ deleted: {$ne: true}, socialworkers: new ObjectId(req.user._id) }).then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
+    Participant.find({ deleted: {$ne: true}, socialworkers: new ObjectId(req.user._id) })
+        .populate("socialworkers").then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
     })
 });
 
