@@ -6,6 +6,6 @@ const noteSchema = new mongoose.Schema({
     attachment: String
   }, { timestamps: true });
 
-const Note = mongoose.model('Note', noteSchema);
+const Note = mongoose.model('Note', noteSchema, 'notes');
 
 module.exports = Note;
