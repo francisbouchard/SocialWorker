@@ -126,20 +126,20 @@
           </div>
           <div>
             <mat-form-field>
-              <input matInput #dateinput name="startDate" [matDatepicker]="picker2" placeholder="{{(isDateRange) ? 'Start date' : 'Date'}}" (dateChange)="updateCaseSelectedResourceDate(casefile, $event)">
-              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-              <mat-datepicker #picker2 startView="month" [startAt]="startDate"></mat-datepicker>
+              <input matInput name="startDate" [matDatepicker]="startDatePicker" placeholder="{{(isDateRange) ? 'Start date' : 'Date'}}" (dateChange)="updateCaseSelectedResourceDate(casefile, $event)">
+              <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #startDatePicker startView="month" [startAt]="startDate"></mat-datepicker>
             </mat-form-field>
             <button class="dateSwitcher" (click)="switchDateRange()">{{dateRangeText}}</button>
           </div>
           <div *ngIf="isDateRange">
             <mat-form-field>
-              <input matInput name="endDate" [matDatepicker]="endDate" placeholder="End date" (dateChange)="updateCaseSelectedResourceDate(casefile, $event)">
-              <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-              <mat-datepicker #endDate startView="month" [startAt]="startDate"></mat-datepicker>
+              <input matInput name="endDate" [matDatepicker]="endDatePicker" placeholder="End date" (dateChange)="updateCaseSelectedResourceDate(casefile, $event)">
+              <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #endDatePicker startView="month" [startAt]="startDate"></mat-datepicker>
             </mat-form-field>
           </div>
-          <button mat-raised-button type="button" (click)="saveCaseSelectedResource(casefile)">Save selection</button>
+          <button mat-raised-button type="button" (click)="saveCaseSelectedResource(casefile)" [disabled]="caseSelectedResourceIsInvalid()">Save selection</button>
         </div>
         <div *ngIf="casefile.selectedResource && casefile.selectedResource.resource" class="selectedResource">
           <p>{{casefile.selectedResource.resource.name}}</p>

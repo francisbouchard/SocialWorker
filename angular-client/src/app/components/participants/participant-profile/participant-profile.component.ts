@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Location } from '@angular/common';
-
 import { Casefile } from '../../../classes/case';
 import { CasefileService } from '../../../services/casefile.service';
 import { FormControl } from '@angular/forms';
@@ -27,9 +26,11 @@ export class ParticipantProfileComponent implements OnInit {
   dateRange = ['Switch to date range', 'Switch to single date'];
   dateRangeText = this.dateRange[1];
   isDateRange = true;
+  isSelectedResourceValid = false;
+  startDate = new Date(1990, 0, 1);
   selectedResource = {
     resource: null,
-    startDate: null,
+    startDate: new Date(1990, 0, 1),
     endDate: null,
   };
   orderedCases = [];
@@ -282,6 +283,20 @@ export class ParticipantProfileComponent implements OnInit {
   updateCaseSelectedResourceDate(casefile, input) {
     this.selectedResource.startDate = (input.targetElement.name === 'startDate') ? input.value : this.selectedResource.startDate;
     this.selectedResource.endDate = (input.targetElement.name === 'endDate') ? input.value : this.selectedResource.endDate;
+    this.startDate = this.selectedResource.startDate;
+  }
+
+  /**
+   * Check if selected resource has a resource and dates are valid
+   *
+   * @memberof ParticipantProfileComponent
+   */
+  caseSelectedResourceIsInvalid(): boolean {
+    if ((this.selectedResource.endDate > this.selectedResource.startDate) && this.selectedResource.resource) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   /**
