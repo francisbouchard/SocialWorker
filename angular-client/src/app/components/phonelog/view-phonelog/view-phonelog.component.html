@@ -3,8 +3,7 @@
   <mat-card-content>
    <div *ngIf="log.email !== ''"><b> User: </b> {{log.email}} <br></div>
    <div *ngIf="log.telephone !== '' "><b> Date logged: </b> {{log.telephone}} <br></div>
-   <div *ngIf="log.socialmedia !== undefined"><b> User who called back: </b> {{log.socialmedia.service}}<br></div>
-   <div *ngIf="log.address !== '' "><b> Date that user called back: </b> {{log.address}}<br></div>
+   <div *ngIf="log.address !== '' "><b> Date that user called back: </b> {{log.date}}<br></div>
    <div *ngIf="log.date !== '' "><b> Date of the call: </b> {{log.date| date : format : timezone}}<br></div>
    <div *ngIf="log.phonenumber !== '' "><b> Phone number: </b> {{log.phonenumber}}<br></div>
    <div *ngIf="log.address !== '' "><b> Language: </b> {{log.language}}<br></div>

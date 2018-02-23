@@ -52,6 +52,22 @@ export class PhonelogService {
       );
   }
 
+   /**
+   * Update participant with new data
+   *
+   * @param {any} LogID
+   * @param {any} LogData
+   * @returns {Observable<Object>}
+   * @memberof ResourceService
+   */
+  update(LogID, LogData): Observable<Object> {
+    return this.http.put(`${this.url}/${LogID}`, LogData)
+      .pipe(
+      tap(_ => this.log('saving a resource')),
+      catchError(this.handleError<Object>('update()'))
+      );
+  }
+
 
 
   /**
