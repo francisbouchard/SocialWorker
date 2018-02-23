@@ -75,7 +75,9 @@
           <p>Nothing selected</p>
         </div>
         <div *ngIf="casefile.selectedResource" class="selectedResource">
-          <p>{{casefile.selectedResource.name}}</p>
+          <p>{{casefile.selectedResource.resource.name}}</p>
+          <p *ngIf="casefile.selectedResource.startDate">Date: {{casefile.selectedResource.startDate | date:'M/d/yyyy'}}</p>
+          <p *ngIf="casefile.selectedResource.endDate">- {{casefile.selectedResource.endDate | date:'M/d/yyyy'}}</p>
         </div>
       </div>
       <form *ngIf="casefile.status == 'In progress'">
