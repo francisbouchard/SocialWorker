@@ -10,4 +10,5 @@ export class Participant {
     socialmedia: { service: String, username: String };
     notes: [any];
     documents: [any];
+    socialworkers: [any];
 }

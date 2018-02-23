@@ -11,10 +11,16 @@
     </p>
     <p *ngIf="participantSelected.address !== undefined && participantSelected.address !== ''">Address: {{participantSelected.address}}
     </p>
+    <p *ngIf="participantSelected.socialworkers">Social workers assigned: 
+      <span *ngFor="let worker of participantSelected.socialworkers; let isLast=last">
+        {{worker.name}}{{isLast ? '': ', '}}
+      </span>
+    </p>
     <mat-card-actions>
       <button mat-raised-button (click)="newCase()">New case</button>
       <button mat-raised-button (click)="addNote()">Add Note</button>
       <button mat-raised-button (click)="addDocument()">Add document</button>
+      <button mat-raised-button (click)="assignWorker()">Edit Social Workers</button>
     </mat-card-actions>
   </mat-card>
 

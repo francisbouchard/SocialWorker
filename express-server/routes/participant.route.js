@@ -38,11 +38,12 @@ router.get('/', (req, res) => {
  * Get a participant by ID
  */
 router.get('/id/:pid', (req, res) => {
-    Participant.findById(req.params.pid).then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    })
+    Participant.findById(req.params.pid).populate("socialworkers")
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
 });
 
 /**

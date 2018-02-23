@@ -14,6 +14,7 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
 import { CaseModalComponent } from '../../modals/case-modal/case-modal.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AssignWorkerModalComponent } from '../../modals/assign-worker-modal/assign-worker-modal.component';
 
 
 @Component({
@@ -253,6 +254,21 @@ export class ParticipantProfileComponent implements OnInit {
   updateCaseSelectedResource(casefile, selection) {
     const selectedResource = { 'selectedResource': selection };
     this.casefileService.updateCaseSelectedResource(casefile._id, selectedResource).subscribe();
+  }
+
+  /**
+   * Open the Assign Worker modal
+   * 
+   * @memberof ParticipantProfileComponent
+   */
+  assignWorker(): void {
+    const dialogRef = this.dialog.open(AssignWorkerModalComponent, {
+      width: '66%',
+      data: { id: this.participantSelected._id, workers: this.participantSelected.socialworkers }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadParticipant();
+    });
   }
 
 }

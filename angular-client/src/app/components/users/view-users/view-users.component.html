@@ -1,7 +1,4 @@
 <div class="sortNSearchToolbar">
-  <mat-form-field class="searchBox">
-    <input matInput placeholder="Search" [(ngModel)]="query">
-  </mat-form-field>
   <mat-form-field>
     <mat-select placeholder="Sort by" [(value)]="sortProperty">
       <mat-option value="email">Email</mat-option>
@@ -9,6 +6,9 @@
     </mat-select>
   </mat-form-field>
   <button mat-raised-button (click)="reverse=!reverse" class="reverseBtn">{{reverse? 'Descending': 'Ascending'}}</button>
+  <mat-form-field class="searchBox">
+    <input matInput placeholder="Search" [(ngModel)]="query">
+  </mat-form-field>
 </div>
 <div *ngFor="let user of ((users | search:'email,role':query) | orderBy: sortProperty: reverse)">
   <mat-card class="example-card">
