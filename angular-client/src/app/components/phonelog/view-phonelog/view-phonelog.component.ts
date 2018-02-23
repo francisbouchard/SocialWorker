@@ -14,7 +14,7 @@ export class ViewPhonelogComponent implements OnInit {
   @Input() hasTabChanged: boolean;
     editingLog = Phonelog;
     public logs;
-    public sortProperty = 'name';
+    public sortProperty = 'urgent';
     public reverse = false;
     public query: string;
 
@@ -35,7 +35,7 @@ export class ViewPhonelogComponent implements OnInit {
   }
 
   /**
-   * Specify which participant is currently in edit mode
+   * Specify which log is currently in edit mode
    *
    * @param {any} id
    * @param {any} log
@@ -43,6 +43,31 @@ export class ViewPhonelogComponent implements OnInit {
    */
   edit(id, log) {
     this.editingLog = log;
+  }
+
+   /**
+   * Update Log with new attributes
+   *
+   * @param {any} id
+   * @param {any} log
+   * @memberof ViewParticipantsComponent
+   */
+  update(id, log) {
+    this.phonelogService.update(id, log) // TODO
+      .subscribe(data => {
+        console.log(data);
+        this.cancel();
+      });
+  }
+
+   /**
+   * Cancel edit mode and return to view mode
+   *
+   * @memberof ViewParticipantsComponent
+   */
+  cancel() {
+    this.edit('', null);
+    this.loadLogs();
   }
 
     ngOnInit() {

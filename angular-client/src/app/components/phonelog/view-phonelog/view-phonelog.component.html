@@ -1,3 +1,30 @@
-<p>
-  view-phonelog works!
-</p>
+<mat-card *ngFor="let log of ((logs| search:'urgent':query) | orderBy: sortProperty: reverse)">
+<div *ngIf="editingLog != log">
+  <mat-card-content>
+   <div *ngIf="log.email !== ''"><b> User: </b> {{log.email}} <br></div>
+   <div *ngIf="log.telephone !== '' "><b> Date logged: </b> {{log.telephone}} <br></div>
+   <div *ngIf="log.socialmedia !== undefined"><b> User who called back: </b> {{log.socialmedia.service}}<br></div>
+   <div *ngIf="log.address !== '' "><b> Date that user called back: </b> {{log.address}}<br></div>
+   <div *ngIf="log.date !== '' "><b> Date of the call: </b> {{log.date| date : format : timezone}}<br></div>
+   <div *ngIf="log.phonenumber !== '' "><b> Phone number: </b> {{log.phonenumber}}<br></div>
+   <div *ngIf="log.address !== '' "><b> Language: </b> {{log.language}}<br></div>
+   <div *ngIf="log.urgent !== '' "><b> Urgent(Yes or No): </b> {{log.urgent}}<br></div>
+   <div *ngIf="log.notes !== undefined "><b> Note regarding the call: </b> {{log.notes}}<br></div>
+   <div *ngIf="log.pronouns !== '' "><b> Pronoun: </b> {{log.pronouns}}<br></div>
+   <div *ngIf="log.subject !== '' "><b> Subject: </b> {{log.subject}}<br></div>
+   <div *ngIf="log.address !== '' "><b> Message: </b> {{log.message}}<br></div>  
+   <div *ngIf="log.callertype !== '' "><b> Type of person: </b> {{log.callertype}}<br></div>
+  </mat-card-content>
+  <mat-card-actions>
+      <button mat-raised-button (click)="edit(log._id, log)">Edit</button>
+  </mat-card-actions>
+</div>
+
+<div *ngIf="editingLog == log">
+    <app-edit-phonelog [log]="editingLog" ></app-edit-phonelog>
+    <mat-card-actions>
+      <button mat-raised-button (click)="update(log._id, log)">Update</button>
+      <button mat-raised-button (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+</div>
+</mat-card>
