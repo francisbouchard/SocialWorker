@@ -35,6 +35,7 @@ import { EditParticipantComponent } from './components/participants/edit-partici
 import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
 import { ViewPhonelogComponent } from './components/phonelog/view-phonelog/view-phonelog.component';
 import { PhonelogService } from './services/phonelog.service';
+import { EditPhonelogComponent } from './components/phonelog/edit-phonelog/edit-phonelog.component';
 
 
 const routes: Routes = [
@@ -103,7 +104,8 @@ const routes: Routes = [
     PhonelogComponent,
     EditParticipantComponent,
     AddPhonelogComponent,
-    ViewPhonelogComponent
+    ViewPhonelogComponent,
+    EditPhonelogComponent
   ],
   imports: [
     BrowserModule,
