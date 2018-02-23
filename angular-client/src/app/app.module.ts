@@ -30,6 +30,7 @@ import { CaseModalComponent } from './components/modals/case-modal/case-modal.co
 import { CasefileService } from './services/casefile.service';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import { TrashComponent } from './components/dashboard/trash/trash.component';
 
 
 const routes: Routes = [
@@ -90,7 +91,8 @@ const routes: Routes = [
     DocumentComponent,
     RegisterUserComponent,
     OrderByPipe,
-    SearchPipe
+    SearchPipe,
+    TrashComponent
   ],
   imports: [
     BrowserModule,

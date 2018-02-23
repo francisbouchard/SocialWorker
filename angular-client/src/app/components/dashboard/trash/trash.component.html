@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-title>Trash Bin</mat-card-title>
+  <div class="container">
+    <div class="items" *ngFor="let item of items">
+      <div>
+        <p>{{item.name}}</p>
+        <p>{{item.username}}</p>
+      </div>
+      <button mat-icon-button color="primary">
+        <mat-icon matSuffix>delete_forever</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,22 @@
+mat-card {
+    width: 66%;
+    margin: 1em;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.items {
+    display: inline-flex;
+}
+
+.items div {
+    width: 90%;
+    display: inline-flex;
+}
+
+.items div p {
+    margin-right: 1em;
+}

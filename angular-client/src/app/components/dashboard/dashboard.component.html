@@ -1,3 +1,9 @@
-<p>
-  Dashboard Page
-</p>
+<div>
+  <mat-card>
+    <p>
+      Dashboard Page To include: stats, phone log, notifications, reminders, trash bin, tasks
+    </p>
+    <button mat-raised-button (click)="displayTrash()">Tash bin</button>
+  </mat-card>
+  <app-trash *ngIf="isTrashDisplayed"></app-trash>
+</div>
