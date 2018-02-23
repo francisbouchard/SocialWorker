@@ -1,3 +1,42 @@
-<p>
-  edit-phonelog works!
-</p>
+<form class="form">
+    <mat-form-field>
+      <input matInput required placeholder="Name" name="name" [(ngModel)]="log.name">
+    </mat-form-field>
+
+     <mat-form-field>
+        <input matInput placeholder="Pronouns" name="pronouns" [(ngModel)]="log.pronouns">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Phonenumber" name="phonenumber" [(ngModel)]="log.phonenumber">
+    </mat-form-field>
+
+    <mat-form-field>
+        <span matPrefix>+1 &nbsp;</span>
+        <input type="tel" matInput placeholder="User" name="user" [(ngModel)]="log.user">
+    </mat-form-field>
+
+    <mat-form-field>
+        <span matPrefix>+1 &nbsp;</span>
+        <input type="tel" matInput placeholder="Subject" name="subject" [(ngModel)]="log.subject">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Notes" name="notes" [(ngModel)]="log.notes">
+        <mat-hint align="start">
+            <strong>Optional: choose platform</strong>
+        </mat-hint>
+    </mat-form-field>
+  
+    <mat-form-field >
+      <input matInput placeholder="Urgent" name="urgent" [(ngModel)]="log.urgent">
+      <mat-hint align="start">
+        <strong>Optional: choose account handle</strong>
+      </mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Caller Type" name="callertype" [(ngModel)]="log.callertype">
+      </mat-form-field>
+
+  </form>
