@@ -1,9 +1,18 @@
 <div>
   <mat-card>
     <p>
-      Dashboard Page To include: stats, phone log, notifications, reminders, trash bin, tasks
+      Dashboard Page
     </p>
-    <button mat-raised-button (click)="displayTrash()">Tash bin</button>
+    <p>
+        To include: stats, phone log, notifications, reminders, trash bin, tasks
+    </p>
+    <!-- TODO place trash icon where you want it to be -->
+    <p>TODO: you can use this button and trash icon anywhere you want</p>
+    <button mat-raised-button (click)="displayTrash()">
+      <mat-icon>delete</mat-icon>
+      Tash bin
+    </button>
   </mat-card>
+  <!-- TODO place the app-trash component where you want it to be displayed -->
   <app-trash *ngIf="isTrashDisplayed"></app-trash>
 </div>
