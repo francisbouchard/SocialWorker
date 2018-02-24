@@ -13,7 +13,8 @@ import { PhonelogService } from '../../../services/phonelog.service';
 export class ViewPhonelogComponent implements OnInit {
   @Input() hasTabChanged: boolean;
     editingLog = Phonelog;
-    public logs;
+    public logs=[];
+    public log;
     public sortProperty = 'urgent';
     public reverse = false;
     public query: string;
@@ -29,7 +30,13 @@ export class ViewPhonelogComponent implements OnInit {
       this.phonelogService.getAll()
         .subscribe(data => {
           console.log(data)
-          this.logs = data;
+          this.log = data;
+          for(var i=0;i<this.log.length;i++){
+            if(this.log[i].deleted==false){
+              this.logs.push(this.log[i]);
+            }
+          }
+          console.log(this.logs)
         });
     }
   }

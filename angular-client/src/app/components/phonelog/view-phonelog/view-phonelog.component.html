@@ -7,11 +7,11 @@
    <div *ngIf="log.language !== '' "><b> Language: </b> {{log.language}}<br></div>
    <div *ngIf="log.urgent == true "><b> Urgent(Yes or No): </b>Yes<br></div>
    <div *ngIf="log.urgent == false "><b> Urgent(Yes or No): </b> No<br></div>
-   <div *ngIf="log.notes[0] !== '' && log.notes[0] !== null "><b> Note regarding the call: </b> {{log.notes[0]}}<br></div>
+   <div *ngIf="log.notes[0] !== '' "><b> Note regarding the call: </b> {{log.notes[0]}}<br></div>
    <div *ngIf="log.pronouns !== '' "><b> Pronoun: </b> {{log.pronouns}}<br></div>
    <div *ngIf="log.subject !== '' "><b> Subject: </b> {{log.subject}}<br></div>
    <div *ngIf="log.message !== '' "><b> Message: </b> {{log.message}}<br></div>  
-   <div *ngIf="log.callertype !== undefined "><b> Type of person: </b> {{log.callertype}}<br></div>
+   <div *ngIf="log.callertype !== '' "><b> Type of person: </b> {{log.callertype}}<br></div>
   </mat-card-content>
   <mat-card-actions>
       <button mat-raised-button (click)="edit(log._id, log)">Edit</button>
@@ -28,3 +28,4 @@
     </mat-card-actions>
 </div>
 </mat-card>
+
