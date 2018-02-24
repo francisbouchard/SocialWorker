@@ -23,7 +23,8 @@ export class AddParticipantComponent implements OnInit {
     email: '',
     socialmedia: {service: '', username: '' },
     notes: [{}],
-    documents: [{}]
+    documents: [{}],
+    socialworkers: null
   };
 
   isAlreadyAParticipantID = false;

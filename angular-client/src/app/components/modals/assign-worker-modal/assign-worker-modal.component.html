@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Edit Assigned Social Workers</h1>
 <mat-dialog-content>
     <!-- <mat-list> -->
-      <div *ngFor="let worker of data.workers">
+      <div *ngFor="let worker of participant.workers">
         <span>{{ worker.name }} ({{ worker.email }})</span>
         <span class="example-fill-remaining-space"></span>
         <button mat-raised-button (click)="close()">Remove</button>
@@ -9,13 +9,13 @@
       <br>
       <mat-list-item>
           <mat-form-field>
-              <mat-select placeholder="Add Social Worker">
-                <!-- <mat-option *ngFor="let worker of " [value]="worker">
+              <mat-select placeholder="Add Social Worker" [(value)]="selectedWorkerId">
+                <mat-option *ngFor="let worker of allWorkers" [disabled]="isDisabled(worker._id)" [value]="worker._id">
                   {{ worker.name }} ({{ worker.email }})
-                </mat-option> -->
+                </mat-option>
               </mat-select>
           </mat-form-field>
-          <button mat-raised-button (click)="close()">Add</button>
+          <button mat-raised-button (click)="addWorker()">Add</button>
       </mat-list-item>
     <!-- </mat-list> -->
 </mat-dialog-content>

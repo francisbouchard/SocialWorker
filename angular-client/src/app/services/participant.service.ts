@@ -28,8 +28,8 @@ export class ParticipantService {
   get(participantID): Observable<Object> {
     return this.http.get(`${this.url}/id/${participantID}`)
       .pipe(
-      tap(participant => this.log('fetched a participant')),
-      catchError(this.handleError<Object>('get(participantID)'))
+        tap(participant => this.log('fetched a participant')),
+        catchError(this.handleError<Object>('get(participantID)'))
       );
   }
 
@@ -42,8 +42,8 @@ export class ParticipantService {
   getAll(): Observable<Object> {
     return this.http.get(this.url)
       .pipe(
-      tap(participants => this.log('fetched all participants')),
-      catchError(this.handleError<Object>('getAll()'))
+        tap(participants => this.log('fetched all participants')),
+        catchError(this.handleError<Object>('getAll()'))
       );
   }
 
@@ -56,8 +56,8 @@ export class ParticipantService {
   getBySocialWorker(): Observable<Object> {
     return this.http.get(`${this.url}/worker`)
       .pipe(
-      tap(participants => this.log('fecthed participants of social worker')),
-      catchError(this.handleError<Object>('getBySocialWorker()'))
+        tap(participants => this.log('fecthed participants of social worker')),
+        catchError(this.handleError<Object>('getBySocialWorker()'))
       );
   }
 
@@ -71,15 +71,15 @@ export class ParticipantService {
   save(participantData: Participant): Observable<Object> {
     return this.http.post<Object>(this.url, participantData)
       .pipe(
-      tap(p => {
-        if (p.hasOwnProperty('errmsg')) {
-          console.log('has err msg');
-          this.log('did not save new participant');
-        } else {
-          this.log('saved new participant');
-        }
-      }),
-      catchError(this.handleError<Participant>('save(participantData)'))
+        tap(p => {
+          if (p.hasOwnProperty('errmsg')) {
+            console.log('has err msg');
+            this.log('did not save new participant');
+          } else {
+            this.log('saved new participant');
+          }
+        }),
+        catchError(this.handleError<Participant>('save(participantData)'))
       );
   }
 
@@ -93,10 +93,10 @@ export class ParticipantService {
    * @memberof ParticipantService
    */
   saveNote(file: FormData, note, pid: String): Observable<Object> {
-    return this.http.post<Object>(`${this.url}/${pid}/note`, file, {params: note})
+    return this.http.post<Object>(`${this.url}/${pid}/note`, file, { params: note })
       .pipe(
-      tap(_ => this.log('saved a note to participant')),
-      catchError(this.handleError<Object>('saveNote()'))
+        tap(_ => this.log('saved a note to participant')),
+        catchError(this.handleError<Object>('saveNote()'))
       );
   }
 
@@ -109,11 +109,27 @@ export class ParticipantService {
    * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
-  saveDocument(file: FormData, document,  pid: String): Observable<Object> {
-    return this.http.post<Object>(`${this.url}/${pid}/doc`, file, {params: document})
+  saveDocument(file: FormData, document, pid: String): Observable<Object> {
+    return this.http.post<Object>(`${this.url}/${pid}/doc`, file, { params: document })
       .pipe(
-      tap(_ => this.log('saved a document to participant')),
-      catchError(this.handleError<Object>('saveDocument()'))
+        tap(_ => this.log('saved a document to participant')),
+        catchError(this.handleError<Object>('saveDocument()'))
+      );
+  }
+
+  /**
+   * Add a social worker to a participant
+   * 
+   * @param {String} participantID 
+   * @param {String} workerID 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  addSocialWorker(participantID: String, workerID: String): Observable<Object> {
+    return this.http.post<Object>(`${this.url}/${participantID}/worker`, { workerID: workerID })
+      .pipe(
+        tap(_ => this.log('added a social worker to participant')),
+        catchError(this.handleError<Object>('addSocialWorker(participantID: String, workerID:String)'))
       );
   }
 
@@ -127,8 +143,8 @@ export class ParticipantService {
   delete(participantID): Observable<Object> {
     return this.http.delete(`${this.url}/${participantID}`)
       .pipe(
-      tap(_ => this.log('deleted participant')),
-      catchError(this.handleError<Object>('delete(participantID)'))
+        tap(_ => this.log('deleted participant')),
+        catchError(this.handleError<Object>('delete(participantID)'))
       );
   }
 
@@ -143,8 +159,8 @@ export class ParticipantService {
   deleteNote(participantID: String, noteID: String): Observable<Object> {
     return this.http.delete(`${this.url}/${participantID}/note/${noteID}`)
       .pipe(
-      tap(_ => this.log('deleted participant\'s note')),
-      catchError(this.handleError<Object>('deleteNote(participantID, noteID)'))
+        tap(_ => this.log('deleted participant\'s note')),
+        catchError(this.handleError<Object>('deleteNote(participantID, noteID)'))
       );
   }
 
@@ -159,8 +175,8 @@ export class ParticipantService {
   deleteDocument(participantID: String, documentID: String): Observable<Object> {
     return this.http.delete(`${this.url}/${participantID}/doc/${documentID}`)
       .pipe(
-      tap(_ => this.log('deleted participant\'s document')),
-      catchError(this.handleError<Object>('deleteDocument(participantID, documentID)'))
+        tap(_ => this.log('deleted participant\'s document')),
+        catchError(this.handleError<Object>('deleteDocument(participantID, documentID)'))
       );
   }
 
@@ -175,9 +191,9 @@ export class ParticipantService {
   search(participantAttributeValuePair): Observable<Object> {
     return this.http.get(`${this.url}/search/${participantAttributeValuePair}`)
       .pipe(
-      map(participants => participants[0] ? true : false),
-      tap(_ => this.log('searched participant')),
-      catchError(this.handleError<Object>('search participant information'))
+        map(participants => participants[0] ? true : false),
+        tap(_ => this.log('searched participant')),
+        catchError(this.handleError<Object>('search participant information'))
       );
   }
 
