@@ -68,6 +68,22 @@ export class PhonelogService {
       );
   }
 
+   /**
+   * Update deleted
+   *
+   * @param {any} LogID
+   * @param {any} LogData
+   * @returns {Observable<Object>}
+   * @memberof ResourceService
+   */
+
+   resolve(LogID, LogData): Observable<Object> {
+    return this.http.patch(`${this.url}/${LogID}`, LogData)
+      .pipe(
+      tap(_ => this.log('saving a resource')),
+      catchError(this.handleError<Object>('resolve()'))
+      );
+  }
 
 
   /**

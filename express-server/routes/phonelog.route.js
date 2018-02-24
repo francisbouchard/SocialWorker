@@ -58,4 +58,20 @@ router.put('/:lid', (req, res) => {
     })
 });
 
+    
+router.patch('/:lid', (req, res) => {
+   var deleted = req.body.deleted;
+   var id = req.params.id;
+   Phonelog.update({_id  : ObjectId(id)}, {$set: deleted==true});
+    // Phonelog.findById(req.params.lid).then(log => {
+    //     log.deleted == true;
+    //     log.save().then(data => {
+    //         res.send(data);
+    //     }, err => {
+    //         res.send(err);
+    //     })
+    // }, err => {
+    //     res.send(err);
+    // })
+});
 module.exports = router;

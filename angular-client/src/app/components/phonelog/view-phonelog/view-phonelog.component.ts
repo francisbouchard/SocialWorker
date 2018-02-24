@@ -60,6 +60,14 @@ export class ViewPhonelogComponent implements OnInit {
       });
   }
 
+  resolve(id, log) {
+    this.phonelogService.resolve(id, log) // TODO
+      .subscribe(data => {
+        console.log(data);
+        this.cancel();
+      });
+  }
+
    /**
    * Cancel edit mode and return to view mode
    *
