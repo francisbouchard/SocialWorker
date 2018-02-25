@@ -1,31 +1,39 @@
 <mat-card>
-  <form class="form">
+  <form [formGroup]="phonelog">
+
     <mat-form-field>
-      <input matInput placeholder="Name of entity calling" name="name" [(ngModel)]="phonelogData.name">
+      <input matInput placeholder="Name of entity calling" name="name" formControlName="name">
     </mat-form-field>
+
     <mat-form-field>
-        <mat-select placeholder="Type of caller" name="callertype" [(ngModel)]="phonelogData.callertype">
-          <mat-option *ngFor="let caller of callertype" [value]="caller">
-            {{ caller}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Reason for call" name="subject" [(ngModel)]="phonelogData.subject">
+      <mat-select placeholder="Type of caller" name="callertype" formControlName="callertype">
+        <mat-option *ngFor="let caller of callertype" [value]="caller">
+          {{caller}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+
     <mat-form-field>
-        <input matInput placeholder="Callback number" name="phonenumber" [(ngModel)]="phonelogData.phonenumber">
+      <input matInput placeholder="Reason for call" name="subject" formControlName="subject">
     </mat-form-field>
+
     <mat-form-field>
-        <input matInput placeholder="Pronouns" name="pronouns" [(ngModel)]="phonelogData.pronouns">
+      <input matInput placeholder="Callback number" name="phonenumber" formControlName="phonenumber">
     </mat-form-field>
+
     <mat-form-field>
-        <input matInput placeholder="Enter any additional notes" name="notes" [(ngModel)]="phonelogData.notes">
+      <input matInput placeholder="Pronouns" name="pronouns" formControlName="pronouns">
     </mat-form-field>
-    <mat-slide-toggle name="urgent" [(ngModel)]="phonelogData.urgent"
-      [checked]="phonelogData.urgent">
-        Urgent
+
+    <mat-form-field>
+      <input matInput placeholder="Enter any additional notes" name="notes" formControlName="notes">
+    </mat-form-field>
+
+    <mat-slide-toggle name="urgent" formControlName="urgent" [checked]="urgent">
+      Urgent
     </mat-slide-toggle>
+
+    <button mat-raised-button type="submit" [disabled]="phonelog.invalid" (click)="submit()">Finalize this call</button>
   </form>
-  <button mat-raised-button (click)="submit()">Finalize this call</button>
+
 </mat-card>
