@@ -1,8 +1,22 @@
-mat-form-field {
-    width: 40%;
-    display: block;
-}
-
 button{
     margin-top: 18px;
 }
+
+form {
+    width: 60%;
+}
+
+mat-form-field {
+    margin-right: 1em;
+}
+
+.notes {
+    width: 100%;
+}
+
+.pronouns {
+    width: 100px;
+}
+
+
+
