@@ -12,7 +12,7 @@ import { Participant } from '../../../classes/participant';
 
 export class ViewParticipantsComponent implements OnInit {
   @Input() hasTabChanged: boolean;
-  editingParticipant = Participant;
+  editingParticipant: Participant;
 
   public profiles;
   public sortProperty = 'name';
