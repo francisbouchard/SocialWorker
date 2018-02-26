@@ -171,12 +171,13 @@ export class ParticipantService {
    * @returns {Observable<Object>} 
    * @memberof ParticipantService
    */
-  downloadAttachment(participantID: String, attachmentID: String): Observable<Object> {
+  downloadAttachment(participantID: String, attachmentID: String): any {
     return this.http.get(`${this.url}${participantID}/note/${attachmentID}`)
-      .pipe(
+    .subscribe(d => {console.log(d); return String(d);});
+      /*.pipe(
       tap(participants => this.log('Downloaded attachment from server.')),
       catchError(this.handleError<Object>('downloadAttachment()'))
-      );
+      );*/
   }
 
   /**
