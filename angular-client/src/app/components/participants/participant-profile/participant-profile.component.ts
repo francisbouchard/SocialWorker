@@ -23,16 +23,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export class ParticipantProfileComponent implements OnInit {
 
-  dateRange = ['Switch to date range', 'Switch to single date'];
-  dateRangeText = this.dateRange[1];
-  isDateRange = true;
   isSelectedResourceValid = false;
-  startDate = new Date(1990, 0, 1);
-  selectedResource = {
-    resource: null,
-    startDate: new Date(1990, 0, 1),
-    endDate: null,
-  };
   orderedCases = [];
   orderedDocuments = [];
   orderedNotes = [];
@@ -50,9 +41,10 @@ export class ParticipantProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadParticipant();
     if (!this.authService.loggedIn) {
       this.router.navigateByUrl('login');
+    } else {
+      this.loadParticipant();
     }
   }
 
@@ -82,25 +74,10 @@ export class ParticipantProfileComponent implements OnInit {
   }
 
   /**
-   * Open casefile modal to create a new casefile
-   *
-   * @memberof ParticipantProfileComponent
-   */
-  newCase(): void {
-    const dialogRef = this.dialog.open(CaseModalComponent, {
-      width: '66%',
-      data: { participant: this.participantSelected }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.loadParticipant();
-    });
-  }
-
-  /**
-   * Load cases for a participant
-   *
-   * @memberof ParticipantProfileComponent
-   */
+ * Load cases for a participant
+ *
+ * @memberof ParticipantProfileComponent
+ */
   loadCases(): void {
     this.casefileService.getByParticipant(this.participantSelected._id)
       .subscribe(data => {
@@ -117,33 +94,22 @@ export class ParticipantProfileComponent implements OnInit {
   }
 
   /**
-   * Deletes selected note
+   * Open casefile modal to create a new casefile
    *
-   * @param {any} noteID
    * @memberof ParticipantProfileComponent
    */
-  deleteNote(noteID): void {
-    this.participantService.deleteNote(this.participantSelected._id, noteID)
-      .subscribe(result => {
-        this.loadParticipant();
-      });
+  newCase(): void {
+    const dialogRef = this.dialog.open(CaseModalComponent, {
+      width: '66%',
+      data: { participant: this.participantSelected }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadParticipant();
+    });
   }
 
   /**
-   * Deletes selected casefile
-   *
-   * @param {any} casefileID
-   * @memberof ParticipantProfileComponent
-   */
-  deleteCasefile(casefileID): void {
-    this.casefileService.delete(casefileID)
-      .subscribe(result => {
-        this.loadParticipant();
-      });
-  }
-
-  /**
-   * Add a note to a participant
+   * Open note modal to create a note for a participant
    *
    * @memberof ParticipantProfileComponent
    */
@@ -159,20 +125,7 @@ export class ParticipantProfileComponent implements OnInit {
   }
 
   /**
-   * Delete a document of a participant
-   *
-   * @param {any} documentID
-   * @memberof ParticipantProfileComponent
-   */
-  deleteDocument(documentID): void {
-    this.participantService.deleteDocument(this.participantSelected._id, documentID)
-      .subscribe(result => {
-        this.loadParticipant();
-      });
-  }
-
-  /**
-   * Add a document to a participant profile
+   * Open a document modal to create a document for a participant
    *
    * @memberof ParticipantProfileComponent
    */
@@ -185,165 +138,6 @@ export class ParticipantProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.loadParticipant();
     });
-  }
-
-  /**
-   * Complete a casefile
-   *
-   * @param {any} casefile
-   * @param {any} casefileIndex
-   * @memberof ParticipantProfileComponent
-   */
-  completeCasefile(casefile, casefileIndex): void {
-    this.orderedCases[casefileIndex].status = 'Completed';
-    this.casefileService.updateCaseStatus(casefile._id, { status: 'Completed' }).subscribe();
-  }
-
-  /**
-   * Reopen a casefile
-   *
-   * @param {any} casefile
-   * @param {any} casefileIndex
-   * @memberof ParticipantProfileComponent
-   */
-  reopenCasefile(casefile, casefileIndex): void {
-    this.orderedCases[casefileIndex].status = 'In progress';
-    this.casefileService.updateCaseStatus(casefile._id, { status: 'In progress' }).subscribe();
-  }
-
-  /**
-   * Update casefile's resource date of contact
-   *
-   * @param {any} isResourceContacted
-   * @param {any} casefile
-   * @param {any} resource
-   * @param {any} casefileIndex
-   * @param {any} resourceIndex
-   * @param {Date} dateInput
-   * @memberof ParticipantProfileComponent
-   */
-  updateCaseDate(isResourceContacted, casefile, resource, casefileIndex, resourceIndex, dateInput: Date): void {
-
-    const casefileID = casefile._id;
-    const resourceID = resource.resource._id;
-    const dateContacted = resource.dateContacted;
-    const status = (isResourceContacted) ? 'Contacted' : 'To Contact';
-    let date;
-    if (isResourceContacted) {
-      date = (dateContacted) ? dateContacted : (dateInput || new Date());
-    } else {
-      date = null;
-    }
-    this.orderedCases[casefileIndex].contactedResources[resourceIndex].dateContacted = date;
-    this.orderedCases[casefileIndex].contactedResources[resourceIndex].status = status;
-
-    this.casefileService.updateCaseContactedResource(casefileID, resourceID, { 'status': status, 'dateContacted': date }).subscribe();
-  }
-
-  /**
-   * Update a casefile's resource comment
-   *
-   * @param {any} casefile
-   * @param {any} resource
-   * @param {any} comment
-   * @memberof ParticipantProfileComponent
-   */
-  updateCaseResourceNote(casefile, resource, comment, casefileIndex, resourceIndex) {
-    this.orderedCases[casefileIndex].contactedResources[resourceIndex].note = comment;
-    this.casefileService.updateCaseContactedResource(casefile._id, resource.resource._id, { 'note': comment }).subscribe();
-  }
-
-  /**
-   * Update casefile with selected resource
-   *
-   * @param {any} casefile
-   * @param {any} selection
-   * @memberof ParticipantProfileComponent
-   */
-  updateCaseSelectedResource(casefile, selection) {
-
-    if (selection) {
-      this.selectedResource.resource = selection.resource;
-    } else {
-      this.selectedResource.resource = null;
-      this.selectedResource.startDate = null;
-      this.selectedResource.endDate = null;
-      casefile.selectedResource = null;
-    }
-  }
-
-  /**
-   * Add single date or date range to selected resource
-   * Does not save this to the database
-   *
-   * @param {any} casefile
-   * @param {any} input
-   * @memberof ParticipantProfileComponent
-   */
-  updateCaseSelectedResourceDate(casefile, input) {
-    this.selectedResource.startDate = (input.targetElement.name === 'startDate') ? input.value : this.selectedResource.startDate;
-    this.selectedResource.endDate = (input.targetElement.name === 'endDate') ? input.value : this.selectedResource.endDate;
-    this.startDate = this.selectedResource.startDate;
-  }
-
-  /**
-   * Check if selected resource has a resource and dates are valid
-   *
-   * @memberof ParticipantProfileComponent
-   */
-  caseSelectedResourceIsInvalid(): boolean {
-    if ((this.selectedResource.endDate > this.selectedResource.startDate) && this.selectedResource.resource) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  /**
-   * Save selected resource to database
-   *
-   * @param {any} casefile
-   * @memberof ParticipantProfileComponent
-   */
-  saveCaseSelectedResource(casefile) {
-    const selectedResourceObject = { 'selectedResource': ((this.selectedResource.resource) ? this.selectedResource : null) };
-    casefile.selectedResource = (this.selectedResource.resource) ? this.selectedResource : null;
-    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe();
-  }
-
-  /**
-   * Switch between date range to single date
-   *
-   * @memberof ParticipantProfileComponent
-   */
-  switchDateRange() {
-    this.isDateRange = !this.isDateRange;
-    this.dateRangeText = (this.isDateRange) ? this.dateRange[1] : this.dateRange[0];
-    this.selectedResource.endDate = null;
-  }
-
-  /**
-   * Reset default values when closing panels
-   *
-   * @memberof ParticipantProfileComponent
-   */
-  resetDateSwitcher() {
-    this.isDateRange = true;
-  }
-
-  /**
-   * Update casefile note
-   * Casefile note will only update if the text value was changed
-   *
-   * @param {any} casefile
-   * @param {any} updatedNote
-   * @memberof ParticipantProfileComponent
-   */
-  updateCaseNote(casefile, updatedNote) {
-    if (casefile.notes[0] !== updatedNote) {
-      casefile.notes[0] = updatedNote;
-      this.casefileService.updateCaseNote(casefile._id, { notes: updatedNote }).subscribe();
-    }
   }
 
 }

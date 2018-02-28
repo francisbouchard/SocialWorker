@@ -30,7 +30,9 @@ import { CaseModalComponent } from './components/modals/case-modal/case-modal.co
 import { CasefileService } from './services/casefile.service';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
-
+import { CasefilesComponent } from './components/participants/participant-profile/casefiles/casefiles.component';
+import { NotesComponent } from './components/participants/participant-profile/notes/notes.component';
+import { DocumentsComponent } from './components/participants/participant-profile/documents/documents.component';
 
 const routes: Routes = [
   {
@@ -90,7 +92,10 @@ const routes: Routes = [
     DocumentComponent,
     RegisterUserComponent,
     OrderByPipe,
-    SearchPipe
+    SearchPipe,
+    CasefilesComponent,
+    NotesComponent,
+    DocumentsComponent
   ],
   imports: [
     BrowserModule,

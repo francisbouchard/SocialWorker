@@ -6,92 +6,12 @@
     padding: 1%;
 }
 
-.resource {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.name {
-    width: 18%;
-} 
-
-.datePicker {
-    width: 10%;
-    margin-left: 5px;
-}
-
-.datePicker p, .selectedResource p {
-    display: inline-block;
-}
-
-headerResources {
-    width: 100%;
-    margin-bottom: 1.8em;
-}
-
-div.bottomMenu {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; 
-}
-
-.contacted {
-    max-width: 10%;
-}
-
 .primary {
     color: blueviolet;  /* TODO Primary */ 
 }
 
 span.filler{
     width: 18%;
-}
-
-.caseNotes {
-    width: 36%;
-    display: inline-flex;
-    align-items: baseline;
-}
-
-.caseNotes mat-form-field {
-    width: 100%;
-}
-
-.selectedResource {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    margin-bottom: 2em;
-}
-
-.selectedResource div {
-    margin-right: 1em;
-    display: flex;
-    flex-direction: column;
-}
-
-.selectedResource p {
-    margin-right: 1em;
-}
-
-.dateSwitcher {
-    border: none;
-    text-align: left;
-    outline: none;
-    padding: 0px;
-    color: blueviolet; /* TODO Primary */ 
-}
-
-
-mat-icon {
-    align-self: center;
-    font-size: 1.25em;
-}
-
-mat-slide-toggle {
-    margin-left: 5px;
 }
 
 mat-panel-title {
