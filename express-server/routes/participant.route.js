@@ -129,8 +129,10 @@ router.post('/:pid/worker', (req, res) => {
     User.findById(req.body.workerID).then(user => {
         if (!user) return res.send({ err: "User (social worker) does not exist." });
 
-        Participant.update({ _id: req.params.pid }, { $push: { socialworkers: req.body.workerID } })
-            .then(data => {
+        Participant.findByIdAndUpdate({ _id: req.params.pid }, 
+            { $push: { socialworkers: req.body.workerID } }, 
+            { new: true }
+        ).populate("socialworkers").then(data => {
                 res.send(data);
             }, err => {
                 res.send(err);
@@ -139,6 +141,20 @@ router.post('/:pid/worker', (req, res) => {
         res.send(err);
     });
 });
+
+/**
+ * Remove social worker assigned from participant
+ */
+router.delete('/:pid/worker/:workerId', (req, res) => {
+    Participant.findByIdAndUpdate({ _id: req.params.pid },
+        { $pull: { socialworkers: new ObjectId(req.params.workerId) } },
+        { new: true }
+    ).populate("socialworkers").then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+})
 
 /**
  * Add a document to participant

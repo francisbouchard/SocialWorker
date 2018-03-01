@@ -4,7 +4,7 @@
       <div *ngFor="let worker of participant.workers">
         <span>{{ worker.name }} ({{ worker.email }})</span>
         <span class="example-fill-remaining-space"></span>
-        <button mat-raised-button (click)="close()">Remove</button>
+        <button mat-raised-button (click)="removeWorker(worker._id)">Remove</button>
       </div>
       <br>
       <mat-list-item>
@@ -15,7 +15,7 @@
                 </mat-option>
               </mat-select>
           </mat-form-field>
-          <button mat-raised-button (click)="addWorker()">Add</button>
+          <button mat-raised-button [disabled]="!selectedWorkerId" (click)="addWorker()">Add</button>
       </mat-list-item>
     <!-- </mat-list> -->
 </mat-dialog-content>

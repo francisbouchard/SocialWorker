@@ -261,7 +261,7 @@ export class ParticipantProfileComponent implements OnInit {
    * 
    * @memberof ParticipantProfileComponent
    */
-  assignWorker(): void {
+  editWorkers(): void {
     const dialogRef = this.dialog.open(AssignWorkerModalComponent, {
       width: '66%',
       data: { id: this.participantSelected._id, workers: this.participantSelected.socialworkers }

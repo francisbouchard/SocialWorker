@@ -134,6 +134,22 @@ export class ParticipantService {
   }
 
   /**
+   * Remove social worker with given ID from participant
+   * 
+   * @param {String} participantID 
+   * @param {String} workerID 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  removeSocialWorker(participantID: String, workerID: String): Observable<Object> {
+    return this.http.delete<Object>(`${this.url}/${participantID}/worker/${workerID}`)
+      .pipe(
+        tap(_ => this.log('removed social worker from participant')),
+        catchError(this.handleError<Object>('removeSocialWorker(participantID: String, workerID:String)'))
+      );
+  }
+
+  /**
    * Delete a participant by ID
    *
    * @param {any} participantID
