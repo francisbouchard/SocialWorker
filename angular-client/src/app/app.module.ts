@@ -33,7 +33,7 @@ import { SearchPipe } from './pipes/search.pipe';
 import { UsersComponent } from './components/users/users.component';
 import { ViewUsersComponent } from './components/users/view-users/view-users.component';
 import { UserService } from './services/user.service';
-import { AssignWorkerModalComponent } from './components/modals/assign-worker-modal/assign-worker-modal.component';
+import { EditWorkerModalComponent } from './components/modals/edit-worker-modal/edit-worker-modal.component';
 
 
 const routes: Routes = [
@@ -112,7 +112,7 @@ const routes: Routes = [
     SearchPipe,
     UsersComponent,
     ViewUsersComponent,
-    AssignWorkerModalComponent
+    EditWorkerModalComponent
   ],
   imports: [
     BrowserModule,
@@ -126,7 +126,7 @@ const routes: Routes = [
   entryComponents: [
     AlertModalComponent,
     CaseModalComponent,
-    AssignWorkerModalComponent,
+    EditWorkerModalComponent,
     DocumentComponent,
     NoteComponent
   ],

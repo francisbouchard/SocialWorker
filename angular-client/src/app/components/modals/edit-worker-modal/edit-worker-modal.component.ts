@@ -4,18 +4,18 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-assign-worker-modal',
-  templateUrl: './assign-worker-modal.component.html',
-  styleUrls: ['./assign-worker-modal.component.css']
+  selector: 'app-edit-worker-modal',
+  templateUrl: './edit-worker-modal.component.html',
+  styleUrls: ['./edit-worker-modal.component.css']
 })
-export class AssignWorkerModalComponent implements OnInit {
+export class EditWorkerModalComponent implements OnInit {
   allWorkers: [any];
   participantWorkersIds: [String];
   selectedWorkerId: String;
 
   constructor(private participantService: ParticipantService,
     private userService: UserService,
-    public dialogRef: MatDialogRef<AssignWorkerModalComponent>,
+    public dialogRef: MatDialogRef<EditWorkerModalComponent>,
     @Input() @Inject(MAT_DIALOG_DATA) public participant: any) { }
 
   ngOnInit() {

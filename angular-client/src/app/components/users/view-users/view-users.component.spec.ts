@@ -20,8 +20,7 @@ describe('ViewUsersComponent', () => {
       providers: [ 
         { provide: AuthenticationService, useClass: MockAuthenticationService },
         { provide: UserService, useClass: MockUserService },
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } },
-        // { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({_id: 'frontendtest'}) } } }
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } }
       ]
     })
     .compileComponents();

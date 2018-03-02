@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AssignWorkerModalComponent } from './assign-worker-modal.component';
+import { EditWorkerModalComponent } from './edit-worker-modal.component';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -10,9 +10,10 @@ import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { MockUserService } from '../../../mocks/MockUserService';
 
-describe('AssignWorkerModalComponent', () => {
-  let component: AssignWorkerModalComponent;
-  let fixture: ComponentFixture<AssignWorkerModalComponent>;
+describe('EditWorkerModalComponent', () => {
+  let component: EditWorkerModalComponent;
+  let fixture: ComponentFixture<EditWorkerModalComponent>;
+  let allButtons: [any];
 
   beforeEach(async(() => {
     let participantData = {
@@ -42,7 +43,7 @@ describe('AssignWorkerModalComponent', () => {
       ]
     };
     TestBed.configureTestingModule({
-      declarations: [AssignWorkerModalComponent],
+      declarations: [EditWorkerModalComponent],
       imports: [MaterialsModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
@@ -57,12 +58,31 @@ describe('AssignWorkerModalComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AssignWorkerModalComponent);
+    fixture = TestBed.createComponent(EditWorkerModalComponent);
     component = fixture.componentInstance;
+    const compiled = fixture.debugElement.nativeElement;
     fixture.detectChanges();
+    this.allButtons = Array.from(compiled.querySelectorAll('button'));
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display Remove button', () => {
+    // at least 1 Remove button should be present (at least 1 assigned social worker)
+    let removeBtn = this.allButtons.find(btn => btn.innerText == 'Remove');
+    expect(removeBtn).toBeTruthy();
+  });
+
+  it('should display Add button', () => {
+    let addBtn = this.allButtons.find(btn => btn.innerText == 'Add');
+    expect(addBtn).toBeTruthy();
+  });
+
+  it('should display OK button', () => {
+    let okBtn = this.allButtons.find(btn => btn.innerText == 'OK');
+    expect(okBtn).toBeTruthy();
+  });
+
 });
