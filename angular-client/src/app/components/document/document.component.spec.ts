@@ -1,6 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DocumentComponent } from './document.component';
+import { MaterialsModule } from '../../modules/materials.module';
+import { ParticipantService } from '../../services/participant.service';
+import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { AuthenticationService } from '../../services/authentication.service';
+import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 describe('DocumentComponent', () => {
   let component: DocumentComponent;
@@ -8,9 +15,17 @@ describe('DocumentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DocumentComponent ]
+      declarations: [DocumentComponent],
+      imports: [MaterialsModule],
+      providers: [
+        { provide: ParticipantService, useClass: MockParticipantService },
+        { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } },
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
