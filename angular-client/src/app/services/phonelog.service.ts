@@ -78,10 +78,17 @@ export class PhonelogService {
    */
 
    resolve(LogID, LogData): Observable<Object> {
-    return this.http.patch(`${this.url}/${LogID}`, LogData)
+    return this.http.put<Object>(`${this.url}/${LogID}/deleted`, LogData)
       .pipe(
-      tap(_ => this.log('saving a resource')),
-      catchError(this.handleError<Object>('resolve()'))
+      tap(c => {
+        if (c.hasOwnProperty('errmsg')) {
+          console.log('has err msg');
+          this.log('did not update status');
+        } else {
+          this.log('updated status');
+        }
+      }),
+      catchError(this.handleError<Object>('resolve(LogID, LogData)'))
       );
   }
 

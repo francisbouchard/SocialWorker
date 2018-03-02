@@ -68,8 +68,8 @@ export class ViewPhonelogComponent implements OnInit {
   }
 
   resolve(id, log) {
-    this.phonelogService.resolve(id, log) // TODO
-      .subscribe(data => {
+    var deleted=log.deleted;
+    this.phonelogService.resolve(id, {deleted:'true'}).subscribe(data => {
         console.log(data);
         this.cancel();
       });
