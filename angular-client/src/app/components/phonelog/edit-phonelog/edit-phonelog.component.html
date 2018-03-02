@@ -27,6 +27,13 @@
             <strong>Optional: choose platform</strong>
         </mat-hint>
     </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Date" type="date" name="date" [(ngModel)]="log.date">
+        <mat-hint align="start">
+            <strong>Optional: Choose date</strong>
+        </mat-hint>
+    </mat-form-field>
   
     <mat-form-field >
       <input matInput placeholder="Urgent" name="urgent" [(ngModel)]="log.urgent">

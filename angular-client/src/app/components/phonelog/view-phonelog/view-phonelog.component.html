@@ -11,7 +11,7 @@
    <div *ngIf="log.pronouns !== '' "><b> Pronoun: </b> {{log.pronouns}}<br></div>
    <div *ngIf="log.subject !== '' "><b> Subject: </b> {{log.subject}}<br></div>
    <div *ngIf="log.message !== '' "><b> Message: </b> {{log.message}}<br></div>  
-   <div *ngIf="log.callertype !== '' "><b> Type of person: </b> {{log.callertype}}<br></div>
+   <div *ngIf="log.callertype !== '' && log.callertype !==undefined "><b> Type of person: </b> {{log.callertype}}<br></div>
   </mat-card-content>
   <mat-card-actions>
       <button mat-raised-button (click)="edit(log._id, log)">Edit</button>
