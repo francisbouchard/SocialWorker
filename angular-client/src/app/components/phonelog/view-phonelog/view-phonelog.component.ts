@@ -3,7 +3,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { RouterModule, Router } from '@angular/router';
 import { Phonelog } from '../../../classes/phonelog';
 import { PhonelogService } from '../../../services/phonelog.service';
-
+import { ChangeDetectorRef} from '@angular/core';
 
 @Component({
   selector: 'app-view-phonelog',
@@ -21,6 +21,7 @@ export class ViewPhonelogComponent implements OnInit {
 
 
   constructor(
+    private chRef: ChangeDetectorRef, 
     private phonelogService: PhonelogService,
     public authService: AuthenticationService,
     public router: Router) { }
@@ -66,15 +67,15 @@ export class ViewPhonelogComponent implements OnInit {
         this.cancel();
       });
   }
+    
 
-  resolve(id, log) {
+ resolve(id, log) {
     var deleted=log.deleted;
     this.phonelogService.resolve(id, {deleted:'true'}).subscribe(data => {
-        console.log(data);
-        this.cancel();
+        this.logs=[];
+        this.loadLogs();
       });
   }
-
    /**
    * Cancel edit mode and return to view mode
    *
