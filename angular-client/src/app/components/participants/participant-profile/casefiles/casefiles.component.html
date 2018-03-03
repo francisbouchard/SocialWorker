@@ -137,17 +137,19 @@
         <!-- Selected Resource -->
         <h4>Selected Resource:</h4>
 
-        <div class="selectedResource" *ngIf="casefile.status == 'In progress' && casefile==editedCasefile && !casefile.selectedResource">
+        <div class="selectedResource" *ngIf="casefile.status == 'In progress' && casefile==editedCasefile && (!casefile.selectedResource || isEditingSelectedResource)">
           <form [formGroup]="casefileFormSelectedResource">
             
             <!-- Resource name -->
-            <mat-form-field>
-              <mat-select placeholder="Resource" formControlName="resource" (selectionChange)="updateCaseSelectedResource(casefile, selectedResource.value)">
-                <mat-option *ngFor="let selectedResource of editedCasefile.contactedResources" [value]="selectedResource">
-                  {{selectedResource.resource.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <div>
+              <mat-form-field>
+                <mat-select placeholder="Resource" formControlName="resource">
+                  <mat-option *ngFor="let selectedResource of editedCasefile.contactedResources" [value]="selectedResource">
+                    {{selectedResource.resource.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
 
             <!-- Resource with single date-->
             <div>
@@ -173,43 +175,11 @@
           </form>
         </div>
 
-        <!-- <div class="selectedResource" *ngIf="!casefile.selectedResource || !casefile.selectedResource.resource">
-          
-          <div>
-            <mat-form-field>
-              <mat-select #selectedResource placeholder="Resource" (selectionChange)="updateCaseSelectedResource(casefile, selectedResource.value)">
-                <mat-option *ngFor="let caseResource of casefile.contactedResources" [value]="caseResource">
-                  {{caseResource.resource.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div>
-            <mat-form-field>
-              <input matInput name="startDate" [matDatepicker]="startDatePicker" placeholder="{{(isDateRange) ? 'Start date' : 'Date'}}" (dateChange)="updateCaseSelectedResourceDate(casefile, $event)">
-              <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-              <mat-datepicker #startDatePicker startView="month" [startAt]="startDate"></mat-datepicker>
-            </mat-form-field>
-            <button class="dateSwitcher" (click)="switchDateRange()">{{dateRangeText}}</button>
-          </div>
-
-          <div *ngIf="isDateRange">
-            <mat-form-field>
-              <input matInput name="endDate" [matDatepicker]="endDatePicker" placeholder="End date" (dateChange)="updateCaseSelectedResourceDate(casefile, $event)">
-              <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-              <mat-datepicker #endDatePicker startView="month" [startAt]="startDate"></mat-datepicker>
-            </mat-form-field>
-          </div>
-
-          <button mat-raised-button type="button" (click)="saveCaseSelectedResource(casefile)" [disabled]="caseSelectedResourceIsInvalid()">Save selection</button>
-        </div> -->
-
-        <div *ngIf="casefile.selectedResource && casefile.selectedResource.resource" class="selectedResource">
+        <div *ngIf="casefile.selectedResource && !isEditingSelectedResource" class="selectedResource">
           <p>{{casefile.selectedResource.resource.name}}</p>
           <p *ngIf="casefile.selectedResource.startDate">Date: {{casefile.selectedResource.startDate | date:'M/d/yyyy'}}</p>
           <p *ngIf="casefile.selectedResource.endDate">- {{casefile.selectedResource.endDate | date:'M/d/yyyy'}}</p>
-          <button mat-icon-button color="primary" type="button" (click)="updateCaseSelectedResource(casefile, null)">
+          <button mat-icon-button color="primary" type="button" (click)="updateCaseSelectedResource(casefile.selectedResource)">
             <mat-icon matSuffix>mode_edit</mat-icon>
           </button>
         </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CasefileService } from '../../../../services/casefile.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Casefile } from '../../../../classes/case';
 
 @Component({
   selector: 'app-casefiles',
@@ -26,6 +27,7 @@ export class CasefilesComponent implements OnInit {
   casefileFormNote: FormGroup;
   casefileFormSelectedResource: FormGroup;
   isDateRange = true;
+  isEditingSelectedResource = true;
 
   constructor(
     private casefileService: CasefileService,
@@ -37,6 +39,7 @@ export class CasefilesComponent implements OnInit {
 
   setEditedCasefile(casefile) {
     this.editedCasefile = casefile;
+    this.isEditingSelectedResource = (casefile.selectedResource) ? false : true;
     this.createFormNote();
     this.createFormSelectedResource();
   }
@@ -49,9 +52,9 @@ export class CasefilesComponent implements OnInit {
 
   createFormSelectedResource() {
     this.casefileFormSelectedResource = this.form.group({
-      resource: '',
-      startDate: new Date(),
-      endDate: new Date()
+      resource: [ null, Validators.required ],
+      startDate: [ new Date(), Validators.required ],
+      endDate: [ new Date(), Validators.required ]
     });
   }
 
@@ -115,35 +118,20 @@ export class CasefilesComponent implements OnInit {
   /**
    * Update casefile with selected resource
    *
-   * @param {any} casefile
-   * @param {any} selection
+   * @param {any} selectedResource
    * @memberof CasefilesComponent
    */
-  updateCaseSelectedResource(casefile, selection) {
+  updateCaseSelectedResource(selectedResource) {
 
-    if (selection) {
-      this.selectedResource.resource = selection.resource;
-    } else {
-      this.selectedResource.resource = null;
-      this.selectedResource.startDate = null;
-      this.selectedResource.endDate = null;
-      casefile.selectedResource = null;
-    }
+    this.casefileFormSelectedResource.patchValue({
+      resource: selectedResource.resource,
+      startDate: selectedResource.startDate,
+      endDate: selectedResource.endDate
+    });
+
+    this.isEditingSelectedResource = true;
   }
 
-  /**
- * Add single date or date range to selected resource
- * Does not save this to the database
- *
- * @param {any} casefile
- * @param {any} input
- * @memberof CasefilesComponent
- */
-  updateCaseSelectedResourceDate(casefile, input) {
-    this.selectedResource.startDate = (input.targetElement.name === 'startDate') ? input.value : this.selectedResource.startDate;
-    this.selectedResource.endDate = (input.targetElement.name === 'endDate') ? input.value : this.selectedResource.endDate;
-    this.startDate = this.selectedResource.startDate;
-  }
 
   /**
    * Save selected resource to database
@@ -154,26 +142,15 @@ export class CasefilesComponent implements OnInit {
   saveCaseSelectedResource(casefile) {
     const selectedResourceFormModel = this.casefileFormSelectedResource.value;
     selectedResourceFormModel.resource = selectedResourceFormModel.resource.resource;
+    selectedResourceFormModel.endDate = (this.isDateRange) ? selectedResourceFormModel.endDate : null;
     const selectedResourceObject = { 'selectedResource': selectedResourceFormModel };
 
     // const selectedResourceObject = { 'selectedResource': ((this.selectedResource.resource) ? this.selectedResource : null) };
     // casefile.selectedResource = (this.selectedResource.resource) ? this.selectedResource : null;
     this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe( data => {
       casefile.selectedResource = selectedResourceFormModel;
+      this.isEditingSelectedResource = false;
     });
-  }
-
-  /**
-   * Check if selected resource has a resource and dates are valid
-   *
-   * @memberof CasefilesComponent
-   */
-  caseSelectedResourceIsInvalid(): boolean {
-    if ((this.selectedResource.endDate > this.selectedResource.startDate) && this.selectedResource.resource) {
-      return false;
-    } else {
-      return true;
-    }
   }
 
   /**
@@ -184,7 +161,6 @@ export class CasefilesComponent implements OnInit {
   switchDateRange() {
     this.isDateRange = !this.isDateRange;
     this.dateRangeText = (this.isDateRange) ? this.dateRange[1] : this.dateRange[0];
-    // this.casefileFormSelectedResource.endDate = null;
   }
 
   /**
