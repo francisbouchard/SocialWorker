@@ -13,6 +13,7 @@ export class EditParticipantComponent implements OnInit {
   @Input() participant: Participant;
   @Output() cancel = new EventEmitter();
   participantForm: FormGroup;
+  phoneregex = /^(\+)?(\d){0,2}(-|.|\s|\()?(\d){3}(-|.|\s|\()?(\d){3}(-|.|\s|\()?(\d){4}$/m;
 
   constructor(
     private form: FormBuilder,
@@ -33,7 +34,7 @@ export class EditParticipantComponent implements OnInit {
       name: this.participant.name || '',
       pronouns: this.participant.pronouns || '',
       email: this.participant.email || '',
-      telephone: this.participant.telephone || '',
+      telephone: [this.participant.telephone || '', Validators.pattern(this.phoneregex)],
       address: this.participant.address || '',
       socialMediaPlatform: this.participant.socialmedia.service || '',
       socialMediaUsername: this.participant.socialmedia.username || ''
