@@ -32,11 +32,6 @@
 </div>
 
 <div *ngIf="editingParticipant == participant">
-    <app-edit-participant [participant]="editingParticipant" ></app-edit-participant>
-    <mat-card-actions>
-      <button mat-raised-button (click)="update(participant._id, participant)">Update</button>
-      <button mat-raised-button (click)="delete(participant._id)">Delete</button>
-      <button mat-raised-button (click)="cancel()">Cancel</button>
-    </mat-card-actions>
+    <app-edit-participant [participant]="editingParticipant" (cancel)="cancel()"></app-edit-participant>
 </div>
 </mat-card>
