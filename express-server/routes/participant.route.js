@@ -125,6 +125,31 @@ router.delete('/:pid', (req, res) => {
 });
 
 /**
+ * Update given participant
+ */
+router.put('/:pid', (req, res) => {
+    Participant.findById(req.params.pid).then(participant => {
+        participant.name = req.body.name || participant.name;
+        participant.pronouns = req.body.pronouns || participant.pronouns;
+        participant.address = req.body.address || participant.address;
+        participant.telephone = req.body.telephone || participant.telephone;
+        participant.email = req.body.email || participant.email;
+        participant.socialmedia.service = req.body.service || participant.socialmedia.service;
+        participant.socialmedia.username = req.body.username || participant.socialmedia.username;
+        participant.notes = req.body.notes || participant.notes;
+        participant.documents = req.body.documents || participant.documents;
+
+        participant.save().then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+    }, err => {
+        res.send(err);
+    })
+});
+
+/**
  * Add a social worker to participant
  */
 router.post('/:pid/worker', (req, res) => {

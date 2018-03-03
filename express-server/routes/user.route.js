@@ -77,9 +77,9 @@ router.post('/logout', (req, res, next) => {
 
 router.post('/heartbeat', (req, res, next) => {
   if(req.user){
-    res.send({loggedIn: true});
+    res.send({loggedIn: true, role: req.user.role});
   } else {
-    res.send({loggedIn: false})
+    res.send({loggedIn: false, role: null})
   }
 });
 
