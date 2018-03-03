@@ -151,6 +151,9 @@ router.post('/:pid/doc', (req, res) => {
         date: req.query.date,
         attachment: req.query.attachment
     });
+    if(!req.files){
+        return res.status(400).send({err: "No file sent"});
+    } 
 
     fs.exists(path.join(__dirname, "../documents", req.params.pid), exists => {
         if(!exists){
@@ -162,7 +165,7 @@ router.post('/:pid/doc', (req, res) => {
                         if(err){
                             res.status(500).send(err);
                         } else {
-                            if(req.files.attachment.mimetype == "application/pdf"){
+                            if(req.files.attachment.mimetype && req.files.attachment.mimetype == "application/pdf"){
                                 pdfThumbnail.makeThumbnail(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), (err, data) => {
                                     let document = new Document({
                                         text: req.query.text,
@@ -196,7 +199,7 @@ router.post('/:pid/doc', (req, res) => {
                 if(err){
                     res.status(500).send(err);
                 } else {
-                    if(req.files.attachment.mimetype == "application/pdf"){
+                    if(req.files.attachment.mimetype && req.files.attachment.mimetype == "application/pdf"){
                         pdfThumbnail.makeThumbnail(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), (err, data) => {
                             let document = new Document({
                                 text: req.query.text,
@@ -243,6 +246,9 @@ router.delete('/:pid/doc/:docId', (req, res) => {
  * Add a note to participant
  */
 router.post('/:pid/note', (req, res) => { 
+    if(!req.files){
+        return res.status(400).send({err: "No file sent"});
+    }
     fs.exists(path.join(__dirname, "../notes", req.params.pid), exists => {
         if(!exists){
             fs.mkdir(path.join(__dirname, "../notes", req.params.pid), err => {
@@ -253,7 +259,7 @@ router.post('/:pid/note', (req, res) => {
                         if(err){
                             res.status(500).send(err);
                         } else {
-                            if(req.files.attachment.mimetype == "application/pdf"){
+                            if(req.files.attachment.mimetype && req.files.attachment.mimetype == "application/pdf"){
                                 pdfThumbnail.makeThumbnail(path.join(__dirname, "../notes", req.params.pid, req.query.attachment), (err, data) => {
                                     let note = new Note({
                                         text: req.query.text,
