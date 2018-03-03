@@ -4,6 +4,8 @@ const should = chai.should();
 const mongoose = require('mongoose');
 const server = require('../server');
 const Participant = require('../models/Participant');
+const fs = require('fs');
+const path = require('path');
 
 let id1 = 'testingID1';
 let id2 = 'testingID2';
@@ -250,6 +252,8 @@ describe('Participant Tests', () => {
                 let numOfDocs = participant.documents.length;
                 chai.request(server)
                     .post('/api/participant/' + id1 + '/doc')
+                    .attach('attachment', fs.readFileSync(path.join(__dirname, '../../', 'course-admin', 'Proposal 13-dec-2017.pdf')), 'Proposal 13-dec-2017.pdf')
+                    .query({attachment: 'Proposal 13-dec-2017.pdf'})                    
                     .set('Cookie', cookie)
                     .send(document)
                     .end((err, res) => {
@@ -273,6 +277,8 @@ describe('Participant Tests', () => {
                 let numOfNotes = participant.notes.length;
                 chai.request(server)
                     .post('/api/participant/' + id1 + '/note')
+                    .attach('attachment', fs.readFileSync(path.join(__dirname, '../../', 'course-admin', 'Proposal 13-dec-2017.pdf')), 'Proposal 13-dec-2017.pdf')
+                    .query({attachment: 'Proposal 13-dec-2017.pdf'})
                     .set('Cookie', cookie)
                     .send(note)
                     .end((err, res) => {
