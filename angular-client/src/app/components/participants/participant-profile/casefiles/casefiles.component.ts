@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CasefileService } from '../../../../services/casefile.service';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-casefiles',
@@ -21,11 +22,28 @@ export class CasefilesComponent implements OnInit {
   dateRangeText = this.dateRange[1];
   isDateRange = true;
 
-  constructor(private casefileService: CasefileService) { }
+  // NEW PARAMS
+  casefileFormNote: FormGroup;
+  editedCasefile: any;
+
+  constructor(
+    private casefileService: CasefileService,
+    private form: FormBuilder,
+  ) { }
 
   ngOnInit() {
   }
 
+  setEditedCasefile(casefile) {
+    this.editedCasefile = casefile;
+    this.createFormNote();
+  }
+
+  createFormNote() {
+    this.casefileFormNote = this.form.group({
+      notes: this.editedCasefile.notes[0] || ''
+    });
+  }
 
   /**
    * Update casefile note
@@ -35,11 +53,9 @@ export class CasefilesComponent implements OnInit {
    * @param {any} updatedNote
    * @memberof ParticipantProfileComponent
    */
-  updateCaseNote(casefile, updatedNote) {
-    if (casefile.notes[0] !== updatedNote) {
-      casefile.notes[0] = updatedNote;
-      this.casefileService.updateCaseNote(casefile._id, { notes: updatedNote }).subscribe();
-    }
+  updateCaseNote(casefile) {
+    const noteFormModel = this.casefileFormNote.value;
+    this.casefileService.updateCaseNote(casefile._id, noteFormModel ).subscribe();
   }
 
 

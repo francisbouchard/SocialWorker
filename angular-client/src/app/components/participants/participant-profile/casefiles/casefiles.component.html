@@ -5,7 +5,7 @@
   </mat-card>
 
   <mat-accordion *ngIf="orderedCases.length > 0">
-    <mat-expansion-panel *ngFor="let casefile of orderedCases; let caseIndex = index" (closed)="resetDateSwitcher()">
+    <mat-expansion-panel *ngFor="let casefile of orderedCases; let caseIndex = index" (opened)="setEditedCasefile(casefile)" (closed)="resetDateSwitcher()">
 
       <!-- Panel Header -->
       <mat-expansion-panel-header>
@@ -21,11 +21,25 @@
       <h4>Urgency: </h4>{{casefile.urgency}}
       <h4>Type: </h4>{{casefile.type}}
       <h4 *ngIf="casefile.notes[0] || (casefile.status == 'In progress')">Notes:</h4>
+      
+      <!-- Casefile note as text -->
       <p *ngIf="casefile.notes[0] && (casefile.status == 'Completed')">{{casefile.notes[0]}}</p>
-      <mat-form-field *ngIf="casefile.status == 'In progress'">
-        <textarea #casefileNote matInput placeholder="Any relevant notes" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"
-          value="{{casefile.notes[0]}}" (keyup.enter)="updateCaseNote(casefile, casefileNote.value)" (blur)="updateCaseNote(casefile, casefileNote.value)"></textarea>
-      </mat-form-field>
+      
+      <!-- Casefile note as form -->
+      <div *ngIf="casefile.status == 'In progress' && casefile==editedCasefile">
+        <form [formGroup]="casefileFormNote">
+          <mat-form-field>
+            <textarea #casefileNote matInput 
+              placeholder="Any relevant notes" 
+              matTextareaAutosize matAutosizeMinRows="2" 
+              matAutosizeMaxRows="5"
+              formControlName="notes" 
+              (keyup.enter)="updateCaseNote(casefile)" 
+              (blur)="updateCaseNote(casefile)">
+            </textarea>
+          </mat-form-field>
+        </form>
+      </div>
 
       <!-- Casefile resources to contact -->
       <h4>Resources:</h4>
