@@ -20,11 +20,12 @@ export class CasefilesComponent implements OnInit {
   startDate = new Date();
   dateRange = ['Switch to date range', 'Switch to single date'];
   dateRangeText = this.dateRange[1];
-  isDateRange = true;
 
   // NEW PARAMS
-  casefileFormNote: FormGroup;
   editedCasefile: any;
+  casefileFormNote: FormGroup;
+  casefileFormSelectedResource: FormGroup;
+  isDateRange = true;
 
   constructor(
     private casefileService: CasefileService,
@@ -37,6 +38,7 @@ export class CasefilesComponent implements OnInit {
   setEditedCasefile(casefile) {
     this.editedCasefile = casefile;
     this.createFormNote();
+    this.createFormSelectedResource();
   }
 
   createFormNote() {
@@ -45,15 +47,22 @@ export class CasefilesComponent implements OnInit {
     });
   }
 
+  createFormSelectedResource() {
+    this.casefileFormSelectedResource = this.form.group({
+      resource: '',
+      startDate: new Date(),
+      endDate: new Date()
+    });
+  }
+
   /**
    * Update casefile note
-   * Casefile note will only update if the text value was changed
    *
    * @param {any} casefile
-   * @param {any} updatedNote
    * @memberof ParticipantProfileComponent
    */
   updateCaseNote(casefile) {
+    // TODO: update only if the text value has changed
     const noteFormModel = this.casefileFormNote.value;
     this.casefileService.updateCaseNote(casefile._id, noteFormModel ).subscribe();
   }
@@ -143,9 +152,15 @@ export class CasefilesComponent implements OnInit {
    * @memberof CasefilesComponent
    */
   saveCaseSelectedResource(casefile) {
-    const selectedResourceObject = { 'selectedResource': ((this.selectedResource.resource) ? this.selectedResource : null) };
-    casefile.selectedResource = (this.selectedResource.resource) ? this.selectedResource : null;
-    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe();
+    const selectedResourceFormModel = this.casefileFormSelectedResource.value;
+    selectedResourceFormModel.resource = selectedResourceFormModel.resource.resource;
+    const selectedResourceObject = { 'selectedResource': selectedResourceFormModel };
+
+    // const selectedResourceObject = { 'selectedResource': ((this.selectedResource.resource) ? this.selectedResource : null) };
+    // casefile.selectedResource = (this.selectedResource.resource) ? this.selectedResource : null;
+    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe( data => {
+      casefile.selectedResource = selectedResourceFormModel;
+    });
   }
 
   /**
@@ -169,7 +184,7 @@ export class CasefilesComponent implements OnInit {
   switchDateRange() {
     this.isDateRange = !this.isDateRange;
     this.dateRangeText = (this.isDateRange) ? this.dateRange[1] : this.dateRange[0];
-    this.selectedResource.endDate = null;
+    // this.casefileFormSelectedResource.endDate = null;
   }
 
   /**

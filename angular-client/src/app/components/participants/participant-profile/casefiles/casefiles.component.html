@@ -22,10 +22,10 @@
       <h4>Type: </h4>{{casefile.type}}
       <h4 *ngIf="casefile.notes[0] || (casefile.status == 'In progress')">Notes:</h4>
       
-      <!-- Casefile note as text -->
+      <!-- Casefile completed: note as text -->
       <p *ngIf="casefile.notes[0] && (casefile.status == 'Completed')">{{casefile.notes[0]}}</p>
       
-      <!-- Casefile note as form -->
+      <!-- Casefile in progress: note as form -->
       <div *ngIf="casefile.status == 'In progress' && casefile==editedCasefile">
         <form [formGroup]="casefileFormNote">
           <mat-form-field>
@@ -136,7 +136,44 @@
 
         <!-- Selected Resource -->
         <h4>Selected Resource:</h4>
-        <div class="selectedResource" *ngIf="!casefile.selectedResource || !casefile.selectedResource.resource">
+
+        <div class="selectedResource" *ngIf="casefile.status == 'In progress' && casefile==editedCasefile && !casefile.selectedResource">
+          <form [formGroup]="casefileFormSelectedResource">
+            
+            <!-- Resource name -->
+            <mat-form-field>
+              <mat-select placeholder="Resource" formControlName="resource" (selectionChange)="updateCaseSelectedResource(casefile, selectedResource.value)">
+                <mat-option *ngFor="let selectedResource of editedCasefile.contactedResources" [value]="selectedResource">
+                  {{selectedResource.resource.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Resource with single date-->
+            <div>
+              <mat-form-field>
+                <input matInput name="startDate" formControlName="startDate" [matDatepicker]="startDatePicker" placeholder="{{(isDateRange) ? 'Start date' : 'Date'}}">
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker startView="month" [startAt]="startDate"></mat-datepicker>
+              </mat-form-field>
+              <button class="dateSwitcher" (click)="switchDateRange()">{{dateRangeText}}</button>
+            </div>
+
+            <!-- Resource with date range-->
+            <div *ngIf="isDateRange">
+              <mat-form-field>
+                <input matInput name="endDate" formControlName="endDate" [matDatepicker]="endDatePicker" placeholder="End date">
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #endDatePicker startView="month" [startAt]="startDate"></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <button mat-raised-button type="submit" (click)="saveCaseSelectedResource(casefile)" [disabled]="casefileFormSelectedResource.invalid">Save selection</button>
+
+          </form>
+        </div>
+
+        <!-- <div class="selectedResource" *ngIf="!casefile.selectedResource || !casefile.selectedResource.resource">
           
           <div>
             <mat-form-field>
@@ -166,7 +203,7 @@
           </div>
 
           <button mat-raised-button type="button" (click)="saveCaseSelectedResource(casefile)" [disabled]="caseSelectedResourceIsInvalid()">Save selection</button>
-        </div>
+        </div> -->
 
         <div *ngIf="casefile.selectedResource && casefile.selectedResource.resource" class="selectedResource">
           <p>{{casefile.selectedResource.resource.name}}</p>
