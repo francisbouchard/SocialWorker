@@ -22,19 +22,15 @@ describe('EditParticipantComponent', () => {
     fixture = TestBed.createComponent(EditParticipantComponent);
     component = fixture.componentInstance;
     component.participant = {
-      '_id': 'random',
+      '_id': 'sally123',
       'name': 'Sally',
-      'username': 'sally123',
       'pronouns': 'they/them',
       'address': '123 Wilson',
       'telephone': '(514) 456-1231',
       'email': 'noemail@service.com',
       'socialmedia': { 'service': 'NoSocial', 'username': 'username' },
       'notes': [{}],
-      'documents': [{}],
-      'createdAt': '2018-01-27T16:43:26.756Z',
-      'updatedAt': '2018-01-27T16:43:26.756Z',
-      '__v': 0
+      'documents': [{}]
     };
     fixture.detectChanges();
   });
