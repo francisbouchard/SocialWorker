@@ -33,7 +33,6 @@ const app = express();
 //Connect to mongo
 const mongoUrl = process.env.MONGOLAB_URL;
 
-console.log(mongoUrl)
 
 app.use(fileUpload());
 
