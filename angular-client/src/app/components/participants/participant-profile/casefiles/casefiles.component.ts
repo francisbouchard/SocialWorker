@@ -26,6 +26,7 @@ export class CasefilesComponent implements OnInit {
   ngOnInit() {
   }
 
+
   /**
    * Update casefile note
    * Casefile note will only update if the text value was changed
