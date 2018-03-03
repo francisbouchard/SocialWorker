@@ -263,7 +263,7 @@ export class ParticipantProfileComponent implements OnInit {
    */
   editWorkers(): void {
     const dialogRef = this.dialog.open(EditWorkerModalComponent, {
-      width: '66%',
+      width: '33%',
       data: { id: this.participantSelected._id, workers: this.participantSelected.socialworkers }
     });
     dialogRef.afterClosed().subscribe(result => {

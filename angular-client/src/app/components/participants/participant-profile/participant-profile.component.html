@@ -20,7 +20,7 @@
       <button mat-raised-button (click)="newCase()">New case</button>
       <button mat-raised-button (click)="addNote()">Add Note</button>
       <button mat-raised-button (click)="addDocument()">Add document</button>
-      <button mat-raised-button (click)="editWorkers()">Edit Social Workers</button>
+      <button *ngIf="this.authService.role == 'admin'" mat-raised-button (click)="editWorkers()">Edit Social Workers</button>
     </mat-card-actions>
   </mat-card>
 
