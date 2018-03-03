@@ -53,8 +53,8 @@ export class CasefilesComponent implements OnInit {
   createFormSelectedResource() {
     this.casefileFormSelectedResource = this.form.group({
       resource: [ null, Validators.required ],
-      startDate: [ new Date(), Validators.required ],
-      endDate: [ new Date(), Validators.required ]
+      startDate: [ null, Validators.required ],
+      endDate: [ null, Validators.required ]
     });
   }
 
@@ -132,7 +132,6 @@ export class CasefilesComponent implements OnInit {
     this.isEditingSelectedResource = true;
   }
 
-
   /**
    * Save selected resource to database
    *
@@ -145,11 +144,16 @@ export class CasefilesComponent implements OnInit {
     selectedResourceFormModel.endDate = (this.isDateRange) ? selectedResourceFormModel.endDate : null;
     const selectedResourceObject = { 'selectedResource': selectedResourceFormModel };
 
-    // const selectedResourceObject = { 'selectedResource': ((this.selectedResource.resource) ? this.selectedResource : null) };
-    // casefile.selectedResource = (this.selectedResource.resource) ? this.selectedResource : null;
     this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe( data => {
       casefile.selectedResource = selectedResourceFormModel;
       this.isEditingSelectedResource = false;
+    });
+  }
+
+  removeCaseSelectedResource(casefile) {
+    this.casefileService.updateCaseSelectedResource(casefile._id, { 'selectedResource': null}).subscribe( data => {
+      casefile.selectedResource = null;
+      this.casefileFormSelectedResource.reset({});
     });
   }
 
