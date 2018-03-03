@@ -9,7 +9,7 @@ export class MessageService {
 
   /**
  * Add message to the cache
- * @param {string} message 
+ * @param {string} message
  * @memberof MessageService
  */
   add(message: string) {
