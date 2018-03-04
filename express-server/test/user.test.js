@@ -57,13 +57,15 @@ describe('User Tests', () => {
 
     describe('Delete Account', () => {
         it('should delete a user\'s account', (done) => {
-            chai.request(server)
-                .delete('/user')
-                .set('Cookie', cookie)
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    done();
-                });
+            Users.findOne({ email: 'testing@test.com' }).then(user => {
+                chai.request(server)
+                    .delete('/user/' + user._id)
+                    .set('Cookie', cookie)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        done();
+                    });
+            })
         });
     });
 
