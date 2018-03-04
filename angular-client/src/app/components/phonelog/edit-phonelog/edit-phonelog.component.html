@@ -12,12 +12,6 @@
     </mat-form-field>
 
     <mat-form-field>
-        <span matPrefix>+1 &nbsp;</span>
-        <input type="tel" matInput placeholder="User" name="user" [(ngModel)]="log.user">
-    </mat-form-field>
-
-    <mat-form-field>
-        <span matPrefix>+1 &nbsp;</span>
         <input type="tel" matInput placeholder="Subject" name="subject" [(ngModel)]="log.subject">
     </mat-form-field>
 
@@ -28,22 +22,23 @@
         </mat-hint>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field >
         <input matInput placeholder="Date" type="date" name="date" [(ngModel)]="log.date">
         <mat-hint align="start">
             <strong>Optional: Choose date</strong>
         </mat-hint>
     </mat-form-field>
   
-    <mat-form-field >
-      <input matInput placeholder="Urgent" name="urgent" [(ngModel)]="log.urgent">
-      <mat-hint align="start">
-        <strong>Optional: choose account handle</strong>
-      </mat-hint>
-    </mat-form-field>
+   <mat-radio-group [(ngModel)]="log.urgent" name="urgent">
+  <mat-radio-button value="true">True </mat-radio-button>
+  <mat-radio-button value="false">False</mat-radio-button>
+</mat-radio-group>
 
-    <mat-form-field>
-        <input matInput placeholder="Caller Type" name="callertype" [(ngModel)]="log.callertype">
-      </mat-form-field>
+
+    <mat-select placeholder="Type of caller" name="callertype" [(ngModel)]="log.callertype">
+          <mat-option *ngFor="let caller of callertype" [value]="caller">
+            {{ caller}}
+          </mat-option>
+        </mat-select>
 
   </form>

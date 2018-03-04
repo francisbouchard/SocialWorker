@@ -66,7 +66,7 @@ export class ViewPhonelogComponent implements OnInit {
   update(id, log) {
     this.phonelogService.update(id, log) // TODO
       .subscribe(data => {
-        console.log(data);
+        this.logs=[];
         this.cancel();
       });
   }
@@ -86,6 +86,7 @@ export class ViewPhonelogComponent implements OnInit {
    */
   cancel() {
     this.edit('', null);
+    this.logs=[];
     this.loadLogs();
   }
 
