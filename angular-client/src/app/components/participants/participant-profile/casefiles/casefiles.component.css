@@ -40,7 +40,7 @@ headerResources {
 }
 
 .datePicker p, .selectedResource p {
-    display: flex;
+    display: inline;
 }
 
 /* Selected resource */
