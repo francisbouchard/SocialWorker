@@ -1,0 +1,24 @@
+<h3 class="history-header">Documents</h3>
+<mat-card *ngIf="orderedDocuments.length == 0">
+  No documents to display.
+</mat-card>
+<mat-accordion *ngIf="orderedDocuments.length > 0">
+  <mat-expansion-panel *ngFor="let document of orderedDocuments">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{document.date | date: 'fullDate'}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{document.type}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <h4>Attachments:</h4>
+    <mat-grid-list cols="2" *ngFor="let doc of document.attachment">
+      <!-- <mat-grid-tile> -->
+      <img [src]="doc">
+      <!-- </mat-grid-tile> -->
+    </mat-grid-list>
+    <br>
+    <button mat-raised-button (click)="deleteDocument(document._id)">Delete Document</button>
+  </mat-expansion-panel>
+</mat-accordion>
