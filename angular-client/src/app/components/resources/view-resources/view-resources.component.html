@@ -31,11 +31,6 @@
     </div>
 
     <div *ngIf="editingResource == resource">
-      <app-edit-resource [resource]="editingResource" ></app-edit-resource>
-      <mat-card-actions>
-          <button mat-raised-button (click)="update(resource._id, resource)">Update</button>
-          <button mat-raised-button (click)="delete(resource._id)">Delete</button>
-          <button mat-raised-button (click)="cancel()">Cancel</button>
-        </mat-card-actions>
+      <app-edit-resource [resource]="editingResource" (cancel)="cancel()"></app-edit-resource>
     </div>
   </mat-card>
