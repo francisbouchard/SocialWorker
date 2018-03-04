@@ -21,7 +21,7 @@ import {
   MatSlideToggleModule,
   MatTabsModule,
   MatToolbarModule} from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -46,7 +46,8 @@ import { FormsModule } from '@angular/forms';
     MatSelectModule,
     MatSlideToggleModule,
     MatTabsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    ReactiveFormsModule
   ]
 })
 export class MaterialsModule { }

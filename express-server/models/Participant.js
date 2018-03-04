@@ -20,6 +20,6 @@ const participantSchema = new Schema({
   deleted: { type: Boolean, default: false }
 }, { _id: false, timestamps: true });
 
-const Participant = mongoose.model('Participant', participantSchema);
+const Participant = mongoose.model('Participant', participantSchema, 'participants');
 
 module.exports = Participant;

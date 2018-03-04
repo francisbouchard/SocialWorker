@@ -10,6 +10,6 @@ const resourceSchema = new Schema({
     deleted: { type: Boolean, default: false }
   }, { discriminatorKey: 'kind', timestamps: true });
 
-const Resource = mongoose.model('Resource', resourceSchema);
+const Resource = mongoose.model('Resource', resourceSchema, 'resources');
 
 module.exports = Resource;

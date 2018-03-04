@@ -50,7 +50,7 @@ describe('ParticipantProfileComponent', () => {
   it('should display user\'s note and its attached image', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('mat-expansion-panel').textContent).toContain('Note for testing');
-    expect(compiled.querySelector('img')).toBeTruthy();
+    expect(compiled.querySelector('h4')).toBeTruthy();
   });
 
   it('should refresh resources displayed when one gets deleted', fakeAsync(() => {
