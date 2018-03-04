@@ -1,8 +1,7 @@
 <h1 mat-dialog-title>Edit Assigned Social Workers</h1>
 <mat-dialog-content>
     <div class="alignedList" *ngFor="let worker of participant.workers">
-      <span>{{ worker.name }} ({{ worker.email }})</span>
-      <span class="example-fill-remaining-space"></span>
+      <p>{{ worker.name }} ({{ worker.email }})</p>
       <button mat-raised-button (click)="removeWorker(worker._id)">Remove</button>
     </div>
   <br>
