@@ -110,7 +110,7 @@ export class CasefilesComponent implements OnInit, OnChanges {
     const dateContacted = this.casefileFormContactedResources.value.resources[resourceIndex].dateContacted;
     let date;
     if (isResourceContacted) {
-      date = dateContacted;
+      date = (dateContacted != null) ? dateContacted : new Date();
     } else {
       date = null;
     }
