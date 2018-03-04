@@ -13,6 +13,7 @@ export class EditResourceComponent implements OnInit, OnChanges {
   @Input() resource: any;
   @Output() cancel = new EventEmitter();
   resourceForm: FormGroup;
+  phoneregex = /^(\d){3}(-|\.|\s|\()?(\d){3}(-|\.|\s|\()?(\d){4}$/m;
 
   constructor(
     private form: FormBuilder,
@@ -28,6 +29,7 @@ export class EditResourceComponent implements OnInit, OnChanges {
       name: this.resource.name,
       term: this.resource.term,
       email: this.resource.email,
+      phone: this.resource.phone,
       location: this.resource.location,
       notes: this.resource.notes,
       gender: this.resource.gender,
@@ -41,6 +43,7 @@ export class EditResourceComponent implements OnInit, OnChanges {
       name: ['', Validators.required],
       term: '',
       email: '',
+      phone: ['', Validators.pattern(this.phoneregex)],
       location: '',
       notes: '',
       gender: '',
