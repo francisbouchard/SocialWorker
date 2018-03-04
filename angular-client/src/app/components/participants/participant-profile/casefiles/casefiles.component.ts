@@ -118,15 +118,16 @@ export class CasefilesComponent implements OnInit, OnChanges {
     } else {
       date = null;
     }
-    
+
+    this.editedCasefile.contactedResources[resourceIndex].dateContacted = date;
+    this.editedCasefile.contactedResources[resourceIndex].isContacted = isResourceContacted;
+    this.setContactedResources(this.editedCasefile.contactedResources);
+
     this.casefileService.updateCaseContactedResource(
       casefileID,
       resourceID,
       { 'isContacted': isResourceContacted, 'dateContacted': date }
-    ).subscribe(data => {
-      this.editedCasefile.contactedResources[resourceIndex].dateContacted = date;
-      this.editedCasefile.contactedResources[resourceIndex].isContacted = isResourceContacted;
-    });
+    ).subscribe();
   }
 
   /**
