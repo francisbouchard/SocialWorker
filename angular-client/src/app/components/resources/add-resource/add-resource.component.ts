@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class AddResourceComponent implements OnInit {
 
   form: FormGroup;
+  phoneregex = /^(\d){3}(-|\.|\s|\()?(\d){3}(-|\.|\s|\()?(\d){4}$/m;
 
   constructor(private fb: FormBuilder, private resourceService: ResourceService, public dialog: MatDialog, private router: Router
   ) {
@@ -28,7 +29,7 @@ export class AddResourceComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       email: [''],
-      telephone: [''],
+      telephone: ['', Validators.pattern(this.phoneregex)],
       location: [''],
       notes: [''],
       term: [''],
