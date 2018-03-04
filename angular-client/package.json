@@ -4,9 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -H 0.0.0.0",
-    "build": "ng build --prod",
-    "test": "ng test",
+    "start": "ng build -w",
+    "build": "ng build -w",
+    "test": "ng test -sm=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
