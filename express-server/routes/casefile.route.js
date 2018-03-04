@@ -103,7 +103,7 @@ router.put('/:id/resource/:resId', (req, res) => {
     let dateStr = 'contactedResources.$.dateContacted';
     let noteStr = 'contactedResources.$.note';
     let setObj = {};
-    if (req.body.isContacted || req.body.dateContacted) {
+    if (req.body.hasOwnProperty('isContacted') || req.body.hasOwnProperty('dateContacted')) {
         setObj['contactedResources.$.isContacted'] = req.body.isContacted;
         setObj['contactedResources.$.dateContacted'] = req.body.dateContacted;
     } if (req.body.hasOwnProperty('note')) {

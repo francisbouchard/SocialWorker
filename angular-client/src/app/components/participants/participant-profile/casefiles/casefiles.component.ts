@@ -112,20 +112,21 @@ export class CasefilesComponent implements OnInit, OnChanges {
     const casefileID = this.editedCasefile._id;
     const resourceID = this.casefileFormContactedResources.value.resources[resourceIndex].resource._id;
     const dateContacted = this.casefileFormContactedResources.value.resources[resourceIndex].dateContacted;
-    // let date;
-    // if (isResourceContacted) {
-    //   date = (dateContacted) ? dateContacted : (dateInput || new Date());
-    // } else {
-    //   date = null;
-    // }
-    // this.orderedCases[casefileIndex].contactedResources[resourceIndex].dateContacted = date;
-    // this.orderedCases[casefileIndex].contactedResources[resourceIndex].isContacted = isContacted;
-
+    let date;
+    if (isResourceContacted) {
+      date = dateContacted;
+    } else {
+      date = null;
+    }
+    
     this.casefileService.updateCaseContactedResource(
       casefileID,
       resourceID,
-      { 'isContacted': isResourceContacted, 'dateContacted': dateContacted }
-    ).subscribe();
+      { 'isContacted': isResourceContacted, 'dateContacted': date }
+    ).subscribe(data => {
+      this.editedCasefile.contactedResources[resourceIndex].dateContacted = date;
+      this.editedCasefile.contactedResources[resourceIndex].isContacted = isResourceContacted;
+    });
   }
 
   /**
@@ -248,5 +249,6 @@ export class ContactedResource {
   note = '';
   resource   = '';
   isContacted  = '';
+  dateContacted = '';
   _id    = '';
 }

@@ -116,6 +116,26 @@
                   (change)="updateCaseDate(contactToggle._checked, resourceIndex)">
                 </mat-slide-toggle>
 
+                <mat-form-field class="datePicker" *ngIf="caseResource.value.dateContacted == null">
+                  <input matInput #dateinput name="date" 
+                    [matDatepicker]="picker" 
+                    placeholder="m/dd/yyyy" 
+                    formControlName="dateContacted"
+                    (dateChange)="updateCaseDate(true, resourceIndex)">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
+                </mat-form-field>
+
+                <div class="datePicker" *ngIf="caseResource.value.dateContacted != null">
+                  <p>{{caseResource.value.dateContacted | date:'M/d/yyyy'}}</p>
+                  <button mat-icon-button 
+                    color="primary" 
+                    type="button" 
+                    (click)="updateCaseDate(false, resourceIndex)">
+                    <mat-icon matSuffix>clear</mat-icon>
+                  </button>
+                </div>
+
               </div>
             </div>
           </form>
