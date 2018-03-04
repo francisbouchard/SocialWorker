@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ParticipantProfileComponent } from './participant-profile.component';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
@@ -23,6 +24,7 @@ describe('ParticipantProfileComponent', () => {
     TestBed.configureTestingModule({
       imports: [ MaterialsModule, RouterTestingModule ],
       declarations: [ ParticipantProfileComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
         MessageService,
         { provide: ParticipantService, useClass: MockParticipantService},

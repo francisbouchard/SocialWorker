@@ -21,7 +21,7 @@ export class MockCasefileService {
                 'updatedAt': '2018-01-27T16:43:26.756Z',
                 '__v': 0
               },
-              'status' : 'To contact'
+              'isContacted' : false
           }
       ],
       'createdAt' : '2018-01-28T16:24:00.297Z',
@@ -59,15 +59,15 @@ export class MockCasefileService {
           'contactedResources' : [
               {
                   '_id' : '5a5a6899d77cc82527c5dc48',
-                  'status' : ''
+                  'isContacted' : false
               },
               {
                   '_id' : '5a5aa41d8d31db2a0377415a',
-                  'status' : ''
+                  'isContacted' : false
               },
               {
                   '_id' : '5a5d3f4d03af28260c70dc4e',
-                  'status' : ''
+                  'isContacted' : false
               }
           ],
           'notes' : [
@@ -86,23 +86,23 @@ export class MockCasefileService {
         'contactedResources' : [
             {
                 '_id' : '5a5a56dcc2b50d7fa8d9373d',
-                'status' : ''
+                'isContacted' : false
             },
             {
                 '_id' : '5a5a6899d77cc82527c5dc48',
-                'status' : ''
+                'isContacted' : false
             },
             {
                 '_id' : '5a5aa41d8d31db2a0377415a',
-                'status' : ''
+                'isContacted' : false
             },
             {
                 '_id' : '5a5d3f4d03af28260c70dc4e',
-                'status' : ''
+                'isContacted' : false
             },
             {
                 '_id' : '5a6bc3c295728f0be8064f78',
-                'status' : ''
+                'isContacted' : false
             }
         ],
         'notes' : [
