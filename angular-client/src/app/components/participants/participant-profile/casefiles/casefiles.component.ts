@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CasefileService } from '../../../../services/casefile.service';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Casefile } from '../../../../classes/case';
+import { ValidatorFn } from '@angular/forms/src/directives/validators';
 
 @Component({
   selector: 'app-casefiles',
@@ -67,7 +68,7 @@ export class CasefilesComponent implements OnInit {
     this.casefileFormSelectedResource = this.form.group({
       resource: [null, Validators.required],
       startDate: [null, Validators.required],
-      endDate: [null, Validators.required]
+      endDate: [null, (this.isDateRange) ? Validators.required : null]
     });
   }
 
@@ -221,6 +222,7 @@ export class CasefilesComponent implements OnInit {
   switchDateRange() {
     this.isDateRange = !this.isDateRange;
     this.dateRangeText = (this.isDateRange) ? this.dateRange[1] : this.dateRange[0];
+    this.createFormSelectedResource();
   }
 
   /**
