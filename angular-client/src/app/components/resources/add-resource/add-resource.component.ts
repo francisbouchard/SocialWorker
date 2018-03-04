@@ -3,7 +3,7 @@ import { ResourceService } from '../../../services/resource.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertModalComponent } from '../../modals/alert-modal/alert-modal.component';
 import { Housing } from '../../../classes/housing';
-import { FormGroup, FormControl, Validators,ValidatorFn, FormBuilder,ValidationErrors } from "@angular/forms";
+import { FormGroup, FormControl, Validators, ValidatorFn, FormBuilder, ValidationErrors } from "@angular/forms";
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,33 +15,26 @@ export class AddResourceComponent implements OnInit {
 
   form: FormGroup;
 
-  housing: Housing = {
-    name: null,
-    email: null,
-    phone: null,
-    location: null,
-    notes: null,
-    term: null,
-    gender: null,
-    constraints: null
-  };
-
-  constructor(private fb :FormBuilder,private resourceService: ResourceService, public dialog: MatDialog,private router: Router
-) {
-      this.form = this.fb.group({
-            name: ['', Validators.required ],
-            email: [''],
-            telephone:[''],
-            location:[''],
-            notes:[''],
-            term:[''],
-            gender:[''],
-            constraints:[''],
-});
-   }
+  constructor(private fb: FormBuilder, private resourceService: ResourceService, public dialog: MatDialog, private router: Router
+  ) {
+    this.createForm();
+  }
 
 
   ngOnInit() {
+  }
+
+  createForm() {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      email: [''],
+      telephone: [''],
+      location: [''],
+      notes: [''],
+      term: [''],
+      gender: [''],
+      constraints: [''],
+    });
   }
 
   /**
@@ -57,8 +50,7 @@ export class AddResourceComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.housing = new Housing();
+      this.form.reset({});
     });
   }
 
