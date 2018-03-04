@@ -30,12 +30,14 @@ import { CaseModalComponent } from './components/modals/case-modal/case-modal.co
 import { CasefileService } from './services/casefile.service';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import { CasefilesComponent } from './components/participants/participant-profile/casefiles/casefiles.component';
+import { NotesComponent } from './components/participants/participant-profile/notes/notes.component';
+import { DocumentsComponent } from './components/participants/participant-profile/documents/documents.component';
 import { PhonelogComponent } from './components/phonelog/phonelog.component';
 import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
 import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
 import { ViewPhonelogComponent } from './components/phonelog/view-phonelog/view-phonelog.component';
 import { PhonelogService } from './services/phonelog.service';
-
 
 const routes: Routes = [
   {
@@ -100,6 +102,9 @@ const routes: Routes = [
     RegisterUserComponent,
     OrderByPipe,
     SearchPipe,
+    CasefilesComponent,
+    NotesComponent,
+    DocumentsComponent,
     PhonelogComponent,
     EditParticipantComponent,
     AddPhonelogComponent,
