@@ -38,7 +38,7 @@ export class EditResourceComponent implements OnInit, OnChanges {
 
   createForm() {
     this.resourceForm = this.form.group({
-      name: '',
+      name: ['', Validators.required],
       term: '',
       email: '',
       location: '',
