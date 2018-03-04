@@ -89,7 +89,7 @@
       </div>
 
       <!-- Casefile in progress: resources as form -->
-      <form *ngIf="casefile.status == 'In progress'">
+      <div *ngIf="casefile.status == 'In progress'">
 
         <!-- Resource Headers -->
         <div class="resource headerResources" *ngIf="casefile.contactedResources[0]">
@@ -99,7 +99,28 @@
           <span class="caseNotes primary">Comment</span>
         </div>
 
-        <!-- Resource Information -->
+        <!-- Resource information as form -->
+        <div *ngIf="casefile.status == 'In progress' && casefile==editedCasefile">
+          
+          <form [formGroup]="casefileFormContactedResources">
+            <div formArrayName="resources">
+              <div class="resource" *ngFor="let caseResource of resources.controls; let resourceIndex = index" [formGroupName]="resourceIndex">
+
+                <p class="name">{{caseResource.value.resource.name}}</p>
+
+                <mat-slide-toggle #contactToggle 
+                  [checked]="caseResource.value.dateContacted != null" 
+                  formControlName="isContacted" 
+                  color="accent" 
+                  class="contacted"
+                  (change)="updateCaseDate(contactToggle._checked, resourceIndex)">
+                </mat-slide-toggle>
+
+              </div>
+            </div>
+          </form>
+        </div>
+<!--         
         <div class="resource" *ngFor="let caseResource of casefile.contactedResources; let resourceIndex = index">
           
           <p class="name" *ngIf="caseResource.resource">{{caseResource.resource.name}}</p>
@@ -132,7 +153,7 @@
                 (blur)="updateCaseResourceNote(casefile, caseResource, resourceNote.value, caseIndex, resourceIndex)">
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
 
         <!-- Selected Resource -->
         <h4>Selected Resource:</h4>
@@ -184,7 +205,7 @@
             <mat-icon matSuffix>mode_edit</mat-icon>
           </button>
         </div>
-      </form>
+      </div>
 
       <!-- Casefile Action Buttons -->
       <div class="bottomMenu">

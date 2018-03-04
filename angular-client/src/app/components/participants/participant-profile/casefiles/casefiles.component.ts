@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { CasefileService } from '../../../../services/casefile.service';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Casefile } from '../../../../classes/case';
 
 @Component({
@@ -8,7 +8,7 @@ import { Casefile } from '../../../../classes/case';
   templateUrl: './casefiles.component.html',
   styleUrls: ['./casefiles.component.css']
 })
-export class CasefilesComponent implements OnInit {
+export class CasefilesComponent implements OnInit, OnChanges {
 
   @Input() orderedCases: any;
   @Input() participant: any;
@@ -26,6 +26,7 @@ export class CasefilesComponent implements OnInit {
   editedCasefile: any;
   casefileFormNote: FormGroup;
   casefileFormSelectedResource: FormGroup;
+  casefileFormContactedResources: FormGroup;
   isDateRange = true;
   isEditingSelectedResource = true;
 
@@ -37,11 +38,19 @@ export class CasefilesComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges() {
+    if (this.editedCasefile) {
+      this.setContactedResources(this.editedCasefile.contactedResources);
+    }
+  }
+
   setEditedCasefile(casefile) {
     this.editedCasefile = casefile;
     this.isEditingSelectedResource = (casefile.selectedResource) ? false : true;
     this.createFormNote();
     this.createFormSelectedResource();
+    this.createFormContactedResources();
+    this.setContactedResources(this.editedCasefile.contactedResources);
   }
 
   createFormNote() {
@@ -56,6 +65,22 @@ export class CasefilesComponent implements OnInit {
       startDate: [ null, Validators.required ],
       endDate: [ null, Validators.required ]
     });
+  }
+
+  createFormContactedResources() {
+    this.casefileFormContactedResources = this.form.group({
+      resources: this.form.array([])
+    });
+  }
+
+  setContactedResources(resources: ContactedResource[]) {
+    const resourceFGs = resources.map(resource => this.form.group(resource));
+    const resourceFormArray = this.form.array(resourceFGs);
+    this.casefileFormContactedResources.setControl('resources', resourceFormArray);
+  }
+
+  get resources(): FormArray {
+    return this.casefileFormContactedResources.get('resources') as FormArray;
   }
 
   /**
@@ -82,22 +107,25 @@ export class CasefilesComponent implements OnInit {
  * @param {Date} dateInput
  * @memberof CasefilesComponent
  */
-  updateCaseDate(isResourceContacted, casefile, resource, casefileIndex, resourceIndex, dateInput: Date): void {
+  updateCaseDate(isResourceContacted, resourceIndex): void {
 
-    const casefileID = casefile._id;
-    const resourceID = resource.resource._id;
-    const dateContacted = resource.dateContacted;
-    const status = (isResourceContacted) ? 'Contacted' : 'To Contact';
-    let date;
-    if (isResourceContacted) {
-      date = (dateContacted) ? dateContacted : (dateInput || new Date());
-    } else {
-      date = null;
-    }
-    this.orderedCases[casefileIndex].contactedResources[resourceIndex].dateContacted = date;
-    this.orderedCases[casefileIndex].contactedResources[resourceIndex].status = status;
+    const casefileID = this.editedCasefile._id;
+    const resourceID = this.casefileFormContactedResources.value.resources[resourceIndex].resource._id;
+    const dateContacted = this.casefileFormContactedResources.value.resources[resourceIndex].dateContacted;
+    // let date;
+    // if (isResourceContacted) {
+    //   date = (dateContacted) ? dateContacted : (dateInput || new Date());
+    // } else {
+    //   date = null;
+    // }
+    // this.orderedCases[casefileIndex].contactedResources[resourceIndex].dateContacted = date;
+    // this.orderedCases[casefileIndex].contactedResources[resourceIndex].isContacted = isContacted;
 
-    this.casefileService.updateCaseContactedResource(casefileID, resourceID, { 'status': status, 'dateContacted': date }).subscribe();
+    this.casefileService.updateCaseContactedResource(
+      casefileID,
+      resourceID,
+      { 'isContacted': isResourceContacted, 'dateContacted': dateContacted }
+    ).subscribe();
   }
 
   /**
@@ -213,4 +241,12 @@ export class CasefilesComponent implements OnInit {
       });
   }
 
+
+}
+
+export class ContactedResource {
+  note = '';
+  resource   = '';
+  isContacted  = '';
+  _id    = '';
 }

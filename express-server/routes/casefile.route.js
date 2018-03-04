@@ -81,7 +81,7 @@ router.post('/:id/resource', (req, res) => {
 
         let contResource = {
             resource: req.body.resourceId,
-            status: req.body.status,
+            isContacted: req.body.isContacted,
             dateContacted: req.body.dateContacted,
             note: req.body.note
         };
@@ -99,12 +99,12 @@ router.post('/:id/resource', (req, res) => {
  * Update a contacted resource's details
  */
 router.put('/:id/resource/:resId', (req, res) => {
-    let statusStr = 'contactedResources.$.status';
+    let statusStr = 'contactedResources.$.isContacted';
     let dateStr = 'contactedResources.$.dateContacted';
     let noteStr = 'contactedResources.$.note';
     let setObj = {};
-    if (req.body.status || req.body.dateContacted) {
-        setObj['contactedResources.$.status'] = req.body.status;
+    if (req.body.isContacted || req.body.dateContacted) {
+        setObj['contactedResources.$.isContacted'] = req.body.isContacted;
         setObj['contactedResources.$.dateContacted'] = req.body.dateContacted;
     } if (req.body.hasOwnProperty('note')) {
         setObj['contactedResources.$.note'] = req.body.note;
