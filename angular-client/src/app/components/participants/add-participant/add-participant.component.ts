@@ -7,8 +7,6 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { RouterModule, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, ValidatorFn, FormBuilder, ValidationErrors } from "@angular/forms";
 
-
-
 @Component({
   selector: 'app-add-participant',
   templateUrl: './add-participant.component.html',
@@ -18,6 +16,7 @@ export class AddParticipantComponent implements OnInit {
 
   form: FormGroup;
   socialmedia: FormGroup;
+  phoneregex = /^(\d){3}(-|\.|\s|\()?(\d){3}(-|\.|\s|\()?(\d){4}$/m;
 
   isAlreadyAParticipantID = false;
   isAlreadyAParticipantEmail = false;
@@ -44,7 +43,7 @@ export class AddParticipantComponent implements OnInit {
       name: ['', Validators.required],
       _id: ['', Validators.required],
       pronouns: [''],
-      telephone: [''],
+      telephone: ['', Validators.pattern(this.phoneregex)],
       service: [''],
       username: [''],
       email: [''],
