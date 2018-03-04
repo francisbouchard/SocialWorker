@@ -8,7 +8,28 @@ export class MockParticipantService {
             'service': 'Facebook',
             'username': 'test123.com'
         },
-        'documents': [],
+        'documents': [
+            {
+                'date': '2018-02-21T19:23:04.000Z',
+                'attachment': [
+                    'La saison des infiltrations - La Presse .pdf'
+                ],
+                'type': 'Newspaper article',
+                '_id': '5a8dc753136eb42b0e9a65f7',
+                'createdAt': '2018-02-21T19:24:03.316Z',
+                'updatedAt': '2018-02-21T19:24:03.316Z'
+            },
+            {
+                'date': '2018-02-21T19:24:25.000Z',
+                'attachment': [
+                    '2014-01-10-ambo7-1970.jpg'
+                ],
+                'type': 'Phonebook',
+                '_id': '5a8dcb1a136eb42b0e9a65f8',
+                'createdAt': '2018-02-21T19:40:10.528Z',
+                'updatedAt': '2018-02-21T19:40:10.528Z'
+            }
+        ],
         'notes': [
             {
                 'date': '2018-01-27T01:20:47.453Z',
@@ -21,6 +42,31 @@ export class MockParticipantService {
                 'updatedAt': '2018-01-27T01:21:24.102Z'
             }
         ],
+        'socialworkers': [
+            {
+                'tokens': [],
+                'role': 'admin',
+                '_id': '5a6ca05f54297a0c500cbd41',
+                'name': 'James',
+                'email': 'james@astteq.org',
+                'password': '$2a$10$jnu1d5jGRaMXNXtt6l/eW.xW/XpyoZd4sdibumj8yvihTsvYH16mC',
+                'createdAt': '2018-01-27T15:53:03.674Z',
+                'updatedAt': '2018-01-27T15:53:03.674Z',
+                '__v': 0
+            },
+            {
+                'tokens': [],
+                'role': 'user',
+                '_id': '5a6ff023a176b395fd54b228',
+                'email': 'alyx@astteq.org',
+                'name': 'Alyx',
+                'password': '$2a$10$w.LhmqCc3o5XGJ4fnd7O5.b/7aE4OZVozEu0wzJ4CPq2.bIgp77XS',
+                'createdAt': '2018-01-30T04:10:11.675Z',
+                'updatedAt': '2018-01-30T04:10:11.675Z',
+                '__v': 0
+            }
+        ],
+        'deleted': false,
         'name': 'testuser',
         'email': 'testuser@hotmail.com',
         'telephone': '5146195888',
@@ -126,6 +172,31 @@ export class MockParticipantService {
             },
             'documents': [],
             'notes': [],
+            'socialworkers': [
+                {
+                    'tokens': [],
+                    'role': 'admin',
+                    '_id': '5a6ca05f54297a0c500cbd41',
+                    'name': 'James',
+                    'email': 'james@astteq.org',
+                    'password': '$2a$10$jnu1d5jGRaMXNXtt6l/eW.xW/XpyoZd4sdibumj8yvihTsvYH16mC',
+                    'createdAt': '2018-01-27T15:53:03.674Z',
+                    'updatedAt': '2018-01-27T15:53:03.674Z',
+                    '__v': 0
+                },
+                {
+                    'tokens': [],
+                    'role': 'user',
+                    '_id': '5a6ff023a176b395fd54b228',
+                    'email': 'alyx@astteq.org',
+                    'name': 'Alyx',
+                    'password': '$2a$10$w.LhmqCc3o5XGJ4fnd7O5.b/7aE4OZVozEu0wzJ4CPq2.bIgp77XS',
+                    'createdAt': '2018-01-30T04:10:11.675Z',
+                    'updatedAt': '2018-01-30T04:10:11.675Z',
+                    '__v': 0
+                }
+            ],
+            'deleted': false,
             'name': 'testuser',
             'email': 'testuser@hotmail.com',
             'telephone': '5146195888',
@@ -142,11 +213,11 @@ export class MockParticipantService {
             'n': 1,
             'nModified': 1,
             'opTime': {
-              'ts': '6515861190743162881',
-              't': 5
+                'ts': '6515861190743162881',
+                't': 5
             },
             'electionId': '7fffffff0000000000000005',
             'ok': 1
-          });
+        });
     }
 }

@@ -24,6 +24,11 @@
    <div *ngIf="participant.telephone !== '' "><b> Phone number: </b> {{participant.telephone}} <br></div>
    <div *ngIf="participant.socialmedia !== undefined"><b> Social media: </b> {{participant.socialmedia.service}}  {{participant.socialmedia.username}}<br></div>
    <div *ngIf="participant.address !== '' "><b> Address: </b> {{participant.address}}<br></div>
+   <div *ngIf="participant.socialworkers"><b> Social workers assigned: </b> 
+    <span *ngFor="let worker of participant.socialworkers; let isLast=last">
+      {{worker.name}}{{isLast ? '': ', '}}
+    </span><br>
+  </div>
   </mat-card-content>
   <mat-card-actions>
       <button mat-raised-button (click)="view(participant._id)">View</button>

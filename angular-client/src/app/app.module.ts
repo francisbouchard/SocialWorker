@@ -15,7 +15,7 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { AddParticipantComponent } from './components/participants/add-participant/add-participant.component';
 import { NoteComponent } from './components/note/note.component';
 import { DocumentComponent } from './components/document/document.component';
-import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { RegisterUserComponent } from './components/users/register-user/register-user.component';
 import { ParticipantProfileComponent } from './components/participants/participant-profile/participant-profile.component';
 import { ViewParticipantsComponent } from './components/participants/view-participants/view-participants.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
@@ -30,6 +30,10 @@ import { CaseModalComponent } from './components/modals/case-modal/case-modal.co
 import { CasefileService } from './services/casefile.service';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import { UsersComponent } from './components/users/users.component';
+import { ViewUsersComponent } from './components/users/view-users/view-users.component';
+import { UserService } from './services/user.service';
+import { EditWorkerModalComponent } from './components/modals/edit-worker-modal/edit-worker-modal.component';
 import { CasefilesComponent } from './components/participants/participant-profile/casefiles/casefiles.component';
 import { NotesComponent } from './components/participants/participant-profile/notes/notes.component';
 import { DocumentsComponent } from './components/participants/participant-profile/documents/documents.component';
@@ -62,8 +66,23 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'register',
-    component: RegisterUserComponent
+    path: 'users',
+    component: UsersComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'view-users',
+        pathMatch: 'full'
+      },
+      {
+        path: 'register-user',
+        component: RegisterUserComponent
+      },
+      {
+        path: 'view-users',
+        component: ViewUsersComponent
+      }
+    ]
   },
   {
     path: 'resources',
@@ -102,6 +121,9 @@ const routes: Routes = [
     RegisterUserComponent,
     OrderByPipe,
     SearchPipe,
+    UsersComponent,
+    ViewUsersComponent,
+    EditWorkerModalComponent,
     CasefilesComponent,
     NotesComponent,
     DocumentsComponent,
@@ -122,6 +144,7 @@ const routes: Routes = [
   entryComponents: [
     AlertModalComponent,
     CaseModalComponent,
+    EditWorkerModalComponent,
     DocumentComponent,
     NoteComponent
   ],
@@ -130,6 +153,7 @@ const routes: Routes = [
     MessageService,
     ResourceService,
     CasefileService,
+    UserService,
     AuthenticationService,
     PhonelogService
   ],

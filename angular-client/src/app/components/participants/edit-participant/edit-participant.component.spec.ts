@@ -11,11 +11,11 @@ describe('EditParticipantComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditParticipantComponent ],
+      declarations: [EditParticipantComponent],
       imports: [MaterialsModule],
-      providers: [{provide: ParticipantService, useClass: MockParticipantService}]
+      providers: [{ provide: ParticipantService, useClass: MockParticipantService }]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -29,6 +29,19 @@ describe('EditParticipantComponent', () => {
       'telephone': '(514) 456-1231',
       'email': 'noemail@service.com',
       'socialmedia': { 'service': 'NoSocial', 'username': 'username' },
+      'socialworkers': [
+        {
+          'tokens': [],
+          'role': 'admin',
+          '_id': '5a6ca05f54297a0c500cbd41',
+          'name': 'James',
+          'email': 'james@astteq.org',
+          'password': '$2a$10$jnu1d5jGRaMXNXtt6l/eW.xW/XpyoZd4sdibumj8yvihTsvYH16mC',
+          'createdAt': '2018-01-27T15:53:03.674Z',
+          'updatedAt': '2018-01-27T15:53:03.674Z',
+          '__v': 0
+        }
+      ],
       'notes': [{}],
       'documents': [{}]
     };

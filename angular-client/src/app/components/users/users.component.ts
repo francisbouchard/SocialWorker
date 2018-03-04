@@ -1,0 +1,25 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
+})
+export class UsersComponent implements OnInit {
+  navLinks = [
+    {
+      label: "Users",
+      path: "./view-users"
+    },
+    {
+      label: "Add User",
+      path: "./register-user"
+    }
+  ];
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

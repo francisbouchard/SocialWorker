@@ -13,6 +13,7 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
 import { CaseModalComponent } from '../../modals/case-modal/case-modal.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { EditWorkerModalComponent } from '../../modals/edit-worker-modal/edit-worker-modal.component';
 
 
 @Component({
@@ -135,6 +136,98 @@ export class ParticipantProfileComponent implements OnInit {
       data: { id: this.participantSelected._id }
     });
 
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadParticipant();
+    });
+  }
+
+  /**
+   * Complete a casefile
+   *
+   * @param {any} casefile
+   * @param {any} casefileIndex
+   * @memberof ParticipantProfileComponent
+   */
+  completeCasefile(casefile, casefileIndex): void {
+    this.orderedCases[casefileIndex].status = 'Completed';
+    this.casefileService.updateCaseStatus(casefile._id, { status: 'Completed' }).subscribe();
+  }
+
+  /**
+   * Reopen a casefile
+   *
+   * @param {any} casefile 
+   * @param {any} casefileIndex 
+   * @memberof ParticipantProfileComponent
+   */
+  reopenCasefile(casefile, casefileIndex): void {
+    this.orderedCases[casefileIndex].status = 'In progress';
+    this.casefileService.updateCaseStatus(casefile._id, { status: 'In progress' }).subscribe();
+  }
+
+  /**
+   * Update casefile's resource date of contact
+   *
+   * @param {any} isResourceContacted
+   * @param {any} casefile
+   * @param {any} resource
+   * @param {any} casefileIndex
+   * @param {any} resourceIndex
+   * @param {Date} dateInput
+   * @memberof ParticipantProfileComponent
+   */
+  updateCaseDate(isResourceContacted, casefile, resource, casefileIndex, resourceIndex, dateInput: Date): void {
+
+    const casefileID = casefile._id;
+    const resourceID = resource.resource._id;
+    const dateContacted = resource.dateContacted;
+    const status = (isResourceContacted) ? 'Contacted' : 'To Contact';
+    let date;
+    if (isResourceContacted) {
+      date = (dateContacted) ? dateContacted : (dateInput || new Date());
+    } else {
+      date = null;
+    }
+    this.orderedCases[casefileIndex].contactedResources[resourceIndex].dateContacted = date;
+    this.orderedCases[casefileIndex].contactedResources[resourceIndex].status = status;
+
+    this.casefileService.updateCaseContactedResource(casefileID, resourceID, { 'status': status, 'dateContacted': date }).subscribe();
+  }
+
+  /**
+   * Update a casefile's resource comment
+   *
+   * @param {any} casefile
+   * @param {any} resource
+   * @param {any} comment
+   * @memberof ParticipantProfileComponent
+   */
+  updateCaseResourceNote(casefile, resource, comment) {
+    this.casefileService.updateCaseContactedResource(casefile._id, resource.resource._id, { 'note': comment }).subscribe();
+  }
+
+  /**
+   * Update casefile with selected resource
+   *
+   * @param {any} casefile
+   * @param {any} selection
+   * @memberof ParticipantProfileComponent
+   */
+  updateCaseSelectedResource(casefile, selection) {
+    const selectedResource = { 'selectedResource': selection };
+    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResource).subscribe();
+  }
+
+  /**
+   * Open the Assign Worker modal
+   * 
+   * @memberof ParticipantProfileComponent
+   */
+  editWorkers(): void {
+    const dialogRef = this.dialog.open(EditWorkerModalComponent, {
+      width: '33%',
+      data: { id: this.participantSelected._id, workers: this.participantSelected.socialworkers }
+    });
     dialogRef.afterClosed().subscribe(result => {
       this.loadParticipant();
     });

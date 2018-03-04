@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { Router } from '@angular/router';
+import { User } from '../../../classes/user';
 
 @Component({
   selector: 'app-register-user',
@@ -9,10 +10,17 @@ import { Router } from '@angular/router';
 })
 export class RegisterUserComponent implements OnInit {
 
-  user: any = {};
-  loading: boolean = false;
-  error: boolean = false;
-  msg: string = "";
+  user: User = {
+    name: '',
+    pronouns: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    role: 'user' // selected role is 'user' by default
+  };
+  loading = false;
+  error = false;
+  msg = '';
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -31,7 +39,7 @@ export class RegisterUserComponent implements OnInit {
     this.loading = true;
     this.msg = '';
     this.error = false;
-    this.authenticationService.signUp(this.user.rEmail, this.user.rPassword, this.user.rConfirmPassword).subscribe(data => {
+    this.authenticationService.signUp(this.user).subscribe(data => {
       this.loading = false;
 
       if (!data.error) {
