@@ -100,11 +100,7 @@ export class CasefilesComponent implements OnInit, OnChanges {
  * Update casefile's resource date of contact
  *
  * @param {any} isResourceContacted
- * @param {any} casefile
- * @param {any} resource
- * @param {any} casefileIndex
  * @param {any} resourceIndex
- * @param {Date} dateInput
  * @memberof CasefilesComponent
  */
   updateCaseDate(isResourceContacted, resourceIndex): void {
@@ -130,17 +126,19 @@ export class CasefilesComponent implements OnInit, OnChanges {
     ).subscribe();
   }
 
-  /**
-   * Update a casefile's resource comment
-   *
-   * @param {any} casefile
-   * @param {any} resource
-   * @param {any} comment
-   * @memberof CasefilesComponent
-   */
-  updateCaseResourceNote(casefile, resource, comment, casefileIndex, resourceIndex) {
-    this.orderedCases[casefileIndex].contactedResources[resourceIndex].note = comment;
-    this.casefileService.updateCaseContactedResource(casefile._id, resource.resource._id, { 'note': comment }).subscribe();
+  updateCaseResourceNote(isEditing, resourceIndex) {
+    const casefileID = this.editedCasefile._id;
+    const resourceID = this.casefileFormContactedResources.value.resources[resourceIndex].resource._id;
+    let comment;
+    if (isEditing) {
+      comment = null;
+    } else {
+      comment = this.casefileFormContactedResources.value.resources[resourceIndex].note;
+    }
+    this.editedCasefile.contactedResources[resourceIndex].note = comment;
+    this.setContactedResources(this.editedCasefile.contactedResources);
+
+    this.casefileService.updateCaseContactedResource(casefileID, resourceID, { 'note': comment }).subscribe();
   }
 
 
