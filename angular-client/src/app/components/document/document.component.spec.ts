@@ -1,13 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DocumentComponent } from './document.component';
-import { MaterialsModule } from '../../modules/materials.module';
-import { ParticipantService } from '../../services/participant.service';
-import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
-import { Router } from '@angular/router';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ParticipantService } from '../../services/participant.service';
+import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { DocumentComponent } from './document.component';
+import { MaterialsModule } from '../../modules/materials.module';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 describe('DocumentComponent', () => {
   let component: DocumentComponent;

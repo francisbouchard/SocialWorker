@@ -34,8 +34,7 @@ export class AddParticipantComponent implements OnInit {
     private participantService: ParticipantService,
     public dialog: MatDialog,
     public authService: AuthenticationService,
-    public router: Router) {
-  }
+    public router: Router) { }
 
   ngOnInit() {
     if (!this.authService.loggedIn) {

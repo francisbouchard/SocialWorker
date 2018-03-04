@@ -16,8 +16,8 @@ export class AppComponent implements OnInit {
     private router: Router
   ) {
   }
-  public heartbeat: boolean = false;
-  public loggedIn: boolean = false;
+  public heartbeat = false;
+  public loggedIn = false;
   ngOnInit() {
     this.authenticationService.heartbeat().subscribe(data => {
       if (!data.loggedIn) {

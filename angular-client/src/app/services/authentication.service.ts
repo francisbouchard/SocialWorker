@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/rx';
 import { catchError, map, tap } from 'rxjs/operators';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import { of } from 'rxjs/observable/of';
 import { MessageService } from "./message.service";
 import { User } from '../classes/user';
-
 
 @Injectable()
 export class AuthenticationService {
@@ -89,14 +88,14 @@ export class AuthenticationService {
    * @memberof AuthenticationService
    */
   public heartbeat(): Observable<any> {
-    let minutes = 1;
+    const minutes = 1;
     return Observable
       .interval(1000 * 60 * minutes)
       .startWith(0)
       .flatMap((i) => this.http.post<any>('/user/heartbeat', {}))
       .pipe(
       tap(p => {
-        if(!this.role) {
+        if (!this.role) {
           this.role = p.role;
         }
         this.log('Hearbeat success.');

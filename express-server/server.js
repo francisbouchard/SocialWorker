@@ -22,6 +22,7 @@ const user = require('./routes/user.route');
 const participant = require('./routes/participant.route');
 const resource = require('./routes/resource.route');
 const casefile = require('./routes/casefile.route');
+const phonelog = require('./routes/phonelog.route');
 
 const MongoStore = mongo(session);
 
@@ -72,6 +73,7 @@ app.use('/user', user);
 app.use('/api/participant', participant);
 app.use('/api/resource', resource);
 app.use('/api/casefile', casefile);
+app.use('/api/phonelog', phonelog);
 
 
 // Server public folder

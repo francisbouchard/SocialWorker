@@ -34,6 +34,11 @@ import { UsersComponent } from './components/users/users.component';
 import { ViewUsersComponent } from './components/users/view-users/view-users.component';
 import { UserService } from './services/user.service';
 import { EditWorkerModalComponent } from './components/modals/edit-worker-modal/edit-worker-modal.component';
+import { PhonelogComponent } from './components/phonelog/phonelog.component';
+import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
+import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
+import { ViewPhonelogComponent } from './components/phonelog/view-phonelog/view-phonelog.component';
+import { PhonelogService } from './services/phonelog.service';
 
 
 const routes: Routes = [
@@ -84,6 +89,10 @@ const routes: Routes = [
   {
     path: 'participant-profile/:_id',
     component: ParticipantProfileComponent
+  },
+  {
+    path: 'phonelog',
+    component: PhonelogComponent
   }
 ];
 
@@ -112,7 +121,11 @@ const routes: Routes = [
     SearchPipe,
     UsersComponent,
     ViewUsersComponent,
-    EditWorkerModalComponent
+    EditWorkerModalComponent,
+    PhonelogComponent,
+    EditParticipantComponent,
+    AddPhonelogComponent,
+    ViewPhonelogComponent
   ],
   imports: [
     BrowserModule,
@@ -136,7 +149,8 @@ const routes: Routes = [
     ResourceService,
     CasefileService,
     UserService,
-    AuthenticationService
+    AuthenticationService,
+    PhonelogService
   ],
   bootstrap: [AppComponent]
 })

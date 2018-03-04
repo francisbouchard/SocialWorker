@@ -21,15 +21,15 @@ describe('EditResourceComponent', () => {
     fixture = TestBed.createComponent(EditResourceComponent);
     component = fixture.componentInstance;
     component.resource = {
-      "constraints": [],
-      "kind": "Housing",
-      "_id": "5a6cac2bdf03f80ede3f5c3e",
-      "name": "Housing Facility Name",
-      "email": "housing@resource.com",
-      "term": "5 weeks",
-      "createdAt": "2018-01-27T16:43:26.756Z",
-      "updatedAt": "2018-01-27T16:43:26.756Z",
-      "__v": 0
+      'constraints': [],
+      'kind': 'Housing',
+      '_id': '5a6cac2bdf03f80ede3f5c3e',
+      'name': 'Housing Facility Name',
+      'email': 'housing@resource.com',
+      'term': '5 weeks',
+      'createdAt': '2018-01-27T16:43:26.756Z',
+      'updatedAt': '2018-01-27T16:43:26.756Z',
+      '__v': 0
     };
     fixture.detectChanges();
   });

@@ -1,0 +1,49 @@
+<form class="form" [formGroup]="participantForm">
+    
+    <div class="username">
+      <h5>Participant username:</h5>
+      <h4>{{participant._id}}</h4>
+    </div>
+  
+    <mat-form-field>
+      <input matInput required placeholder="Name" name="name" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Pronouns" name="pronouns" formControlName="pronouns">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Email" name="email" formControlName="email">
+    </mat-form-field>
+  
+    <mat-form-field>
+        <span matPrefix>+1 &nbsp;</span>
+        <input type="tel" matInput placeholder="Telephone" name="telephone" formControlName="telephone">
+    </mat-form-field>
+
+    <mat-form-field class="address">
+      <input matInput placeholder="Physical Address" name="address" formControlName="address">
+    </mat-form-field>
+
+    <mat-form-field class="social-media">
+        <input matInput placeholder="Social media provider" name="service" formControlName="socialMediaPlatform">
+        <mat-hint align="start">
+            <strong>Optional: choose platform</strong>
+        </mat-hint>
+    </mat-form-field>
+  
+    <mat-form-field class="social-media">
+      <input matInput placeholder="Social media account" name="username" formControlName="socialMediaUsername">
+      <mat-hint align="start">
+        <strong>Optional: choose account handle</strong>
+      </mat-hint>
+    </mat-form-field>
+
+    <mat-card-actions>
+      <button mat-raised-button type="submit" [disabled]="participantForm.invalid" (click)="update(participant._id, participant)">Update</button>
+      <button mat-raised-button type="button" (click)="delete(participant._id)">Delete</button>
+      <button mat-raised-button type="button" (click)="cancel.emit()">Cancel</button>
+    </mat-card-actions>
+
+  </form>
