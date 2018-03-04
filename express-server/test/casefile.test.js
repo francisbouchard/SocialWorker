@@ -166,7 +166,7 @@ describe('Casefile Tests', () => {
                     res.body.should.be.a('object');
                     res.body.should.have.property('contactedResources');
                     res.body.contactedResources[0].should.have.property('resource');
-                    res.body.contactedResources[0].should.have.property('status');
+                    res.body.contactedResources[0].should.have.property('isContacted');
                     res.body.contactedResources[0].should.have.property('dateContacted');
                     res.body.contactedResources[0].should.have.property('note');
                     done();
