@@ -2,8 +2,14 @@ sudo: required
 services:
 - docker
 language: node_js
+install:
+  - npm install -g codecov
+  - npm install -g istanbul
+script:
+  - istanbul cover ./express-server/node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec && codecov
+  - istanbul cover ./angular-client/node_modules/jasmine/bin/jasmine.js
 node_js:
-- '8'
+  - '8'
 notifications:
   email: false
 env:
