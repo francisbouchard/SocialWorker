@@ -9,4 +9,5 @@ export class Participant {
     email: String;
     socialmedia: { service: String, username: String };
     notes: [any];
+    documents: [any];
 }

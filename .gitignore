@@ -66,6 +66,8 @@ express-server/package-lock.json
 
 #express public folder
 express-server/public/
+express-server/notes/**
+express-server/documents/**
 
 # Visual Studio Code
 .vscode/

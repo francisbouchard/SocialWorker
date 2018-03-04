@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialsModule } from '../../modules/materials.module';
+import { MaterialsModule } from '../../../modules/materials.module';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { AlertModalComponent } from './alert-modal.component';
 

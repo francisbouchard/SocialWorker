@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ParticipantService } from '../../../services/participant.service';
 import { Participant } from '../../../classes/participant';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AlertModalComponent } from '../../alert-modal/alert-modal.component';
+import { AlertModalComponent } from '../../modals/alert-modal/alert-modal.component';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, ValidatorFn, FormBuilder, ValidationErrors } from "@angular/forms";
@@ -18,17 +18,6 @@ export class AddParticipantComponent implements OnInit {
 
   form: FormGroup;
   socialmedia: FormGroup;
-
-  participantData: Participant = {
-    _id: '',
-    name: '',
-    pronouns: '',
-    address: '',
-    telephone: '',
-    email: '',
-    socialmedia: { service: '', username: '' },
-    notes: [{}]
-  };
 
   isAlreadyAParticipantID = false;
   isAlreadyAParticipantEmail = false;
@@ -56,9 +45,9 @@ export class AddParticipantComponent implements OnInit {
       _id: ['', Validators.required],
       pronouns: [''],
       telephone: [''],
-      socialMedia: [''],
-      socialMediaAccount: [''],
-      email: ['', Validators.email],
+      service: [''],
+      username: [''],
+      email: [''],
       address: ['']
     });
   }
@@ -74,7 +63,7 @@ export class AddParticipantComponent implements OnInit {
   onKey(attribute: String, value: String) {
     const query = attribute + '=' + value;
     const that = this;
-    if (value != null) {
+    if (value.length > 0) {
       this.participantService.search(query)
         .subscribe(data => {
           if (attribute === '_id') {

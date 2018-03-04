@@ -1,23 +1,26 @@
 
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from "@angular/flex-layout";
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CdkTableModule} from '@angular/cdk/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { 
+import {
   MatButtonModule,
   MatCardModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatIconModule,
   MatInputModule,
+  MatGridListModule,
+  MatListModule,
+  MatNativeDateModule,
+  MatOptionModule,
   MatRadioModule,
   MatSelectModule,
+  MatSlideToggleModule,
   MatTabsModule,
-  MatToolbarModule,
-  MatOptionModule,
-  MatListModule,
-  MatGridListModule} from '@angular/material';
+  MatToolbarModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
 
@@ -26,21 +29,24 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     CdkTableModule,
     FlexLayoutModule,
+    FormsModule,
     MatButtonModule,
     MatCardModule,
+    MatDatepickerModule,
     MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
     MatInputModule,
     MatIconModule,
-    MatRadioModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatExpansionModule,
-    MatSelectModule,
-    MatOptionModule,
     MatListModule,
-    MatGridListModule,
-    FormsModule,
-    MatProgressSpinnerModule
+    MatNativeDateModule,
+    MatOptionModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatTabsModule,
+    MatToolbarModule
   ]
 })
 export class MaterialsModule { }

@@ -11,6 +11,7 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('express-flash');
 const expressValidator  = require('express-validator');
+const fileUpload = require('express-fileupload');
 
 const passportConfig = require("./config/passport");
 const permit = require("./config/permission");
@@ -31,6 +32,8 @@ const app = express();
 //Connect to mongo
 const mongoUrl = process.env.MONGOLAB_URL;
 
+app.use(fileUpload());
+
 mongoose.connect(mongoUrl, {}).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
@@ -39,8 +42,8 @@ mongoose.connect(mongoUrl, {}).then(
 });
 
 // Parsers for POST data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(expressValidator());
 app.use(session({
   resave: true,
