@@ -33,9 +33,9 @@ headerResources {
 }
 
 .datePicker {
-    width: 10%;
+    width: 20%;
     margin-left: 5px;
-    display: inline-flex;
+    display: block;
     align-items: baseline;
 }
 

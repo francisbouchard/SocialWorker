@@ -166,8 +166,8 @@
         <!-- Selected Resource -->
         <h4>Selected Resource:</h4>
 
-        <div class="selectedResource" *ngIf="casefile.status == 'In progress' && casefile==editedCasefile && (!casefile.selectedResource || isEditingSelectedResource)">
-          <form [formGroup]="casefileFormSelectedResource">
+        <div *ngIf="casefile.status == 'In progress' && casefile==editedCasefile && (!casefile.selectedResource || isEditingSelectedResource)">
+          <form class="selectedResource" [formGroup]="casefileFormSelectedResource">
             
             <!-- Selected resource name -->
             <div>
@@ -199,8 +199,8 @@
               </mat-form-field>
             </div>
 
-            <button mat-raised-button type="submit" (click)="saveCaseSelectedResource(casefile)" [disabled]="casefileFormSelectedResource.invalid">Save selection</button>
-            <button mat-raised-button type="button" (click)="removeCaseSelectedResource(casefile)">Remove selection</button>
+            <button mat-icon-button  color="primary" type="submit" (click)="saveCaseSelectedResource(casefile)" [disabled]="casefileFormSelectedResource.invalid"><mat-icon matSuffix>save</mat-icon></button>
+            <button mat-icon-button  color="warning" type="button" (click)="removeCaseSelectedResource(casefile)"><mat-icon matSuffix>delete_forever</mat-icon></button>
 
           </form>
         </div>
