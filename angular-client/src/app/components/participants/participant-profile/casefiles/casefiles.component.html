@@ -113,7 +113,7 @@
                   formControlName="isContacted" 
                   color="accent" 
                   class="contacted"
-                  (change)="updateCaseDate(contactToggle._checked, resourceIndex)">
+                  (change)="updateCaseResourceDate(contactToggle._checked, resourceIndex)">
                 </mat-slide-toggle>
 
                 <mat-form-field class="datePicker" *ngIf="caseResource.value.dateContacted == null">
@@ -121,7 +121,7 @@
                     [matDatepicker]="picker" 
                     placeholder="m/dd/yyyy" 
                     formControlName="dateContacted"
-                    (dateChange)="updateCaseDate(true, resourceIndex)">
+                    (dateChange)="updateCaseResourceDate(true, resourceIndex)">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
                 </mat-form-field>
@@ -131,7 +131,7 @@
                   <button mat-icon-button 
                     color="primary" 
                     type="button" 
-                    (click)="updateCaseDate(false, resourceIndex)">
+                    (click)="updateCaseResourceDate(false, resourceIndex)">
                     <mat-icon matSuffix>clear</mat-icon>
                   </button>
                 </div>
@@ -161,6 +161,7 @@
             </div>
           </form>
         </div>
+        <!-- End of resource form -->
 
         <!-- Selected Resource -->
         <h4>Selected Resource:</h4>
@@ -168,7 +169,7 @@
         <div class="selectedResource" *ngIf="casefile.status == 'In progress' && casefile==editedCasefile && (!casefile.selectedResource || isEditingSelectedResource)">
           <form [formGroup]="casefileFormSelectedResource">
             
-            <!-- Resource name -->
+            <!-- Selected resource name -->
             <div>
               <mat-form-field>
                 <mat-select placeholder="Resource" formControlName="resource">
@@ -179,7 +180,7 @@
               </mat-form-field>
             </div>
 
-            <!-- Resource with single date-->
+            <!-- Selected resource with single date-->
             <div>
               <mat-form-field>
                 <input matInput name="startDate" formControlName="startDate" [matDatepicker]="startDatePicker" placeholder="{{(isDateRange) ? 'Start date' : 'Date'}}">
@@ -189,7 +190,7 @@
               <button class="dateSwitcher" (click)="switchDateRange()">{{dateRangeText}}</button>
             </div>
 
-            <!-- Resource with date range-->
+            <!-- Selected resource with date range-->
             <div *ngIf="isDateRange">
               <mat-form-field>
                 <input matInput name="endDate" formControlName="endDate" [matDatepicker]="endDatePicker" placeholder="End date">
@@ -204,6 +205,7 @@
           </form>
         </div>
 
+        <!-- Selected resource editable info-->
         <div *ngIf="casefile.selectedResource && !isEditingSelectedResource" class="selectedResource">
           <p>{{casefile.selectedResource.resource.name}}</p>
           <p *ngIf="casefile.selectedResource.startDate">Date: {{casefile.selectedResource.startDate | date:'M/d/yyyy'}}</p>

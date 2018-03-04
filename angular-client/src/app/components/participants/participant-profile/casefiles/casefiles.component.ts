@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CasefileService } from '../../../../services/casefile.service';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Casefile } from '../../../../classes/case';
@@ -8,26 +8,19 @@ import { Casefile } from '../../../../classes/case';
   templateUrl: './casefiles.component.html',
   styleUrls: ['./casefiles.component.css']
 })
-export class CasefilesComponent implements OnInit, OnChanges {
+export class CasefilesComponent implements OnInit {
 
   @Input() orderedCases: any;
   @Input() participant: any;
   @Output() loadParticipant = new EventEmitter();
-  selectedResource = {
-    resource: null,
-    startDate: new Date(),
-    endDate: null,
-  };
-  startDate = new Date();
-  dateRange = ['Switch to date range', 'Switch to single date'];
-  dateRangeText = this.dateRange[1];
-
-  // NEW PARAMS
   editedCasefile: any;
   casefileFormNote: FormGroup;
   casefileFormSelectedResource: FormGroup;
   casefileFormContactedResources: FormGroup;
   isDateRange = true;
+  startDate = new Date();
+  dateRange = ['Switch to date range', 'Switch to single date'];
+  dateRangeText = this.dateRange[1];
   isEditingSelectedResource = true;
 
   constructor(
@@ -38,12 +31,12 @@ export class CasefilesComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-  ngOnChanges() {
-    if (this.editedCasefile) {
-      this.setContactedResources(this.editedCasefile.contactedResources);
-    }
-  }
-
+  /**
+   * Initialize forms
+   *
+   * @param {any} casefile
+   * @memberof CasefilesComponent
+   */
   setEditedCasefile(casefile) {
     this.editedCasefile = casefile;
     this.isEditingSelectedResource = (casefile.selectedResource) ? false : true;
@@ -53,26 +46,48 @@ export class CasefilesComponent implements OnInit, OnChanges {
     this.setContactedResources(this.editedCasefile.contactedResources);
   }
 
+
+  /**
+   * Create form for casefile note
+   *
+   * @memberof CasefilesComponent
+   */
   createFormNote() {
     this.casefileFormNote = this.form.group({
       notes: this.editedCasefile.notes[0] || ''
     });
   }
 
+  /**
+   * Create form for selected resource
+   *
+   * @memberof CasefilesComponent
+   */
   createFormSelectedResource() {
     this.casefileFormSelectedResource = this.form.group({
-      resource: [ null, Validators.required ],
-      startDate: [ null, Validators.required ],
-      endDate: [ null, Validators.required ]
+      resource: [null, Validators.required],
+      startDate: [null, Validators.required],
+      endDate: [null, Validators.required]
     });
   }
 
+  /**
+   * Create form for array of contacted resources
+   *
+   * @memberof CasefilesComponent
+   */
   createFormContactedResources() {
     this.casefileFormContactedResources = this.form.group({
       resources: this.form.array([])
     });
   }
 
+  /**
+   * Set resources as form groups for contacted resources form array
+   *
+   * @param {ContactedResource[]} resources
+   * @memberof CasefilesComponent
+   */
   setContactedResources(resources: ContactedResource[]) {
     const resourceFGs = resources.map(resource => this.form.group(resource));
     const resourceFormArray = this.form.array(resourceFGs);
@@ -87,23 +102,23 @@ export class CasefilesComponent implements OnInit, OnChanges {
    * Update casefile note
    *
    * @param {any} casefile
-   * @memberof ParticipantProfileComponent
+   * @memberof CasefilesComponent
    */
   updateCaseNote(casefile) {
     // TODO: update only if the text value has changed
     const noteFormModel = this.casefileFormNote.value;
-    this.casefileService.updateCaseNote(casefile._id, noteFormModel ).subscribe();
+    this.casefileService.updateCaseNote(casefile._id, noteFormModel).subscribe();
   }
 
 
   /**
- * Update casefile's resource date of contact
- *
- * @param {any} isResourceContacted
- * @param {any} resourceIndex
- * @memberof CasefilesComponent
- */
-  updateCaseDate(isResourceContacted, resourceIndex): void {
+   * Update casefile's resource date of contact
+   *
+   * @param {any} isResourceContacted
+   * @param {any} resourceIndex
+   * @memberof CasefilesComponent
+   */
+  updateCaseResourceDate(isResourceContacted, resourceIndex): void {
 
     const casefileID = this.editedCasefile._id;
     const resourceID = this.casefileFormContactedResources.value.resources[resourceIndex].resource._id;
@@ -126,6 +141,13 @@ export class CasefilesComponent implements OnInit, OnChanges {
     ).subscribe();
   }
 
+  /**
+   * Update casefile's resource note
+   *
+   * @param {any} isEditing
+   * @param {any} resourceIndex
+   * @memberof CasefilesComponent
+   */
   updateCaseResourceNote(isEditing, resourceIndex) {
     const casefileID = this.editedCasefile._id;
     const resourceID = this.casefileFormContactedResources.value.resources[resourceIndex].resource._id;
@@ -172,14 +194,20 @@ export class CasefilesComponent implements OnInit, OnChanges {
     selectedResourceFormModel.endDate = (this.isDateRange) ? selectedResourceFormModel.endDate : null;
     const selectedResourceObject = { 'selectedResource': selectedResourceFormModel };
 
-    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe( data => {
+    this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe(data => {
       casefile.selectedResource = selectedResourceFormModel;
       this.isEditingSelectedResource = false;
     });
   }
 
+  /**
+   * Clear a selected resource
+   *
+   * @param {any} casefile
+   * @memberof CasefilesComponent
+   */
   removeCaseSelectedResource(casefile) {
-    this.casefileService.updateCaseSelectedResource(casefile._id, { 'selectedResource': null}).subscribe( data => {
+    this.casefileService.updateCaseSelectedResource(casefile._id, { 'selectedResource': null }).subscribe(data => {
       casefile.selectedResource = null;
       this.casefileFormSelectedResource.reset({});
     });
@@ -246,8 +274,8 @@ export class CasefilesComponent implements OnInit, OnChanges {
 
 export class ContactedResource {
   note = '';
-  resource   = '';
-  isContacted  = '';
+  resource = '';
+  isContacted = '';
   dateContacted = '';
-  _id    = '';
+  _id = '';
 }
