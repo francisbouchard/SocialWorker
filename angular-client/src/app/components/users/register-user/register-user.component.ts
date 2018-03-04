@@ -18,9 +18,9 @@ export class RegisterUserComponent implements OnInit {
     confirmPassword: '',
     role: 'user' // selected role is 'user' by default
   };
-  loading: boolean = false;
-  error: boolean = false;
-  msg: string = "";
+  loading = false;
+  error = false;
+  msg = '';
 
   constructor(
     private authenticationService: AuthenticationService,
