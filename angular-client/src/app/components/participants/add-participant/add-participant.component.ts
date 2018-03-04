@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertModalComponent } from '../../modals/alert-modal/alert-modal.component';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, ValidatorFn, FormBuilder, ValidationErrors } from "@angular/forms";
+import { FormGroup, FormControl, Validators, ValidatorFn, FormBuilder, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-add-participant',

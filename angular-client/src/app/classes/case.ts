@@ -5,4 +5,5 @@ export class Casefile {
     notes: String;
     contactedResources: Array<any>;
     date: Date;
+    type: String;
 }

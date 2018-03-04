@@ -1,0 +1,30 @@
+<div class="sortNSearchToolbar">
+  <mat-form-field>
+    <mat-select placeholder="Sort by" [(value)]="sortProperty">
+      <mat-option value="name">Name</mat-option>
+      <mat-option value="updatedAt">Updated</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button (click)="reverse=!reverse" class="reverseBtn">{{reverse? 'Descending': 'Ascending'}}</button>
+  <mat-form-field class="searchBox">
+    <input matInput placeholder="Search" [(ngModel)]="query">
+  </mat-form-field>
+</div>
+<div *ngFor="let user of ((users | search:'name,role':query) | orderBy: sortProperty: reverse)">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>
+        <b>Name: {{user.name}}</b>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="user.email && user.email !== ''"><b> Email: </b> {{user.email}} <br></div>
+      <div *ngIf="user.role && user.role !== ''"><b> Role: </b> {{user.role}}</div>
+      <div *ngIf="user.pronouns && user.pronouns !== ''"><b> Pronouns: </b> {{user.pronouns}}</div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="delete(user._id)">Delete User</button>
+    </mat-card-actions>
+  </mat-card>
+  <br>
+</div>

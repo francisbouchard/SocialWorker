@@ -1,0 +1,88 @@
+@import '../participant-profile.component.css';
+
+/* Casefile description and notes */
+.caseNotes {
+    width: 36%;
+    display: inline-flex;
+    align-items: baseline;
+}
+
+.caseNotes mat-form-field {
+    width: 100%;
+}
+
+/* Resources to contact */
+headerResources {
+    width: 100%;
+    margin-bottom: 1.8em;
+}
+
+.name {
+    width: 18%;
+} 
+
+.resource {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contacted {
+    max-width: 10%;
+}
+
+.datePicker {
+    width: 20%;
+    margin-left: 5px;
+    display: block;
+    align-items: baseline;
+}
+
+.datePicker p, .selectedResource p {
+    display: inline;
+}
+
+/* Selected resource */
+.selectedResource {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 2em;
+}
+
+.selectedResource div {
+    margin-right: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.selectedResource p {
+    margin-right: 1em;
+}
+
+.dateSwitcher {
+    border: none;
+    text-align: left;
+    outline: none;
+    padding: 0px;
+    color: blueviolet; /* TODO Primary */ 
+}
+
+/* Button button area */
+div.bottomMenu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+}
+
+mat-slide-toggle {
+    margin-left: 5px;
+}
+
+mat-icon {
+    align-self: center;
+    font-size: 1.25em;
+}
+
+
