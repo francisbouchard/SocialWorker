@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertModalComponent } from '../../alert-modal/alert-modal.component';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
-import { FormGroup, FormControl, Validators,ValidatorFn, FormBuilder,ValidationErrors } from "@angular/forms";
+import { FormGroup, FormControl, Validators, ValidatorFn, FormBuilder, ValidationErrors } from "@angular/forms";
 
 
 
@@ -17,7 +17,7 @@ import { FormGroup, FormControl, Validators,ValidatorFn, FormBuilder,ValidationE
 export class AddParticipantComponent implements OnInit {
 
   form: FormGroup;
-  socialmedia: FormGroup
+  socialmedia: FormGroup;
 
   participantData: Participant = {
     _id: '',
@@ -26,7 +26,7 @@ export class AddParticipantComponent implements OnInit {
     address: '',
     telephone: '',
     email: '',
-    socialmedia: {service: '', username: '' },
+    socialmedia: { service: '', username: '' },
     notes: [{}]
   };
 
@@ -34,32 +34,15 @@ export class AddParticipantComponent implements OnInit {
   isAlreadyAParticipantEmail = false;
 
   constructor(
-    private fb:FormBuilder,
+    private fb: FormBuilder,
     private participantService: ParticipantService,
     public dialog: MatDialog,
     public authService: AuthenticationService,
     public router: Router) {
-      
-    this.form = this.fb.group({
-           service: [''],
-           username: [''],
-            name: ['', Validators.required ],
-          //  socialmedia:{service:"",username:""},
-            _id: ['', Validators.required ],
-           // password:new FormControl('',Validators.required),
-            address:['', Validators.required ],
-            pronouns:[''],
-            telephone:[''],
-            email:[''],
-            
-}, {
-      validator:(formgroup:FormGroup)=>{
-        return this.validateInput(formgroup);
-        }
-      });
+    this.createForm();
   }
 
-  
+
 
   ngOnInit() {
     if (!this.authService.loggedIn) {
@@ -67,43 +50,46 @@ export class AddParticipantComponent implements OnInit {
     }
   }
 
-  validateInput(formgroup:FormGroup){
-     let socialun = formgroup.value.username;
-     let socials = formgroup.value.service;
-    if((formgroup.controls["telephone"].value || formgroup.controls["email"].value || socialun && socials)){
-  console.log('OK');
-  return null;
+  createForm() {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      _id: ['', Validators.required],
+      pronouns: [''],
+      telephone: [''],
+      socialMedia: [''],
+      socialMediaAccount: [''],
+      email: ['', Validators.email],
+      address: ['']
+    });
   }
-  else {
-    console.log('Not OK');
-    return {validateInputData: true};
-  }
-}
+
 
   /**
-   * Verify if attribute and value of the given input has 
+   * Verify if attribute and value of the given input has
    * already been associated to a participant.
-   * 
-   * @param {*} event 
+   *
+   * @param {*} event
    * @memberof AddParticipantComponent
    */
   onKey(attribute: String, value: String) {
     const query = attribute + '=' + value;
     const that = this;
-    this.participantService.search(query)
-      .subscribe(data => {
-        if (attribute === '_id') {
-          that.isAlreadyAParticipantID = (data === true) ? true : false;
-        } else {
-          that.isAlreadyAParticipantEmail = (data === true) ? true : false;
-        }
-      });
+    if (value != null) {
+      this.participantService.search(query)
+        .subscribe(data => {
+          if (attribute === '_id') {
+            that.isAlreadyAParticipantID = (data === true) ? true : false;
+          } else {
+            that.isAlreadyAParticipantEmail = (data === true) ? true : false;
+          }
+        });
+    }
   }
 
   /**
    * Alert user of response success or fail.
-   * 
-   * @param {any} message 
+   *
+   * @param {any} message
    * @memberof AddParticipantComponent
    */
   alertModal(message): void {
@@ -121,11 +107,10 @@ export class AddParticipantComponent implements OnInit {
 
   /**
    * Submit new participant profile information.
-   * 
+   *
    * @memberof AddParticipantComponent
    */
   onSubmit() {
-    console.log(this.form.value);
     this.participantService.save(this.form.value)
       .subscribe(data => {
         if (data.hasOwnProperty('errmsg')) {

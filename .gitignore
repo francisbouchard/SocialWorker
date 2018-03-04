@@ -73,3 +73,5 @@ express-server/public/
 # other
 public/
 .idea/
+documents/
+notes/
