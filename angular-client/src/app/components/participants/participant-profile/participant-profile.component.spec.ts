@@ -26,7 +26,7 @@ describe('ParticipantProfileComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ MaterialsModule, RouterTestingModule ],
-      declarations: [ ParticipantProfileComponent ],
+      declarations: [ ParticipantProfileComponent, CasefilesComponent, NotesComponent ],
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
         MessageService,
@@ -44,7 +44,6 @@ describe('ParticipantProfileComponent', () => {
     location = TestBed.get(Location);
     fixture = TestBed.createComponent(ParticipantProfileComponent);
     component = fixture.componentInstance;
-
     fixture.detectChanges();
   });
 
@@ -52,38 +51,38 @@ describe('ParticipantProfileComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should display name of the user', () => {
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   expect(compiled.querySelector('h2').textContent).toContain('testuser');
-  // });
+  it('should display name of the user', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('testuser');
+  });
 
-  // it('should display user\'s casefile', () => {
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   expect(compiled.querySelectorAll('mat-expansion-panel')[0].textContent).toContain('In progress');
-  // });
+  it('should display user\'s casefile', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('mat-expansion-panel')[0].textContent).toContain('In progress');
+  });
 
-  // it('should display user\'s note and its attached image', () => {
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   expect(compiled.querySelectorAll('mat-expansion-panel')[1].textContent).toContain('Note for testing');
-  //   // expect(compiled.querySelector('img')).toBeTruthy(); // TODO when image is retrieved from server issue #68, #69
-  // });
+  it('should display user\'s note and its attached image', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('mat-expansion-panel')[1].textContent).toContain('Note for testing');
+    // expect(compiled.querySelector('img')).toBeTruthy(); // TODO when image is retrieved from server issue #68, #69
+  });
 
-  // it('should refresh notes displayed when one gets deleted', fakeAsync(() => {
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   const deleteButton = compiled.querySelector('#deleteNoteBtn');
-  //   deleteButton.click();
-  //   tick();
-  //   fixture.detectChanges();
-  //   expect(compiled.querySelector('div').textContent).toContain('No notes to display.');
-  // }));
+  it('should refresh notes displayed when one gets deleted', fakeAsync(() => {
+    const compiled = fixture.debugElement.nativeElement;
+    const deleteButton = compiled.querySelector('#deleteNoteBtn');
+    deleteButton.click();
+    tick();
+    fixture.detectChanges();
+    expect(compiled.querySelector('div').textContent).toContain('No notes to display.');
+  }));
 
-  // it('should refresh casefiles displayed when one gets deleted', fakeAsync(() => {
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   const deleteCasefileButton = compiled.querySelector('#deleteCaseBtn');
-  //   deleteCasefileButton.click();
-  //   tick();
-  //   fixture.detectChanges();
-  //   expect(compiled.querySelector('div').textContent).toContain('No cases to display.');
-  // }));
+  it('should refresh casefiles displayed when one gets deleted', fakeAsync(() => {
+    const compiled = fixture.debugElement.nativeElement;
+    const deleteCasefileButton = compiled.querySelector('#deleteCaseBtn');
+    deleteCasefileButton.click();
+    tick();
+    fixture.detectChanges();
+    expect(compiled.querySelector('div').textContent).toContain('No cases to display.');
+  }));
 
 });
