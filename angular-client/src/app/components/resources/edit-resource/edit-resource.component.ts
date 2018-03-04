@@ -1,18 +1,69 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Housing } from '../../../classes/housing';
+import { FormGroup, FormControl, Validators, ValidatorFn, FormBuilder, ValidationErrors } from '@angular/forms';
+import { ResourceService } from '../../../services/resource.service';
 
 @Component({
   selector: 'app-edit-resource',
   templateUrl: './edit-resource.component.html',
   styleUrls: ['./edit-resource.component.css']
 })
-export class EditResourceComponent implements OnInit {
+export class EditResourceComponent implements OnInit, OnChanges {
 
-  @Input() resource: Object;
+  @Input() resource: Housing;
+  @Output() cancel = new EventEmitter();
+  resourceForm: FormGroup;
 
-  constructor() { }
+  constructor(
+    private form: FormBuilder,
+    private resourceService: ResourceService) {
+    this.createForm();
+   }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
+    this.resourceForm.patchValue({
+      name: this.resource.name,
+      term: this.resource.term,
+      email: this.resource.email,
+      location: this.resource.location,
+      notes: this.resource.notes,
+      gender: this.resource.gender,
+      constraints: this.resource.constraints
+
+    });
+  }
+
+  createForm() {
+    this.resourceForm = this.form.group({
+      name: '',
+      term: '',
+      email: '',
+      location: '',
+      notes: '',
+      gender: '',
+      constraints: ''
+    });
+  }
+
+  cancelEdit() {
+    this.cancel.emit();
+  }
+
+  update(id, resource) {
+    this.resourceService.update('housing', id, resource)
+      .subscribe(data => {
+        this.cancelEdit();
+      });
+  }
+
+  delete(id) {
+    this.resourceService.delete(id)
+      .subscribe(data => {
+        this.cancelEdit();
+      });
   }
 
 }
