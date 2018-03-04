@@ -10,7 +10,7 @@ import { ResourceService } from '../../../services/resource.service';
 })
 export class EditResourceComponent implements OnInit, OnChanges {
 
-  @Input() resource: Housing;
+  @Input() resource: any;
   @Output() cancel = new EventEmitter();
   resourceForm: FormGroup;
 
@@ -52,14 +52,17 @@ export class EditResourceComponent implements OnInit, OnChanges {
     this.cancel.emit();
   }
 
-  update(id, resource) {
+  update() {
+    const resource = this.resourceForm.value;
+    const id = this.resource._id;
     this.resourceService.update('housing', id, resource)
       .subscribe(data => {
         this.cancelEdit();
       });
   }
 
-  delete(id) {
+  delete() {
+    const id = this.resource._id;
     this.resourceService.delete(id)
       .subscribe(data => {
         this.cancelEdit();
