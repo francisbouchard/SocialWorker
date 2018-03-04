@@ -33,6 +33,11 @@ import { SearchPipe } from './pipes/search.pipe';
 import { CasefilesComponent } from './components/participants/participant-profile/casefiles/casefiles.component';
 import { NotesComponent } from './components/participants/participant-profile/notes/notes.component';
 import { DocumentsComponent } from './components/participants/participant-profile/documents/documents.component';
+import { PhonelogComponent } from './components/phonelog/phonelog.component';
+import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
+import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
+import { ViewPhonelogComponent } from './components/phonelog/view-phonelog/view-phonelog.component';
+import { PhonelogService } from './services/phonelog.service';
 
 const routes: Routes = [
   {
@@ -67,6 +72,10 @@ const routes: Routes = [
   {
     path: 'participant-profile/:_id',
     component: ParticipantProfileComponent
+  },
+  {
+    path: 'phonelog',
+    component: PhonelogComponent
   }
 ];
 
@@ -95,7 +104,11 @@ const routes: Routes = [
     SearchPipe,
     CasefilesComponent,
     NotesComponent,
-    DocumentsComponent
+    DocumentsComponent,
+    PhonelogComponent,
+    EditParticipantComponent,
+    AddPhonelogComponent,
+    ViewPhonelogComponent
   ],
   imports: [
     BrowserModule,
@@ -117,7 +130,8 @@ const routes: Routes = [
     MessageService,
     ResourceService,
     CasefileService,
-    AuthenticationService
+    AuthenticationService,
+    PhonelogService
   ],
   bootstrap: [AppComponent]
 })

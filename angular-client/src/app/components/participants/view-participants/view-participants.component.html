@@ -10,8 +10,9 @@
     <input matInput  placeholder="Search" [(ngModel)]="query">
 </mat-form-field>
 </div>
-<div *ngFor="let participant of ((profiles| search:'name':query) | orderBy: sortProperty: reverse)">
-<mat-card class="example-card">
+
+<mat-card *ngFor="let participant of ((profiles| search:'name':query) | orderBy: sortProperty: reverse)">
+<div *ngIf="editingParticipant != participant">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title><b>Name: {{participant.name}}</b></mat-card-title>
@@ -25,8 +26,12 @@
    <div *ngIf="participant.address !== '' "><b> Address: </b> {{participant.address}}<br></div>
   </mat-card-content>
   <mat-card-actions>
-      <a routerLink="/participant-profile/{{participant._id}}"><button mat-raised-button>View Participant</button></a>
-    <button mat-raised-button (click)="delete(participant._id)">Delete Participant</button>
+      <button mat-raised-button (click)="view(participant._id)">View</button>
+      <button mat-raised-button (click)="edit(participant._id, participant)">Edit</button>
   </mat-card-actions>
-</mat-card><br>
 </div>
+
+<div *ngIf="editingParticipant == participant">
+    <app-edit-participant [participant]="editingParticipant" (cancel)="cancel()"></app-edit-participant>
+</div>
+</mat-card>

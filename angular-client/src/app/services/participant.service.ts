@@ -20,9 +20,9 @@ export class ParticipantService {
 
   /**
    * Get participant by ID
-   * 
+   *
    * @param {any} participantID
-   * @returns {Observable<Object>} 
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   get(participantID): Observable<Object> {
@@ -35,8 +35,8 @@ export class ParticipantService {
 
   /**
    * Get all participants
-   * 
-   * @returns {Observable<Object>} 
+   *
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   getAll(): Observable<Object> {
@@ -49,23 +49,23 @@ export class ParticipantService {
 
   /**
    * Get all participants of the logged in social worker
-   * 
-   * @returns {Observable<Object>} 
+   *
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   getBySocialWorker(): Observable<Object> {
     return this.http.get(`${this.url}/worker`)
       .pipe(
-      tap(participants => this.log('fecthed participants of social worker')),
+      tap(participants => this.log('fetched participants of social worker')),
       catchError(this.handleError<Object>('getBySocialWorker()'))
       );
   }
 
   /**
    * Save a new participant profile
-   * 
-   * @param {any} participantData 
-   * @returns {Observable<Object>} 
+   *
+   * @param {any} participantData
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   save(participantData: Participant): Observable<Object> {
@@ -83,13 +83,30 @@ export class ParticipantService {
       );
   }
 
+
+    /**
+   * Update participant with new data
+   *
+   * @param {any} participantID
+   * @param {any} participantData
+   * @returns {Observable<Object>}
+   * @memberof ResourceService
+   */
+  update(participantID, participantData): Observable<Object> {
+    return this.http.put(`${this.url}/${participantID}`, participantData)
+      .pipe(
+      tap(_ => this.log('saving a resource')),
+      catchError(this.handleError<Object>('update()'))
+      );
+  }
+
   /**
    * Save a note to a participant
-   * 
+   *
    * @param {FormData} file
-   * @param {Note} note 
-   * @param {String} pid 
-   * @returns {Observable<Object>} 
+   * @param {Note} note
+   * @param {String} pid
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   saveNote(file: FormData, note, pid: String): Observable<Object> {
@@ -134,10 +151,10 @@ export class ParticipantService {
 
   /**
    * Delete a participant's note by its ID
-   * 
-   * @param {String} participantID 
-   * @param {String} noteID 
-   * @returns {Observable<Object>} 
+   *
+   * @param {String} participantID
+   * @param {String} noteID
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   deleteNote(participantID: String, noteID: String): Observable<Object> {
@@ -183,9 +200,9 @@ export class ParticipantService {
 
   /**
    * Log messages by sending them to message service
-   * 
+   *
    * @private
-   * @param {String} message 
+   * @param {String} message
    * @memberof ParticipantService
    */
   private log(message: String) {
@@ -195,12 +212,12 @@ export class ParticipantService {
   /**
    * Capture errors from the service, then log them,
    * and let the app keep running with a returned Observable
-   * 
+   *
    * @private
-   * @template T 
-   * @param {string} [operation='operation'] 
-   * @param {T} [result] 
-   * @returns 
+   * @template T
+   * @param {string} [operation='operation']
+   * @param {T} [result]
+   * @returns
    * @memberof ParticipantService
    */
   private handleError<T>(operation = 'operation', result?: T) {
