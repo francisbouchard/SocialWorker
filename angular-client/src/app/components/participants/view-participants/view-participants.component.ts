@@ -12,7 +12,7 @@ import { Participant } from '../../../classes/participant';
 
 export class ViewParticipantsComponent implements OnInit {
   @Input() hasTabChanged: boolean;
-  editingParticipant = Participant;
+  editingParticipant: Participant;
 
   public profiles;
   public sortProperty = 'name';
@@ -23,6 +23,14 @@ export class ViewParticipantsComponent implements OnInit {
     private participantService: ParticipantService,
     public authService: AuthenticationService,
     public router: Router) { }
+
+  ngOnInit() {
+    if (!this.authService.loggedIn) {
+      this.router.navigateByUrl('login');
+    } else {
+      this.loadParticipants();
+    }
+  }
 
   /**
    * Load all participants, depending on access level
@@ -44,24 +52,16 @@ export class ViewParticipantsComponent implements OnInit {
     }
   }
 
+  /**
+   * Load one participant by ID
+   *
+   * @param {any} pid
+   * @memberof ViewParticipantsComponent
+   */
   getParticipant(pid) {
     this.participantService.get(pid)
       .subscribe(data => {
         this.profiles = [data];
-      });
-  }
-
-  /**
-   * Delete participant by id
-   *
-   * @param {any} id
-   * @memberof ViewParticipantsComponent
-   */
-  delete(pid) {
-    this.participantService.delete(pid)
-      .subscribe(data => {
-        console.log('Deleted: ' + data);
-        this.loadParticipants();
       });
   }
 
@@ -86,21 +86,6 @@ export class ViewParticipantsComponent implements OnInit {
     this.editingParticipant = participant;
   }
 
-    /**
-   * Update participant with new attributes
-   *
-   * @param {any} id
-   * @param {any} participant
-   * @memberof ViewParticipantsComponent
-   */
-  update(id, participant) {
-    this.participantService.update(id, participant) // TODO
-      .subscribe(data => {
-        console.log(data);
-        this.cancel();
-      });
-  }
-
   /**
    * Cancel edit mode and return to view mode
    *
@@ -110,15 +95,6 @@ export class ViewParticipantsComponent implements OnInit {
     this.edit('', null);
     this.loadParticipants();
   }
-
-  ngOnInit() {
-    if (!this.authService.loggedIn) {
-      this.router.navigateByUrl('login');
-    } else {
-      this.loadParticipants();
-    }
-  }
-
 
 }
 
