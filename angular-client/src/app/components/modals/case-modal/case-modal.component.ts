@@ -14,14 +14,16 @@ import { Participant } from '../../../classes/participant';
 export class CaseModalComponent implements OnInit {
   statuses = ['In progress', 'Completed'];
   urgencies = ['Regular', 'Urgent'];
-  resources: Object;
+  resources: any[];
+  resourceTypes = [];
   mycase: Casefile = {
     participant: '',
     status: 'In progress',
-    notes: '',
+    notes: null,
     urgency: 'Regular',
     contactedResources: [],
-    date: new Date()
+    date: new Date(),
+    type: ''
   };
 
   constructor(
@@ -45,6 +47,7 @@ export class CaseModalComponent implements OnInit {
     this.resourceService.getAll()
       .subscribe(data => {
         this.resources = data;
+        this.setResourceTypes();
       });
   }
 
@@ -57,16 +60,31 @@ export class CaseModalComponent implements OnInit {
     const arrayOfResources = this.mycase.contactedResources;
     this.mycase.contactedResources = [];
     arrayOfResources.forEach(element => {
-      this.mycase.contactedResources.push({resource: element, status: 'To Contact', dateContacted: null, note: ''});
+      this.mycase.contactedResources.push({ resource: element, isContacted: false, dateContacted: null, note: null });
     });
+  }
+
+  /**
+   * From all the resources, create a set of resource types.
+   * Ex: Housing, Legal, Job Security.
+   *
+   * @memberof CaseModalComponent
+   */
+  setResourceTypes() {
+    for (let i = 0; i < this.resources.length; i++) {
+      if (this.resourceTypes.indexOf(this.resources[i].kind) === -1) {
+        this.resourceTypes.push(this.resources[i].kind);
+      }
+    }
+    this.resourceTypes.sort();
   }
 
   submit(): void {
     this.makeResourceArray();
     this.caseService.save(this.mycase)
-    .subscribe(data => {
-      this.dialogRef.close();
-    });
+      .subscribe(data => {
+        this.dialogRef.close();
+      });
   }
 
   cancel(): void {

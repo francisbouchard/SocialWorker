@@ -34,12 +34,14 @@ import { UsersComponent } from './components/users/users.component';
 import { ViewUsersComponent } from './components/users/view-users/view-users.component';
 import { UserService } from './services/user.service';
 import { EditWorkerModalComponent } from './components/modals/edit-worker-modal/edit-worker-modal.component';
+import { CasefilesComponent } from './components/participants/participant-profile/casefiles/casefiles.component';
+import { NotesComponent } from './components/participants/participant-profile/notes/notes.component';
+import { DocumentsComponent } from './components/participants/participant-profile/documents/documents.component';
 import { PhonelogComponent } from './components/phonelog/phonelog.component';
 import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
 import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
 import { ViewPhonelogComponent } from './components/phonelog/view-phonelog/view-phonelog.component';
 import { PhonelogService } from './services/phonelog.service';
-
 
 const routes: Routes = [
   {
@@ -122,6 +124,9 @@ const routes: Routes = [
     UsersComponent,
     ViewUsersComponent,
     EditWorkerModalComponent,
+    CasefilesComponent,
+    NotesComponent,
+    DocumentsComponent,
     PhonelogComponent,
     EditParticipantComponent,
     AddPhonelogComponent,
