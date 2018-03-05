@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
 router.get('/participant/:id', (req, res) => {
     Casefile.find({ participant: req.params.id })
     .populate('contactedResources.resource')
-    .populate('selectedResource')
+    .populate('selectedResource.resource')
     .then(data => {
         res.send(data);
     }, err => {
@@ -59,6 +59,7 @@ router.post('/', (req, res) => {
         participant: req.body.participant,
         notes: [req.body.notes],
         status: req.body.status,
+        type: req.body.type,
         urgency: req.body.urgency,
         contactedResources: req.body.contactedResources,
         selectedResource: req.body.selectedResource,
@@ -80,7 +81,7 @@ router.post('/:id/resource', (req, res) => {
 
         let contResource = {
             resource: req.body.resourceId,
-            status: req.body.status,
+            isContacted: req.body.isContacted,
             dateContacted: req.body.dateContacted,
             note: req.body.note
         };
@@ -98,14 +99,14 @@ router.post('/:id/resource', (req, res) => {
  * Update a contacted resource's details
  */
 router.put('/:id/resource/:resId', (req, res) => {
-    let statusStr = 'contactedResources.$.status';
+    let statusStr = 'contactedResources.$.isContacted';
     let dateStr = 'contactedResources.$.dateContacted';
     let noteStr = 'contactedResources.$.note';
     let setObj = {};
-    if (req.body.status || req.body.dateContacted) {
-        setObj['contactedResources.$.status'] = req.body.status;
+    if (req.body.hasOwnProperty('isContacted') || req.body.hasOwnProperty('dateContacted')) {
+        setObj['contactedResources.$.isContacted'] = req.body.isContacted;
         setObj['contactedResources.$.dateContacted'] = req.body.dateContacted;
-    } if (req.body.note) {
+    } if (req.body.hasOwnProperty('note')) {
         setObj['contactedResources.$.note'] = req.body.note;
     }
 
@@ -119,6 +120,8 @@ router.put('/:id/resource/:resId', (req, res) => {
 
 /**
  * Update a casefile with a selected resource
+ * selectedResource contains: resource, startDate, endDate
+ *
  */
 router.put('/:id/selection', (req, res) => {
     Casefile.update({ '_id': req.params.id }, { '$set': { selectedResource: req.body.selectedResource}})
@@ -140,6 +143,18 @@ router.put('/:id/status', (req, res) => {
             res.send(err);
         })
 });
+
+/**
+ * Update note of a Casefile
+ */
+router.put('/:id/note', (req, res) => {
+    Casefile.update({ '_id': req.params.id }, { '$set': { notes: [req.body.notes] }})
+    .then(data => {
+        res.send(data);
+    }), err => {
+        res.send(err);
+    }
+})
 
 /**
  * Delete a Casefile with the given ID

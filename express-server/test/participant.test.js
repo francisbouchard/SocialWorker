@@ -119,14 +119,15 @@ describe('Participant Tests', () => {
                     done();
                 });
         });
-        it('should not proceed with GET when social worker ID not provided through the cookie', (done) => {
-            chai.request(server)
-                .get('/api/participant/worker')
-                .end((err, res) => {
-                    res.should.have.status(401);
-                    done();
-                });
-        });
+        // Uncomment following when testing *locally* (when testing with travis, the cookie with worker's ID is always there)
+        // it('should not proceed with GET when social worker ID not provided through the cookie', (done) => {
+        //     chai.request(server)
+        //         .get('/api/participant/worker')
+        //         .end((err, res) => {
+        //             res.should.have.status(401);
+        //             done();
+        //         });
+        // });
     });
 
     describe('/GET/search/:values', () => {
@@ -212,7 +213,7 @@ describe('Participant Tests', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
-                    res.body.should.have.property('nModified').eql(0);
+                    res.body.should.be.empty;
                     done();
                 });
         });
@@ -229,16 +230,20 @@ describe('Participant Tests', () => {
                 });
         });
         it('should add a social worker to participant with given ID', (done) => {
-            chai.request(server)
-                .post('/api/participant/' + id1 + '/worker')
-                .set('Cookie', cookie)
-                .send({ workerID: workerId1 })
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('nModified').eql(1);
-                    done();
-                });
+            Participant.findById(id1).then(participant => {
+                let numOfWorkers = participant.socialworkers.length;
+                chai.request(server)
+                    .post('/api/participant/' + id1 + '/worker')
+                    .set('Cookie', cookie)
+                    .send({ workerID: workerId1 })
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('socialworkers');
+                        res.body.socialworkers.length.should.be.eql(numOfWorkers + 1);
+                        done();
+                    });
+            })
         });
     });
 
@@ -262,8 +267,8 @@ describe('Participant Tests', () => {
                         res.body.should.have.property('documents');
                         res.body.documents.length.should.be.eql(numOfDocs + 1);
                         done();
-                    });
-            })
+                     });
+             })
         });
     });
 
@@ -288,7 +293,7 @@ describe('Participant Tests', () => {
                         res.body.notes.length.should.be.eql(numOfNotes + 1);
                         done();
                     });
-            })
+         })
         });
     });
 
@@ -320,6 +325,18 @@ describe('Participant Tests', () => {
                             res.should.have.status(200);
                             done();
                         });
+                });
+        });
+    });
+
+    describe('/DELETE/:pid/worker/:workerId', () => {
+        it('should DELETE worker with given ID from the participant\'s assigned social workers', (done) => {
+            chai.request(server)
+                .del('/api/participant/' + id1 + '/worker/' + workerId1)
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
                 });
         });
     });

@@ -1,40 +1,40 @@
 <div>
 <mat-card>
-  <form class="form">
+  <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
     <mat-form-field>
-      <input matInput required placeholder="Name" name="name" [(ngModel)]="housing.name">
+      <input matInput placeholder="Name" formControlName="name">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Email" name="email" [(ngModel)]="housing.email">
+      <input matInput placeholder="Email" formControlName="email">
     </mat-form-field>
 
     <mat-form-field>
       <span matPrefix>+1 &nbsp;</span>
-      <input type="tel" matInput placeholder="Telephone" name="telephone" [(ngModel)]="housing.phone">
+      <input matInput placeholder="Telephone" formControlName="telephone">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Location" name="location" [(ngModel)]="housing.location">
+      <input matInput placeholder="Location" formControlName="location">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Notes" name="notes" [(ngModel)]="housing.notes">
+      <input matInput placeholder="Notes" formControlName="notes">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Term" name="term" [(ngModel)]="housing.term">
+      <input matInput placeholder="Term" formControlName="term">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Gender" name="gender" [(ngModel)]="housing.gender">
+      <input matInput placeholder="Gender" formControlName="gender">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Constraints" name="constraints" [(ngModel)]="housing.constraints">
+      <input matInput placeholder="Constraints" formControlName="constraints">
     </mat-form-field>
-
+<button mat-raised-button [disabled]="form.invalid">Submit</button>
   </form>
-  <button mat-raised-button (click)="submit()">Submit</button>
+  
 </mat-card>
 </div>

@@ -31,22 +31,24 @@ if(!exists){
  * Get all participants
  */
 router.get('/', (req, res) => {
-    Participant.find().then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    })
+    Participant.find().populate("socialworkers")
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
 });
 
 /**
  * Get a participant by ID
  */
 router.get('/id/:pid', (req, res) => {
-    Participant.findById(req.params.pid).then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    })
+    Participant.findById(req.params.pid).populate("socialworkers")
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
 });
 
 /**
@@ -57,10 +59,11 @@ router.get('/worker', (req, res) => {
     if (!req.user || !req.user._id) {
         return res.status(401).send({ err: "No user ID provided. User must be logged in." })
     }
-    Participant.find({ deleted: {$ne: true}, socialworkers: new ObjectId(req.user._id) }).then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
+    Participant.find({ deleted: {$ne: true}, socialworkers: new ObjectId(req.user._id) })
+        .populate("socialworkers").then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
     })
 });
 
@@ -156,8 +159,10 @@ router.post('/:pid/worker', (req, res) => {
     User.findById(req.body.workerID).then(user => {
         if (!user) return res.send({ err: "User (social worker) does not exist." });
 
-        Participant.update({ _id: req.params.pid }, { $push: { socialworkers: req.body.workerID } })
-            .then(data => {
+        Participant.findByIdAndUpdate({ _id: req.params.pid }, 
+            { $push: { socialworkers: req.body.workerID } }, 
+            { new: true }
+        ).populate("socialworkers").then(data => {
                 res.send(data);
             }, err => {
                 res.send(err);
@@ -166,6 +171,20 @@ router.post('/:pid/worker', (req, res) => {
         res.send(err);
     });
 });
+
+/**
+ * Remove social worker assigned from participant
+ */
+router.delete('/:pid/worker/:workerId', (req, res) => {
+    Participant.findByIdAndUpdate({ _id: req.params.pid },
+        { $pull: { socialworkers: new ObjectId(req.params.workerId) } },
+        { new: true }
+    ).populate("socialworkers").then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+})
 
 /**
  * Add a document to participant
