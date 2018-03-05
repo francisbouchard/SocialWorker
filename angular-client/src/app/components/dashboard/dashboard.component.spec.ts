@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DashboardComponent } from './dashboard.component';
+import { AuthenticationService } from '../../services/authentication.service';
+import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -8,7 +11,11 @@ describe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
+      declarations: [ DashboardComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ],
+      providers: [
+        { provide: AuthenticationService, useClass: MockAuthenticationService }
+      ]
     })
     .compileComponents();
   }));
@@ -22,4 +29,6 @@ describe('DashboardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // TODO check div for different sections
 });
