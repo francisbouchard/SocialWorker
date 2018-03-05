@@ -44,8 +44,11 @@ router.put('/:lid', (req, res) => {
         log.user= req.body.user || log.user;
         log.subject = req.body.subject || log.subject;
         log.notes= [req.body.notes] || log.notes;
-        log.urgent = req.body.documents || log.urgent;
+        log.urgent = req.body.urgent ;
         log.callertype = req.body.callertype || log.callertype;
+        log.message = req.body.message || log.message;
+        log.date=req.body.date||log.date
+
 
 
         log.save().then(data => {

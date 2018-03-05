@@ -18,21 +18,30 @@
     <mat-form-field>
         <input matInput placeholder="Notes" name="notes" [(ngModel)]="log.notes">
         <mat-hint align="start">
-            <strong>Optional: choose platform</strong>
         </mat-hint>
     </mat-form-field>
 
-    <mat-form-field >
-        <input matInput placeholder="Date" type="date" name="date" [(ngModel)]="log.date">
+    <mat-form-field>
+        <input matInput placeholder="Message" name="message" [(ngModel)]="log.message">
         <mat-hint align="start">
-            <strong>Optional: Choose date</strong>
         </mat-hint>
     </mat-form-field>
-  
-   <mat-radio-group [(ngModel)]="log.urgent" name="urgent">
-  <mat-radio-button value="true">True </mat-radio-button>
-  <mat-radio-button value="false">False</mat-radio-button>
-</mat-radio-group>
+
+    <mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="log.date" [ngModelOptions]="{standalone: true}">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+
+     <mat-hint align="start">
+            Urgent
+        </mat-hint><br><br>
+     <mat-radio-group [(ngModel)]="log.urgent" name="urgent">
+         <mat-radio-button  [value]="true">True </mat-radio-button>
+         <mat-radio-button  [value]="false">False </mat-radio-button>
+    </mat-radio-group><br>
+        <br>
 
 
     <mat-select placeholder="Type of caller" name="callertype" [(ngModel)]="log.callertype">
