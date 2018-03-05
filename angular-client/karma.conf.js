@@ -28,6 +28,7 @@ module.exports = function (config) {
           flags: ['--no-sandbox']
       }
     },
+    files: ['**/*.spec.ts', ],
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
