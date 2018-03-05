@@ -1,4 +1,4 @@
-<mat-card *ngFor="let log of ((logs| search:'urgent':query) | orderBy: sortProperty: reverse)">
+<mat-card *ngFor="let log of ((logs| search:'urgent':query) | orderArray: sortProperty: reverse)">
 <div *ngIf="editingLog != log">
   <mat-card-content>
    <div *ngIf="log.name !== ''"><b> Name: </b> {{log.name}} <br></div>

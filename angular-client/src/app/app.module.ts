@@ -29,6 +29,7 @@ import { ResourceService } from './services/resource.service';
 import { CaseModalComponent } from './components/modals/case-modal/case-modal.component';
 import { CasefileService } from './services/casefile.service';
 import { OrderByPipe } from './pipes/orderBy.pipe';
+import { OrderArray } from './pipes/orderCustomArray';
 import { SearchPipe } from './pipes/search.pipe';
 import { PhonelogComponent } from './components/phonelog/phonelog.component';
 import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
@@ -105,7 +106,7 @@ const routes: Routes = [
     EditParticipantComponent,
     AddPhonelogComponent,
     ViewPhonelogComponent,
-    EditPhonelogComponent
+    EditPhonelogComponent,OrderArray
   ],
   imports: [
     BrowserModule,
