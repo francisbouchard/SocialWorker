@@ -16,6 +16,25 @@ router.get('/', (req, res) => {
     })
 });
 
+
+router.get('/resolved', (req, res) => {
+    Phonelog.find({ "resolved": { "$in": ["false",false] } })
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+    })
+});
+
+router.get('/deleted', (req, res) => {
+    Phonelog.find({ "deleted": { "$in": ["false",false] } })
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+    })
+});
+
 /**
  * Create a new Phonelog
  */

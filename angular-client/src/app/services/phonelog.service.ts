@@ -31,6 +31,22 @@ export class PhonelogService {
       );
   }
 
+  getByResolved(): Observable<Object> {
+    return this.http.get(`${this.url}/resolved`)
+      .pipe(
+        tap(participants => this.log('fecthed logs')),
+        catchError(this.handleError<Object>('getByResolved()'))
+      );
+  }
+
+  getByDeleted(): Observable<Object> {
+    return this.http.get(`${this.url}/deleted`)
+      .pipe(
+        tap(participants => this.log('fecthed logs')),
+        catchError(this.handleError<Object>('getByDeleted()'))
+      );
+  }
+
     /**
    * Save a new case
    *

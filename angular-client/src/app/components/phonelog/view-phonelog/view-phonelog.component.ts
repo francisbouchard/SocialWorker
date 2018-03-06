@@ -16,8 +16,7 @@ import {MatRadioModule} from '@angular/material/radio';
 export class ViewPhonelogComponent implements OnInit {
   @Input() hasTabChanged: boolean;
     editingLog = Phonelog;
-    public logs=[];
-    public log;
+    public logs;
     public sortProperty = 'urgent';
     public reverse = false;
     public query: string;
@@ -40,16 +39,10 @@ export class ViewPhonelogComponent implements OnInit {
 
     loadLogs() {
     if (this.authService.role === 'admin') {
-      this.phonelogService.getAll()
+      this.phonelogService.getByResolved()
         .subscribe(data => {
           console.log(data)
-          this.log = data;
-          for(var i=0;i<this.log.length;i++){
-            if(this.log[i].resolved==false){
-              this.logs.push(this.log[i]);
-            }
-          }
-          console.log(this.logs)
+          this.logs = data;
         });
     }
   }
