@@ -30,6 +30,15 @@ export class ViewPhonelogComponent implements OnInit {
     public authService: AuthenticationService,
     public router: Router) { }
 
+    ngOnInit() {
+      if (!this.authService.loggedIn) {
+        this.router.navigateByUrl('login');
+      }
+      else {
+      this.loadLogs();
+    }
+    }
+
     loadLogs() {
     if (this.authService.role === 'admin') {
       this.phonelogService.getAll()
@@ -53,8 +62,8 @@ export class ViewPhonelogComponent implements OnInit {
    * @param {any} log
    * @memberof ViewParticipantsComponent
    */
-  edit(id, log) {
-    this.editingLog = log;
+  edit(log) {
+   this.editingLog = log;
   }
 
    /**
@@ -64,18 +73,17 @@ export class ViewPhonelogComponent implements OnInit {
    * @param {any} log
    * @memberof ViewParticipantsComponent
    */
-  update(id, log) {
-    this.phonelogService.update(id, log) // TODO
+  update(log) {
+    this.phonelogService.update(log) // TODO
       .subscribe(data => {
-        this.logs=[];
+       this.logs=[];
         this.cancel();
       });
   }
     
 
- resolve(id, log) {
-    var deleted=log.deleted;
-    this.phonelogService.resolve(id, {deleted:'true'}).subscribe(data => {
+ delete(log) {
+    this.phonelogService.delete(log._id,{deleted:'true'}).subscribe(data => {
         this.logs=[];
         this.loadLogs();
       });
@@ -86,18 +94,8 @@ export class ViewPhonelogComponent implements OnInit {
    * @memberof ViewParticipantsComponent
    */
   cancel() {
-    this.edit('', null);
-    this.logs=[];
+    this.edit(null);
+    let logs=[];
     this.loadLogs();
   }
-
-    ngOnInit() {
-      if (!this.authService.loggedIn) {
-        this.router.navigateByUrl('login');
-      }
-      else {
-      this.loadLogs();
-    }
-    }
-
 }
