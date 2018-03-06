@@ -63,7 +63,16 @@ router.put('/:lid', (req, res) => {
 });
     
 router.put('/:id/deleted', (req, res) => {
-    Phonelog.update({ '_id': req.params.id }, { '$set': { deleted: req.body.deleted,resolvedBy: req.user._id ,dateResolved:Date.now() } })
+    Phonelog.update({ '_id': req.params.id }, { '$set': { deleted: req.body.deleted}})
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+});
+
+router.put('/:id/resolved', (req, res) => {
+    Phonelog.update({ '_id': req.params.id }, { '$set': { resolved: req.body.resolved,resolvedBy: req.user._id ,dateResolved:Date.now() } })
         .then(data => {
             res.send(data);
         }, err => {

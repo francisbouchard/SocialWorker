@@ -45,7 +45,7 @@ export class ViewPhonelogComponent implements OnInit {
           console.log(data)
           this.log = data;
           for(var i=0;i<this.log.length;i++){
-            if(this.log[i].deleted==false){
+            if(this.log[i].resolved==false){
               this.logs.push(this.log[i]);
             }
           }
@@ -64,7 +64,14 @@ export class ViewPhonelogComponent implements OnInit {
   edit(log) {
    this.editingLog = log;
   }
-    
+  
+resolve(log) {
+    this.phonelogService.resolve(log._id,{resolved:'true'}).subscribe(data => {
+        this.logs=[];
+        this.loadLogs();
+      });
+  }
+
  delete(log) {
     this.phonelogService.delete(log._id,{deleted:'true'}).subscribe(data => {
         this.logs=[];

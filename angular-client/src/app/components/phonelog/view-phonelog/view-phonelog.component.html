@@ -7,7 +7,7 @@
    <div *ngIf="log.urgent == true "><b> Urgent: </b>Yes<br></div>
    <div *ngIf="log.urgent == false "><b> Urgent: </b> No<br></div>
    <div *ngIf="log.language !== '' && log.language !==undefined "><b> Language: </b>{{log.language}}<br></div>
-   <div *ngIf="log.notes[0] !==null "><b> Note regarding the call: </b> {{log.notes[0]}}<br></div>
+   <div *ngIf="log.notes[0] !==null && log.notes[0] !=='' "><b> Note regarding the call: </b> {{log.notes[0]}}<br></div>
    <div *ngIf="log.pronouns !== '' "><b> Pronoun: </b> {{log.pronouns}}<br></div>
    <div *ngIf="log.subject !== '' "><b> Subject: </b> {{log.subject}}<br></div>
    <div *ngIf="log.message !== '' && log.message !==undefined "><b> Message: </b> {{log.message}}<br></div>  
