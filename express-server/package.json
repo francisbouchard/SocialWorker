@@ -8,7 +8,7 @@
 				"cover": "istanbul cover _mocha"
 		},
 		"dependencies": {
-				"8":"^0.0.1",
+				"8": "^0.0.1",
 				"@angular/flex-layout": "^2.0.0-beta.12",
 				"@angular/common": "^5.2.5",
 				"@angular/core": "^5.2.5",
