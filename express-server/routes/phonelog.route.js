@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
 
 router.get('/resolved', (req, res) => {
     Phonelog.find({ "resolved": { "$in": ["false",false] } })
+    .populate('user')
         .then(data => {
             res.send(data);
         }, err => {
@@ -28,6 +29,7 @@ router.get('/resolved', (req, res) => {
 
 router.get('/deleted', (req, res) => {
     Phonelog.find({ "deleted": { "$in": ["false",false] } })
+    .populate('user')
         .then(data => {
             res.send(data);
         }, err => {
