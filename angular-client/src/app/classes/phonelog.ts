@@ -7,4 +7,5 @@ export class Phonelog {
     subject: String;
     notes: String;
     callertype: String;
+    language:String
 }

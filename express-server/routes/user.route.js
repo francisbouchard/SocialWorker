@@ -4,6 +4,9 @@ const User = require('../models/User');
 const passport = require('passport');
 const passportConfig = require('../config/passport');
 
+/**
+ * Log in a user to the application
+ */
 router.post('/login', (req, res, next) => {
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password cannot be blank').notEmpty();
@@ -26,9 +29,9 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-
-
-
+/**
+ * Sign up a user to the application
+ */
 router.post('/signup', (req, res, next) => {
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len({ min: 4 });
@@ -42,8 +45,11 @@ router.post('/signup', (req, res, next) => {
   }
 
   const user = new User({
+    name: req.body.name,
+    pronouns: req.body.pronouns,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    role: req.body.role
   });
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {
@@ -58,14 +64,20 @@ router.post('/signup', (req, res, next) => {
   });
 });
 
-router.delete('/',  (req, res, next) => {
-  User.remove({ _id: req.user.id }, (err) => {
+/**
+ * Delete a user
+ */
+router.delete('/:id',  (req, res, next) => {
+  User.remove({ _id: req.params.id }, (err) => {
     if (err) { return next(err); }
     req.logout();
-    res.send({msg: [{ msg: 'Your account has been deleted.' }]});
+    res.send({msg: [{ msg: 'The user account has been deleted.' }]});
   });
 });
 
+/**
+ * Log out from the application
+ */
 router.post('/logout', (req, res, next) => {
   if(req.user){
     req.logout();
@@ -75,12 +87,26 @@ router.post('/logout', (req, res, next) => {
   }
 });
 
+/**
+ * Heartbeat function used to check if user is still logged in
+ */
 router.post('/heartbeat', (req, res, next) => {
   if(req.user){
     res.send({loggedIn: true, role: req.user.role});
   } else {
     res.send({loggedIn: false, role: null})
   }
+});
+
+/**
+ * Get all users
+ */
+router.get('/all', (req, res) => {
+  User.find().then(data => {
+      res.send(data);
+  }, err => {
+      res.send(err);
+  })
 });
 
 module.exports = router;
