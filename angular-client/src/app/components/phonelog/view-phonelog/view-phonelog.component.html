@@ -22,13 +22,8 @@
 
   </mat-card-actions>
 </div>
-
 <div *ngIf="editingLog == log">
-    <app-edit-phonelog [log]="editingLog" ></app-edit-phonelog>
-    <mat-card-actions>
-      <button mat-raised-button (click)="update(log)">Update</button>
-      <button mat-raised-button (click)="cancel()">Cancel</button>
-    </mat-card-actions>
+    <app-edit-phonelog [log]="editingLog" (cancel)="cancel()"></app-edit-phonelog>
 </div>
 </mat-card>
 

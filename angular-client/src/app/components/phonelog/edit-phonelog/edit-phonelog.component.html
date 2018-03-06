@@ -1,57 +1,62 @@
-<form class="form">
+<form class="form" [formGroup]="editphonelog">
     <mat-form-field>
-      <input matInput required placeholder="Name" name="name" [(ngModel)]="log.name">
+      <input matInput required placeholder="Name" name="name" formControlName="name">
     </mat-form-field>
 
      <mat-form-field>
-        <input matInput placeholder="Pronouns" name="pronouns" [(ngModel)]="log.pronouns">
+        <input matInput placeholder="Pronouns" name="pronouns" formControlName="pronouns">
     </mat-form-field>
 
      <mat-form-field>
-        <input matInput placeholder="Language" name="language" [(ngModel)]="log.language">
+        <input matInput placeholder="Language" name="language" formControlName="language">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Phonenumber" name="phonenumber" [(ngModel)]="log.phonenumber">
+      <input matInput placeholder="Phonenumber" name="phonenumber" formControlName="phonenumber">
     </mat-form-field>
 
     <mat-form-field>
-        <input type="tel" matInput placeholder="Subject" name="subject" [(ngModel)]="log.subject">
+        <input type="tel" matInput placeholder="Subject" name="subject" formControlName="subject">
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput placeholder="Notes" name="notes" [(ngModel)]="log.notes">
+        <input matInput placeholder="Notes" name="notes" formControlName="notes">
         <mat-hint align="start">
         </mat-hint>
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput placeholder="Message" name="message" [(ngModel)]="log.message">
+        <input matInput placeholder="Message" name="message" formControlName="message">
         <mat-hint align="start">
         </mat-hint>
     </mat-form-field>
 
-    <mat-form-field>
+    <!-- <mat-form-field>
   <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="log.date" [ngModelOptions]="{standalone: true}">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
+</mat-form-field> -->
 
 
      <mat-hint align="start">
             Urgent
         </mat-hint><br><br>
-     <mat-radio-group [(ngModel)]="log.urgent" name="urgent">
+     <mat-radio-group formControlName="urgent" name="urgent">
          <mat-radio-button  [value]="true">True </mat-radio-button>
          <mat-radio-button  [value]="false">False </mat-radio-button>
     </mat-radio-group><br>
         <br>
 
 
-    <mat-select placeholder="Type of caller" name="callertype" [(ngModel)]="log.callertype">
+    <mat-select placeholder="Type of caller" name="callertype" formControlName="callertype">
           <mat-option *ngFor="let caller of callertype" [value]="caller">
             {{ caller}}
           </mat-option>
         </mat-select>
+
+         <mat-card-actions>
+      <button mat-raised-button type="submit" [disabled]="editphonelog.invalid" (click)="update(log._id,log)">Update</button>
+      <button mat-raised-button type="button" (click)="cancel.emit()">Cancel</button>
+    </mat-card-actions>
 
   </form>

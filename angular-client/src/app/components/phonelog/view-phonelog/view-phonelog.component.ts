@@ -6,7 +6,6 @@ import { PhonelogService } from '../../../services/phonelog.service';
 import { ChangeDetectorRef} from '@angular/core';
 import {MatRadioModule} from '@angular/material/radio';
 
-
 @Component({
   selector: 'app-view-phonelog',
   templateUrl: './view-phonelog.component.html',
@@ -23,12 +22,12 @@ export class ViewPhonelogComponent implements OnInit {
     public reverse = false;
     public query: string;
 
-
   constructor(
     private chRef: ChangeDetectorRef, 
     private phonelogService: PhonelogService,
     public authService: AuthenticationService,
     public router: Router) { }
+    
 
     ngOnInit() {
       if (!this.authService.loggedIn) {
@@ -65,23 +64,7 @@ export class ViewPhonelogComponent implements OnInit {
   edit(log) {
    this.editingLog = log;
   }
-
-   /**
-   * Update Log with new attributes
-   *
-   * @param {any} id
-   * @param {any} log
-   * @memberof ViewParticipantsComponent
-   */
-  update(log) {
-    this.phonelogService.update(log) // TODO
-      .subscribe(data => {
-       this.logs=[];
-        this.cancel();
-      });
-  }
     
-
  delete(log) {
     this.phonelogService.delete(log._id,{deleted:'true'}).subscribe(data => {
         this.logs=[];
@@ -95,7 +78,7 @@ export class ViewPhonelogComponent implements OnInit {
    */
   cancel() {
     this.edit(null);
-    let logs=[];
+    this.logs=[];
     this.loadLogs();
   }
 }

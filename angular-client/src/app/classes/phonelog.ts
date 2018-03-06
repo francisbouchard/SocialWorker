@@ -4,6 +4,7 @@ export class Phonelog {
     user: String;
     urgent: Boolean;
     phonenumber: String;
+    message:String;
     subject: String;
     notes: String;
     callertype: String;
