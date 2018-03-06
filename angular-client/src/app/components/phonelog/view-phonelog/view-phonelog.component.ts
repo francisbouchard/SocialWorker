@@ -3,8 +3,8 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { RouterModule, Router } from '@angular/router';
 import { Phonelog } from '../../../classes/phonelog';
 import { PhonelogService } from '../../../services/phonelog.service';
-import { ChangeDetectorRef} from '@angular/core';
-import {MatRadioModule} from '@angular/material/radio';
+import { ChangeDetectorRef } from '@angular/core';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-view-phonelog',
@@ -14,42 +14,47 @@ import {MatRadioModule} from '@angular/material/radio';
 })
 
 export class ViewPhonelogComponent implements OnInit {
+
   @Input() hasTabChanged: boolean;
-    editingLog = Phonelog;
-    public logs=[];
-    public log;
-    public sortProperty = 'urgent';
-    public reverse = false;
-    public query: string;
+  editingLog = Phonelog;
+  public logs = [];
+  public log;
+  public sortProperty = 'urgent';
+  public reverse = false;
+  public query: string;
 
   constructor(
-    private chRef: ChangeDetectorRef, 
+    private chRef: ChangeDetectorRef,
     private phonelogService: PhonelogService,
     public authService: AuthenticationService,
     public router: Router) { }
-    
 
-    ngOnInit() {
-      if (!this.authService.loggedIn) {
-        this.router.navigateByUrl('login');
-      }
-      else {
+
+  ngOnInit() {
+    if (!this.authService.loggedIn) {
+      this.router.navigateByUrl('login');
+    } else {
       this.loadLogs();
     }
-    }
+  }
 
-    loadLogs() {
+  /**
+   * Load all phonelogs
+   *
+   * @memberof ViewPhonelogComponent
+   */
+  loadLogs() {
     if (this.authService.role === 'admin') {
       this.phonelogService.getAll()
         .subscribe(data => {
-          console.log(data)
+          console.log(data);
           this.log = data;
-          for(var i=0;i<this.log.length;i++){
-            if(this.log[i].resolved==false){
+          for (let i = 0; i < this.log.length; i++) {
+            if (this.log[i].resolved === false) {
               this.logs.push(this.log[i]);
             }
           }
-          console.log(this.logs)
+          console.log(this.logs);
         });
     }
   }
@@ -57,35 +62,47 @@ export class ViewPhonelogComponent implements OnInit {
   /**
    * Specify which log is currently in edit mode
    *
-   * @param {any} id
    * @param {any} log
-   * @memberof ViewParticipantsComponent
+   * @memberof ViewPhonelogComponent
    */
   edit(log) {
-   this.editingLog = log;
-  }
-  
-resolve(log) {
-    this.phonelogService.resolve(log._id,{resolved:'true'}).subscribe(data => {
-        this.logs=[];
-        this.loadLogs();
-      });
+    this.editingLog = log;
   }
 
- delete(log) {
-    this.phonelogService.delete(log._id,{deleted:'true'}).subscribe(data => {
-        this.logs=[];
-        this.loadLogs();
-      });
-  }
-   /**
-   * Cancel edit mode and return to view mode
+  /**
+   * Set phonelog item to resolved
    *
-   * @memberof ViewParticipantsComponent
+   * @param {any} log
+   * @memberof ViewPhonelogComponent
    */
+  resolve(log) {
+    this.phonelogService.resolve(log._id, { resolved: 'true' }).subscribe(data => {
+      this.logs = [];
+      this.loadLogs();
+    });
+  }
+
+  /**
+   * Put phonelog item to the trashbin.
+   *
+   * @param {any} log
+   * @memberof ViewPhonelogComponent
+   */
+  delete(log) {
+    this.phonelogService.delete(log._id, { deleted: 'true' }).subscribe(data => {
+      this.logs = [];
+      this.loadLogs();
+    });
+  }
+
+  /**
+  * Cancel edit mode and return to view mode
+  *
+  * @memberof ViewPhonelogComponent
+  */
   cancel() {
     this.edit(null);
-    this.logs=[];
+    this.logs = [];
     this.loadLogs();
   }
 }
