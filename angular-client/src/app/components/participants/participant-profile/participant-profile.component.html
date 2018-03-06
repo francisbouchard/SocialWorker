@@ -11,119 +11,21 @@
     </p>
     <p *ngIf="participantSelected.address !== undefined && participantSelected.address !== ''">Address: {{participantSelected.address}}
     </p>
+    <p *ngIf="participantSelected.socialworkers">Social workers assigned: 
+      <span *ngFor="let worker of participantSelected.socialworkers; let isLast=last">
+        {{worker.name}}{{isLast ? '': ', '}}
+      </span>
+    </p>
     <mat-card-actions>
       <button mat-raised-button (click)="newCase()">New case</button>
       <button mat-raised-button (click)="addNote()">Add Note</button>
       <button mat-raised-button (click)="addDocument()">Add document</button>
+      <button *ngIf="this.authService.role == 'admin'" mat-raised-button (click)="editWorkers()">Edit Social Workers</button>
     </mat-card-actions>
   </mat-card>
 
-  <h3 class="history-header">Cases</h3>
-  <mat-card *ngIf="orderedCases.length == 0">
-    No cases to display.
-  </mat-card>
-  <mat-accordion *ngIf="orderedCases.length > 0">
-    <mat-expansion-panel *ngFor="let casefile of orderedCases; let caseIndex = index">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{casefile.date | date: 'fullDate'}}
-        </mat-panel-title>
-        <mat-panel-description>
-          Status: {{casefile.status | slice:0:100}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <h4>Urgency: </h4>{{casefile.urgency}}
-      <h4 *ngIf="casefile.notes[0]">Notes:</h4>
-      <p>{{casefile.notes[0]}}</p>
-      <h4>Resources:</h4>
-      <form>
-        <div class="resource headerResources" *ngIf="casefile.contactedResources[0]">
-          <span class="name primary">Name</span>
-          <span class="contacted primary">Contacted</span>
-          <span class="datePicker primary datePicker">Date</span>
-          <span class="caseNotes primary">Comment</span>
-        </div>
-        <div class="resource" *ngFor="let caseResource of casefile.contactedResources; let resourceIndex = index">
-          <p class="name" *ngIf="caseResource.resource">{{caseResource.resource.name}}</p>
-          <mat-slide-toggle #contactToggle [checked]="caseResource.dateContacted != null" (change)="updateCaseDate(contactToggle._checked, casefile, caseResource, caseIndex, resourceIndex, null)"
-            color="accent" class="contacted"></mat-slide-toggle>
-          <p class="datePicker" *ngIf="caseResource.dateContacted != null">{{caseResource.dateContacted | date:'M/d/yyyy'}}</p>
-          <mat-form-field class="datePicker" *ngIf="caseResource.dateContacted == null">
-            <input matInput #dateinput name="date" [matDatepicker]="picker" placeholder="m/dd/yyyy" (dateChange)="updateCaseDate(true, casefile, caseResource, caseIndex, resourceIndex, $event.value)">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
-          </mat-form-field>
-          <p class="caseNotes" *ngIf="caseResource.note">{{caseResource.note}}</p>
-          <mat-form-field class="caseNotes" *ngIf="caseResource.note != null && caseResource.note.length==0">
-            <input matInput placeholder="Comments related to this resource" #resourceNote (key.enter)="updateCaseResourceNote(casefile, caseResource, resourceNote.value)"
-              (blur)="updateCaseResourceNote(casefile, caseResource, resourceNote.value)">
-          </mat-form-field>
-        </div>
-        <h4>Selected Resource:</h4>
-        <mat-form-field *ngIf="!casefile.selectedResource">
-          <mat-select [(value)]="casefile.selectedResource" placeholder="Resource" (selectionChange)="updateCaseSelectedResource(casefile, casefile.selectedResource)">
-            <mat-option *ngFor="let caseResource of casefile.contactedResources" value="{{caseResource.resource._id}}">
-              {{caseResource.resource.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <p *ngIf="casefile.selectedResource">{{casefile.selectedResource.name}}</p>
-      </form>
-      <div class="bottomMenu">
-        <button *ngIf="casefile.status == 'In progress' " mat-raised-button (click)="completeCasefile(casefile, caseIndex)">Finalize Casefile</button>
-        <button *ngIf="casefile.status == 'Completed' " mat-raised-button (click)="reopenCasefile(casefile, caseIndex)">Reopen Casefile</button>
-        <button id="deleteCaseBtn" mat-raised-button (click)="deleteCasefile(casefile._id)">Delete Casefile</button>
-      </div>
+  <app-casefiles [orderedCases]="orderedCases" [participant]="participantSelected" (loadParticipant)="loadParticipant()"></app-casefiles>
+  <app-notes [orderedNotes]="orderedNotes" [participant]="participantSelected" (loadParticipant)="loadParticipant()"></app-notes>
+  <app-documents [orderedDocuments]="orderedDocuments" [participant]="participantSelected"(loadParticipant)="loadParticipant()"></app-documents>
 
-    </mat-expansion-panel>
-  </mat-accordion>
-
-  <h3 class="history-header">Notes</h3>
-  <mat-card *ngIf="orderedNotes == null || orderedNotes.length == 0">
-    No notes to display.
-  </mat-card>
-  <mat-accordion *ngIf="orderedNotes.length > 0">
-    <mat-expansion-panel *ngFor="let note of orderedNotes">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{note.date | date: 'fullDate'}}
-        </mat-panel-title>
-        <mat-panel-description>
-          {{note.text | slice:0:100}}...
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <h4>Note:</h4>
-      {{note.text}}
-      <br>
-      <br>
-      <h4>Attachments: {{note.attachment}}</h4>
-      <br>
-      <button id="deleteNoteBtn" mat-raised-button (click)="deleteNote(note._id)">Delete Note</button>
-    </mat-expansion-panel>
-  </mat-accordion>
-
-  <h3 class="history-header">Documents</h3>
-  <mat-card *ngIf="orderedDocuments.length == 0">
-    No documents to display.
-  </mat-card>
-  <mat-accordion *ngIf="orderedDocuments.length > 0">
-    <mat-expansion-panel *ngFor="let document of orderedDocuments">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{document.date | date: 'fullDate'}}
-        </mat-panel-title>
-        <mat-panel-description>
-          {{document.type}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <h4>Attachments:</h4>
-      <mat-grid-list cols="2" *ngFor="let doc of document.attachment">
-        <!-- <mat-grid-tile> -->
-        <img [src]="doc">
-        <!-- </mat-grid-tile> -->
-      </mat-grid-list>
-      <br>
-      <button mat-raised-button (click)="deleteDocument(document._id)">Delete Document</button>
-    </mat-expansion-panel>
-  </mat-accordion>
 </div>

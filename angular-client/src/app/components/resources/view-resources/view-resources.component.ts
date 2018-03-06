@@ -36,20 +36,6 @@ export class ViewResourcesComponent implements OnInit {
   }
 
   /**
-   * Delete resource by id
-   *
-   * @param {any} id
-   * @memberof ViewResourcesComponent
-   */
-  delete(id) {
-    this.resourceService.delete(id)
-      .subscribe(data => {
-        console.log(data);
-        this.cancel();
-      });
-  }
-
-  /**
    * Specify which resource is currently in edit mode
    *
    * @param {any} id
@@ -58,21 +44,6 @@ export class ViewResourcesComponent implements OnInit {
    */
   edit(id, resource) {
     this.editingResource = resource;
-  }
-
-  /**
-   * Update resource with new attributes
-   *
-   * @param {any} id
-   * @param {any} resource
-   * @memberof ViewResourcesComponent
-   */
-  update(id, resource) {
-    this.resourceService.update('housing', id, resource)
-      .subscribe(data => {
-        console.log(data);
-        this.cancel();
-      });
   }
 
   /**

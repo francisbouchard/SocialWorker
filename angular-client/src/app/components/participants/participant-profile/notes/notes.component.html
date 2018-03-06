@@ -1,0 +1,21 @@
+<h3 class="history-header">Notes</h3>
+<mat-card *ngIf="orderedNotes == null || orderedNotes.length == 0">
+  No notes to display.
+</mat-card>
+<mat-accordion *ngIf="orderedNotes.length > 0">
+  <mat-expansion-panel *ngFor="let note of orderedNotes">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{note.date | date: 'fullDate'}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{note.text | slice:0:100}}...
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <h4>Note:</h4>
+    {{note.text}}
+    <h4>Attachments:</h4>
+    <p>{{note.attachment}}</p>
+    <button id="deleteNoteBtn" mat-raised-button (click)="deleteNote(note._id)">Delete Note</button>
+  </mat-expansion-panel>
+</mat-accordion>

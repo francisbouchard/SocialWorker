@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Edit Assigned Social Workers</h1>
+<mat-dialog-content>
+    <div class="alignedList" *ngFor="let worker of participant.workers">
+      <p>{{ worker.name }} ({{ worker.email }})</p>
+      <button mat-raised-button (click)="removeWorker(worker._id)">Remove</button>
+    </div>
+  <br>
+  <div class="alignedList">
+    <mat-form-field>
+      <mat-select placeholder="Add Social Worker" [(value)]="selectedWorkerId">
+        <mat-option *ngFor="let worker of allWorkers" [disabled]="isDisabled(worker._id)" [value]="worker._id">
+          {{ worker.name }} ({{ worker.email }})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button [disabled]="!selectedWorkerId" (click)="addWorker()">Add</button>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="close()">OK</button>
+</mat-dialog-actions>

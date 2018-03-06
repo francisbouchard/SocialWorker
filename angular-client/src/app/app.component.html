@@ -13,8 +13,8 @@
   </span>
   <span class="example-fill-remaining-space"></span>
   <span *ngIf="this.authenticationService.loggedIn">
-    <a class="nav-link" routerLink="register">
-      <button mat-button *ngIf="this.authenticationService.role && this.authenticationService.role == 'admin'">Register User</button>
+    <a class="nav-link" routerLink="users">
+      <button mat-button *ngIf="this.authenticationService.role && this.authenticationService.role == 'admin'">Manage Users</button>
     </a>
     <button mat-button (click)="logout()">Logout</button>
   </span>

@@ -10,9 +10,16 @@ export class OrderByPipe implements PipeTransform {
 
     if (array[0].hasOwnProperty(property)) {
       array.sort((a: any, b: any) => {
-        if (a[property] > b[property]) {
+        let aProperty = a[property];
+        let bProperty = b[property];
+        // to make strings of different case comparable
+        if (typeof a[property] === 'string' || a[property] instanceof String) {
+          aProperty = a[property].toLowerCase();
+          bProperty = b[property].toLowerCase();
+        }
+        if (aProperty > bProperty) {
           return -1;
-        } else if (a[property] < b[property]) {
+        } else if (aProperty < bProperty) {
           return 1;
         } else {
           return 0;

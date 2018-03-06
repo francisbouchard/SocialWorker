@@ -33,6 +33,7 @@ const app = express();
 //Connect to mongo
 const mongoUrl = process.env.MONGOLAB_URL;
 
+
 app.use(fileUpload());
 
 mongoose.connect(mongoUrl, {}).then(
@@ -62,7 +63,10 @@ app.use(flash());
 
 //all urls with /api must be authenticated
 app.use('/api', passportConfig.isAuthenticated);
+
+//following routes only permitted to admin users
 app.use('/user/signup', permit('admin'));
+app.use('/user/all', permit('admin'));
 
 // Set our api routes
 app.use('/api', api);
