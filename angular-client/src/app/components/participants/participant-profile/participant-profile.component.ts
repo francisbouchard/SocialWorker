@@ -263,13 +263,10 @@ export class ParticipantProfileComponent implements OnInit {
    * @memberof ParticipantProfileComponent
    */
   downloadAttachment(noteId) {
-    this.participantService.downloadAttachment(this.participantSelected._id, noteId)
-    //.then(d =>console.log(d));
-    
-    /*.subscribe(
+    this.participantService.downloadAttachment(this.participantSelected._id, noteId).subscribe(
       data => {console.log(data);this.downloadFile(data)}),
     error => console.log("Error downloading the file."),
-    () => console.info("OK");*/
+    () => console.info("OK");
   }
 
   /**
@@ -290,7 +287,7 @@ export class ParticipantProfileComponent implements OnInit {
    * @memberof ParticipantProfileComponent
    */
   private downloadFile(data: Object) {
-    var blob = new Blob([data], { type: 'text/csv' });
+    var blob = new Blob([data]);
     var url = window.URL.createObjectURL(blob);
     window.open(url);
   }

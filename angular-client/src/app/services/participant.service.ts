@@ -172,12 +172,7 @@ export class ParticipantService {
    * @memberof ParticipantService
    */
   downloadAttachment(participantID: String, attachmentID: String): any {
-    return this.http.get(`${this.url}${participantID}/note/${attachmentID}`)
-    .subscribe(d => {console.log(d); return String(d);});
-      /*.pipe(
-      tap(participants => this.log('Downloaded attachment from server.')),
-      catchError(this.handleError<Object>('downloadAttachment()'))
-      );*/
+    return this.http.get(`${this.url}${participantID}/note/${attachmentID}`,{responseType: 'text'});
   }
 
   /**
@@ -188,7 +183,7 @@ export class ParticipantService {
    * @memberof ParticipantService
    */
   downloadDocument(participantID: String, documentID: String): Observable<Object> {
-    return this.http.get(`${this.url}${participantID}/doc/${documentID}`)
+    return this.http.get(`${this.url}${participantID}/doc/${documentID}`, {responseType: 'text'})
       .pipe(
       tap(participants => this.log('Downloaded document from server.')),
       catchError(this.handleError<Object>('downloadDocument()'))
