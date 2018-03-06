@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditPhonelogComponent } from './edit-phonelog.component';
-import { MaterialsModule } from '../../../modules/materials.module';
 import { PhonelogService } from '../../../services/phonelog.service';
 import { MockPhonelogService } from '../../../mocks/MockPhonelogService';
 
@@ -11,7 +10,7 @@ describe('EditPhonelogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ EditPhonelogComponent ],
-      imports: [MaterialsModule],
+      imports: [],
       providers: [{provide: PhonelogService, useClass: MockPhonelogService}]
     })
     .compileComponents();
@@ -23,13 +22,14 @@ describe('EditPhonelogComponent', () => {
     component.log = {
     'name': 'testing',
     'pronouns': 'him',
+    'message':'random',
+    'language':'english',
     'user': 'random',
-    'urgent': 'true',
+    'urgent': true,
     'phonenumber': '514632182',
     'subject': 'test',
     'notes': 'testing',
-    'callertype': 'test',
-      '__v': 0
+    'callertype': 'test'
     };
     fixture.detectChanges();
   });

@@ -40,9 +40,9 @@ createForm() {
       subject: this.log.subject||'',
       message:this.log.message||'',
       notes: this.log.notes||'',
-      callertype: this.log.callertype
-      //date:
-    });
+      callertype: this.log.callertype,
+      date:this.log.date
+    },{validator: this.dateLessThan('date')});
   }
 
 /**
@@ -52,6 +52,18 @@ createForm() {
    * @param {any} log
    * @memberof EditPhonelogComponent
    */
+
+   dateLessThan(date: string) {
+    return (editphonelog: FormGroup): {[key: string]: any} => {
+      let f = editphonelog.controls[date];
+      let t =Date.now()
+      if (f.value > t) {
+        return {
+          dates: "Date before today"
+        };
+      }
+      return {};
+    }}
 
   update(id,log) {
     const formModel = this.editphonelog.value;
