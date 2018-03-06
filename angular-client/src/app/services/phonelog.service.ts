@@ -55,13 +55,12 @@ export class PhonelogService {
    /**
    * Update participant with new data
    *
-   * @param {any} LogID
    * @param {any} LogData
    * @returns {Observable<Object>}
    * @memberof ResourceService
    */
-  update(LogID, LogData): Observable<Object> {
-    return this.http.put(`${this.url}/${LogID}`, LogData)
+  update(LogData): Observable<Object> {
+    return this.http.put(`${this.url}/${LogData._id}`, LogData)
       .pipe(
       tap(_ => this.log('saving a resource')),
       catchError(this.handleError<Object>('update()'))
@@ -77,7 +76,7 @@ export class PhonelogService {
    * @memberof ResourceService
    */
 
-   resolve(LogID, LogData): Observable<Object> {
+   delete(LogID, LogData): Observable<Object> {
     return this.http.put<Object>(`${this.url}/${LogID}/deleted`, LogData)
       .pipe(
       tap(c => {
@@ -88,7 +87,7 @@ export class PhonelogService {
           this.log('updated status');
         }
       }),
-      catchError(this.handleError<Object>('resolve(LogID, LogData)'))
+      catchError(this.handleError<Object>('delete(LogID, LogData)'))
       );
   }
 

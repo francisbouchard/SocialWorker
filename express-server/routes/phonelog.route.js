@@ -8,7 +8,8 @@ const ObjectId = require('mongoose').Types.ObjectId;
  * Get all Phonelog
  */
 router.get('/', (req, res) => {
-    Phonelog.find().then(data => {
+    Phonelog.find().
+    populate('user').then(data => {
         res.send(data);
     }, err => {
         res.send(err);
@@ -41,13 +42,13 @@ router.put('/:lid', (req, res) => {
         log.name = req.body.name || log.name;
         log.pronouns = req.body.pronouns || log.pronouns;
         log.phonenumber = req.body.phonenumber || log.phonenumber;
-        log.user= req.body.user || log.user;
         log.subject = req.body.subject || log.subject;
         log.notes= [req.body.notes] || log.notes;
         log.urgent = req.body.urgent ;
         log.callertype = req.body.callertype || log.callertype;
         log.message = req.body.message || log.message;
         log.date=req.body.date||log.date
+        log.language=req.body.language||log.language;
 
 
 
@@ -60,10 +61,9 @@ router.put('/:lid', (req, res) => {
         res.send(err);
     })
 });
-
     
 router.put('/:id/deleted', (req, res) => {
-    Phonelog.update({ '_id': req.params.id }, { '$set': { deleted: req.body.deleted } })
+    Phonelog.update({ '_id': req.params.id }, { '$set': { deleted: req.body.deleted,resolvedBy: req.user._id ,dateResolved:Date.now() } })
         .then(data => {
             res.send(data);
         }, err => {
