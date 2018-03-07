@@ -8,19 +8,19 @@ const fs = require('fs');
 const path = require('path');
 const User = require('../models/User');
 
-fs.exists(path.join(__dirname, "../notes"), exists =>{
-if(!exists){
-    fs.mkdir(path.join(__dirname, "../notes"), err =>{
-        console.log(err)
-    })
-}
+fs.exists(path.join(__dirname, "../notes"), exists => {
+    if (!exists) {
+        fs.mkdir(path.join(__dirname, "../notes"), err => {
+            console.log(err)
+        })
+    }
 })
-fs.exists(path.join(__dirname, "../documents"), exists =>{
-if(!exists){
-    fs.mkdir(path.join(__dirname, "../documents"), err =>{
-        console.log(err)
-    })
-}
+fs.exists(path.join(__dirname, "../documents"), exists => {
+    if (!exists) {
+        fs.mkdir(path.join(__dirname, "../documents"), err => {
+            console.log(err)
+        })
+    }
 })
 /**
  * Get all participants
@@ -54,12 +54,12 @@ router.get('/worker', (req, res) => {
     if (!req.user || !req.user._id) {
         return res.status(401).send({ err: "No user ID provided. User must be logged in." })
     }
-    Participant.find({ deleted: {$ne: true}, socialworkers: new ObjectId(req.user._id) })
+    Participant.find({ deleted: { $ne: true }, socialworkers: new ObjectId(req.user._id) })
         .populate("socialworkers").then(data => {
             res.send(data);
         }, err => {
             res.send(err);
-    })
+        })
 });
 
 /**
@@ -103,23 +103,27 @@ router.post('/', (req, res) => {
 /**
  * Delete a participant by ID
  * 
- * If the user making this request is an administrator, the participant's record will be 
- * permanently deleted. Otherwise, it will only be flagged as deleted.
+ * Participant's record will only be flagged as deleted.
  */
 router.delete('/:pid', (req, res) => {
-    if (req.user.role === "admin") {
-        Participant.findByIdAndRemove(req.params.pid).then(data => {
-            res.send(data);
-        }, err => {
-            res.send(err);
-        })
-    } else {
-        Participant.findByIdAndUpdate(req.params.pid, { deleted: true }, { new: true }).then(data => {
-            res.send(data);
-        }, err => {
-            res.send(err);
-        })
-    }
+    Participant.findByIdAndUpdate(req.params.pid, { deleted: true }, { new: true }).then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+});
+
+/**
+ * Permanently delete a participant by ID
+ * 
+ * Participant's record will be permanently deleted. Only accessible to administrators.
+ */
+router.delete('/permanent/:pid', (req, res) => {
+    Participant.findByIdAndRemove(req.params.pid).then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
 });
 
 /**
@@ -154,14 +158,14 @@ router.post('/:pid/worker', (req, res) => {
     User.findById(req.body.workerID).then(user => {
         if (!user) return res.send({ err: "User (social worker) does not exist." });
 
-        Participant.findByIdAndUpdate({ _id: req.params.pid }, 
-            { $push: { socialworkers: req.body.workerID } }, 
+        Participant.findByIdAndUpdate({ _id: req.params.pid },
+            { $push: { socialworkers: req.body.workerID } },
             { new: true }
         ).populate("socialworkers").then(data => {
-                res.send(data);
-            }, err => {
-                res.send(err);
-            })
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
     }, err => {
         res.send(err);
     });
@@ -191,13 +195,13 @@ router.post('/:pid/doc', (req, res) => {
         attachment: req.query.attachment
     });
     fs.exists(path.join(__dirname, "../documents", req.params.pid), exists => {
-        if(!exists){
+        if (!exists) {
             fs.mkdir(path.join(__dirname, "../documents", req.params.pid), err => {
-                if(err){
+                if (err) {
                     res.status(500).send(err)
-                }else {
+                } else {
                     req.files.attachment.mv(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), err => {
-                        if(err){
+                        if (err) {
                             res.status(500).send(err);
                         } else {
                             Participant.findById(req.params.pid).then(participant => {
@@ -205,7 +209,7 @@ router.post('/:pid/doc', (req, res) => {
                                     participant.documents = [];
                                 }
                                 participant.documents.push(document);
-                        
+
                                 participant.save().then(data => {
                                     res.send(data);
                                 }, err => {
@@ -220,7 +224,7 @@ router.post('/:pid/doc', (req, res) => {
             })
         } else {
             req.files.attachment.mv(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), err => {
-                if(err){
+                if (err) {
                     res.status(500).send(err);
                 } else {
                     Participant.findById(req.params.pid).then(participant => {
@@ -228,7 +232,7 @@ router.post('/:pid/doc', (req, res) => {
                             participant.documents = [];
                         }
                         participant.documents.push(document);
-                
+
                         participant.save().then(data => {
                             res.send(data);
                         }, err => {
@@ -266,15 +270,15 @@ router.post('/:pid/note', (req, res) => {
         date: req.query.date,
         attachment: req.files.attachment.name
     });
-    
+
     fs.exists(path.join(__dirname, "../notes", req.params.pid), exists => {
-        if(!exists){
+        if (!exists) {
             fs.mkdir(path.join(__dirname, "../notes", req.params.pid), err => {
-                if(err){
+                if (err) {
                     res.status(500).send(err)
-                }else {
+                } else {
                     req.files.attachment.mv(path.join(__dirname, "../notes", req.params.pid, req.query.attachment), err => {
-                        if(err){
+                        if (err) {
                             res.status(500).send(err);
                         } else {
                             Participant.findById(req.params.pid).then(participant => {
@@ -282,7 +286,7 @@ router.post('/:pid/note', (req, res) => {
                                     participant.notes = [];
                                 }
                                 participant.notes.push(note);
-                        
+
                                 participant.save().then(data => {
                                     res.send(data);
                                 }, err => {
@@ -297,7 +301,7 @@ router.post('/:pid/note', (req, res) => {
             })
         } else {
             req.files.attachment.mv(path.join(__dirname, "../notes", req.params.pid, req.query.attachment), err => {
-                if(err){
+                if (err) {
                     res.status(500).send(err);
                 } else {
                     Participant.findById(req.params.pid).then(participant => {
@@ -305,7 +309,7 @@ router.post('/:pid/note', (req, res) => {
                             participant.notes = [];
                         }
                         participant.notes.push(note);
-                
+
                         participant.save().then(data => {
                             res.send(data);
                         }, err => {
@@ -317,7 +321,7 @@ router.post('/:pid/note', (req, res) => {
                 }
             })
         }
-    })  
+    })
 });
 
 /**

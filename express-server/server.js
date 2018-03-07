@@ -67,6 +67,7 @@ app.use('/api', passportConfig.isAuthenticated);
 //following routes only permitted to admin users
 app.use('/user/signup', permit('admin'));
 app.use('/user/all', permit('admin'));
+app.use('/api/participant/permanent', permit('admin'));
 
 // Set our api routes
 app.use('/api', api);

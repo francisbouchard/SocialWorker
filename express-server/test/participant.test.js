@@ -294,7 +294,7 @@ describe('Participant Tests', () => {
     });
 
     describe('/DELETE/:pid', () => {
-        it('should not permanently DELETE the participant with the given ID when user is not admin', (done) => {
+        it('should flag the participant with the given ID as deleted', (done) => {
             chai.request(server)
                 .del('/api/participant/' + id3)
                 .set('Cookie', cookie)
@@ -302,6 +302,18 @@ describe('Participant Tests', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('deleted').eql(true);
+                    done();
+                });
+        });
+    });
+
+    describe('/DELETE/permanent/:pid', () => {
+        it('should not permanently DELETE the participant with the given ID when user is not admin', (done) => {
+            chai.request(server)
+                .del('/api/participant/permanent/' + id3)
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(403);
                     done();
                 });
         });
@@ -315,7 +327,7 @@ describe('Participant Tests', () => {
                 .end((err, res) => {
                     let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
                     chai.request(server)
-                        .del('/api/participant/' + id3)
+                        .del('/api/participant/permanent/' + id3)
                         .set('Cookie', adminCookie)
                         .end((err, res) => {
                             res.should.have.status(200);
