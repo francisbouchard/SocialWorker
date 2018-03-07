@@ -21,8 +21,8 @@ describe('AppComponent', () => {
       ],
       providers: [
         MessageService,
-        { provide: AuthenticationService, useClass: MockAuthenticationService },
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } }]
+        { provide: AuthenticationService, useClass: MockAuthenticationService }
+      ]
     }).compileComponents();
   }));
 
