@@ -356,7 +356,6 @@ router.get('/:pid/doc/:docId', (req, res) => {
     Participant.findById(req.params.pid)
     .then(participant => {
         let file = participant.documents.filter(document => document._id == req.params.docId)[0];
-        console.log(file);
         res.download(path.join(__dirname, "../documents", req.params.pid, file.attachment[0]), "file");
 
     })
