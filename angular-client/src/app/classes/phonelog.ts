@@ -9,5 +9,5 @@ export class Phonelog {
     notes: String;
     callertype: String;
     language:String
-    date:Date;
+    date:String;
 }

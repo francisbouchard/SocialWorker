@@ -22,15 +22,15 @@ describe('EditPhonelogComponent', () => {
     component.log = {
     'name': 'testing',
     'pronouns': 'him',
-    'message':'random',
-    'language':'english',
     'user': 'random',
     'urgent': true,
+    'message':'testing',
     'phonenumber': '514632182',
+    'language':'english',
     'subject': 'test',
     'notes': 'testing',
-    'callertype': 'test'
-    };
+    'callertype': 'test',
+    'date':'2018-01-27T15:53:03.674Z'};
     fixture.detectChanges();
   });
 
