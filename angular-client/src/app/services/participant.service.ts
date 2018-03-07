@@ -8,6 +8,7 @@ import { Participant } from '../classes/participant';
 import { Note } from '../classes/note';
 import { Document } from '../classes/document';
 import { MessageService } from './message.service';
+import { RequestOptions, ResponseContentType } from '@angular/http';
 
 @Injectable()
 export class ParticipantService {
@@ -171,8 +172,10 @@ export class ParticipantService {
    * @returns {Observable<Object>} 
    * @memberof ParticipantService
    */
-  downloadAttachment(participantID: String, attachmentID: String): any {
-    return this.http.get(`${this.url}${participantID}/note/${attachmentID}`,{responseType: 'text'});
+  downloadAttachment(participantID: String, attachmentID: String): Observable<Blob>  {
+    //let options = new RequestOptions();
+
+    return this.http.get(`${this.url}${participantID}/note/${attachmentID}`, {responseType: 'blob' })
   }
 
   /**
@@ -182,14 +185,9 @@ export class ParticipantService {
    * @returns {Observable<Object>} 
    * @memberof ParticipantService
    */
-  downloadDocument(participantID: String, documentID: String): Observable<Object> {
-    return this.http.get(`${this.url}${participantID}/doc/${documentID}`, {responseType: 'text'})
-      .pipe(
-      tap(participants => this.log('Downloaded document from server.')),
-      catchError(this.handleError<Object>('downloadDocument()'))
-      );
+  downloadDocument(participantID: String, documentID: String): Observable<Blob> {
+    return this.http.get(`${this.url}${participantID}/doc/${documentID}`, {responseType: 'blob'});
   }
-
 
   /**
    * Search participants to see if account email already exists,

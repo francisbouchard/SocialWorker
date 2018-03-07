@@ -16,7 +16,7 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
 import { CaseModalComponent } from '../../modals/case-modal/case-modal.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-participant-profile',
@@ -259,24 +259,26 @@ export class ParticipantProfileComponent implements OnInit {
 
   /**
    * Download attachment related to note. 
+   * @param {String} fileName
    * @param {any} noteId
    * @memberof ParticipantProfileComponent
    */
-  downloadAttachment(noteId) {
+  downloadAttachment(fileName, noteId) {
     this.participantService.downloadAttachment(this.participantSelected._id, noteId).subscribe(
-      data => {console.log(data);this.downloadFile(data)}),
+      data => {console.log(data); saveAs(data, fileName); }),
     error => console.log("Error downloading the file."),
     () => console.info("OK");
   }
 
   /**
    * Download document.
+   * @param {String} fileName
    * @param {any} documentId
    * @memberof ParticipantProfileComponent
    */
-  downloadDocument(documentId) {
+  downloadDocument(fileName, documentId) {
     this.participantService.downloadDocument(this.participantSelected._id, documentId).subscribe(
-      data => {console.log(data);this.downloadFile(data)}),
+      data => {console.log(data); saveAs(data, fileName);  }),
       error => console.log("Error downloading the file."),
     () => console.info("OK");
   }
