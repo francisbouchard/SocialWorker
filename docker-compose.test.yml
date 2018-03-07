@@ -1,5 +1,5 @@
 sut:
-  build: express-server
-  ports:
-    - "3000:3000"
-  entrypoint: npm test
+  angular-client:
+    command: npm test
+  express-server:
+    command: npm test

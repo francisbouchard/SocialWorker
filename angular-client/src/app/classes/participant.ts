@@ -1,5 +1,3 @@
-import { Casefile    } from './case';
-
 export class Participant {
     _id: String;
     name: String;
@@ -10,4 +8,5 @@ export class Participant {
     socialmedia: { service: String, username: String };
     notes: [any];
     documents: [any];
+    socialworkers: [any];
 }

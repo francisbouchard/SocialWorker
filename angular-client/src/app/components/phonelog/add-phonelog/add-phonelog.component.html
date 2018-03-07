@@ -1,0 +1,44 @@
+<mat-card>
+  <form [formGroup]="phonelog">
+
+    <div class="caller-name">
+      <mat-form-field>
+        <input matInput placeholder="Name of caller" name="name" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field class="pronouns">
+        <input matInput placeholder="Pronouns" name="pronouns" formControlName="pronouns">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <mat-select placeholder="Type of caller" name="callertype" formControlName="callertype">
+        <mat-option *ngFor="let caller of callertype" [value]="caller">
+          {{caller}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="phonenumber">
+      <input matInput placeholder="Phone number" name="phonenumber" formControlName="phonenumber">
+    </mat-form-field>
+
+    <div class="message-header">
+      <mat-form-field>
+        <input matInput placeholder="Reason for call" name="subject" formControlName="subject">
+      </mat-form-field>
+
+      <mat-slide-toggle name="urgent" formControlName="urgent" [checked]="urgent">
+          Urgent
+      </mat-slide-toggle>
+    </div>
+
+    <mat-form-field class="notes">
+      <textarea matInput placeholder="Message" matTextareaAutosize matAutosizeMinRows="5" name="notes" formControlName="notes"></textarea>
+      <mat-hint align="start"><strong>Their message, when to call, extension number...</strong></mat-hint>
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" [disabled]="phonelog.invalid" (click)="submit()">Log this call</button>
+  </form>
+
+</mat-card>

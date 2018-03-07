@@ -1,35 +1,41 @@
-<form class="form">
+<form class="form" [formGroup]="resourceForm">
     <mat-form-field>
-      <input matInput required placeholder="Name" name="name" [(ngModel)]="resource.name">
+      <input matInput required placeholder="Name" name="name" formControlName="name">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Term" name="term" [(ngModel)]="resource.term">
+      <input matInput placeholder="Term" name="term" formControlName="term">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Email" name="email" [(ngModel)]="resource.email">
+      <input matInput placeholder="Email" name="email" formControlName="email">
     </mat-form-field>
 
     <mat-form-field>
       <span matPrefix>+1 &nbsp;</span>
-      <input type="tel" matInput placeholder="Telephone" name="telephone" [(ngModel)]="resource.phone">
+      <input matInput placeholder="Telephone" name="telephone" formControlName="phone">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Location" name="location" [(ngModel)]="resource.location">
+      <input matInput placeholder="Location" name="location" formControlName="location">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Notes" name="notes" [(ngModel)]="resource.notes">
+      <input matInput placeholder="Notes" name="notes" formControlName="notes">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Gender" name="gender" [(ngModel)]="resource.gender">
+      <input matInput placeholder="Gender" name="gender" formControlName="gender">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Constraints" name="constraints" [(ngModel)]="resource.constraints">
+      <input matInput placeholder="Constraints" name="constraints" formControlName="constraints">
     </mat-form-field>
+
+    <mat-card-actions>
+      <button mat-button (click)="update()" [disabled]="resourceForm.invalid">Update</button>
+      <button mat-button (click)="delete()">Delete</button>
+      <button mat-button (click)="cancelEdit()">Cancel</button>
+    </mat-card-actions>
 
   </form>

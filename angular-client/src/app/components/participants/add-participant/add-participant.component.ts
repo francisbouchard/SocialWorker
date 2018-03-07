@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertModalComponent } from '../../modals/alert-modal/alert-modal.component';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
-
+import { FormGroup, FormControl, Validators, ValidatorFn, FormBuilder, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-add-participant',
@@ -14,33 +14,43 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class AddParticipantComponent implements OnInit {
 
-  participantData: Participant = {
-    _id: '',
-    name: '',
-    pronouns: '',
-    address: '',
-    telephone: '',
-    email: '',
-    socialmedia: {service: '', username: '' },
-    notes: [{}],
-    documents: [{}]
-  };
+  form: FormGroup;
+  socialmedia: FormGroup;
+  phoneregex = /^(\d){3}(-|\.|\s|\()?(\d){3}(-|\.|\s|\()?(\d){4}$/m;
 
   isAlreadyAParticipantID = false;
   isAlreadyAParticipantEmail = false;
 
   constructor(
+    private fb: FormBuilder,
     private participantService: ParticipantService,
     public dialog: MatDialog,
     public authService: AuthenticationService,
     public router: Router) {
+    this.createForm();
   }
+
+
 
   ngOnInit() {
     if (!this.authService.loggedIn) {
       this.router.navigateByUrl('login');
     }
   }
+
+  createForm() {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      _id: ['', Validators.required],
+      pronouns: [''],
+      telephone: ['', Validators.pattern(this.phoneregex)],
+      service: [''],
+      username: [''],
+      email: [''],
+      address: ['']
+    });
+  }
+
 
   /**
    * Verify if attribute and value of the given input has
@@ -52,14 +62,16 @@ export class AddParticipantComponent implements OnInit {
   onKey(attribute: String, value: String) {
     const query = attribute + '=' + value;
     const that = this;
-    this.participantService.search(query)
-      .subscribe(data => {
-        if (attribute === '_id') {
-          that.isAlreadyAParticipantID = (data === true) ? true : false;
-        } else {
-          that.isAlreadyAParticipantEmail = (data === true) ? true : false;
-        }
-      });
+    if (value.length > 0) {
+      this.participantService.search(query)
+        .subscribe(data => {
+          if (attribute === '_id') {
+            that.isAlreadyAParticipantID = (data === true) ? true : false;
+          } else {
+            that.isAlreadyAParticipantEmail = (data === true) ? true : false;
+          }
+        });
+    }
   }
 
   /**
@@ -86,8 +98,8 @@ export class AddParticipantComponent implements OnInit {
    *
    * @memberof AddParticipantComponent
    */
-  submit() {
-    this.participantService.save(this.participantData)
+  onSubmit() {
+    this.participantService.save(this.form.value)
       .subscribe(data => {
         if (data.hasOwnProperty('errmsg')) {
           this.alertModal('Could not add new participant.');

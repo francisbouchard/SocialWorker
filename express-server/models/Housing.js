@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const Resource = require('../models/Resource');
 
 const housingSchema = new Schema({
-    term: { type: String, required: true},
+    term: { type: String},
     gender: String,
     constraints: [String]
   }, { discriminatorKey: 'kind', timestamps: true });

@@ -16,39 +16,39 @@ export class ResourceService {
 
   /**
  * Get resource by id
- * 
- * @param {any} resourceID 
- * @returns {Observable<Object>} 
+ *
+ * @param {any} resourceID
+ * @returns {Observable<Object>}
  * @memberof ResourceService
  */
-  get(resourceID): Observable<Object> {
-    return this.http.get(`${this.url}/${resourceID}`)
+  get(resourceID): Observable<Object[]> {
+    return this.http.get<Object[]>(`${this.url}/${resourceID}`)
       .pipe(
       tap(_ => this.log('fetching a resource')),
-      catchError(this.handleError<Object>('get()'))
+      catchError(this.handleError<Object[]>('get()'))
       );
   }
 
   /**
    * Get all resources
-   * 
-   * @returns {Observable<Object>} 
+   *
+   * @returns {Observable<Object>}
    * @memberof ResourceService
    */
-  getAll(): Observable<Object> {
-    return this.http.get(this.url)
+  getAll(): Observable<Object[]> {
+    return this.http.get<Object[]>(this.url)
       .pipe(
       tap(_ => this.log('fetching all resources')),
-      catchError(this.handleError<Object>('getAll()'))
+      catchError(this.handleError<Object[]>('getAll()'))
       );
   }
 
   /**
    * Save resource by id
-   * 
-   * @param {any} resourceType 
-   * @param {any} resource 
-   * @returns {Observable<Object>} 
+   *
+   * @param {any} resourceType
+   * @param {any} resource
+   * @returns {Observable<Object>}
    * @memberof ResourceService
    */
   save(resourceType, resource): Observable<Object> {
@@ -60,12 +60,12 @@ export class ResourceService {
   }
 
   /**
-   * Update resource with new data 
-   * 
-   * @param {any} resourceType 
-   * @param {any} resourceID 
-   * @param {any} resourceData 
-   * @returns {Observable<Object>} 
+   * Update resource with new data
+   *
+   * @param {any} resourceType
+   * @param {any} resourceID
+   * @param {any} resourceData
+   * @returns {Observable<Object>}
    * @memberof ResourceService
    */
   update(resourceType, resourceID, resourceData): Observable<Object> {
@@ -77,10 +77,10 @@ export class ResourceService {
   }
 
   /**
-   * Delete resource by id 
-   * 
-   * @param {any} resourceID 
-   * @returns {Observable<Object>} 
+   * Delete resource by id
+   *
+   * @param {any} resourceID
+   * @returns {Observable<Object>}
    * @memberof ResourceService
    */
   delete(resourceID): Observable<Object> {
@@ -93,9 +93,9 @@ export class ResourceService {
 
   /**
    * Log messages by sending them to message service
-   * 
+   *
    * @private
-   * @param {String} message 
+   * @param {String} message
    * @memberof ResourceService
    */
   private log(message: String) {
@@ -105,12 +105,12 @@ export class ResourceService {
   /**
    * Capture errors from the service, then log them,
    * and let the app keep running with a returned Observable
-   * 
+   *
    * @private
-   * @template T 
-   * @param {string} [operation='operation'] 
-   * @param {T} [result] 
-   * @returns 
+   * @template T
+   * @param {string} [operation='operation']
+   * @param {T} [result]
+   * @returns
    * @memberof ResourceService
    */
   private handleError<T>(operation = 'operation', result?: T) {
