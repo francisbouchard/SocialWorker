@@ -1,8 +1,5 @@
-import 'rxjs/Rx' ;
-
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Location } from '@angular/common';
-
 import { Casefile } from '../../../classes/case';
 import { CasefileService } from '../../../services/casefile.service';
 import { FormControl } from '@angular/forms';
@@ -16,7 +13,8 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
 import { CaseModalComponent } from '../../modals/case-modal/case-modal.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { saveAs } from 'file-saver';
+import { EditWorkerModalComponent } from '../../modals/edit-worker-modal/edit-worker-modal.component';
+
 
 @Component({
   selector: 'app-participant-profile',
@@ -26,6 +24,7 @@ import { saveAs } from 'file-saver';
 
 export class ParticipantProfileComponent implements OnInit {
 
+  isSelectedResourceValid = false;
   orderedCases = [];
   orderedDocuments = [];
   orderedNotes = [];
@@ -39,13 +38,14 @@ export class ParticipantProfileComponent implements OnInit {
     private location: Location,
     private dialog: MatDialog,
     private casefileService: CasefileService,
-    public authService: AuthenticationService
-    ) { }
+    public authService: AuthenticationService,
+  ) { }
 
   ngOnInit() {
-    this.loadParticipant();
     if (!this.authService.loggedIn) {
       this.router.navigateByUrl('login');
+    } else {
+      this.loadParticipant();
     }
   }
 
@@ -75,25 +75,10 @@ export class ParticipantProfileComponent implements OnInit {
   }
 
   /**
-   * Open casefile modal to create a new casefile
-   *
-   * @memberof ParticipantProfileComponent
-   */
-  newCase(): void {
-    const dialogRef = this.dialog.open(CaseModalComponent, {
-      width: '66%',
-      data: { participant: this.participantSelected }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.loadParticipant();
-    });
-  }
-
-  /**
-   * Load cases for a participant
-   *
-   * @memberof ParticipantProfileComponent
-   */
+ * Load cases for a participant
+ *
+ * @memberof ParticipantProfileComponent
+ */
   loadCases(): void {
     this.casefileService.getByParticipant(this.participantSelected._id)
       .subscribe(data => {
@@ -110,33 +95,22 @@ export class ParticipantProfileComponent implements OnInit {
   }
 
   /**
-   * Deletes selected note
+   * Open casefile modal to create a new casefile
    *
-   * @param {any} noteID
    * @memberof ParticipantProfileComponent
    */
-  deleteNote(noteID): void {
-    this.participantService.deleteNote(this.participantSelected._id, noteID)
-      .subscribe(result => {
-        this.loadParticipant();
-      });
+  newCase(): void {
+    const dialogRef = this.dialog.open(CaseModalComponent, {
+      width: '66%',
+      data: { participant: this.participantSelected }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadParticipant();
+    });
   }
 
   /**
-   * Deletes selected casefile
-   *
-   * @param {any} casefileID
-   * @memberof ParticipantProfileComponent
-   */
-  deleteCasefile(casefileID): void {
-    this.casefileService.delete(casefileID)
-      .subscribe(result => {
-        this.loadParticipant();
-      });
-  }
-
-  /**
-   * Add a note to a participant
+   * Open note modal to create a note for a participant
    *
    * @memberof ParticipantProfileComponent
    */
@@ -152,20 +126,7 @@ export class ParticipantProfileComponent implements OnInit {
   }
 
   /**
-   * Delete a document of a participant
-   *
-   * @param {any} documentID
-   * @memberof ParticipantProfileComponent
-   */
-  deleteDocument(documentID): void {
-    this.participantService.deleteDocument(this.participantSelected._id, documentID)
-      .subscribe(result => {
-        this.loadParticipant();
-      });
-  }
-
-  /**
-   * Add a document to a participant profile
+   * Open a document modal to create a document for a participant
    *
    * @memberof ParticipantProfileComponent
    */
@@ -258,39 +219,18 @@ export class ParticipantProfileComponent implements OnInit {
   }
 
   /**
-   * Download attachment related to note. 
-   * @param {String} fileName
-   * @param {any} noteId
+   * Open the Assign Worker modal
+   * 
    * @memberof ParticipantProfileComponent
    */
-  downloadAttachment(fileName, noteId) {
-    this.participantService.downloadAttachment(this.participantSelected._id, noteId).subscribe(
-      data => {console.log(data); saveAs(data, fileName); }),
-    error => console.log("Error downloading the file."),
-    () => console.info("OK");
+  editWorkers(): void {
+    const dialogRef = this.dialog.open(EditWorkerModalComponent, {
+      width: '33%',
+      data: { id: this.participantSelected._id, workers: this.participantSelected.socialworkers }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadParticipant();
+    });
   }
 
-  /**
-   * Download document.
-   * @param {String} fileName
-   * @param {any} documentId
-   * @memberof ParticipantProfileComponent
-   */
-  downloadDocument(fileName, documentId) {
-    this.participantService.downloadDocument(this.participantSelected._id, documentId).subscribe(
-      data => {console.log(data); saveAs(data, fileName);  }),
-      error => console.log("Error downloading the file."),
-    () => console.info("OK");
-  }
-
-  /**
-   * Download file using web browser.
-   * @param {any} id
-   * @memberof ParticipantProfileComponent
-   */
-  private downloadFile(data: Object) {
-    var blob = new Blob([data]);
-    var url = window.URL.createObjectURL(blob);
-    window.open(url);
-  }
 }

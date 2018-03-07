@@ -3,6 +3,8 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    pronouns: String,
     email: { type: String, unique: true },
     password: String,
     tokens: Array,
@@ -32,6 +34,6 @@ const userSchema = new mongoose.Schema({
     });
   };
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema, 'users');
 
 module.exports = User;

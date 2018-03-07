@@ -1,15 +1,15 @@
 <mat-card>
-  <form class="form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit() && form.reset()" novalidate>
 
     <mat-form-field>
-      <input matInput required placeholder="First Name" name="name" [(ngModel)]="participantData.name">
+      <input placeholder="Name" matInput formControlName="name">
       <mat-hint align="start">
         <strong>Do not use participant's legal name</strong>
       </mat-hint>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput required (keyup.enter)="onKey('_id', id.value)" (blur)="onKey('_id', id.value)" #id placeholder="Username" name="_id" [(ngModel)]="participantData._id">
+      <input matInput (keyup.enter)="onKey('_id', id.value)" (blur)="onKey('_id', id.value)" #id placeholder="Username" formControlName="_id">
       <mat-hint align="start">
         <strong>This is a unique internal identifier.</strong>
       </mat-hint>
@@ -18,42 +18,36 @@
     <div *ngIf="isAlreadyAParticipantID" style="color:red">This is already associated to a participant!</div>
 
     <mat-form-field>
-      <input matInput placeholder="Pronouns" name="pronouns" [(ngModel)]="participantData.pronouns">
+      <input matInput placeholder="Pronouns" formControlName="pronouns">
     </mat-form-field>
 
     <mat-form-field>
       <span matPrefix>+1 &nbsp;</span>
-      <input type="tel" matInput placeholder="Telephone" name="telephone" [(ngModel)]="participantData.telephone">
+      <input  type="tel" matInput placeholder="Telephone" formControlName="telephone">
     </mat-form-field>
 
+    <div  class="well well-lg">
     <mat-form-field>
-      <input matInput placeholder="Social media provider (Twitter, Facebook)" name="service" [(ngModel)]="participantData.service">
-      <mat-hint align="start">
-          <strong>Optional: choose platform</strong>
-        </mat-hint>
+      <input matInput placeholder="Social media provider (Twitter, Facebook)" formControlName="service">
     </mat-form-field>
-
     <mat-form-field >
-      <input matInput placeholder="Social media account (@username)" name="username" [(ngModel)]="participantData.username">
-      <mat-hint align="start">
-          <strong>Optional: choose account handle</strong>
-        </mat-hint>
+      <input matInput placeholder="Social media account (@username)" formControlName="username">
     </mat-form-field>
+    </div>
 
     <mat-form-field>
-      <input matInput (keyup.enter)="onKey('email', email.value)" (blur)="onKey('email', email.value)" #email placeholder="Email address" name="email" [(ngModel)]="participantData.email">
+      <input  matInput (keyup.enter)="onKey('email', email.value)" (blur)="onKey('email', email.value)" #email placeholder="Email address" formControlName="email">
     </mat-form-field>
     <!-- TODO: use mat-error -->
     <div *ngIf="isAlreadyAParticipantEmail" style="color:red">This is already associated to a participant!</div>
 
 
     <mat-form-field>
-      <input matInput placeholder="Physical Address" name="address" [(ngModel)]="participantData.address">
+      <input matInput placeholder="Physical Address" formControlName="address">
       <mat-hint align="start">
         <strong>This is strictly optional.</strong>
       </mat-hint>
     </mat-form-field>
-
+    <button mat-raised-button type="submit" [disabled]="form.invalid" >Submit</button>
   </form>
-  <button mat-raised-button (click)="submit()">Submit</button>
 </mat-card>

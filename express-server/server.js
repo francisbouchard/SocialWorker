@@ -22,6 +22,7 @@ const user = require('./routes/user.route');
 const participant = require('./routes/participant.route');
 const resource = require('./routes/resource.route');
 const casefile = require('./routes/casefile.route');
+const phonelog = require('./routes/phonelog.route');
 
 const MongoStore = mongo(session);
 
@@ -31,6 +32,7 @@ const app = express();
 
 //Connect to mongo
 const mongoUrl = process.env.MONGOLAB_URL;
+
 
 app.use(fileUpload());
 
@@ -61,7 +63,10 @@ app.use(flash());
 
 //all urls with /api must be authenticated
 app.use('/api', passportConfig.isAuthenticated);
+
+//following routes only permitted to admin users
 app.use('/user/signup', permit('admin'));
+app.use('/user/all', permit('admin'));
 
 // Set our api routes
 app.use('/api', api);
@@ -69,6 +74,7 @@ app.use('/user', user);
 app.use('/api/participant', participant);
 app.use('/api/resource', resource);
 app.use('/api/casefile', casefile);
+app.use('/api/phonelog', phonelog);
 
 
 // Server public folder
