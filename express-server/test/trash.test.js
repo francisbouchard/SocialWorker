@@ -3,18 +3,13 @@ const chaiHttp = require('chai-http');
 const should = chai.should();
 const mongoose = require('mongoose');
 const server = require('../server');
-const Housing = require('../models/Housing');
 
-let id1 = new mongoose.Types.ObjectId();
-let id2 = null;
-let id3 = new mongoose.Types.ObjectId();
-let id4 = new mongoose.Types.ObjectId();
 let cookie;
 let adminCookie;
 
 chai.use(chaiHttp);
 
-describe('Housing Resources Tests', () => {
+describe('Trash Tests', () => {
 
     before((finished) => {
         chai.request(server)
@@ -43,13 +38,22 @@ describe('Housing Resources Tests', () => {
     });
 
     describe('/GET', () => {
-        it('should GET all the resources', (done) => {
+        it('should GET all the resources when user is admin', (done) => {
             chai.request(server)
                 .get('/api/trash')
                 .set('Cookie', adminCookie)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
+                    done();
+                });
+        });
+        it('should not GET the resources when user is not an admin', (done) => {
+            chai.request(server)
+                .get('/api/trash')
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(403);
                     done();
                 });
         });
