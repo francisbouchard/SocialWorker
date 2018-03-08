@@ -198,6 +198,9 @@ router.post('/:pid/doc', (req, res) => {
     if(!req.files){
         return res.status(400).send({err: "No file sent"});
     } 
+    if(fs.existsSync(path.join(__dirname, "../documents", req.params.pid, req.query.attachment))){
+        return res.status(400).send({err: "File with that name already exists."})
+    }
 
     fs.exists(path.join(__dirname, "../documents", req.params.pid), exists => {
         if(!exists){
@@ -292,6 +295,9 @@ router.delete('/:pid/doc/:docId', (req, res) => {
 router.post('/:pid/note', (req, res) => { 
     if(!req.files){
         return res.status(400).send({err: "No file sent"});
+    }
+    if(fs.existsSync(path.join(__dirname, "../notes", req.params.pid, req.query.attachment))){
+        return res.status(400).send({err: "File with that name already exists."})
     }
     fs.exists(path.join(__dirname, "../notes", req.params.pid), exists => {
         if(!exists){
