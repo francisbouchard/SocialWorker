@@ -9,7 +9,8 @@ const ObjectId = require('mongoose').Types.ObjectId;
  */
 router.get('/', (req, res) => {
     Phonelog.find().
-    populate('user').then(data => {
+    populate('user')
+    .populate('resolvedBy').then(data => {
         res.send(data);
     }, err => {
         res.send(err);
@@ -20,6 +21,7 @@ router.get('/', (req, res) => {
 router.get('/active', (req, res) => {
     Phonelog.find({ "resolved": { "$in": ["false",false]},"deleted": { "$in": ["false",false]}})
     .populate('user')
+    .populate('resolvedBy')
         .then(data => {
             res.send(data);
         }, err => {
@@ -30,6 +32,7 @@ router.get('/active', (req, res) => {
 router.get('/resolved', (req, res) => {
     Phonelog.find({ "resolved": { "$in": ["true",true]},"deleted": { "$in": ["false",false]}})
     .populate('user')
+    .populate('resolvedBy')
         .then(data => {
             res.send(data);
         }, err => {
