@@ -10,6 +10,7 @@ import { OrderByPipe } from '../../../pipes/orderBy.pipe';
 import { EditPhonelogComponent } from '../edit-phonelog/edit-phonelog.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SearchPipe } from '../../../pipes/search.pipe';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 describe('ViewPhonelogComponent', () => {
