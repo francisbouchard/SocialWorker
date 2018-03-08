@@ -8,7 +8,9 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrls: ['./phonelog.component.css']
 })
 export class PhonelogComponent implements OnInit {
+
   hasTabChanged = true;
+  currentTab = 0;
 
   constructor(
     public authService: AuthenticationService,
@@ -22,5 +24,9 @@ export class PhonelogComponent implements OnInit {
 
   changeTab() {
     this.hasTabChanged = !this.hasTabChanged;
+  }
+
+  viewLogsTab() {
+    this.currentTab = 0;
   }
 }

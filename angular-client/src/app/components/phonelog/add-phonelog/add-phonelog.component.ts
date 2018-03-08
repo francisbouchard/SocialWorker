@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { AlertModalComponent } from '../../modals/alert-modal/alert-modal.component';
@@ -14,6 +14,7 @@ import { PhonelogService } from '../../../services/phonelog.service';
 })
 export class AddPhonelogComponent implements OnInit {
 
+  @Output() loggedPhonecall = new EventEmitter();
   phonelog: FormGroup;
   callertype = [
     'Trans person',
@@ -71,6 +72,7 @@ export class AddPhonelogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.phonelog.reset();
+      this.loggedPhonecall.emit();
     });
 
   }

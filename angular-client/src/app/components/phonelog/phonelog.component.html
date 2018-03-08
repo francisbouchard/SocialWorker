@@ -1,8 +1,8 @@
-<mat-tab-group (selectedTabChange)="changeTab()">
+<mat-tab-group (selectedTabChange)="changeTab()" [(selectedIndex)]="currentTab">
     <mat-tab label="View Phonelog">
       <app-view-phonelog [hasTabChanged]="hasTabChanged"></app-view-phonelog>
     </mat-tab>
     <mat-tab label="Log a phone call">
-      <app-add-phonelog></app-add-phonelog>
+      <app-add-phonelog (loggedPhonecall)="viewLogsTab()"></app-add-phonelog>
     </mat-tab>
 </mat-tab-group>
