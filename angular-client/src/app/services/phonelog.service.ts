@@ -31,11 +31,19 @@ export class PhonelogService {
       );
   }
 
+  getActive(): Observable<Object> {
+    return this.http.get(`${this.url}/active`)
+      .pipe(
+        tap(participants => this.log('fecthed logs')),
+        catchError(this.handleError<Object>('getActive()'))
+      );
+  }
+
   getByResolved(): Observable<Object> {
     return this.http.get(`${this.url}/resolved`)
       .pipe(
         tap(participants => this.log('fecthed logs')),
-        catchError(this.handleError<Object>('getByResolved()'))
+        catchError(this.handleError<Object>('getActive()'))
       );
   }
 

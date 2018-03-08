@@ -17,8 +17,18 @@ router.get('/', (req, res) => {
 });
 
 
+router.get('/active', (req, res) => {
+    Phonelog.find({ "resolved": { "$in": ["false",false]},"deleted": { "$in": ["false",false]}})
+    .populate('user')
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+    })
+});
+
 router.get('/resolved', (req, res) => {
-    Phonelog.find({ "resolved": { "$in": ["false",false] } })
+    Phonelog.find({ "resolved": { "$in": ["true",true]},"deleted": { "$in": ["false",false]}})
     .populate('user')
         .then(data => {
             res.send(data);

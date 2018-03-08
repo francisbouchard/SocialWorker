@@ -44,7 +44,7 @@ export class ViewPhonelogComponent implements OnInit {
    */
   loadLogs() {
     if (this.authService.role === 'admin') {
-      this.phonelogService.getByResolved()
+      this.phonelogService.getActive()
         .subscribe(data => {
           console.log(data)
           this.logs = data;
