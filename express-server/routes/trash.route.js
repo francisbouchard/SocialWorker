@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     let deletedRecords = [];
     let requests = collections.map((collection) => {
         return new Promise((resolve) => {
-            collection.find({ deleted: false }).then(records => {
+            collection.find({ deleted: true }).then(records => {
                 deletedRecords = deletedRecords.concat(records);
                 resolve();
             });
