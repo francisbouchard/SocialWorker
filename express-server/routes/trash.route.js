@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Participant = require('../models/Participant');
 const Resource = require('../models/Resource');
+const Casefile = require('../models/Casefile');
 
 /**
  * Get all records in the trash
  */
 router.get('/', (req, res) => {
-    let collections = [ Participant, Resource ];
+    let collections = [ Participant, Resource, Casefile ];
     let deletedRecords = [];
     let requests = collections.map((collection) => {
         return new Promise((resolve) => {

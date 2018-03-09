@@ -12,6 +12,13 @@
         <p>{{item.name}}</p>
         <p *ngIf="item.email">{{item.email}}</p>
       </div>
+      <div *ngIf="item.model == 'Casefile'">
+          <p><b>{{item.model}}:</b></p>
+          <p>{{item.type}}</p>
+          <p *ngIf="item.status">{{item.status}}</p>
+          <p *ngIf="item.participant">{{item.participant}}</p>
+          <p *ngIf="item.date">{{item.date | date}}</p>
+        </div>
       <button mat-icon-button color="primary">
         <mat-icon matSuffix>delete_forever</mat-icon>
       </button>
