@@ -383,7 +383,7 @@ describe('Casefile Tests', () => {
     });
 
     describe('/DELETE/:id', () => {
-        it('should not permanently DELETE the casefile with the given ID when user is not admin', (done) => {
+        it('should not permanently DELETE the casefile with the given ID', (done) => {
             chai.request(server)
                 .del('/api/casefile/' + id5)
                 .set('Cookie', cookie)
@@ -394,24 +394,25 @@ describe('Casefile Tests', () => {
                     done();
                 });
         });
-        it('should permanently DELETE the casefile with the given ID when user is admin', (done) => {
-            chai.request(server)
-                .post('/user/login')
-                .send({
-                    'email': 'test2@test.com',
-                    'password': 'test123'
-                })
-                .end((err, res) => {
-                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
-                    chai.request(server)
-                        .del('/api/casefile/' + id5)
-                        .set('Cookie', adminCookie)
-                        .end((err, res) => {
-                            res.should.have.status(200);
-                            done();
-                        });
-                });
-        });
+        // TODO: move to trash tests when implemented
+        // it('should permanently DELETE the casefile with the given ID when user is admin', (done) => {
+        //     chai.request(server)
+        //         .post('/user/login')
+        //         .send({
+        //             'email': 'test2@test.com',
+        //             'password': 'test123'
+        //         })
+        //         .end((err, res) => {
+        //             let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
+        //             chai.request(server)
+        //                 .del('/api/casefile/' + id5)
+        //                 .set('Cookie', adminCookie)
+        //                 .end((err, res) => {
+        //                     res.should.have.status(200);
+        //                     done();
+        //                 });
+        //         });
+        // });
     });
 
     after(() => {
