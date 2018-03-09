@@ -114,19 +114,6 @@ router.delete('/:pid', (req, res) => {
 });
 
 /**
- * Permanently delete a participant by ID
- * 
- * Participant's record will be permanently deleted. Only accessible to administrators.
- */
-router.delete('/permanent/:pid', (req, res) => {
-    Participant.findByIdAndRemove(req.params.pid).then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    })
-});
-
-/**
  * Update given participant
  */
 router.put('/:pid', (req, res) => {

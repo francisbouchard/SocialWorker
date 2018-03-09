@@ -28,6 +28,14 @@ export class TrashService {
       );
   }
 
+  deletePermanently(model: String, recordID: String): Observable<Object> {
+    return this.http.delete(`${this.url}/${model}/${recordID}`)
+      .pipe(
+        tap(users => this.log('fetched all deleted records')),
+        catchError(this.handleError<Object>('getAll()'))
+      );
+  }
+
   /**
    * Capture errors from the service, then log them,
    * and let the app keep running with a returned Observable

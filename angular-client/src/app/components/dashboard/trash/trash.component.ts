@@ -18,9 +18,17 @@ export class TrashComponent implements OnInit {
     this.loadTrashRecords();
   }
 
+  delete(itemModel: String, itemID: String) {
+    this.trashService.deletePermanently(itemModel, itemID)
+      .subscribe(data => {
+        console.log(data);
+        this.loadTrashRecords();
+      });
+  }
+
   loadTrashRecords(): void {
     this.trashService.getAll()
-      .subscribe( (data: [any]) => {
+      .subscribe((data: [any]) => {
         this.items = data;
       });
   }
