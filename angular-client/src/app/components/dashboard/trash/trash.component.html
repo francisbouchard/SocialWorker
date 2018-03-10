@@ -19,7 +19,7 @@
         <p *ngIf="item.participant">{{item.participant}}</p>
         <p *ngIf="item.date">{{item.date | date}}</p>
       </div>
-      <button mat-icon-button color="primary">
+      <button mat-icon-button color="primary" (click)="restore(item.model, item._id)">
         <mat-icon matSuffix>unarchive</mat-icon>
       </button>
       <button mat-icon-button color="primary" (click)="delete(item.model, item._id)">

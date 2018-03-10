@@ -26,6 +26,14 @@ export class TrashComponent implements OnInit {
       });
   }
 
+  restore(itemModel: String, itemID: String) {
+    this.trashService.restore(itemModel, itemID)
+      .subscribe(data => {
+        console.log(data);
+        this.loadTrashRecords();
+      });
+  }
+
   loadTrashRecords(): void {
     this.trashService.getAll()
       .subscribe((data: [any]) => {

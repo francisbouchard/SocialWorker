@@ -10,8 +10,8 @@ export class TrashService {
 
   private url = '/api/trash/';
 
-  constructor(private http: HttpClient, 
-    private messageService: MessageService) { 
+  constructor(private http: HttpClient,
+    private messageService: MessageService) {
   }
 
   /**
@@ -28,11 +28,35 @@ export class TrashService {
       );
   }
 
+  /**
+   * Permanently delete the record with the given ID
+   * 
+   * @param {String} model 
+   * @param {String} recordID 
+   * @returns {Observable<Object>} 
+   * @memberof TrashService
+   */
   deletePermanently(model: String, recordID: String): Observable<Object> {
     return this.http.delete(`${this.url}/${model}/${recordID}`)
       .pipe(
-        tap(users => this.log('fetched all deleted records')),
-        catchError(this.handleError<Object>('getAll()'))
+        tap(users => this.log('permanently deleted the record')),
+        catchError(this.handleError<Object>('deletePermanently(model: String, recordID: String)'))
+      );
+  }
+
+  /**
+   * Restore the given deleted record from the trash bin
+   * 
+   * @param {String} model 
+   * @param {String} recordID 
+   * @returns {Observable<Object>} 
+   * @memberof TrashService
+   */
+  restore(model: String, recordID: String): Observable<Object> {
+    return this.http.put(`${this.url}/${model}/${recordID}`, {})
+      .pipe(
+        tap(users => this.log('restored the deleted record')),
+        catchError(this.handleError<Object>('restore(model: String, recordID: String)'))
       );
   }
 
