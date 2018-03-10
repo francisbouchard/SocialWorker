@@ -35,8 +35,22 @@ router.get('/', (req, res) => {
 router.delete('/:model/:id', (req, res) => {
     let collection = collections.find(c => {
         return c.modelName == req.params.model;
-    })
+    });
     collection.findByIdAndRemove(req.params.id).then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+});
+
+/**
+ * Restore a record from the trash by its ID
+ */
+router.put('/:model/:id', (req, res) => {
+    let collection = collections.find(c => {
+        return c.modelName == req.params.model;
+    });
+    collection.findByIdAndUpdate(req.params.id, { deleted: false }, { new: true }).then(data => {
         res.send(data);
     }, err => {
         res.send(err);

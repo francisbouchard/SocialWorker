@@ -5,9 +5,11 @@ const mongoose = require('mongoose');
 const server = require('../server');
 const Participant = require('../models/Participant');
 const Housing = require('../models/Housing');
+const Casefile = require('../models/Casefile');
 
 let id1 = 'participantRecord';
 let id2 = new mongoose.Types.ObjectId();
+let id3 = new mongoose.Types.ObjectId();
 
 let cookie;
 let adminCookie;
@@ -31,7 +33,16 @@ describe('Trash Tests', () => {
             term: '5 weeks',
             deleted: true
         });
-        participantRecord.save().then(data => { }, err => {
+        let casefileRecord = new Casefile({
+            _id: id3,
+            participant: id1,
+            notes: 'testing'
+        });
+        participantRecord.save().then(data => {
+            casefileRecord.save().then(data => { }, err => {
+                console.log(err);
+            });
+        }, err => {
             console.log(err);
         });
         housingRecord.save().then(data => { }, err => {
@@ -87,6 +98,29 @@ describe('Trash Tests', () => {
         });
     });
 
+    describe('/PUT/:model/:id', () => {
+        it('should not restore the record with the given ID if user is not admin', (done) => {
+            chai.request(server)
+                .put('/api/trash/Casefile/' + id3)
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(403);
+                    done();
+                });
+        });
+        it('should restore the record with the given ID (deleted = false)', (done) => {
+            chai.request(server)
+                .put('/api/trash/Casefile/' + id3)
+                .set('Cookie', adminCookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('deleted').eql(false);
+                    done();
+                });
+        });
+    });
+
     describe('/DELETE/:model/:id', () => {
         it('should not permanently DELETE the record with the given ID when user is not admin', (done) => {
             chai.request(server)
@@ -114,6 +148,12 @@ describe('Trash Tests', () => {
                     res.should.have.status(200);
                     done();
                 });
+        });
+    });
+
+    after(() => {
+        Casefile.findByIdAndRemove(id3).then(data => { }, err => {
+            console.log(err);
         });
     });
 
