@@ -307,36 +307,6 @@ describe('Participant Tests', () => {
         });
     });
 
-    describe('/DELETE/permanent/:pid', () => {
-        it('should not permanently DELETE the participant with the given ID when user is not admin', (done) => {
-            chai.request(server)
-                .del('/api/participant/permanent/' + id3)
-                .set('Cookie', cookie)
-                .end((err, res) => {
-                    res.should.have.status(403);
-                    done();
-                });
-        });
-        it('should permanently DELETE the participant with the given ID when user is admin', (done) => {
-            chai.request(server)
-                .post('/user/login')
-                .send({
-                    'email': 'test2@test.com',
-                    'password': 'test123'
-                })
-                .end((err, res) => {
-                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
-                    chai.request(server)
-                        .del('/api/participant/permanent/' + id3)
-                        .set('Cookie', adminCookie)
-                        .end((err, res) => {
-                            res.should.have.status(200);
-                            done();
-                        });
-                });
-        });
-    });
-
     describe('/DELETE/:pid/worker/:workerId', () => {
         it('should DELETE worker with given ID from the participant\'s assigned social workers', (done) => {
             chai.request(server)
@@ -378,6 +348,9 @@ describe('Participant Tests', () => {
             console.log(err);
         });
         Participant.findByIdAndRemove(id2).then(data => { }, err => {
+            console.log(err);
+        });
+        Participant.findByIdAndRemove(id3).then(data => { }, err => {
             console.log(err);
         });
     });
