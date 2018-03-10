@@ -34,6 +34,14 @@ export class TrashComponent implements OnInit {
       });
   }
 
+  deleteAll() {
+    this.trashService.deleteAll()
+      .subscribe((data: [any]) => {
+        console.log(data);
+        this.loadTrashRecords();
+      });
+  }
+
   loadTrashRecords(): void {
     this.trashService.getAll()
       .subscribe((data: [any]) => {

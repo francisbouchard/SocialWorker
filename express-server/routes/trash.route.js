@@ -30,6 +30,27 @@ router.get('/', (req, res) => {
 });
 
 /**
+ * Delete all records in trash bin
+ */
+router.delete('/all', (req, res) => {
+    let results = [];
+    let requests = collections.map((collection) => {
+        return new Promise((resolve) => {
+            collection.remove({ deleted: true }).then(data => {
+                data.model = collection.modelName;
+                results = results.concat(data);
+                resolve();
+            });
+        });
+    });
+    Promise.all(requests).then( () => {
+        res.send(results);
+    }, err => {
+        res.send(err);
+    })
+});
+
+/**
  * Permanently delete a record by its ID
  */
 router.delete('/:model/:id', (req, res) => {
