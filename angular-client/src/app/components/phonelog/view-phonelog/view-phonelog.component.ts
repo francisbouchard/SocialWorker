@@ -18,6 +18,7 @@ export class ViewPhonelogComponent implements OnInit, OnChanges {
   @Input() reloadPhonelogs: boolean;
   editingLog = Phonelog;
   public logs;
+  public history;
   public sortProperty = 'urgent';
   public reverse = false;
   public query: string;
@@ -34,17 +35,19 @@ export class ViewPhonelogComponent implements OnInit, OnChanges {
       this.router.navigateByUrl('login');
     } else {
       this.loadLogs();
+      this.loadHistory();
     }
   }
 
   ngOnChanges() {
     if (this.reloadPhonelogs) {
       this.loadLogs();
+      this.loadHistory();
     }
   }
 
   /**
-   * Load all phonelogs
+   * Load all active phonelogs
    *
    * @memberof ViewPhonelogComponent
    */
@@ -53,9 +56,20 @@ export class ViewPhonelogComponent implements OnInit, OnChanges {
       this.phonelogService.getActive()
         .subscribe(data => {
           this.logs = data;
-
         });
     }
+  }
+
+  /**
+   * Load all resovled phonelogs
+   *
+   * @memberof ViewPhonelogComponent
+   */
+  loadHistory() {
+    this.phonelogService.getByResolved()
+      .subscribe(data => {
+        this.history = data;
+      });
   }
 
   /**
@@ -78,6 +92,7 @@ export class ViewPhonelogComponent implements OnInit, OnChanges {
     this.phonelogService.resolve(log._id, { resolved: 'true' }).subscribe(data => {
       this.logs = [];
       this.loadLogs();
+      this.loadHistory();
     });
   }
 
@@ -91,6 +106,7 @@ export class ViewPhonelogComponent implements OnInit, OnChanges {
     this.phonelogService.delete(log._id, { deleted: 'true' }).subscribe(data => {
       this.logs = [];
       this.loadLogs();
+      this.loadHistory();
     });
   }
 
@@ -103,5 +119,6 @@ export class ViewPhonelogComponent implements OnInit, OnChanges {
     this.edit(null);
     this.logs = [];
     this.loadLogs();
+    this.loadHistory();
   }
 }
