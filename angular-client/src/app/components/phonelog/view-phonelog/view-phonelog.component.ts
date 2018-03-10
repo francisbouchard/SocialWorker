@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, Input, Inject, Pipe, PipeTransform, OnChanges } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
 import { Phonelog } from '../../../classes/phonelog';
@@ -13,14 +13,14 @@ import { MatRadioModule } from '@angular/material/radio';
 
 })
 
-export class ViewPhonelogComponent implements OnInit {
+export class ViewPhonelogComponent implements OnInit, OnChanges {
 
-  @Input() hasTabChanged: boolean;
-    editingLog = Phonelog;
-    public logs;
-    public sortProperty = 'urgent';
-    public reverse = false;
-    public query: string;
+  @Input() reloadPhonelogs: boolean;
+  editingLog = Phonelog;
+  public logs;
+  public sortProperty = 'urgent';
+  public reverse = false;
+  public query: string;
 
   constructor(
     private chRef: ChangeDetectorRef,
@@ -37,6 +37,12 @@ export class ViewPhonelogComponent implements OnInit {
     }
   }
 
+  ngOnChanges() {
+    if (this.reloadPhonelogs) {
+      this.loadLogs();
+    }
+  }
+
   /**
    * Load all phonelogs
    *
@@ -46,7 +52,6 @@ export class ViewPhonelogComponent implements OnInit {
     if (this.authService.role === 'admin') {
       this.phonelogService.getActive()
         .subscribe(data => {
-          console.log(data)
           this.logs = data;
 
         });
