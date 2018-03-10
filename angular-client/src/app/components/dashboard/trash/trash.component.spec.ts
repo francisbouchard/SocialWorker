@@ -1,25 +1,37 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TrashComponent } from './trash.component';
+import { MaterialsModule } from '../../../modules/materials.module';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { TrashService } from '../../../services/trash.service';
+import { MockTrashService } from '../../../mocks/MockTrashService';
+import { OrderByPipe } from '../../../pipes/orderBy.pipe';
 
 describe('TrashComponent', () => {
   let component: TrashComponent;
   let fixture: ComponentFixture<TrashComponent>;
 
-  // beforeEach(async(() => {
-  //   TestBed.configureTestingModule({
-  //     declarations: [ TrashComponent ]
-  //   })
-  //   .compileComponents();
-  // }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ TrashComponent, OrderByPipe ],
+      imports: [ MaterialsModule ],
+      providers: [
+        { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: TrashService, useClass: MockTrashService },
+      ]
+    })
+    .compileComponents();
+  }));
 
-  // beforeEach(() => {
-  //   fixture = TestBed.createComponent(TrashComponent);
-  //   component = fixture.componentInstance;
-  //   fixture.detectChanges();
-  // });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TrashComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
 });
