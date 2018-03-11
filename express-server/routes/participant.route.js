@@ -238,8 +238,8 @@ router.post('/:pid/doc', (req, res) => {
  * Delete a participant's document by the document ID
  */
 router.delete('/:pid/doc/:docId', (req, res) => {
-    Participant.update({ _id: req.params.pid },
-        { $pull: { documents: { _id: req.params.docId } } }
+    Participant.updateOne({ _id: req.params.pid, documents: { $elemMatch: {_id: req.params.docId} } },
+        { $set: { 'documents.$.deleted': true } }
     ).then(data => {
         res.send(data);
     }, err => {
@@ -315,8 +315,8 @@ router.post('/:pid/note', (req, res) => {
  * Delete a participant's note by the note ID
  */
 router.delete('/:pid/note/:noteId', (req, res) => {
-    Participant.update({ _id: req.params.pid },
-        { $pull: { notes: { _id: req.params.noteId } } }
+    Participant.updateOne({ _id: req.params.pid, notes: { $elemMatch: {_id: req.params.noteId} } },
+        { $set: { 'notes.$.deleted': true } }
     ).then(data => {
         res.send(data);
     }, err => {

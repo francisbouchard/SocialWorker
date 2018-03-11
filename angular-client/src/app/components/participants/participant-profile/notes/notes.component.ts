@@ -15,6 +15,7 @@ export class NotesComponent implements OnInit {
   constructor(private participantService: ParticipantService) { }
 
   ngOnInit() {
+    this.orderedNotes = this.orderedNotes.filter((note) => !note.deleted);
   }
 
 /**
