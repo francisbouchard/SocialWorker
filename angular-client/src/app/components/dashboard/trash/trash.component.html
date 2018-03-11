@@ -24,7 +24,7 @@
       </div>
       <div *ngIf="item.model == 'Note'">
           <p><b>{{item.model}}:</b></p>
-          <p>{{item._id}}</p>
+          <p>{{item.participant}}</p>
           <p *ngIf="item.notes.date">{{item.notes.date | date}}</p>
           <p *ngIf="item.notes.attachment">{{item.notes.attachment}}</p>
           <p *ngIf="item.notes.text">{{item.notes.text | slice:0:20}}</p>

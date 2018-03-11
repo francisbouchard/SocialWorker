@@ -64,7 +64,8 @@ export class ParticipantProfileComponent implements OnInit {
         this.orderedDocuments = this.participantSelected.documents.sort((doc1, doc2) => {
           return new Date(doc2.date).getTime() - new Date(doc1.date).getTime();
         });
-        this.orderedNotes = this.participantSelected.notes.sort((note1, note2) => {
+        this.orderedNotes = this.participantSelected.notes.filter((note) => !note.deleted);
+        this.orderedNotes = this.orderedNotes.sort((note1, note2) => {
           return new Date(note2.date).getTime() - new Date(note1.date).getTime();
         });
       } else {

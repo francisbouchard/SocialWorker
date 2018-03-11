@@ -30,6 +30,8 @@ router.get('/', (req, res) => {
             { $match: { 'notes.deleted': true } }]).then(notes => {
             notes.forEach((record) => {
                 record.model = "Note";
+                record.participant = record._id;
+                record._id = record.notes._id;
             });
             deletedRecords = deletedRecords.concat(notes);
             resolve();
@@ -81,7 +83,8 @@ router.delete('/all', (req, res) => {
 router.delete('/:model/:id', (req, res) => {
     if (req.params.model == "Note") {
         Participant.update({},
-            { $pull: { notes: { _id: req.params.id } } }
+            { $pull: { notes: {_id: req.params.id} } },
+            { multi: true }
         ).then(data => {
             res.send(data);
         }, err => {
@@ -105,14 +108,26 @@ router.delete('/:model/:id', (req, res) => {
  * Restore a record from the trash by its ID
  */
 router.put('/:model/:id', (req, res) => {
-    let collection = collections.find(c => {
-        return c.modelName == req.params.model;
-    });
-    collection.findByIdAndUpdate(req.params.id, { deleted: false }, { new: true }).then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    })
+    if (req.params.model == "Note") {
+        Participant.updateOne({ notes: { $elemMatch: {_id: req.params.id} } },
+            { $set: { 'notes.$.deleted': false } }
+        ).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+    } else if (req.params.model == "Document") {
+
+    } else {
+        let collection = collections.find(c => {
+            return c.modelName == req.params.model;
+        });
+        collection.findByIdAndUpdate(req.params.id, { deleted: false }, { new: true }).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+    }
 });
 
 
