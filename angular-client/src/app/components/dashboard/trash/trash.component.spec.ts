@@ -7,6 +7,7 @@ import { MockAuthenticationService } from '../../../mocks/MockAuthenticationServ
 import { TrashService } from '../../../services/trash.service';
 import { MockTrashService } from '../../../mocks/MockTrashService';
 import { OrderByPipe } from '../../../pipes/orderBy.pipe';
+import { MatDialog } from '@angular/material';
 
 describe('TrashComponent', () => {
   let component: TrashComponent;
@@ -17,6 +18,7 @@ describe('TrashComponent', () => {
       declarations: [ TrashComponent, OrderByPipe ],
       imports: [ MaterialsModule ],
       providers: [
+        MatDialog,
         { provide: AuthenticationService, useClass: MockAuthenticationService },
         { provide: TrashService, useClass: MockTrashService },
       ]
