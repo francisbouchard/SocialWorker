@@ -47,6 +47,7 @@ import { TrashService } from './services/trash.service';
 
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
 
 const routes: Routes = [
   {
@@ -134,7 +135,8 @@ const routes: Routes = [
     ViewResourcesComponent,
     ViewUsersComponent,
     OrderByPipe,
-    SearchPipe
+    SearchPipe,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,
@@ -149,6 +151,7 @@ const routes: Routes = [
     AlertModalComponent,
     CaseModalComponent,
     EditWorkerModalComponent,
+    ConfirmModalComponent,
     DocumentComponent,
     NoteComponent
   ],
