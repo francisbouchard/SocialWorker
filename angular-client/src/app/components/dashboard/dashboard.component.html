@@ -1,19 +1,50 @@
-<div>
-  <mat-card>
-    <p>
-      Dashboard Page
-    </p>
-    <p>
-      To include: stats, phone log, notifications, reminders, trash bin, tasks
-    </p>
-  </mat-card>
-  <mat-grid-list cols="4" rowHeight="100px">
-      <mat-grid-tile
-          *ngFor="let tile of tiles"
-          [colspan]="tile.cols"
-          [rowspan]="tile.rows"
-          [style.background]="tile.color">
+<div class="container">
+  
+  <div class="toolbar">
+    <mat-toolbar color="primary">
+
+      <mat-toolbar-row>
+        <span>Tasks</span>
+      </mat-toolbar-row>
+
+      <mat-toolbar-row>
+        <span>Casefiles</span>
+      </mat-toolbar-row>
+
+      <mat-toolbar-row>
+        <span>Phone Log</span>
+      </mat-toolbar-row>
+
+      <mat-toolbar-row>
+        <span>Manage Users</span>
+      </mat-toolbar-row>
+
+      <mat-toolbar-row>
+        <span>Statistics</span>
+      </mat-toolbar-row>
+
+      <mat-toolbar-row>
+        <span>Trashbin</span>
+        <span class="example-spacer"></span>
+        <mat-icon class="example-icon">delete</mat-icon>
+      </mat-toolbar-row>
+
+    </mat-toolbar>
+  </div>
+
+  <div class="main">
+    <mat-card>
+      <p>
+        Dashboard Page
+      </p>
+      <p>
+        To include: stats, phone log, notifications, reminders, trash bin, tasks
+      </p>
+    </mat-card>
+    <mat-grid-list cols="4" rowHeight="100px">
+      <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows" [style.background]="tile.color">
         {{tile.text}}
       </mat-grid-tile>
     </mat-grid-list>
+  </div>
 </div>
