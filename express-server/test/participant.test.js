@@ -117,7 +117,6 @@ describe('Participant Tests', () => {
                     done();
                 });
         });
-        //Uncomment following when testing *locally* (when testing with travis, the cookie with worker's ID is always there)
         it('should not proceed with GET when social worker ID not provided through the cookie', (done) => {
             chai.request(server)
                 .get('/api/participant/worker')
