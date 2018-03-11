@@ -4,7 +4,7 @@ const Participant = require('../models/Participant');
 const Resource = require('../models/Resource');
 const Casefile = require('../models/Casefile');
 
-const collections = [ Participant, Resource, Casefile ];
+const collections = [Participant, Resource, Casefile];
 
 /**
  * Get all records in the trash
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     let requests = collections.map((collection) => {
         return new Promise((resolve) => {
             collection.find({ deleted: true }).then(records => {
-                records.forEach( (record) => {
+                records.forEach((record) => {
                     record._doc.model = collection.modelName;
                 });
                 deletedRecords = deletedRecords.concat(records);
@@ -22,7 +22,21 @@ router.get('/', (req, res) => {
             });
         });
     });
-    Promise.all(requests).then( () => {
+    // notes and documents are treated differently since no separate collection
+    let notesReq = new Promise((resolve) => {
+        Participant.aggregate([
+            { $match: { 'notes.deleted': true } }, 
+            { $unwind: '$notes' }, 
+            { $match: { 'notes.deleted': true } }]).then(notes => {
+            notes.forEach((record) => {
+                record.model = "Note";
+            });
+            deletedRecords = deletedRecords.concat(notes);
+            resolve();
+        });
+    });
+    requests.push(notesReq);
+    Promise.all(requests).then(() => {
         res.send(deletedRecords);
     }, err => {
         res.send(err);
@@ -43,7 +57,18 @@ router.delete('/all', (req, res) => {
             });
         });
     });
-    Promise.all(requests).then( () => {
+    let notesReq = new Promise((resolve) => {
+        Participant.update({},
+            { $pull: { notes: { deleted: true } } },
+            { multi: true }
+        ).then(data => {
+            data.model = "Note";
+            results = results.concat(data);
+            resolve();
+        });
+    });
+    requests.push(notesReq);
+    Promise.all(requests).then(() => {
         res.send(results);
     }, err => {
         res.send(err);
@@ -54,14 +79,26 @@ router.delete('/all', (req, res) => {
  * Permanently delete a record by its ID
  */
 router.delete('/:model/:id', (req, res) => {
-    let collection = collections.find(c => {
-        return c.modelName == req.params.model;
-    });
-    collection.findByIdAndRemove(req.params.id).then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    })
+    if (req.params.model == "Note") {
+        Participant.update({},
+            { $pull: { notes: { _id: req.params.id } } }
+        ).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+    } else if (req.params.model == "Document") {
+
+    } else {
+        let collection = collections.find(c => {
+            return c.modelName == req.params.model;
+        });
+        collection.findByIdAndRemove(req.params.id).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+    }
 });
 
 /**
