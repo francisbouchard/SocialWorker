@@ -25,19 +25,35 @@ router.get('/', (req, res) => {
     // notes and documents are treated differently since no separate collection
     let notesReq = new Promise((resolve) => {
         Participant.aggregate([
-            { $match: { 'notes.deleted': true } }, 
-            { $unwind: '$notes' }, 
+            { $match: { 'notes.deleted': true } },
+            { $unwind: '$notes' },
             { $match: { 'notes.deleted': true } }]).then(notes => {
-            notes.forEach((record) => {
-                record.model = "Note";
-                record.participant = record._id;
-                record._id = record.notes._id;
+                notes.forEach((record) => {
+                    record.model = "Note";
+                    record.participant = record._id;
+                    record._id = record.notes._id;
+                });
+                deletedRecords = deletedRecords.concat(notes);
+                resolve();
             });
-            deletedRecords = deletedRecords.concat(notes);
-            resolve();
-        });
+    });
+    let docsReq = new Promise((resolve) => {
+        Participant.aggregate([
+            { $match: { 'documents.deleted': true } },
+            { $unwind: '$documents' },
+            { $match: { 'documents.deleted': true } }]).then(documents => {
+                documents.forEach((record) => {
+                    record.model = "Document";
+                    record.participant = record._id;
+                    record._id = record.documents._id;
+                });
+                deletedRecords = deletedRecords.concat(documents);
+                resolve();
+            });
     });
     requests.push(notesReq);
+    requests.push(docsReq);
+    
     Promise.all(requests).then(() => {
         res.send(deletedRecords);
     }, err => {
@@ -69,7 +85,19 @@ router.delete('/all', (req, res) => {
             resolve();
         });
     });
+    let docsReq = new Promise((resolve) => {
+        Participant.update({},
+            { $pull: { documents: { deleted: true } } },
+            { multi: true }
+        ).then(data => {
+            data.model = "Document";
+            results = results.concat(data);
+            resolve();
+        });
+    });
     requests.push(notesReq);
+    requests.push(docsReq);
+
     Promise.all(requests).then(() => {
         res.send(results);
     }, err => {
@@ -83,7 +111,7 @@ router.delete('/all', (req, res) => {
 router.delete('/:model/:id', (req, res) => {
     if (req.params.model == "Note") {
         Participant.update({},
-            { $pull: { notes: {_id: req.params.id} } },
+            { $pull: { notes: { _id: req.params.id } } },
             { multi: true }
         ).then(data => {
             res.send(data);
@@ -91,7 +119,14 @@ router.delete('/:model/:id', (req, res) => {
             res.send(err);
         })
     } else if (req.params.model == "Document") {
-
+        Participant.update({},
+            { $pull: { documents: { _id: req.params.id } } },
+            { multi: true }
+        ).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
     } else {
         let collection = collections.find(c => {
             return c.modelName == req.params.model;
@@ -109,7 +144,7 @@ router.delete('/:model/:id', (req, res) => {
  */
 router.put('/:model/:id', (req, res) => {
     if (req.params.model == "Note") {
-        Participant.updateOne({ notes: { $elemMatch: {_id: req.params.id} } },
+        Participant.updateOne({ notes: { $elemMatch: { _id: req.params.id } } },
             { $set: { 'notes.$.deleted': false } }
         ).then(data => {
             res.send(data);
@@ -117,7 +152,13 @@ router.put('/:model/:id', (req, res) => {
             res.send(err);
         })
     } else if (req.params.model == "Document") {
-
+        Participant.updateOne({ documents: { $elemMatch: { _id: req.params.id } } },
+            { $set: { 'documents.$.deleted': false } }
+        ).then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
     } else {
         let collection = collections.find(c => {
             return c.modelName == req.params.model;
