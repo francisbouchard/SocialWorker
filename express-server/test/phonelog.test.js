@@ -197,7 +197,8 @@ describe('Phonelog Tests', () => {
                 .send({delete:deleted})
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.have.property('deleted').eql(deleted);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(1);
                     done();
                 });
         });
@@ -214,9 +215,8 @@ describe('Phonelog Tests', () => {
                 .send({resolved:resolved, resolvedBy: resolvedBy,dateResolved:dateResolved})
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.have.property('resolved').eql(resolved);
-                    res.body.should.have.property('resolvedBy').eql(resolvedBy);
-                    res.body.should.have.property('dateResolved').eql(dateResolved);
+                   res.body.should.be.a('object');
+                    res.body.should.have.property('nModified').eql(1);
                     done();
                 });
         });
