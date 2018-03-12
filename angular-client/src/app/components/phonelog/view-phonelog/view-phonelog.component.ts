@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, Input, Inject, Pipe, PipeTransform, OnChanges } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
 import { Phonelog } from '../../../classes/phonelog';
@@ -13,14 +13,15 @@ import { MatRadioModule } from '@angular/material/radio';
 
 })
 
-export class ViewPhonelogComponent implements OnInit {
+export class ViewPhonelogComponent implements OnInit, OnChanges {
 
-  @Input() hasTabChanged: boolean;
-    editingLog = Phonelog;
-    public logs;
-    public sortProperty = 'urgent';
-    public reverse = false;
-    public query: string;
+  @Input() reloadPhonelogs: boolean;
+  editingLog = Phonelog;
+  public logs;
+  public history;
+  public sortProperty = 'urgent';
+  public reverse = false;
+  public query: string;
 
   constructor(
     private chRef: ChangeDetectorRef,
@@ -34,11 +35,19 @@ export class ViewPhonelogComponent implements OnInit {
       this.router.navigateByUrl('login');
     } else {
       this.loadLogs();
+      this.loadHistory();
+    }
+  }
+
+  ngOnChanges() {
+    if (this.reloadPhonelogs) {
+      this.loadLogs();
+      this.loadHistory();
     }
   }
 
   /**
-   * Load all phonelogs
+   * Load all active phonelogs
    *
    * @memberof ViewPhonelogComponent
    */
@@ -46,11 +55,21 @@ export class ViewPhonelogComponent implements OnInit {
     if (this.authService.role === 'admin') {
       this.phonelogService.getActive()
         .subscribe(data => {
-          console.log(data)
           this.logs = data;
-
         });
     }
+  }
+
+  /**
+   * Load all resovled phonelogs
+   *
+   * @memberof ViewPhonelogComponent
+   */
+  loadHistory() {
+    this.phonelogService.getByResolved()
+      .subscribe(data => {
+        this.history = data;
+      });
   }
 
   /**
@@ -73,6 +92,7 @@ export class ViewPhonelogComponent implements OnInit {
     this.phonelogService.resolve(log._id, { resolved: 'true' }).subscribe(data => {
       this.logs = [];
       this.loadLogs();
+      this.loadHistory();
     });
   }
 
@@ -86,6 +106,7 @@ export class ViewPhonelogComponent implements OnInit {
     this.phonelogService.delete(log._id, { deleted: 'true' }).subscribe(data => {
       this.logs = [];
       this.loadLogs();
+      this.loadHistory();
     });
   }
 
@@ -98,5 +119,6 @@ export class ViewPhonelogComponent implements OnInit {
     this.edit(null);
     this.logs = [];
     this.loadLogs();
+    this.loadHistory();
   }
 }

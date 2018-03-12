@@ -9,7 +9,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class PhonelogComponent implements OnInit {
 
-  hasTabChanged = true;
+  isViewActive = true;
   currentTab = 0;
 
   constructor(
@@ -23,10 +23,11 @@ export class PhonelogComponent implements OnInit {
   }
 
   changeTab() {
-    this.hasTabChanged = !this.hasTabChanged;
+    this.isViewActive = !this.isViewActive;
   }
 
   viewLogsTab() {
     this.currentTab = 0;
   }
+
 }
