@@ -41,7 +41,7 @@ router.get('/resolved', (req, res) => {
 });
 
 router.get('/deleted', (req, res) => {
-    Phonelog.find({ "deleted": { "$in": ["false",false] } })
+    Phonelog.find({ "deleted": { "$in": ["true",true] } })
     .populate('user')
         .then(data => {
             res.send(data);

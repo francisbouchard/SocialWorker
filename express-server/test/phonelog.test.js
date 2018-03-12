@@ -4,15 +4,17 @@ const should = chai.should();
 const mongoose = require('mongoose');
 const server = require('../server');
 const Phonelog = require('../models/Phonelog');
-
+const expect = chai.expect;
 
 let id1 = new mongoose.Types.ObjectId();
 let id2 = new mongoose.Types.ObjectId();
 let id4 = new mongoose.Types.ObjectId();
 
+
 let cookie;
 
 chai.use(chaiHttp);
+chai.use(require('chai-things'));
 
 describe('Phonelog Tests', () => {
 
@@ -84,6 +86,49 @@ describe('Phonelog Tests', () => {
         });
     });
 
+    describe('/GET/active', () => {
+        it('should get all phonelogs that are active', (done) => {
+            chai.request(server)
+                .get('/api/phonelog/active')
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    expect(res.body).all.have.property('resolved', false);
+                    expect(res.body).all.have.property('deleted', false);
+                    done();
+                });
+        });
+    })
+
+    describe('/GET/deleted', () => {
+        it('should get all phonelogs that are deleted', (done) => {
+            chai.request(server)
+                .get('/api/phonelog/deleted')
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    expect(res.body).all.have.property('deleted', true);
+                    done();
+                });
+        });
+    })
+
+    describe('/GET/resolved', () => {
+        it('should get all phonelogs that are resolved', (done) => {
+            chai.request(server)
+                .get('/api/phonelog/resolved')
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    expect(res.body).all.have.property('resolved', true);
+                     expect(res.body).all.have.property('deleted', false);
+                    done();
+                });
+        });
+    })
    
 
     describe('/POST', () => {
@@ -107,8 +152,6 @@ describe('Phonelog Tests', () => {
                 });
         });
     });
-
-    
 
     after(() => {
         Phonelog.findByIdAndRemove(id1).then(data => { }, err => {
