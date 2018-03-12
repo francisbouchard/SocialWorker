@@ -1,8 +1,8 @@
 <mat-card>
   <mat-card-title>Trash Bin</mat-card-title>
-  <button mat-icon-button color="primary" (click)="deleteAll()">
+  <!-- <button mat-icon-button color="primary" (click)="deleteAll()">
       Delete All <mat-icon matSuffix>delete_forever</mat-icon>
-  </button>
+  </button> -->
   <div class="container">
     <div class="items" *ngFor="let item of (items | orderBy: 'updatedAt')">
       <div *ngIf="item.model == 'Participant'">
