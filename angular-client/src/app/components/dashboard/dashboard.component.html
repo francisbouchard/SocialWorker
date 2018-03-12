@@ -3,45 +3,10 @@
   <div class="toolbar">
     <mat-toolbar color="primary">
 
-      <mat-toolbar-row>
+      <mat-toolbar-row *ngFor="let link of dashboardLinks">
         <button mat-button>
-          <mat-icon>assignment</mat-icon>
-          Tasks
-        </button>
-      </mat-toolbar-row>
-
-      <mat-toolbar-row>
-          <button mat-button>
-            <mat-icon>folder</mat-icon>
-            Casefiles
-          </button>
-      </mat-toolbar-row>
-
-      <mat-toolbar-row>
-        <button mat-button>
-          <mat-icon>phone</mat-icon>
-          Phone Log
-        </button>
-      </mat-toolbar-row>
-
-      <mat-toolbar-row>
-        <button mat-button>
-          <mat-icon>supervisor_account</mat-icon>
-          Manage Users
-        </button>
-      </mat-toolbar-row>
-
-      <mat-toolbar-row>
-        <button mat-button>
-          <mat-icon>assessment</mat-icon>
-          Statistics
-        </button>
-      </mat-toolbar-row>
-
-      <mat-toolbar-row>
-        <button mat-button>
-          <mat-icon>delete</mat-icon>
-          Trashbin
+          <mat-icon>{{link.icon}}</mat-icon>
+          {{link.label}}
         </button>
       </mat-toolbar-row>
 
@@ -62,8 +27,10 @@
         {{tile.text}}
       </mat-grid-tile>
     </mat-grid-list>
-  </div>
 
-  
+
+    <!-- <router-outlet name="dashboardRoutes"></router-outlet> -->
+
+  </div>
 
 </div>
