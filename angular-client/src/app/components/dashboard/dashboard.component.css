@@ -4,16 +4,22 @@
 
 .toolbar {
     flex-grow: 1;
+    margin: 1em;
 }
 
 .main {
-    flex-grow: 3;
+    flex-grow: 4;
+    margin: 1em;
 }
 
-.example-icon {
-    padding: 0 14px;
+mat-icon {
+    padding: 0 15px;
 }
 
 .example-spacer {
     flex: 1 1 auto;
+}
+
+button.mat-button {
+    padding: 0 10px 0 0;
 }
