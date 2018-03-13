@@ -6,7 +6,7 @@ import { MockAuthenticationService } from '../../../mocks/MockAuthenticationServ
 import { PhonelogService } from '../../../services/phonelog.service';
 import { MockPhonelogService } from '../../../mocks/MockPhonelogService';
 import { Router } from '@angular/router';
-
+import { SearchPipe } from '../../../pipes/search.pipe';
 import { AddPhonelogComponent } from './add-phonelog.component';
 
 describe('AddPhonelogComponent', () => {

@@ -20,7 +20,8 @@ import {
   MatSelectModule,
   MatSlideToggleModule,
   MatTabsModule,
-  MatToolbarModule} from '@angular/material';
+  MatToolbarModule,
+} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
