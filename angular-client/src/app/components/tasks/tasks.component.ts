@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TasksComponent implements OnInit {
 
+
+  tasks = [
+    {description: 'Need to do this', deadline: null},
+    {description: 'Need to do that', deadline: null}
+  ];
+
   constructor() { }
 
   ngOnInit() {
