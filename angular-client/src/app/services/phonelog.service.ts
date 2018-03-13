@@ -31,6 +31,30 @@ export class PhonelogService {
       );
   }
 
+  getActive(): Observable<Object> {
+    return this.http.get(`${this.url}/active`)
+      .pipe(
+        tap(participants => this.log('fecthed logs')),
+        catchError(this.handleError<Object>('getActive()'))
+      );
+  }
+
+  getByResolved(): Observable<Object> {
+    return this.http.get(`${this.url}/resolved`)
+      .pipe(
+        tap(participants => this.log('fecthed logs')),
+        catchError(this.handleError<Object>('getActive()'))
+      );
+  }
+
+  getByDeleted(): Observable<Object> {
+    return this.http.get(`${this.url}/deleted`)
+      .pipe(
+        tap(participants => this.log('fecthed logs')),
+        catchError(this.handleError<Object>('getByDeleted()'))
+      );
+  }
+
     /**
    * Save a new case
    *
@@ -52,6 +76,59 @@ export class PhonelogService {
       );
   }
 
+   /**
+   * Update participant with new data
+   *
+   * @param {any} LogData
+   * @returns {Observable<Object>}
+   * @memberof ResourceService
+   */
+  update(id,LogData): Observable<Object> {
+    return this.http.put(`${this.url}/${id}`, LogData)
+      .pipe(
+      tap(_ => this.log('saving a resource')),
+      catchError(this.handleError<Object>('update()'))
+      );
+  }
+
+   /**
+   * Update deleted
+   *
+   * @param {any} LogID
+   * @param {any} LogData
+   * @returns {Observable<Object>}
+   * @memberof ResourceService
+   */
+
+   delete(LogID, LogData): Observable<Object> {
+    return this.http.put<Object>(`${this.url}/${LogID}/deleted`, LogData)
+      .pipe(
+      tap(c => {
+        if (c.hasOwnProperty('errmsg')) {
+          console.log('has err msg');
+          this.log('did not update status');
+        } else {
+          this.log('updated status');
+        }
+      }),
+      catchError(this.handleError<Object>('delete(LogID, LogData)'))
+      );
+  }
+
+  resolve(LogID, LogData): Observable<Object> {
+    return this.http.put<Object>(`${this.url}/${LogID}/resolved`, LogData)
+      .pipe(
+      tap(c => {
+        if (c.hasOwnProperty('errmsg')) {
+          console.log('has err msg');
+          this.log('did not update status');
+        } else {
+          this.log('updated status');
+        }
+      }),
+      catchError(this.handleError<Object>('resolved(LogID, LogData)'))
+      );
+  }
 
 
   /**

@@ -10,6 +10,11 @@ import { PhonelogComponent } from './phonelog.component';
 import { AddPhonelogComponent } from './add-phonelog/add-phonelog.component';
 import { ViewPhonelogComponent } from './view-phonelog/view-phonelog.component';
 import { MaterialsModule } from '../../modules/materials.module';
+import { EditPhonelogComponent } from './edit-phonelog/edit-phonelog.component';
+import { OrderByPipe } from '../../pipes/orderBy.pipe';
+import { SearchPipe } from '../../pipes/search.pipe';
+
+
 
 describe('PhonelogComponent', () => {
   let component: PhonelogComponent;
@@ -17,7 +22,7 @@ describe('PhonelogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PhonelogComponent, AddPhonelogComponent, ViewPhonelogComponent ],
+      declarations: [ PhonelogComponent, AddPhonelogComponent, ViewPhonelogComponent,EditPhonelogComponent,OrderByPipe,SearchPipe ],
       imports: [ MaterialsModule, RouterTestingModule ],
       providers: [
         { provide: AuthenticationService, useClass: MockAuthenticationService },
