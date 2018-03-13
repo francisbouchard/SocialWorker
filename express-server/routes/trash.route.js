@@ -4,8 +4,9 @@ const Participant = require('../models/Participant');
 const Resource = require('../models/Resource');
 const Casefile = require('../models/Casefile');
 const User = require('../models/User');
+const Phonelog = require('../models/Phonelog');
 
-const collections = [Participant, Resource, Casefile, User];
+const collections = [Participant, Resource, Casefile, User, Phonelog];
 
 /**
  * Get all records in the trash

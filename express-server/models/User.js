@@ -29,6 +29,11 @@ const userSchema = new mongoose.Schema({
     { user: NULL_USER }, next);
   });
 
+  userSchema.pre('remove', function (next) {
+    Phonelog.update({ resolvedBy: this._id },
+    { resolvedBy: NULL_USER }, next);
+  });
+
   userSchema.pre('save', function save(next) {
     const user = this;
     if (!user.isModified('password')) { return next(); }

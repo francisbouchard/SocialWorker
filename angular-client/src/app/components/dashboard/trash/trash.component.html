@@ -28,6 +28,14 @@
         <p *ngIf="item.participant">{{item.participant}}</p>
         <p *ngIf="item.date">{{item.date | date}}</p>
       </div>
+      <div *ngIf="item.model == 'Phonelog'">
+        <p><b>{{item.model}}:</b></p>
+        <p *ngIf="item.name">{{item.name}}</p>
+        <p *ngIf="item.callertype">{{item.callertype}}</p>
+        <p *ngIf="item.date">{{item.date | date}}</p>
+        <p *ngIf="item.resolved">resolved</p>
+        <p *ngIf="item.subject">{{item.subject | slice:0:20}}</p>
+      </div>
       <div *ngIf="item.model == 'Note'">
         <p><b>{{item.model}}:</b></p>
         <p>{{item.participant}}</p>
