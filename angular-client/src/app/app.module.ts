@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
 
 import { AppComponent } from './app.component';
+import { ActiveCasefilesComponent } from './components/active-casefiles/active-casefiles.component';
+import { ActivityComponent } from './components/dashboard/activity/activity.component';
 import { AddParticipantComponent } from './components/participants/add-participant/add-participant.component';
 import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
 import { AddResourceComponent } from './components/resources/add-resource/add-resource.component';
@@ -18,6 +20,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DocumentComponent } from './components/document/document.component';
 import { DocumentsComponent } from './components/participants/participant-profile/documents/documents.component';
 import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
+import { EditPhonelogComponent } from './components/phonelog/edit-phonelog/edit-phonelog.component';
 import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
 import { EditWorkerModalComponent } from './components/modals/edit-worker-modal/edit-worker-modal.component';
 import { LoginComponent } from './components/login/login.component';
@@ -28,13 +31,15 @@ import { ParticipantsComponent } from './components/participants/participants.co
 import { ParticipantProfileComponent } from './components/participants/participant-profile/participant-profile.component';
 import { PhonelogComponent } from './components/phonelog/phonelog.component';
 import { RegisterUserComponent } from './components/users/register-user/register-user.component';
+import { ReportsComponent } from './components/reports/reports.component';
 import { ResourcesComponent } from './components/resources/resources.component';
+import { TasksComponent } from './components/tasks/tasks.component';
+import { TrashbinComponent } from './components/trashbin/trashbin.component';
 import { UsersComponent } from './components/users/users.component';
 import { ViewPhonelogComponent } from './components/phonelog/view-phonelog/view-phonelog.component';
 import { ViewParticipantsComponent } from './components/participants/view-participants/view-participants.component';
 import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 import { ViewUsersComponent } from './components/users/view-users/view-users.component';
-
 
 import { AuthenticationService } from './services/authentication.service';
 import { CasefileService } from './services/casefile.service';
@@ -46,11 +51,7 @@ import { UserService } from './services/user.service';
 
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
-import { ActivityComponent } from './components/dashboard/activity/activity.component';
-import { TrashbinComponent } from './components/trashbin/trashbin.component';
-import { ReportsComponent } from './components/reports/reports.component';
-import { TasksComponent } from './components/tasks/tasks.component';
-import { ActiveCasefilesComponent } from './components/active-casefiles/active-casefiles.component';
+
 
 const routes: Routes = [
   {
@@ -137,6 +138,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    ActiveCasefilesComponent,
+    ActivityComponent,
     AddParticipantComponent,
     AddPhonelogComponent,
     AddResourceComponent,
@@ -147,6 +150,7 @@ const routes: Routes = [
     DocumentComponent,
     DocumentsComponent,
     EditParticipantComponent,
+    EditPhonelogComponent,
     EditResourceComponent,
     EditWorkerModalComponent,
     LoginComponent,
@@ -157,19 +161,17 @@ const routes: Routes = [
     ParticipantsComponent,
     PhonelogComponent,
     RegisterUserComponent,
+    ReportsComponent,
     ResourcesComponent,
+    TasksComponent,
+    TrashbinComponent,
     UsersComponent,
     ViewParticipantsComponent,
     ViewPhonelogComponent,
     ViewResourcesComponent,
     ViewUsersComponent,
     OrderByPipe,
-    SearchPipe,
-    ActivityComponent,
-    TrashbinComponent,
-    ReportsComponent,
-    TasksComponent,
-    ActiveCasefilesComponent
+    SearchPipe
   ],
   imports: [
     BrowserModule,

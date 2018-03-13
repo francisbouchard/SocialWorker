@@ -1,5 +1,6 @@
-![https://travis-ci.org/adriannadiaz/SocialWorker](https://travis-ci.org/adriannadiaz/SocialWorker.svg?branch=master)  
-  
+![https://travis-ci.org/adriannadiaz/SocialWorker](https://travis-ci.org/adriannadiaz/SocialWorker.svg?branch=master) 
+
+
 
 SocialWorker
 ============

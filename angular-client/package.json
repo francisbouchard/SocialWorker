@@ -4,9 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -H 0.0.0.0",
+    "start": "ng build -w",
     "build": "ng build --prod",
-    "test": "ng test",
+    "test": "ng test -sm=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -18,16 +18,16 @@
     "@angular/compiler": "^5.2.5",
     "@angular/core": "^5.2.5",
     "@angular-devkit/core": "^0.4.0",
-    "@angular/flex-layout": "^2.0.0-beta.12",
+    "@angular/flex-layout": "^5.0.0-beta.13",
     "@angular/forms": "^5.2.5",
     "@angular/http": "^5.2.5",
     "@angular/material": "^5.2.1",
     "@angular/platform-browser": "^5.2.5",
     "@angular/platform-browser-dynamic": "^5.2.5",
+    "rxjs": "^5.5.6",
     "@angular/router": "^5.2.5",
     "core-js": "^2.4.1",
     "npm": "^5.6.0",
-    "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
