@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/User');
 const passport = require('passport');
 const passportConfig = require('../config/passport');
+const NULL_USER = require('../config/null-objects').NULL_USER;
 
 /**
  * Log in a user to the application
@@ -15,16 +16,16 @@ router.post('/login', (req, res, next) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    return res.status(500).send({msg: errors[0].msg});
+    return res.status(500).send({ msg: errors[0].msg });
   }
   passport.authenticate('local', (err, user, info) => {
     if (err) { return next(err); }
     if (!user) {
-      return res.status(401).send({msg: info.message});
+      return res.status(401).send({ msg: info.message });
     }
     req.logIn(user, (err) => {
       if (err) { return next(err); }
-        return res.status(200).send({msg: 'Success! You are logged in.', role: user.role});
+      return res.status(200).send({ msg: 'Success! You are logged in.', role: user.role });
     });
   })(req, res, next);
 });
@@ -41,7 +42,7 @@ router.post('/signup', (req, res, next) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    return res.status(500).send({msg: errors});
+    return res.status(500).send({ msg: errors });
   }
 
   const user = new User({
@@ -55,23 +56,25 @@ router.post('/signup', (req, res, next) => {
   User.findOne({ email: req.body.email }, (err, existingUser) => {
     if (err) { return next(err); }
     if (existingUser) {
-      return res.status(400).send({msg: 'Account with that email address already exists.'});
+      return res.status(400).send({ msg: 'Account with that email address already exists.' });
     }
     user.save((err) => {
       if (err) { return next(err); }
-      return res.status(200).send({msg: 'Created user '+req.body.email})
+      return res.status(200).send({ msg: 'Created user ' + req.body.email })
     });
   });
 });
 
 /**
  * Delete a user
+ * 
+ * User will only be flagged as deleted.
  */
-router.delete('/:id',  (req, res, next) => {
-  User.remove({ _id: req.params.id }, (err) => {
-    if (err) { return next(err); }
-    req.logout();
-    res.send({msg: [{ msg: 'The user account has been deleted.' }]});
+router.delete('/:id', (req, res, next) => {
+  User.findByIdAndUpdate(req.params.id, { deleted: true }, { new: true }).then(data => {
+    res.send(data);
+  }, err => {
+    res.send(err);
   });
 });
 
@@ -79,11 +82,11 @@ router.delete('/:id',  (req, res, next) => {
  * Log out from the application
  */
 router.post('/logout', (req, res, next) => {
-  if(req.user){
+  if (req.user) {
     req.logout();
-    res.send({msg: 'Logged out'})
+    res.send({ msg: 'Logged out' })
   } else {
-    res.status(400).send({msg:  'Not logged in'})
+    res.status(400).send({ msg: 'Not logged in' })
   }
 });
 
@@ -91,10 +94,10 @@ router.post('/logout', (req, res, next) => {
  * Heartbeat function used to check if user is still logged in
  */
 router.post('/heartbeat', (req, res, next) => {
-  if(req.user){
-    res.send({loggedIn: true, role: req.user.role});
+  if (req.user) {
+    res.send({ loggedIn: true, role: req.user.role });
   } else {
-    res.send({loggedIn: false, role: null})
+    res.send({ loggedIn: false, role: null })
   }
 });
 
@@ -102,10 +105,10 @@ router.post('/heartbeat', (req, res, next) => {
  * Get all users
  */
 router.get('/all', (req, res) => {
-  User.find().then(data => {
-      res.send(data);
+  User.find({_id: {$ne: NULL_USER}}).then(data => {
+    res.send(data);
   }, err => {
-      res.send(err);
+    res.send(err);
   })
 });
 

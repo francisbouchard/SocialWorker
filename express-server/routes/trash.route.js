@@ -3,8 +3,9 @@ const router = express.Router();
 const Participant = require('../models/Participant');
 const Resource = require('../models/Resource');
 const Casefile = require('../models/Casefile');
+const User = require('../models/User');
 
-const collections = [Participant, Resource, Casefile];
+const collections = [Participant, Resource, Casefile, User];
 
 /**
  * Get all records in the trash

@@ -10,6 +10,12 @@
         <p>{{item._id}}</p>
         <p *ngIf="item.name">{{item.name}}</p>
       </div>
+      <div *ngIf="item.model == 'User'">
+          <p><b>{{item.model}}:</b></p>
+          <p>{{item.name}}</p>
+          <p>{{item.email}}</p>
+          <p *ngIf="item.role">{{item.role}}</p>
+        </div>
       <div *ngIf="item.model == 'Resource'">
         <p><b>{{item.model}}:</b></p>
         <p>{{item.name}}</p>

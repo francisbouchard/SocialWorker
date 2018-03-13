@@ -1,6 +1,9 @@
 const bcrypt = require('bcrypt-nodejs');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
+const Participant = require('./Participant');
+const Phonelog = require('./Phonelog');
+const NULL_USER = require('../config/null-objects').NULL_USER;
 
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -12,8 +15,19 @@ const userSchema = new mongoose.Schema({
     profile: {
       name: String,
       picture: String
-    }
+    },
+    deleted: { type: Boolean, default: false }
   }, { timestamps: true });
+
+  userSchema.pre('remove', function (next) {
+    Participant.update({ socialworkers: this._id },
+    { 'socialworkers.$': NULL_USER }, next);
+  });
+
+  userSchema.pre('remove', function (next) {
+    Phonelog.update({ user: this._id },
+    { user: NULL_USER }, next);
+  });
 
   userSchema.pre('save', function save(next) {
     const user = this;

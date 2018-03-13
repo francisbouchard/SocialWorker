@@ -23,7 +23,8 @@
       <div *ngIf="user.pronouns && user.pronouns !== ''"><b> Pronouns: </b> {{user.pronouns}}</div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button (click)="delete(user._id)">Delete User</button>
+      <button mat-raised-button *ngIf="!user.deleted" (click)="delete(user._id)">Delete User</button>
+      <button mat-raised-button *ngIf="user.deleted" disabled>In Trash</button>
     </mat-card-actions>
   </mat-card>
   <br>
