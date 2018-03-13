@@ -35,6 +35,8 @@ import { ViewParticipantsComponent } from './components/participants/view-partic
 import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 import { ViewUsersComponent } from './components/users/view-users/view-users.component';
 import { TrashComponent } from './components/dashboard/trash/trash.component';
+import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
+import { EditPhonelogComponent } from './components/phonelog/edit-phonelog/edit-phonelog.component';
 
 import { AuthenticationService } from './services/authentication.service';
 import { CasefileService } from './services/casefile.service';
@@ -47,7 +49,6 @@ import { TrashService } from './services/trash.service';
 
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
-import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
 
 const routes: Routes = [
   {
@@ -136,7 +137,8 @@ const routes: Routes = [
     ViewUsersComponent,
     OrderByPipe,
     SearchPipe,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    EditPhonelogComponent
   ],
   imports: [
     BrowserModule,
