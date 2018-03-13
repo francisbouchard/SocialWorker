@@ -46,6 +46,11 @@ import { UserService } from './services/user.service';
 
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import { ActivityComponent } from './components/dashboard/activity/activity.component';
+import { TrashbinComponent } from './components/trashbin/trashbin.component';
+import { ReportsComponent } from './components/reports/reports.component';
+import { TasksComponent } from './components/tasks/tasks.component';
+import { ActiveCasefilesComponent } from './components/active-casefiles/active-casefiles.component';
 
 const routes: Routes = [
   {
@@ -55,7 +60,57 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'activity',
+        pathMatch: 'full'
+      },
+      {
+        path: 'activity',
+        component: ActivityComponent
+      },
+      {
+        path: 'tasks',
+        component: TasksComponent
+      },
+      {
+        path: 'active-casefiles',
+        component: ActiveCasefilesComponent
+      },
+      {
+        path: 'phonelog',
+        component: PhonelogComponent
+      },
+      {
+        path: 'users',
+        component: UsersComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'view-users',
+            pathMatch: 'full'
+          },
+          {
+            path: 'register-user',
+            component: RegisterUserComponent
+          },
+          {
+            path: 'view-users',
+            component: ViewUsersComponent
+          }
+        ]
+      },
+      {
+        path: 'reports',
+        component: ReportsComponent
+      },
+      {
+        path: 'trashbin',
+        component: TrashbinComponent
+      },
+    ]
   },
   {
     path: 'participants',
@@ -70,35 +125,12 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'users',
-    component: UsersComponent,
-    children: [
-      {
-        path: '',
-        redirectTo: 'view-users',
-        pathMatch: 'full'
-      },
-      {
-        path: 'register-user',
-        component: RegisterUserComponent
-      },
-      {
-        path: 'view-users',
-        component: ViewUsersComponent
-      }
-    ]
-  },
-  {
     path: 'resources',
     component: ResourcesComponent
   },
   {
     path: 'participant-profile/:_id',
     component: ParticipantProfileComponent
-  },
-  {
-    path: 'phonelog',
-    component: PhonelogComponent
   }
 ];
 
@@ -132,7 +164,12 @@ const routes: Routes = [
     ViewResourcesComponent,
     ViewUsersComponent,
     OrderByPipe,
-    SearchPipe
+    SearchPipe,
+    ActivityComponent,
+    TrashbinComponent,
+    ReportsComponent,
+    TasksComponent,
+    ActiveCasefilesComponent
   ],
   imports: [
     BrowserModule,

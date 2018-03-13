@@ -1,35 +1,29 @@
 <div class="container">
-  
+
   <div class="toolbar">
     <mat-toolbar color="primary">
 
       <mat-toolbar-row *ngFor="let link of dashboardLinks">
-        <button mat-button>
-          <mat-icon>{{link.icon}}</mat-icon>
-          {{link.label}}
-        </button>
+        <a class="nav-link" routerLink="{{link.path}}">
+          <button mat-button>
+            <mat-icon>{{link.icon}}</mat-icon>
+            {{link.label}}
+          </button>
+        </a>
       </mat-toolbar-row>
+
+      <!-- TODO: Only allow admins to manage users -->
+      <!-- <a class="nav-link" routerLink="users">
+          <button mat-button *ngIf="this.authenticationService.role && this.authenticationService.role == 'admin'">Manage Users</button>
+        </a> -->
+
 
     </mat-toolbar>
   </div>
 
   <div class="main">
-    <mat-card>
-      <p>
-        Dashboard Page
-      </p>
-      <p>
-        To include: stats, phone log, notifications, reminders, trash bin, tasks
-      </p>
-    </mat-card>
-    <mat-grid-list cols="4" rowHeight="100px">
-      <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows" [style.background]="tile.color">
-        {{tile.text}}
-      </mat-grid-tile>
-    </mat-grid-list>
 
-
-    <!-- <router-outlet name="dashboardRoutes"></router-outlet> -->
+    <router-outlet></router-outlet>
 
   </div>
 
