@@ -9,6 +9,10 @@ before_install:
   - npm install -g @angular/cli
 node_js:
   - '8'
+cache:
+        directories:
+                - node_modules
+                - public
 notifications:
   email: false
 env:
