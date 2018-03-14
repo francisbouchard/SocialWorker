@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 const Resource = require('../models/Resource');
 
 const medicalSchema = new Schema({
-    waitlist_time: { type: String},
     without_cost: Boolean,
+    waitlist_time: { type: String},
     schedule_availability: [String]
   }, { discriminatorKey: 'kind', timestamps: true });
 

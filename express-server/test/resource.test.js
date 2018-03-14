@@ -3,7 +3,6 @@ const chaiHttp = require('chai-http');
 const should = chai.should();
 const mongoose = require('mongoose');
 const server = require('../server');
-const Housing = require('../models/Housing');
 
 let id1 = new mongoose.Types.ObjectId();
 let id2 = null;
@@ -13,7 +12,7 @@ let cookie;
 
 chai.use(chaiHttp);
 
-describe('Housing Resources Tests', () => {
+describe('Plain Basic Resources Tests', () => {
 
     before((finished) => {
         chai.request(server)
@@ -49,12 +48,10 @@ describe('Housing Resources Tests', () => {
         });
     });
 
-
-
-    describe('/GET/housing', () => {
-        it('should GET all the Housing resources', (done) => {
+    describe('/GET', () => {
+        it('should GET all the resources', (done) => {
             chai.request(server)
-                .get('/api/resource/housing')
+                .get('/api/resource')
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -64,36 +61,13 @@ describe('Housing Resources Tests', () => {
         });
     });
 
-    describe('/POST/housing', () => {
-        it('should not POST a Housing resource without a name', (done) => {
-            let housing = {
-                email: 'housing2@resource.com',
-                phone: '514-1234567'
-            }
+    
+
+    describe('/GET/:id', () => {
+        it('should GET a resource with the given ID', (done) => {
             chai.request(server)
-                .post('/api/resource/housing')
+                .get('/api/resource/' + id1)
                 .set('Cookie', cookie)
-                .send(housing)
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('errors');
-                    res.body.errors.should.have.property('name');
-                    res.body.errors.name.should.have.property('kind').eql('required');
-                    done();
-                });
-        });
-        it('should POST a Housing resource', (done) => {
-            let housing = {
-                name: 'Housing Facility 2 Name',
-                email: 'housing2@resource.com',
-                phone: '514-1234567',
-                term: '2 months'
-            }
-            chai.request(server)
-                .post('/api/resource/housing')
-                .set('Cookie', cookie)
-                .send(housing)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -101,36 +75,64 @@ describe('Housing Resources Tests', () => {
                     res.body.should.have.property('name');
                     res.body.should.have.property('email');
                     res.body.should.have.property('phone');
+                    res.body.should.have.property('location');
                     res.body.should.have.property('term');
-                    id2 = res.body._id;
+                    res.body.should.have.property('constraints');
                     done();
                 });
         });
-    });
-
-    describe('/PUT/housing/:id', () => {
-        it('should update (PUT) properties of the Housing resource with given ID', (done) => {
-            let notes = 'Housing Facility Notes';
-            let term = '4 months';
+        it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
-                .put('/api/resource/housing/' + id1)
+                .get('/api/resource/' + id3)
                 .set('Cookie', cookie)
-                .send({ notes: notes, term: term })
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.have.property('notes').eql(notes);
-                    res.body.should.have.property('term').eql(term);
+                    res.body.should.be.a('object');
+                    res.body.should.be.empty;
                     done();
+                });
+        });
+    })
+
+    
+
+    describe('/DELETE/:id', () => {
+        it('should not permanently DELETE the resource with the given ID when user is not admin', (done) => {
+            chai.request(server)
+                .del('/api/resource/' + id4)
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('deleted').eql(true);
+                    done();
+                });
+        });
+        it('should permanently DELETE the resource with the given ID when user is admin', (done) => {
+            chai.request(server)
+                .post('/user/login')
+                .send({
+                    'email': 'test2@test.com',
+                    'password': 'test123'
+                })
+                .end((err, res) => {
+                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
+                    chai.request(server)
+                        .del('/api/resource/' + id4)
+                        .set('Cookie', adminCookie)
+                        .end((err, res) => {
+                            res.should.have.status(200);
+                            done();
+                        });
                 });
         });
     });
 
-
     after(() => {
-        Housing.findByIdAndRemove(id1).then(data => { }, err => {
+        Resource.findByIdAndRemove(id1).then(data => { }, err => {
             console.log(err);
         });
-        Housing.findByIdAndRemove(id2).then(data => { }, err => {
+        Resource.findByIdAndRemove(id2).then(data => { }, err => {
             console.log(err);
         });
     });

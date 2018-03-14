@@ -13,7 +13,7 @@ let cookie;
 
 chai.use(chaiHttp);
 
-describe('Housing Resources Tests', () => {
+describe('Medical Resources Tests', () => {
 
     before((finished) => {
         chai.request(server)
@@ -26,33 +26,38 @@ describe('Housing Resources Tests', () => {
                 cookie = res.headers['set-cookie'].pop().split(';')[0];
                 finished();
             });
-        let housing1 = new Housing({
+        let medical1 = new Medical({
             _id: id1,
-            name: 'Housing Facility Name',
-            email: 'housing@resource.com',
-            phone: '514-1234567',
-            location: 'the location',
-            term: '15 weeks',
-            constraints: ['some constraints']
+            name: 'Medical Resource Name 1',
+            email: 'medical1@resource.com',
+            phone: '(514) 848-2424',
+            location: 'some location',
+            schedule_availability: ['Monday 17:00-21:00','Wednesday 12:00-16:00'],
+            without_cost: true,
+            waitlist_time: 'walk-in'
         });
-        let housing2 = new Housing({
+        let medical2 = new Medical({
             _id: id4,
-            name: 'Housing Facility 4 Name',
-            email: 'housing4@resource.com',
-            term: '5 weeks'
+            name: 'Medical Resource Name 2',
+            email: 'medical2@resource.com',
+            without_cost: false,
+            waitlist_time: 'by appointment, takes about 6 months',
+            schedule_availability: ['Monday-Thursday 09:00-16:00']
         });
-        housing1.save().then(data => { }, err => {
+        medical1.save().then(data => { }, err => {
             console.log(err);
         });
-        housing2.save().then(data => { }, err => {
+        medical2.save().then(data => { }, err => {
             console.log(err);
         });
     });
 
-    describe('/GET', () => {
-        it('should GET all the resources', (done) => {
+
+
+    describe('/GET/medical', () => {
+        it('should GET all the Medical resources', (done) => {
             chai.request(server)
-                .get('/api/resource')
+                .get('/api/resource/medical')
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -62,58 +67,15 @@ describe('Housing Resources Tests', () => {
         });
     });
 
-    describe('/GET/housing', () => {
-        it('should GET all the housing resources', (done) => {
-            chai.request(server)
-                .get('/api/resource/housing')
-                .set('Cookie', cookie)
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('array');
-                    done();
-                });
-        });
-    });
 
-    describe('/GET/:id', () => {
-        it('should GET a resource with the given ID', (done) => {
-            chai.request(server)
-                .get('/api/resource/' + id1)
-                .set('Cookie', cookie)
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('_id');
-                    res.body.should.have.property('name');
-                    res.body.should.have.property('email');
-                    res.body.should.have.property('phone');
-                    res.body.should.have.property('location');
-                    res.body.should.have.property('term');
-                    res.body.should.have.property('constraints');
-                    done();
-                });
-        });
-        it('should be empty for GET with nonexisting ID', (done) => {
-            chai.request(server)
-                .get('/api/resource/' + id3)
-                .set('Cookie', cookie)
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.be.empty;
-                    done();
-                });
-        });
-    })
-
-    describe('/POST/housing', () => {
-        it('should not POST a housing resource without a name', (done) => {
+    describe('/POST/medical', () => {
+        it('should not POST a Medical resource without a name', (done) => {
             let housing = {
-                email: 'housing2@resource.com',
+                email: 'medical2@resource.com',
                 phone: '514-1234567'
             }
             chai.request(server)
-                .post('/api/resource/housing')
+                .post('/api/resource/medical')
                 .set('Cookie', cookie)
                 .send(housing)
                 .end((err, res) => {
@@ -167,37 +129,6 @@ describe('Housing Resources Tests', () => {
         });
     });
 
-    describe('/DELETE/:id', () => {
-        it('should not permanently DELETE the resource with the given ID when user is not admin', (done) => {
-            chai.request(server)
-                .del('/api/resource/' + id4)
-                .set('Cookie', cookie)
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('deleted').eql(true);
-                    done();
-                });
-        });
-        it('should permanently DELETE the resource with the given ID when user is admin', (done) => {
-            chai.request(server)
-                .post('/user/login')
-                .send({
-                    'email': 'test2@test.com',
-                    'password': 'test123'
-                })
-                .end((err, res) => {
-                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
-                    chai.request(server)
-                        .del('/api/resource/' + id4)
-                        .set('Cookie', adminCookie)
-                        .end((err, res) => {
-                            res.should.have.status(200);
-                            done();
-                        });
-                });
-        });
-    });
 
     after(() => {
         Housing.findByIdAndRemove(id1).then(data => { }, err => {
