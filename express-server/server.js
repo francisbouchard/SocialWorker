@@ -20,9 +20,12 @@ const permit = require("./config/permission");
 const api = require('./routes/api');
 const user = require('./routes/user.route');
 const participant = require('./routes/participant.route');
-const resource = require('./routes/resource.route');
 const casefile = require('./routes/casefile.route');
 const phonelog = require('./routes/phonelog.route');
+
+const resource = require('./routes/resource.route');
+const housing = require('./routes/resources/housing.route');
+const medical = require('./routes/resources/medical.route');
 
 const MongoStore = mongo(session);
 
@@ -72,9 +75,12 @@ app.use('/user/all', permit('admin'));
 app.use('/api', api);
 app.use('/user', user);
 app.use('/api/participant', participant);
-app.use('/api/resource', resource);
 app.use('/api/casefile', casefile);
 app.use('/api/phonelog', phonelog);
+
+app.use('/api/resource', resource);
+app.use('/api/housing', resource);
+app.use('/api/medical', resource);
 
 
 // Server public folder
