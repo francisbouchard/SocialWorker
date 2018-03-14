@@ -36,4 +36,15 @@ describe('TrashComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should contain the appropriate deleted records', () => { // as returned by MockTrashService
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('p')[0].textContent).toContain('Resource:');
+  });
+
+  it('should contain restore and delete buttons', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('mat-icon')[0].textContent).toContain('unarchive');
+    expect(compiled.querySelectorAll('mat-icon')[1].textContent).toContain('delete_forever');
+  });
+
 });
