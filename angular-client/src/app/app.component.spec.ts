@@ -14,8 +14,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
-      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService }, 
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } } ]
+      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } } ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

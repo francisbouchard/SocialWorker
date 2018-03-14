@@ -10,9 +10,9 @@ import { RouterModule, Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   user: any = {};
-  loading: boolean = false;
-  error: boolean = false;
-  msg: string = "";
+  loading = false;
+  error = false;
+  msg = '';
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   /**
    * Login with account credentials
-   * 
+   *
    * @memberof LoginComponent
    */
   public login() {

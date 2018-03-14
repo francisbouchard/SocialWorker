@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   constructor() {
-    console.log("constructor of dash")
+    console.log('constructor of dash');
    }
 
   ngOnInit() {
-    console.log("dash");
+    console.log('dash');
   }
 
 }

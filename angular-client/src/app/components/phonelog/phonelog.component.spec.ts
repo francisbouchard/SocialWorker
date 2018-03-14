@@ -22,7 +22,7 @@ describe('PhonelogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PhonelogComponent, AddPhonelogComponent, ViewPhonelogComponent,EditPhonelogComponent,OrderByPipe,SearchPipe ],
+      declarations: [ PhonelogComponent, AddPhonelogComponent, ViewPhonelogComponent, EditPhonelogComponent, OrderByPipe, SearchPipe ],
       imports: [ MaterialsModule, RouterTestingModule ],
       providers: [
         { provide: AuthenticationService, useClass: MockAuthenticationService },
