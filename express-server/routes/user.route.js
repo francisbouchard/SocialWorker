@@ -24,7 +24,14 @@ router.post('/login', (req, res, next) => {
     }
     req.logIn(user, (err) => {
       if (err) { return next(err); }
-        return res.status(200).send({msg: 'Success! You are logged in.', role: user.role});
+        return res.status(200).send({
+          msg: 'Success! You are logged in.', 
+          profile:{
+            role: user.role,
+            name: user.name,
+            _id: user._id
+          }
+        });
     });
   })(req, res, next);
 });

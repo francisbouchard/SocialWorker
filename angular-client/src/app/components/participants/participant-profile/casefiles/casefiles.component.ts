@@ -26,7 +26,7 @@ export class CasefilesComponent implements OnInit {
 
   constructor(
     private casefileService: CasefileService,
-    private form: FormBuilder,
+    private form: FormBuilder
   ) { }
 
   ngOnInit() {

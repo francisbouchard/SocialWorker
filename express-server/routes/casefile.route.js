@@ -4,7 +4,7 @@ const Casefile = require('../models/Casefile');
 const Resource = require('../models/Resource');
 
 /**
- * Get all Cases
+ * Get all Case files
  */
 router.get('/', (req, res) => {
     Casefile.find().then(data => {
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 /**
- * Get a Casefile by ID
+ * Get a Case file by ID
  */
 router.get('/:id', (req, res) => {
     Casefile.findById(req.params.id).then(data => {
@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
 });
 
 /**
- * Get a Casefile by participant ID
+ * Get case files by participant ID
  */
 router.get('/participant/:id', (req, res) => {
     Casefile.find({ participant: req.params.id })
@@ -38,6 +38,11 @@ router.get('/participant/:id', (req, res) => {
         res.send(err);
     })
 });
+
+/**
+ * Get open case files by assigned user ID
+ */
+
 
 /**
  * Get a contacted resource of a Casefile by resource ID
@@ -56,6 +61,7 @@ router.get('/:id/resource/:resId', (req, res) => {
  */
 router.post('/', (req, res) => {
     let casefile = new Casefile({
+        createdBy: req.body.createdBy,
         participant: req.body.participant,
         notes: [req.body.notes],
         status: req.body.status,

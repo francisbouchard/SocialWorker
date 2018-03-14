@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const casefileSchema = new Schema({
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   participant: { type: String, ref: 'Participant', required: true },
   contactedResources: [{
     resource: { type: Schema.Types.ObjectId, ref: 'Resource', sparse: true, required: true },

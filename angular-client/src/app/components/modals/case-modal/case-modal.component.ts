@@ -4,6 +4,7 @@ import { CasefileService } from '../../../services/casefile.service';
 import { ResourceService } from '../../../services/resource.service';
 import { Casefile } from '../../../classes/case';
 import { Participant } from '../../../classes/participant';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class CaseModalComponent implements OnInit {
   resources: any[];
   resourceTypes = [];
   mycase: Casefile = {
+    createdBy: '',
     participant: '',
     status: 'In progress',
     notes: null,
@@ -29,12 +31,14 @@ export class CaseModalComponent implements OnInit {
   constructor(
     private caseService: CasefileService,
     private resourceService: ResourceService,
+    private authService: AuthenticationService,
     public dialogRef: MatDialogRef<CaseModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit() {
     this.mycase.participant = this.data.participant._id;
+    this.mycase.createdBy = this.authService.profile._id;
     this.loadAllResources();
   }
 
