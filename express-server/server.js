@@ -79,8 +79,8 @@ app.use('/api/casefile', casefile);
 app.use('/api/phonelog', phonelog);
 
 app.use('/api/resource', resource);
-app.use('/api/resource/housing', resource);
-app.use('/api/resource/medical', resource);
+app.use('/api/resource/housing', housing);
+app.use('/api/resource/medical', medical);
 
 
 // Server public folder
