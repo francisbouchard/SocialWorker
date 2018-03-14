@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Resource = require('../models/Resource');
-const Medical = require('../models/resources/Medical');
+const Resource = require('../../models/Resource');
+const Medical = require('../../models/resources/Medical');
 
 
 /**

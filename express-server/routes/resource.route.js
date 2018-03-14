@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Resource = require('../models/Resource');
-const Housing = require('../models/Housing');
-const Medical = require('../models/Medical')
+const Housing = require('../models/resources/Housing');
+const Medical = require('../models/resources/Medical')
 
 /**
  * Get all resources

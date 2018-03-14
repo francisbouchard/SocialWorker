@@ -3,6 +3,7 @@ const chaiHttp = require('chai-http');
 const should = chai.should();
 const mongoose = require('mongoose');
 const server = require('../server');
+const Resource = require('../models/Resource');
 
 let id1 = new mongoose.Types.ObjectId();
 let id2 = null;
@@ -25,25 +26,22 @@ describe('Plain Basic Resources Tests', () => {
                 cookie = res.headers['set-cookie'].pop().split(';')[0];
                 finished();
             });
-        let housing1 = new Housing({
+        let resource1 = new Resource({
             _id: id1,
-            name: 'Housing Facility Name',
-            email: 'housing@resource.com',
+            name: 'Plain Resource Name 1',
+            email: 'resource@resource.com',
             phone: '514-1234567',
             location: 'the location',
-            term: '15 weeks',
-            constraints: ['some constraints']
         });
-        let housing2 = new Housing({
+        let resource2 = new Resource({
             _id: id4,
-            name: 'Housing Facility 4 Name',
-            email: 'housing4@resource.com',
-            term: '5 weeks'
+            name: 'Plain Resource Name 2',
+            email: 'plain@resource.com',
         });
-        housing1.save().then(data => { }, err => {
+        resource1.save().then(data => { }, err => {
             console.log(err);
         });
-        housing2.save().then(data => { }, err => {
+        resource2.save().then(data => { }, err => {
             console.log(err);
         });
     });
@@ -76,8 +74,6 @@ describe('Plain Basic Resources Tests', () => {
                     res.body.should.have.property('email');
                     res.body.should.have.property('phone');
                     res.body.should.have.property('location');
-                    res.body.should.have.property('term');
-                    res.body.should.have.property('constraints');
                     done();
                 });
         });

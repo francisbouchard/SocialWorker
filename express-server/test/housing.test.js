@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const should = chai.should();
 const mongoose = require('mongoose');
 const server = require('../server');
-const Housing = require('../models/Housing');
+const Housing = require('../models/resources/Housing');
 
 let id1 = new mongoose.Types.ObjectId();
 let id2 = null;

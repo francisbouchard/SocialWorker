@@ -70,14 +70,14 @@ describe('Medical Resources Tests', () => {
 
     describe('/POST/medical', () => {
         it('should not POST a Medical resource without a name', (done) => {
-            let housing = {
+            let medical = {
                 email: 'medical2@resource.com',
                 phone: '514-1234567'
             }
             chai.request(server)
                 .post('/api/resource/medical')
                 .set('Cookie', cookie)
-                .send(housing)
+                .send(medical)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -87,17 +87,17 @@ describe('Medical Resources Tests', () => {
                     done();
                 });
         });
-        it('should POST a housing resource', (done) => {
-            let housing = {
-                name: 'Housing Facility 2 Name',
-                email: 'housing2@resource.com',
+        it('should POST a Medical resource', (done) => {
+            let medical = {
+                name: 'Medical Facility 2 Name',
+                email: 'medical2@resource.com',
                 phone: '514-1234567',
-                term: '2 months'
+                waitlist_time: '2 months'
             }
             chai.request(server)
-                .post('/api/resource/housing')
+                .post('/api/resource/medical')
                 .set('Cookie', cookie)
-                .send(housing)
+                .send(medical)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -105,25 +105,25 @@ describe('Medical Resources Tests', () => {
                     res.body.should.have.property('name');
                     res.body.should.have.property('email');
                     res.body.should.have.property('phone');
-                    res.body.should.have.property('term');
+                    res.body.should.have.property('waitlist_time');
                     id2 = res.body._id;
                     done();
                 });
         });
     });
 
-    describe('/PUT/housing/:id', () => {
-        it('should update (PUT) properties of the housing resource with given ID', (done) => {
-            let notes = 'Housing Facility Notes';
-            let term = '4 months';
+    describe('/PUT/medical/:id', () => {
+        it('should update (PUT) properties of the Medical resource with given ID', (done) => {
+            let notes = 'Medical Facility Notes';
+            let waitlist_time = '6 months';
             chai.request(server)
-                .put('/api/resource/housing/' + id1)
+                .put('/api/resource/medical/' + id1)
                 .set('Cookie', cookie)
-                .send({ notes: notes, term: term })
+                .send({ notes: notes, waitlist_time: waitlist_time })
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.have.property('notes').eql(notes);
-                    res.body.should.have.property('term').eql(term);
+                    res.body.should.have.property('waitlist_time').eql(waitlist_time);
                     done();
                 });
         });
@@ -131,10 +131,10 @@ describe('Medical Resources Tests', () => {
 
 
     after(() => {
-        Housing.findByIdAndRemove(id1).then(data => { }, err => {
+        Medical.findByIdAndRemove(id1).then(data => { }, err => {
             console.log(err);
         });
-        Housing.findByIdAndRemove(id2).then(data => { }, err => {
+        Medical.findByIdAndRemove(id2).then(data => { }, err => {
             console.log(err);
         });
     });
