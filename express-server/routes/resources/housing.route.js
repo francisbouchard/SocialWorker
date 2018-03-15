@@ -7,7 +7,7 @@ const Housing = require('../../models/resources/Housing');
 /**
  * Get all housing resources
  */
-router.get('/housing', (req, res) => {
+router.get('/', (req, res) => {
     Resource.find({deleted: { $ne: true }}).then(data => {
         res.send(data);
     }, err => {
