@@ -4,7 +4,6 @@ const Document = require('../models/Document').schema;
 const Note = require('../models/Note').schema;
 
 const participantSchema = new Schema({
-  _id: { type: String, required: true },
   name: String,
   pronouns: String,
   email: { type: String, sparse: true },
@@ -15,10 +14,11 @@ const participantSchema = new Schema({
     username: String
   },
   documents: [Document],
+  username:String,
   notes: [Note],
   socialworkers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   deleted: { type: Boolean, default: false }
-}, { _id: false, timestamps: true });
+}, {timestamps: true});
 
 const Participant = mongoose.model('Participant', participantSchema, 'participants');
 

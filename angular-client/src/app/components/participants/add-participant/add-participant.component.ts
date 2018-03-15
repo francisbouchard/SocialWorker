@@ -41,7 +41,6 @@ export class AddParticipantComponent implements OnInit {
   createForm() {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      _id: ['', Validators.required],
       pronouns: [''],
       telephone: ['', Validators.pattern(this.phoneregex)],
       service: [''],
@@ -65,7 +64,7 @@ export class AddParticipantComponent implements OnInit {
     if (value.length > 0) {
       this.participantService.search(query)
         .subscribe(data => {
-          if (attribute === '_id') {
+          if (attribute === 'username') {
             that.isAlreadyAParticipantID = (data === true) ? true : false;
           } else {
             that.isAlreadyAParticipantEmail = (data === true) ? true : false;
