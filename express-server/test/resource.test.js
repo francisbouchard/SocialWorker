@@ -61,10 +61,10 @@ describe('Plain Basic Resources Tests', () => {
 
     
 
-    describe('/GET/:id', () => {
+    describe('/GET/id/:id', () => {
         it('should GET a resource with the given ID', (done) => {
             chai.request(server)
-                .get('/api/resource/' + id1)
+                .get('/api/resource/id/' + id1)
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -79,7 +79,7 @@ describe('Plain Basic Resources Tests', () => {
         });
         it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
-                .get('/api/resource/' + id3)
+                .get('/api/resource/id/' + id3)
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);

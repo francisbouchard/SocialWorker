@@ -7,7 +7,7 @@ const Housing = require('../../models/resources/Housing');
 /**
  * Get all housing resources
  */
-router.get('/housing', (req, res) => {
+router.get('/', (req, res) => {
     Resource.find().then(data => {
         res.send(data);
     }, err => {
@@ -19,7 +19,7 @@ router.get('/housing', (req, res) => {
 /**
  * Create a new housing resource
  */
-router.post('/housing', (req, res) => {
+router.post('/', (req, res) => {
     let housing = new Housing({
         name: req.body.name,
         email: req.body.email,
@@ -40,7 +40,7 @@ router.post('/housing', (req, res) => {
 /**
  * Update given housing resource
  */
-router.put('/housing/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     Resource.findById(req.params.id).then(housing => {
         housing.name = req.body.name || housing.name;
         housing.email = req.body.email || housing.email;

@@ -7,7 +7,7 @@ const Medical = require('../../models/resources/Medical');
 /**
  * Get all medical resources
  */
-router.get('/medical', (req, res) => {
+router.get('/', (req, res) => {
     Resource.find().then(data => {
         res.send(data);
     }, err => {
@@ -19,16 +19,16 @@ router.get('/medical', (req, res) => {
 /**
  * Create a new medical resource
  */
-router.post('/medical', (req, res) => {
+router.post('/', (req, res) => {
     let medical = new Medical({
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
         location: req.body.location,
         notes: req.body.notes,
-        term: req.body.term,
-        gender: req.body.gender,
-        constraints: req.body.constraints
+        without_cost: req.body.without_cost,
+        waitlist_time: req.body.waitlist_time,
+        schedule_availability: req.body.schedule_availability
     });
     medical.save().then(data => {
         res.send(data);
@@ -40,16 +40,16 @@ router.post('/medical', (req, res) => {
 /**
  * Update given medical resource
  */
-router.put('/medical/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     Resource.findById(req.params.id).then(medical => {
         medical.name = req.body.name || medical.name;
         medical.email = req.body.email || medical.email;
         medical.phone = req.body.phone || medical.phone;
         medical.location = req.body.location || medical.location;
         medical.notes = req.body.notes || medical.notes;
-        medical.term = req.body.term || medical.term;
-        medical.gender = req.body.gender || medical.gender;
-        medical.constraints = req.body.constraints || medical.constraints;
+        medical.without_cost = req.body.without_cost || medical.without_cost;
+        medical.waitlist_time = req.body.waitlist_time || medical.waitlist_time;
+        medical.schedule_availability = req.body.schedule_availability || medical.schedule_availability;
 
         medical.save().then(data => {
             res.send(data);

@@ -22,7 +22,7 @@ export class ResourceService {
  * @memberof ResourceService
  */
   get(resourceID): Observable<Object[]> {
-    return this.http.get<Object[]>(`${this.url}/${resourceID}`)
+    return this.http.get<Object[]>(`${this.url}/id/${resourceID}`)
       .pipe(
       tap(_ => this.log('fetching a resource')),
       catchError(this.handleError<Object[]>('get()'))
