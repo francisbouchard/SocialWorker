@@ -96,6 +96,7 @@ router.post('/', (req, res) => {
     participant.save().then(data => {
         let id=data._id.toString();
         data.username=data.name+"_"+id.slice(id.length-4,id.length);
+        data.username=data.username.replace(/\s/g, '')
         data.save();
         res.send(data);
     }, err => {
