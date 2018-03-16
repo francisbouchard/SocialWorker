@@ -46,18 +46,6 @@ export class TrashComponent implements OnInit {
     });
   }
 
-  deleteAll() {
-    this.confirmModal("Are you sure you want to permanently delete all records in the trash bin?").subscribe(result => {
-      if (result) {
-        this.trashService.deleteAll()
-          .subscribe((data: [any]) => {
-            console.log(data);
-            this.loadTrashRecords();
-          });
-      }
-    });
-  }
-
   loadTrashRecords(): void {
     this.trashService.getAll()
       .subscribe((data: [any]) => {

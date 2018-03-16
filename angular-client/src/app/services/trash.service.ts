@@ -28,14 +28,6 @@ export class TrashService {
       );
   }
 
-  deleteAll(): Observable<Object> {
-    return this.http.delete(`${this.url}/all`)
-      .pipe(
-        tap(users => this.log('deleted all records in trash bin')),
-        catchError(this.handleError<Object>('deleteAll()'))
-      );
-  }
-
   /**
    * Permanently delete the record with the given ID
    * 

@@ -1,34 +1,31 @@
 <mat-card>
   <mat-card-title>Trash Bin</mat-card-title>
-  <!-- <button mat-icon-button color="primary" (click)="deleteAll()">
-      Delete All <mat-icon matSuffix>delete_forever</mat-icon>
-  </button> -->
   <div class="container">
-    <div class="items" *ngFor="let item of (items | orderBy: 'updatedAt')">
-      <div *ngIf="item.model == 'Participant'">
+    <div class="items" *ngFor="let item of (items | orderBy: 'updatedAt')" [ngSwitch]="item.model">
+      <div *ngSwitchCase="'Participant'">
         <p><b>{{item.model}}:</b></p>
         <p>{{item._id}}</p>
         <p *ngIf="item.name">{{item.name}}</p>
       </div>
-      <div *ngIf="item.model == 'User'">
+      <div *ngSwitchCase="'User'">
           <p><b>{{item.model}}:</b></p>
           <p>{{item.name}}</p>
           <p>{{item.email}}</p>
           <p *ngIf="item.role">{{item.role}}</p>
         </div>
-      <div *ngIf="item.model == 'Resource'">
+      <div *ngSwitchCase="'Resource'">
         <p><b>{{item.model}}:</b></p>
         <p>{{item.name}}</p>
         <p *ngIf="item.email">{{item.email}}</p>
       </div>
-      <div *ngIf="item.model == 'Casefile'">
+      <div *ngSwitchCase="'Casefile'">
         <p><b>{{item.model}}:</b></p>
         <p>{{item.type}}</p>
         <p *ngIf="item.status">{{item.status}}</p>
         <p *ngIf="item.participant">{{item.participant}}</p>
         <p *ngIf="item.date">{{item.date | date}}</p>
       </div>
-      <div *ngIf="item.model == 'Phonelog'">
+      <div *ngSwitchCase="'Phonelog'">
         <p><b>{{item.model}}:</b></p>
         <p *ngIf="item.name">{{item.name}}</p>
         <p *ngIf="item.callertype">{{item.callertype}}</p>
@@ -36,14 +33,14 @@
         <p *ngIf="item.resolved">resolved</p>
         <p *ngIf="item.subject">{{item.subject | slice:0:20}}</p>
       </div>
-      <div *ngIf="item.model == 'Note'">
+      <div *ngSwitchCase="'Note'">
         <p><b>{{item.model}}:</b></p>
         <p>{{item.participant}}</p>
         <p *ngIf="item.notes.date">{{item.notes.date | date}}</p>
         <p *ngIf="item.notes.attachment">{{item.notes.attachment}}</p>
         <p *ngIf="item.notes.text">{{item.notes.text | slice:0:20}}</p>
       </div>
-      <div *ngIf="item.model == 'Document'">
+      <div *ngSwitchCase="'Document'">
         <p><b>{{item.model}}:</b></p>
         <p>{{item.participant}}</p>
         <p *ngIf="item.documents.type">{{item.documents.type}}</p>
