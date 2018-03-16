@@ -3,6 +3,7 @@ import { CasefileService } from '../../../../services/casefile.service';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Casefile } from '../../../../classes/case';
 import { ValidatorFn } from '@angular/forms/src/directives/validators';
+import { AuthenticationService } from '../../../../services/authentication.service';
 
 @Component({
   selector: 'app-casefiles',
@@ -26,7 +27,8 @@ export class CasefilesComponent implements OnInit {
 
   constructor(
     private casefileService: CasefileService,
-    private form: FormBuilder
+    private form: FormBuilder,
+    private auth: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -55,6 +57,7 @@ export class CasefilesComponent implements OnInit {
    */
   createFormNote() {
     this.casefileFormNote = this.form.group({
+      updatedBy: this.auth.profile._id,
       notes: this.editedCasefile.notes[0] || ''
     });
   }
@@ -66,6 +69,7 @@ export class CasefilesComponent implements OnInit {
    */
   createFormSelectedResource() {
     this.casefileFormSelectedResource = this.form.group({
+      updatedBy: this.auth.profile._id,
       resource: [null, Validators.required],
       startDate: [null, Validators.required],
       endDate: [null, (this.isDateRange) ? Validators.required : null]
@@ -79,6 +83,7 @@ export class CasefilesComponent implements OnInit {
    */
   createFormContactedResources() {
     this.casefileFormContactedResources = this.form.group({
+      updatedBy: this.auth.profile._id,
       resources: this.form.array([])
     });
   }
@@ -138,7 +143,7 @@ export class CasefilesComponent implements OnInit {
     this.casefileService.updateCaseContactedResource(
       casefileID,
       resourceID,
-      { 'isContacted': isResourceContacted, 'dateContacted': date }
+      { 'isContacted': isResourceContacted, 'dateContacted': date, 'updatedBy': this.auth.profile._id }
     ).subscribe();
   }
 
@@ -161,7 +166,10 @@ export class CasefilesComponent implements OnInit {
     this.editedCasefile.contactedResources[resourceIndex].note = comment;
     this.setContactedResources(this.editedCasefile.contactedResources);
 
-    this.casefileService.updateCaseContactedResource(casefileID, resourceID, { 'note': comment }).subscribe();
+    this.casefileService.updateCaseContactedResource(
+      casefileID,
+      resourceID,
+      { 'note': comment, 'updatedBy': this.auth.profile._id }).subscribe();
   }
 
 
@@ -193,7 +201,10 @@ export class CasefilesComponent implements OnInit {
     const selectedResourceFormModel = this.casefileFormSelectedResource.value;
     selectedResourceFormModel.resource = selectedResourceFormModel.resource.resource;
     selectedResourceFormModel.endDate = (this.isDateRange) ? selectedResourceFormModel.endDate : null;
-    const selectedResourceObject = { 'selectedResource': selectedResourceFormModel };
+    const selectedResourceObject = { 
+      'selectedResource': selectedResourceFormModel,
+      'updatedBy': this.auth.profile._id
+     };
 
     this.casefileService.updateCaseSelectedResource(casefile._id, selectedResourceObject).subscribe(data => {
       casefile.selectedResource = selectedResourceFormModel;
@@ -208,7 +219,10 @@ export class CasefilesComponent implements OnInit {
    * @memberof CasefilesComponent
    */
   removeCaseSelectedResource(casefile) {
-    this.casefileService.updateCaseSelectedResource(casefile._id, { 'selectedResource': null }).subscribe(data => {
+    this.casefileService.updateCaseSelectedResource(casefile._id, {
+      'selectedResource': null,
+      'updatedBy': this.auth.profile._id
+     }).subscribe(data => {
       casefile.selectedResource = null;
       this.casefileFormSelectedResource.reset({});
     });
@@ -243,7 +257,10 @@ export class CasefilesComponent implements OnInit {
  */
   completeCasefile(casefile, casefileIndex): void {
     this.orderedCases[casefileIndex].status = 'Completed';
-    this.casefileService.updateCaseStatus(casefile._id, { status: 'Completed' }).subscribe();
+    this.casefileService.updateCaseStatus(casefile._id,
+      { status: 'Completed',
+      updatedBy: this.auth.profile._id
+     }).subscribe();
   }
 
   /**
@@ -255,7 +272,10 @@ export class CasefilesComponent implements OnInit {
    */
   reopenCasefile(casefile, casefileIndex): void {
     this.orderedCases[casefileIndex].status = 'In progress';
-    this.casefileService.updateCaseStatus(casefile._id, { status: 'In progress' }).subscribe();
+    this.casefileService.updateCaseStatus(casefile._id, {
+      status: 'In progress',
+      updatedBy: this.auth.profile._id
+     }).subscribe();
   }
 
   /**

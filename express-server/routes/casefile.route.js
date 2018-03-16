@@ -62,6 +62,7 @@ router.get('/:id/resource/:resId', (req, res) => {
 router.post('/', (req, res) => {
     let casefile = new Casefile({
         createdBy: req.body.createdBy,
+        updatedBy: req.body.createdBy,
         participant: req.body.participant,
         notes: [req.body.notes],
         status: req.body.status,
@@ -83,6 +84,7 @@ router.post('/', (req, res) => {
  */
 router.post('/:id/resource', (req, res) => {
     Resource.findById(req.body.resourceId).then(resource => {
+        
         if (!resource) return res.send({ err: "Resource ID does not exist." });
 
         let contResource = {
@@ -91,6 +93,7 @@ router.post('/:id/resource', (req, res) => {
             dateContacted: req.body.dateContacted,
             note: req.body.note
         };
+
         Casefile.update({ _id: req.params.id }, { $push: { contactedResources: contResource } }).then(data => {
             res.send(data);
         }, err => {
@@ -105,9 +108,7 @@ router.post('/:id/resource', (req, res) => {
  * Update a contacted resource's details
  */
 router.put('/:id/resource/:resId', (req, res) => {
-    let statusStr = 'contactedResources.$.isContacted';
-    let dateStr = 'contactedResources.$.dateContacted';
-    let noteStr = 'contactedResources.$.note';
+
     let setObj = {};
     if (req.body.hasOwnProperty('isContacted') || req.body.hasOwnProperty('dateContacted')) {
         setObj['contactedResources.$.isContacted'] = req.body.isContacted;
@@ -117,6 +118,7 @@ router.put('/:id/resource/:resId', (req, res) => {
     }
 
     Casefile.update({ _id: req.params.id, 'contactedResources.resource': req.params.resId }, { '$set': setObj })
+        .update({_id: req.params.id}, { '$set': {updatedBy: req.body.updatedBy}})
         .then(data => {
             res.send(data);
         }, err => {
@@ -154,7 +156,8 @@ router.put('/:id/status', (req, res) => {
  * Update note of a Casefile
  */
 router.put('/:id/note', (req, res) => {
-    Casefile.update({ '_id': req.params.id }, { '$set': { notes: [req.body.notes] }})
+    Casefile.update({ '_id': req.params.id }, 
+    { '$set': { notes: [req.body.notes], updatedBy: req.body.updatedBy }})
     .then(data => {
         res.send(data);
     }), err => {
