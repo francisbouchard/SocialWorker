@@ -4,7 +4,7 @@ const Document = require('../models/Document').schema;
 const Note = require('../models/Note').schema;
 
 const participantSchema = new Schema({
-  name: String,
+  name: { type: String, required: true },
   pronouns: String,
   email: { type: String, sparse: true },
   telephone: String,
