@@ -18,20 +18,20 @@
         <mat-card-subtitle>Term: {{resource.term}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p>Location: {{resource.location}}</p>
-        <p>Phone: {{resource.phone}}</p>
-        <p>Email: {{resource.email}}</p>
+        <p *ngIf="resource.location !== undefined && resource.location !== ''">Location: {{resource.location}}</p>
+        <p *ngIf="resource.phone !== undefined && resource.phone !== ''">Phone: {{resource.phone}}</p>
+        <p *ngIf="resource.email !== undefined && resource.email !== ''">Email: {{resource.email}}</p>
         <div [ngSwitch]="resource.kind">
-          <div *ngSwitchCase="Housing">
+          <ng-container *ngSwitchCase="'Housing'">
             <p>Gender: {{resource.gender}}</p>
             <p>Notes: {{resource.notes}}</p>
             <p>Constraints: {{resource.constraints}}</p>
-          </div>     
-          <div *ngSwitchCase="Medical">
+          </ng-container>     
+          <ng-container *ngSwitchCase="'Medical'">
             <p>Free: {{resource.without_cost}}</p>
             <p>Approximate Waitlist: {{resource.waitlist_time}}</p>
             <p>Schedule: {{resource.schedule_availability[0]}}</p>
-          </div>   
+          </ng-container>
         </div>
       </mat-card-content>
       <mat-card-actions>
