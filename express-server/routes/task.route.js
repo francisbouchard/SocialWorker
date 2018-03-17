@@ -5,8 +5,12 @@ const Task = require('../models/Task');
 /**
  * Get all tasks by user
  */
-router.get('/user/:user', (req, res) => {
-    Task.find({ user: req.params.user }).then(data => {
+router.get('/user', (req, res) => {
+    if (!req.user || !req.user._id) {
+        return res.status(401).send({ err: "No user ID provided. User must be logged in." })
+    }
+
+    Task.find({ user: req.user._id }).then(data => {
         res.send(data);
     }, err => {
         res.send(err);
@@ -31,7 +35,7 @@ router.post('/', (req, res) => {
     let task = new Task({
         description: req.body.description,
         deadline: req.body.deadline,
-        user: req.body.user,
+        user: req.user._id,
         participant: req.body.participant
     });
     task.save().then(data => {

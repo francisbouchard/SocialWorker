@@ -44,10 +44,18 @@ describe('Tasks Tests', () => {
         });
     });
 
-    describe('/GET', () => {
-        it('should GET all tasks for a user', (done) => {
+    describe('/GET/user', () => {
+        it('should not proceed with GET when user ID not provided through the cookie', (done) => {
             chai.request(server)
-                .get('/api/task/user/' + 'test1')
+                .get('/api/task/user')
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    done();
+                });
+        });
+        it('should GET all tasks for the requesting user', (done) => {
+            chai.request(server)
+                .get('/api/task/user')
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -87,7 +95,7 @@ describe('Tasks Tests', () => {
     describe('/POST', () => {
         it('should not POST a task without a description', (done) => {
             let task = {
-                user: 'test2'
+                date: Date.now()
             }
             chai.request(server)
                 .post('/api/task')
@@ -104,8 +112,7 @@ describe('Tasks Tests', () => {
         });
         it('should POST a new task', (done) => {
             let task = {
-                description: 'Another task to do',
-                user: 'test1'
+                description: 'Another task to do'
             }
             chai.request(server)
                 .post('/api/task')

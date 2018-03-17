@@ -51,6 +51,7 @@ import { UserService } from './services/user.service';
 
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import { TaskService } from './services/task.service';
 
 
 const routes: Routes = [
@@ -196,7 +197,8 @@ const routes: Routes = [
     CasefileService,
     UserService,
     AuthenticationService,
-    PhonelogService
+    PhonelogService,
+    TaskService
   ],
   bootstrap: [AppComponent]
 })
