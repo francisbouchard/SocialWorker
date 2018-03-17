@@ -35,7 +35,6 @@ export class EditResourceComponent implements OnInit, OnChanges {
       notes: this.resource.notes,
       gender: this.resource.gender,
       constraints: this.resource.constraints
-
     });
   }
 

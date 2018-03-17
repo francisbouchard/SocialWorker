@@ -21,9 +21,18 @@
         <p>Location: {{resource.location}}</p>
         <p>Phone: {{resource.phone}}</p>
         <p>Email: {{resource.email}}</p>
-        <p>Gender: {{resource.gender}}</p>
-        <p>Notes: {{resource.notes}}</p>
-        <p>Constraints: {{resource.constraints}}</p>
+        <div [ngSwitch]="resource.kind">
+          <div *ngSwitchCase="Housing">
+            <p>Gender: {{resource.gender}}</p>
+            <p>Notes: {{resource.notes}}</p>
+            <p>Constraints: {{resource.constraints}}</p>
+          </div>     
+          <div *ngSwitchCase="Medical">
+            <p>Free: {{resource.without_cost}}</p>
+            <p>Approximate Waitlist: {{resource.waitlist_time}}</p>
+            <p>Schedule: {{resource.schedule_availability[0]}}</p>
+          </div>   
+        </div>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button (click)="edit(resource._id, resource)">Edit</button>
