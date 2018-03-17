@@ -61,7 +61,7 @@ router.get('/:id/resource/:resId', (req, res) => {
  */
 router.post('/', (req, res) => {
     let casefile = new Casefile({
-        createdBy: req.body.createdBy,
+        createdBy: req.user.id,
         updatedBy: req.body.createdBy,
         participant: req.body.participant,
         notes: [req.body.notes],
@@ -95,7 +95,7 @@ router.post('/:id/resource', (req, res) => {
         };
 
         Casefile.update({ _id: req.params.id }, { $push: { contactedResources: contResource } })
-        .update({_id: req.params.id}, { '$set': {updatedBy: req.body.updatedBy}})
+        .update({_id: req.params.id}, { $set: { updatedBy: req.user.id }})
         .then(data => {
             res.send(data);
         }, err => {
@@ -120,7 +120,7 @@ router.put('/:id/resource/:resId', (req, res) => {
     }
 
     Casefile.update({ _id: req.params.id, 'contactedResources.resource': req.params.resId }, { '$set': setObj })
-        .update({_id: req.params.id}, { '$set': {updatedBy: req.body.updatedBy}})
+        .update({ _id: req.params.id }, { '$set': { updatedBy: req.user.id }})
         .then(data => {
             res.send(data);
         }, err => {
@@ -134,8 +134,7 @@ router.put('/:id/resource/:resId', (req, res) => {
  *
  */
 router.put('/:id/selection', (req, res) => {
-    Casefile.update({ '_id': req.params.id }, { '$set': { selectedResource: req.body.selectedResource}})
-    .update({_id: req.params.id}, { '$set': {updatedBy: req.body.updatedBy}})
+    Casefile.update({ _id: req.params.id }, { '$set': { selectedResource: req.body.selectedResource, updatedBy: req.user.id}})
     .then(data => {
         res.send(data);
     }, err => {
@@ -147,7 +146,7 @@ router.put('/:id/selection', (req, res) => {
  * Update status of a Casefile
  */
 router.put('/:id/status', (req, res) => {
-    Casefile.update({ '_id': req.params.id }, { '$set': { status: req.body.status, updatedBy: req.body.updatedBy } })
+    Casefile.update({ '_id': req.params.id }, { '$set': { status: req.body.status, updatedBy: req.user.id } })
         .then(data => {
             res.send(data);
         }, err => {
@@ -159,8 +158,7 @@ router.put('/:id/status', (req, res) => {
  * Update note of a Casefile
  */
 router.put('/:id/note', (req, res) => {
-    Casefile.update({ '_id': req.params.id }, 
-    { '$set': { notes: [req.body.notes], updatedBy: req.body.updatedBy }})
+    Casefile.update({ '_id': req.params.id }, { '$set': { notes: [req.body.notes], updatedBy: req.user.id }})
     .then(data => {
         res.send(data);
     }), err => {

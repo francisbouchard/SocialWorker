@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
-import { AuthenticationService } from './authentication.service';
 
 
 @Injectable()
@@ -15,8 +14,7 @@ export class CasefileService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService,
-    private auth: AuthenticationService
+    private messageService: MessageService
   ) {
 
   }
@@ -73,7 +71,6 @@ export class CasefileService {
    * @memberof CasefileService
    */
   save(caseData): Observable<Object> {
-    caseData.updatedBy = this.auth.profile._id;
     return this.http.post<Object>(this.url, caseData)
       .pipe(
       tap(c => {
@@ -96,7 +93,6 @@ export class CasefileService {
    * @memberof CasefileService
    */
   addContactedResource(casefileID, resourceData): Observable<Object> {
-    resourceData.updatedBy = this.auth.profile._id;
     return this.http.post<Object>(`${this.url}/${casefileID}/resource`, resourceData)
       .pipe(
       tap(c => {
@@ -122,7 +118,6 @@ export class CasefileService {
    * @memberof CasefileService
    */
   updateCaseContactedResource(casefileID, resourceID, updatedParams): Observable<Object> {
-    updatedParams.updatedBy = this.auth.profile._id;
     return this.http.put<Object>(`${this.url}/${casefileID}/resource/${resourceID}`, updatedParams)
       .pipe(
       tap(c => {
@@ -147,7 +142,6 @@ export class CasefileService {
    * @memberof CasefileService
    */
   updateCaseSelectedResource(casefileID, selectedResource): Observable<Object> {
-    selectedResource.updatedBy = this.auth.profile._id;
     return this.http.put<Object>(`${this.url}/${casefileID}/selection`, selectedResource)
       .pipe(
       tap(c => {
@@ -171,7 +165,6 @@ export class CasefileService {
    * @memberof CasefileService
    */
   updateCaseStatus(casefileID, status): Observable<Object> {
-    status.updatedBy = this.auth.profile._id;
     return this.http.put<Object>(`${this.url}/${casefileID}/status`, status)
       .pipe(
       tap(c => {
@@ -195,7 +188,6 @@ export class CasefileService {
    * @memberof CasefileService
    */
   updateCaseNote(casefileID, notes): Observable<Object> {
-    notes.updatedBy = this.auth.profile._id;
     return this.http.put<Object>(`${this.url}/${casefileID}/note`, notes)
       .pipe(
       tap(c => {
@@ -217,7 +209,6 @@ export class CasefileService {
    * @memberof CasefileService
    */
   delete(casefileID): Observable<Object> {
-    // updatedParams.updatedBy = this.auth.profile._id;
     return this.http.delete(`${this.url}/${casefileID}`)
       .pipe(
       tap(_ => this.log('deleted case')),
