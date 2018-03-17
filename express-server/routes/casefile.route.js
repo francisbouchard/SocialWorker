@@ -94,7 +94,9 @@ router.post('/:id/resource', (req, res) => {
             note: req.body.note
         };
 
-        Casefile.update({ _id: req.params.id }, { $push: { contactedResources: contResource } }).then(data => {
+        Casefile.update({ _id: req.params.id }, { $push: { contactedResources: contResource } })
+        .update({_id: req.params.id}, { '$set': {updatedBy: req.body.updatedBy}})
+        .then(data => {
             res.send(data);
         }, err => {
             res.send(err);
@@ -133,6 +135,7 @@ router.put('/:id/resource/:resId', (req, res) => {
  */
 router.put('/:id/selection', (req, res) => {
     Casefile.update({ '_id': req.params.id }, { '$set': { selectedResource: req.body.selectedResource}})
+    .update({_id: req.params.id}, { '$set': {updatedBy: req.body.updatedBy}})
     .then(data => {
         res.send(data);
     }, err => {
