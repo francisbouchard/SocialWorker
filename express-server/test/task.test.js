@@ -8,6 +8,7 @@ const Task = require('../models/Task');
 let id1 = new mongoose.Types.ObjectId();
 let id2 = new mongoose.Types.ObjectId();
 let id3 = new mongoose.Types.ObjectId();
+let id4 = null;
 let cookie;
 
 chai.use(chaiHttp);
@@ -83,11 +84,62 @@ describe('Tasks Tests', () => {
         });
     })
 
+    describe('/POST', () => {
+        it('should not POST a task without a description', (done) => {
+            let task = {
+                user: 'test2'
+            }
+            chai.request(server)
+                .post('/api/task')
+                .set('Cookie', cookie)
+                .send(task)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('errors');
+                    res.body.errors.should.have.property('description');
+                    res.body.errors.description.should.have.property('kind').eql('required');
+                    done();
+                });
+        });
+        it('should POST a new task', (done) => {
+            let task = {
+                description: 'Another task to do',
+                user: 'test1'
+            }
+            chai.request(server)
+                .post('/api/task')
+                .set('Cookie', cookie)
+                .send(task)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('_id');
+                    res.body.should.have.property('description');
+                    res.body.should.have.property('user');
+                    id4 = res.body._id;
+                    done();
+                });
+        });
+    });
+
+    describe('/DELETE/:id', () => {
+        it('should permanently DELETE the task with the given ID', (done) => {
+            chai.request(server)
+                .del('/api/task/' + id2)
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                });
+        });
+    });
+
     after(() => {
         Task.findByIdAndRemove(id1).then(data => { }, err => {
             console.log(err);
         });
-        Task.findByIdAndRemove(id2).then(data => { }, err => {
+        Task.findByIdAndRemove(id4).then(data => { }, err => {
             console.log(err);
         });
     });
