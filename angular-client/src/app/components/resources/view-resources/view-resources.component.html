@@ -14,8 +14,7 @@
   <mat-card  *ngFor="let resource of ((resources| search:'name':query) | orderBy: sortProperty: reverse)" >
     <div *ngIf="!(editingResource == resource)">
       <mat-card-header>
-        <mat-card-title>Name: {{resource.name}}</mat-card-title>
-        <mat-card-subtitle>Term: {{resource.term}}</mat-card-subtitle>
+        <mat-card-title>Name: {{resource.name}}</mat-card-title>        
       </mat-card-header>
       <mat-card-content>
         <p *ngIf="resource.location !== undefined && resource.location !== ''">Location: {{resource.location}}</p>
@@ -23,16 +22,17 @@
         <p *ngIf="resource.email !== undefined && resource.email !== ''">Email: {{resource.email}}</p>
         <div [ngSwitch]="resource.kind">
           <ng-container *ngSwitchCase="'Housing'">
-            <p>Gender: {{resource.gender}}</p>
-            <p>Notes: {{resource.notes}}</p>
-            <p>Constraints: {{resource.constraints}}</p>
+            <p *ngIf="resource.term !== undefined && resource.term !== ''">Term: {{resource.term}}</p>
+            <p *ngIf="resource.gender !== undefined && resource.gender !== ''">Gender: {{resource.gender}}</p>
+            <p *ngIf="resource.constraints !== undefined && resource.constraints[0] !== ''">Constraints: {{resource.constraints}}</p>
           </ng-container>     
           <ng-container *ngSwitchCase="'Medical'">
-            <p>Free: {{resource.without_cost}}</p>
-            <p>Approximate Waitlist: {{resource.waitlist_time}}</p>
-            <p>Schedule: {{resource.schedule_availability[0]}}</p>
+            <p *ngIf="resource.without_cost !== undefined && resource.without_cost !== ''">Free: {{resource.without_cost}}</p>
+            <p *ngIf="resource.waitlist_time !== undefined && resource.waitlist_time !== ''">Approximate Waitlist: {{resource.waitlist_time}}</p>
+            <p *ngIf="resource.schedule_availability !== undefined && resource.schedule_availability !== ''">Schedule: {{resource.schedule_availability[0]}}</p>
           </ng-container>
         </div>
+        <p *ngIf="resource.notes !== undefined && resource.notes !== ''"> Notes: {{resource.notes}}</p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button (click)="edit(resource._id, resource)">Edit</button>
