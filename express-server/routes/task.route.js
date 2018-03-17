@@ -29,7 +29,8 @@ router.get('/id/:id', (req, res) => {
  */
 router.post('/', (req, res) => {
     let housing = new Housing({
-        name: req.body.name,
+        description: req.body.description,
+        deadline: req.body.deadline,
         user: req.body.user,
         participant: req.body.participant
     });
