@@ -1,9 +1,6 @@
-export class Housing {
-        name: String;
-        email: String;
-        phone: String;
-        location: String;
-        notes: String;
+import { Resource } from './resource';
+
+export class Housing extends Resource {
         term: String;
         gender: String;
         constraints: String;
