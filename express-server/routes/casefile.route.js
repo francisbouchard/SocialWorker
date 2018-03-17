@@ -147,7 +147,7 @@ router.put('/:id/selection', (req, res) => {
  * Update status of a Casefile
  */
 router.put('/:id/status', (req, res) => {
-    Casefile.update({ '_id': req.params.id }, { '$set': { status: req.body.status } })
+    Casefile.update({ '_id': req.params.id }, { '$set': { status: req.body.status, updatedBy: req.body.updatedBy } })
         .then(data => {
             res.send(data);
         }, err => {
@@ -182,7 +182,7 @@ router.delete('/:id', (req, res) => {
             res.send(err);
         })
     } else {
-        Casefile.findByIdAndUpdate(req.params.id, { deleted: true }, { new: true }).then(data => {
+        Casefile.findByIdAndUpdate(req.params.id, { deleted: true, updatedBy: req.user.id }, { new: true }).then(data => {
             res.send(data);
         }, err => {
             res.send(err);
