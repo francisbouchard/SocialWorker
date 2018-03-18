@@ -113,5 +113,8 @@ describe('Plain Basic Resources Tests', () => {
         Resource.findByIdAndRemove(id2).then(data => { }, err => {
             console.log(err);
         });
+        Resource.findByIdAndRemove(id4).then(data => { }, err => {
+            console.log(err);
+        });
     });
 });

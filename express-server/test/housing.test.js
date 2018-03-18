@@ -133,5 +133,8 @@ describe('Housing Resources Tests', () => {
         Housing.findByIdAndRemove(id2).then(data => { }, err => {
             console.log(err);
         });
+        Housing.findByIdAndRemove(id4).then(data => { }, err => {
+            console.log(err);
+        });
     });
 });
