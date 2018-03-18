@@ -50,6 +50,7 @@ import { PhonelogService } from './services/phonelog.service';
 import { ResourceService } from './services/resource.service';
 import { UserService } from './services/user.service';
 import { TrashService } from './services/trash.service';
+import { TaskService } from './services/task.service';
 
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
@@ -201,6 +202,7 @@ const routes: Routes = [
     UserService,
     AuthenticationService,
     PhonelogService,
+    TaskService,
     TrashService
   ],
   bootstrap: [AppComponent]

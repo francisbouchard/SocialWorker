@@ -23,6 +23,7 @@ const participant = require('./routes/participant.route');
 const resource = require('./routes/resource.route');
 const casefile = require('./routes/casefile.route');
 const phonelog = require('./routes/phonelog.route');
+const task = require('./routes/task.route');
 const trash = require('./routes/trash.route');
 
 const MongoStore = mongo(session);
@@ -78,6 +79,7 @@ app.use('/api/participant', participant);
 app.use('/api/resource', resource);
 app.use('/api/casefile', casefile);
 app.use('/api/phonelog', phonelog);
+app.use('/api/task', task);
 app.use('/api/trash', trash);
 
 
