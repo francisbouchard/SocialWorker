@@ -1,3 +1,19 @@
-<mat-card>
-  <mat-card-title>Active Case Files</mat-card-title>
-</mat-card>
+<h4>
+  Active Case Files</h4>
+<mat-accordion *ngIf="activeCases.length > 0">
+  <mat-expansion-panel *ngFor="let casefile of activeCases; let caseIndex = index">
+
+    <!-- Panel Header -->
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{casefile.date | date: 'fullDate'}}
+      </mat-panel-title>
+      <mat-panel-description>
+        Status: {{casefile.status | slice:0:100}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <!-- Casefile Information -->
+    <h4>TODO: add text </h4>
+  </mat-expansion-panel>
+</mat-accordion>

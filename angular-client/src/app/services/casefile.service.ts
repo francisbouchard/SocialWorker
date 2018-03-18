@@ -63,6 +63,14 @@ export class CasefileService {
       );
   }
 
+  getAllActive(): Observable<Object[]> {
+    return this.http.get<Object[]>(`${this.url}/active/all`)
+    .pipe(
+      tap(cases => this.log('fetched all active cases')),
+      catchError(this.handleError<Object[]>('getAllActive()'))
+    );
+  }
+
   /**
    * Save a new case
    *

@@ -39,9 +39,35 @@ router.get('/participant/:id', (req, res) => {
     })
 });
 
+/** 
+ * Get all open case files
+ */
+router.get('/active/all', (req, res) => {
+    
+    Casefile.find({ status: 'In progress' })
+    .populate('contactedResources.resource')
+    .populate('selectedResource.resource')
+    .then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+});
+
 /**
  * Get open case files by assigned user ID
  */
+router.get('/active/user/:id', (req, res) => {
+    
+    Casefile.find({ _id: req.params.id, status: 'In progress' })
+    .populate('contactedResources.resource')
+    .populate('selectedResource.resource')
+    .then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+});
 
 
 /**

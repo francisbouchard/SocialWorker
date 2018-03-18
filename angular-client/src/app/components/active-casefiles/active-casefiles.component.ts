@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CasefileService } from '../../services/casefile.service';
 
 @Component({
   selector: 'app-active-casefiles',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActiveCasefilesComponent implements OnInit {
 
-  constructor() { }
+  activeCases = [];
+
+  constructor(private casefileService: CasefileService) { }
 
   ngOnInit() {
+    this.loadAllActiveCases();
   }
+
+  loadAllActiveCases() {
+    this.casefileService.getAllActive().subscribe(data => {
+      this.activeCases = data;
+    });
+  }
+
+  loadUserActiveCases() {
+
+  }
+
 
 }
