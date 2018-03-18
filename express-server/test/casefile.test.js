@@ -145,7 +145,7 @@ describe('Casefile Tests', () => {
         });
         it('should be empty for GET with nonexisting participant ID', (done) => {
             chai.request(server)
-                .get('/api/casefile/participant/' + 'p123')
+                .get('/api/casefile/participant/' + new mongoose.Types.ObjectId())
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -383,7 +383,7 @@ describe('Casefile Tests', () => {
     });
 
     describe('/DELETE/:id', () => {
-        it('should not permanently DELETE the casefile with the given ID when user is not admin', (done) => {
+        it('should flag the casefile with the given ID as deleted', (done) => {
             chai.request(server)
                 .del('/api/casefile/' + id5)
                 .set('Cookie', cookie)
@@ -392,24 +392,6 @@ describe('Casefile Tests', () => {
                     res.body.should.be.a('object');
                     res.body.should.have.property('deleted').eql(true);
                     done();
-                });
-        });
-        it('should permanently DELETE the casefile with the given ID when user is admin', (done) => {
-            chai.request(server)
-                .post('/user/login')
-                .send({
-                    'email': 'test2@test.com',
-                    'password': 'test123'
-                })
-                .end((err, res) => {
-                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
-                    chai.request(server)
-                        .del('/api/casefile/' + id5)
-                        .set('Cookie', adminCookie)
-                        .end((err, res) => {
-                            res.should.have.status(200);
-                            done();
-                        });
                 });
         });
     });
@@ -422,6 +404,9 @@ describe('Casefile Tests', () => {
             console.log(err);
         });
         CaseFile.findByIdAndRemove(id4).then(data => { }, err => {
+            console.log(err);
+        });
+        CaseFile.findByIdAndRemove(id5).then(data => { }, err => {
             console.log(err);
         });
         Participant.findByIdAndRemove(participantId1).then(data => { }, err => {
