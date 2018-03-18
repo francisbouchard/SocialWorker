@@ -48,6 +48,8 @@ router.get('/active/all', (req, res) => {
     .populate('contactedResources.resource')
     .populate('selectedResource.resource')
     .populate('participant')
+    .populate('createdBy')
+    .populate('updatedBy')
     .then(data => {
         res.send(data);
     }, err => {
@@ -60,7 +62,7 @@ router.get('/active/all', (req, res) => {
  */
 router.get('/active/user/:id', (req, res) => {
     
-    Casefile.find({ _id: req.params.id, status: 'In progress' })
+    Casefile.find({ createdBy: req.params.id, status: 'In progress' })
     .populate('contactedResources.resource')
     .populate('selectedResource.resource')
     .populate('participant')
