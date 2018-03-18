@@ -145,7 +145,7 @@ describe('Casefile Tests', () => {
         });
         it('should be empty for GET with nonexisting participant ID', (done) => {
             chai.request(server)
-                .get('/api/casefile/participant/' + 'p123')
+                .get('/api/casefile/participant/' + new mongoose.Types.ObjectId())
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);

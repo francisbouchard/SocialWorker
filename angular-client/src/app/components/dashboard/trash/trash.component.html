@@ -4,7 +4,7 @@
     <div class="items" *ngFor="let item of (items | orderBy: 'updatedAt')" [ngSwitch]="item.model">
       <div *ngSwitchCase="'Participant'">
         <p><b>{{item.model}}:</b></p>
-        <p>{{item._id}}</p>
+        <p>{{item.username}}</p>
         <p *ngIf="item.name">{{item.name}}</p>
       </div>
       <div *ngSwitchCase="'User'">

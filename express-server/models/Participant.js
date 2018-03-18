@@ -23,8 +23,7 @@ const participantSchema = new Schema({
 }, {timestamps: true});
 
 participantSchema.pre('remove', function (next) {
-  Casefile.update({ participant: this._id },
-  { participant: NULL_PARTICIPANT }, next);
+  Casefile.remove({ participant: this._id }, next);
 });
 
 const Participant = mongoose.model('Participant', participantSchema, 'participants');
