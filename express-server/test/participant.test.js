@@ -6,7 +6,7 @@ const server = require('../server');
 const Participant = require('../models/Participant');
 
 let id1 = new mongoose.Types.ObjectId();
-let id2 = 'testingID2';
+let id2 = new mongoose.Types.ObjectId();
 let id3 = new mongoose.Types.ObjectId();
 let noteId = new mongoose.Types.ObjectId();
 let docId = new mongoose.Types.ObjectId();
