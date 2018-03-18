@@ -8,7 +8,7 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class UserService {
 
-  private url = '/user/';
+  private url = '/user';
 
   constructor(private http: HttpClient,
     private messageService: MessageService) { }
