@@ -5,7 +5,7 @@ import { CasefilesComponent } from './casefiles/casefiles.component';
 import { NotesComponent } from './notes/notes.component';
 import { DocumentsComponent } from './documents/documents.component';
 import { MaterialsModule } from '../../../modules/materials.module';
-import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { ParticipantService } from '../../../services/participant.service';
 import { MessageService } from '../../../services/message.service';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -33,7 +33,6 @@ describe('ParticipantProfileComponent', () => {
         { provide: ParticipantService, useClass: MockParticipantService},
         { provide: AuthenticationService, useClass: MockAuthenticationService },
         { provide: CasefileService, useClass: MockCasefileService },
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } },
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({_id: 'frontendtest'}) } } }
       ]
     })

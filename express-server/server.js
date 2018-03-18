@@ -23,6 +23,7 @@ const participant = require('./routes/participant.route');
 const resource = require('./routes/resource.route');
 const casefile = require('./routes/casefile.route');
 const phonelog = require('./routes/phonelog.route');
+const trash = require('./routes/trash.route');
 
 const MongoStore = mongo(session);
 
@@ -67,6 +68,8 @@ app.use('/api', passportConfig.isAuthenticated);
 //following routes only permitted to admin users
 app.use('/user/signup', permit('admin'));
 app.use('/user/all', permit('admin'));
+app.use('/api/participant/permanent', permit('admin'));
+app.use('/api/trash', permit('admin'));
 
 // Set our api routes
 app.use('/api', api);
@@ -75,6 +78,7 @@ app.use('/api/participant', participant);
 app.use('/api/resource', resource);
 app.use('/api/casefile', casefile);
 app.use('/api/phonelog', phonelog);
+app.use('/api/trash', trash);
 
 
 // Server public folder

@@ -98,7 +98,7 @@ describe('Participant Tests', () => {
         });
         it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
-                .get('/api/participant/id/')
+                .get('/api/participant/id/' + new mongoose.Types.ObjectId())
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -296,7 +296,7 @@ describe('Participant Tests', () => {
     });
 
     describe('/DELETE/:pid', () => {
-        it('should not permanently DELETE the participant with the given ID when user is not admin', (done) => {
+        it('should flag the participant with the given ID as deleted', (done) => {
             chai.request(server)
                 .del('/api/participant/' + id3)
                 .set('Cookie', cookie)
@@ -305,24 +305,6 @@ describe('Participant Tests', () => {
                     res.body.should.be.a('object');
                     res.body.should.have.property('deleted').eql(true);
                     done();
-                });
-        });
-        it('should permanently DELETE the participant with the given ID when user is admin', (done) => {
-            chai.request(server)
-                .post('/user/login')
-                .send({
-                    'email': 'test2@test.com',
-                    'password': 'test123'
-                })
-                .end((err, res) => {
-                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
-                    chai.request(server)
-                        .del('/api/participant/' + id3)
-                        .set('Cookie', adminCookie)
-                        .end((err, res) => {
-                            res.should.have.status(200);
-                            done();
-                        });
                 });
         });
     });
@@ -368,6 +350,9 @@ describe('Participant Tests', () => {
             console.log(err);
         });
         Participant.findByIdAndRemove(id2).then(data => { }, err => {
+            console.log(err);
+        });
+        Participant.findByIdAndRemove(id3).then(data => { }, err => {
             console.log(err);
         });
         Participant.findByIdAndRemove(id4).then(data => { }, err => {
