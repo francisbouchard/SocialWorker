@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TasksComponent } from './tasks.component';
 import { MaterialsModule } from '../../modules/materials.module';
+import { TaskService } from '../../services/task.service';
+import { MockTaskService } from '../../mocks/MockTaskService';
 
 describe('TasksComponent', () => {
   let component: TasksComponent;
@@ -10,7 +12,9 @@ describe('TasksComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TasksComponent ],
-      imports: [ MaterialsModule ]
+      imports: [ MaterialsModule ],
+      providers: [ { provide: TaskService, useClass: MockTaskService },
+      ]
     })
     .compileComponents();
   }));
