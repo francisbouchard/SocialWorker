@@ -27,6 +27,7 @@ export class AddResourceComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
+      kind: [''],
       name: ['', Validators.required],
       email: [''],
       telephone: ['', Validators.pattern(this.phoneregex)],
@@ -35,6 +36,9 @@ export class AddResourceComponent implements OnInit {
       term: [''],
       gender: [''],
       constraints: [''],
+      without_cost: [''],
+      waitlist_time: [''],
+      schedule_availability: ['']
     });
   }
 
@@ -60,7 +64,7 @@ export class AddResourceComponent implements OnInit {
    * @memberof AddResourceComponent
    */
   submit() {
-    this.resourceService.save('housing', this.form.value)
+    this.resourceService.save(this.form.value['kind'].toLowerCase(), this.form.value)
       .subscribe(data => {
         if (data.hasOwnProperty('errmsg')) {
           this.alertModal('Could not add new resource.');
