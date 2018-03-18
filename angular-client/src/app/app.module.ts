@@ -16,6 +16,7 @@ import { AddResourceComponent } from './components/resources/add-resource/add-re
 import { AlertModalComponent } from './components/modals/alert-modal/alert-modal.component';
 import { CasefilesComponent } from './components/participants/participant-profile/casefiles/casefiles.component';
 import { CaseModalComponent } from './components/modals/case-modal/case-modal.component';
+import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DocumentComponent } from './components/document/document.component';
 import { DocumentsComponent } from './components/participants/participant-profile/documents/documents.component';
@@ -48,10 +49,11 @@ import { ParticipantService } from './services/participant.service';
 import { PhonelogService } from './services/phonelog.service';
 import { ResourceService } from './services/resource.service';
 import { UserService } from './services/user.service';
+import { TrashService } from './services/trash.service';
+import { TaskService } from './services/task.service';
 
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
-import { TaskService } from './services/task.service';
 
 
 const routes: Routes = [
@@ -147,6 +149,7 @@ const routes: Routes = [
     AlertModalComponent,
     CasefilesComponent,
     CaseModalComponent,
+    ConfirmModalComponent,
     DashboardComponent,
     DocumentComponent,
     DocumentsComponent,
@@ -187,6 +190,7 @@ const routes: Routes = [
     AlertModalComponent,
     CaseModalComponent,
     EditWorkerModalComponent,
+    ConfirmModalComponent,
     DocumentComponent,
     NoteComponent
   ],
@@ -198,7 +202,8 @@ const routes: Routes = [
     UserService,
     AuthenticationService,
     PhonelogService,
-    TaskService
+    TaskService,
+    TrashService
   ],
   bootstrap: [AppComponent]
 })

@@ -38,7 +38,6 @@ export class CaseModalComponent implements OnInit {
 
   ngOnInit() {
     this.mycase.participant = this.data.participant._id;
-    this.mycase.createdBy = this.authService.profile._id;
     this.loadAllResources();
   }
 

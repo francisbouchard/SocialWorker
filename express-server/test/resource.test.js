@@ -168,7 +168,7 @@ describe('Housing Resources Tests', () => {
     });
 
     describe('/DELETE/:id', () => {
-        it('should not permanently DELETE the resource with the given ID when user is not admin', (done) => {
+        it('should flag the resource with the given ID as deleted', (done) => {
             chai.request(server)
                 .del('/api/resource/' + id4)
                 .set('Cookie', cookie)
@@ -179,24 +179,6 @@ describe('Housing Resources Tests', () => {
                     done();
                 });
         });
-        it('should permanently DELETE the resource with the given ID when user is admin', (done) => {
-            chai.request(server)
-                .post('/user/login')
-                .send({
-                    'email': 'test2@test.com',
-                    'password': 'test123'
-                })
-                .end((err, res) => {
-                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
-                    chai.request(server)
-                        .del('/api/resource/' + id4)
-                        .set('Cookie', adminCookie)
-                        .end((err, res) => {
-                            res.should.have.status(200);
-                            done();
-                        });
-                });
-        });
     });
 
     after(() => {
@@ -204,6 +186,9 @@ describe('Housing Resources Tests', () => {
             console.log(err);
         });
         Housing.findByIdAndRemove(id2).then(data => { }, err => {
+            console.log(err);
+        });
+        Housing.findByIdAndRemove(id4).then(data => { }, err => {
             console.log(err);
         });
     });
