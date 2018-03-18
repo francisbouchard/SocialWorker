@@ -16,9 +16,9 @@
 <div class="hint">Select the resources for this case</div>
   <mat-form-field>
     <mat-select multiple [(ngModel)]="mycase.contactedResources" name="contactedResources">
-        <mat-option *ngFor="let resource of resources" [value]="resource._id">
-            {{resource.name}}
-          </mat-option>
+        <span *ngFor="let resource of resources" >
+          <mat-option *ngIf="resource.kind === mycase.type" [value]="resource._id">{{resource.name}}</mat-option>
+        </span>
     </mat-select>
   </mat-form-field>
   <mat-dialog-actions>
