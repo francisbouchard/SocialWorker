@@ -1,21 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrashComponent } from './trash.component';
-import { MaterialsModule } from '../../../modules/materials.module';
-import { AuthenticationService } from '../../../services/authentication.service';
-import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
-import { TrashService } from '../../../services/trash.service';
-import { MockTrashService } from '../../../mocks/MockTrashService';
-import { OrderByPipe } from '../../../pipes/orderBy.pipe';
+import { TrashbinComponent } from './trashbin.component';
+import { MaterialsModule } from '../../modules/materials.module';
+import { AuthenticationService } from '../../services/authentication.service';
+import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { TrashService } from '../../services/trash.service';
+import { MockTrashService } from '../../mocks/MockTrashService';
+import { OrderByPipe } from '../../pipes/orderBy.pipe';
 import { MatDialog } from '@angular/material';
 
-describe('TrashComponent', () => {
-  let component: TrashComponent;
-  let fixture: ComponentFixture<TrashComponent>;
+
+describe('TrashbinComponent', () => {
+  let component: TrashbinComponent;
+  let fixture: ComponentFixture<TrashbinComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrashComponent, OrderByPipe ],
+      declarations: [ TrashbinComponent, OrderByPipe ],
       imports: [ MaterialsModule ],
       providers: [
         MatDialog,
@@ -27,7 +28,7 @@ describe('TrashComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TrashComponent);
+    fixture = TestBed.createComponent(TrashbinComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -46,5 +47,4 @@ describe('TrashComponent', () => {
     expect(compiled.querySelectorAll('mat-icon')[0].textContent).toContain('unarchive');
     expect(compiled.querySelectorAll('mat-icon')[1].textContent).toContain('delete_forever');
   });
-
 });

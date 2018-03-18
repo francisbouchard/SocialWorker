@@ -119,6 +119,317 @@ export class MockCasefileService {
         ]);
     }
 
+    getAllActive() {
+        return Observable.of([
+            {
+              "contactedResources": [
+                {
+                  "isContacted": false,
+                  "resource": null,
+                  "dateContacted": null,
+                  "note": null,
+                  "_id": "5aaeb06413e113d3a360988e"
+                }
+              ],
+              "notes": [
+                null
+              ],
+              "date": "2018-03-18T18:30:53.938Z",
+              "deleted": false,
+              "_id": "5aaeb06413e113d3a360988f",
+              "createdBy": {
+                "tokens": [],
+                "role": "admin",
+                "deleted": false,
+                "_id": "5a6ca05f54297a0c500cbd41",
+                "name": "James",
+                "email": "james@astteq.org",
+                "password": "$2a$10$jnu1d5jGRaMXNXtt6l/eW.xW/XpyoZd4sdibumj8yvihTsvYH16mC",
+                "createdAt": "2018-01-27T15:53:03.674Z",
+                "updatedAt": "2018-01-27T15:53:03.674Z",
+                "__v": 0
+              },
+              "updatedBy": {
+                "tokens": [],
+                "role": "admin",
+                "deleted": false,
+                "_id": "5a6ca05f54297a0c500cbd41",
+                "name": "James",
+                "email": "james@astteq.org",
+                "password": "$2a$10$jnu1d5jGRaMXNXtt6l/eW.xW/XpyoZd4sdibumj8yvihTsvYH16mC",
+                "createdAt": "2018-01-27T15:53:03.674Z",
+                "updatedAt": "2018-01-27T15:53:03.674Z",
+                "__v": 0
+              },
+              "participant": {
+                "socialmedia": {
+                  "service": "",
+                  "username": ""
+                },
+                "documents": [],
+                "notes": [],
+                "socialworkers": [
+                  "5a6ca05f54297a0c500cbd41"
+                ],
+                "deleted": false,
+                "_id": "5aaea8fab858a4d1d1126cf5",
+                "name": "Charlene",
+                "email": "",
+                "pronouns": "",
+                "telephone": "",
+                "address": "",
+                "username": "Charlene_6cf5",
+                "createdAt": "2018-03-18T17:59:22.178Z",
+                "updatedAt": "2018-03-18T17:59:22.241Z",
+                "__v": 0
+              },
+              "status": "In progress",
+              "type": "Housing",
+              "urgency": "Urgent",
+              "createdAt": "2018-03-18T18:31:00.448Z",
+              "updatedAt": "2018-03-18T18:31:00.448Z",
+              "__v": 0
+            },
+            {
+              "contactedResources": [
+                {
+                  "isContacted": false,
+                  "resource": null,
+                  "dateContacted": null,
+                  "note": null,
+                  "_id": "5aaeb03e13e113d3a360988c"
+                }
+              ],
+              "notes": [
+                null
+              ],
+              "date": "2018-03-18T18:30:15.572Z",
+              "deleted": false,
+              "_id": "5aaeb03e13e113d3a360988d",
+              "createdBy": {
+                "tokens": [],
+                "role": "admin",
+                "deleted": false,
+                "_id": "5a6ca05f54297a0c500cbd41",
+                "name": "James",
+                "email": "james@astteq.org",
+                "password": "$2a$10$jnu1d5jGRaMXNXtt6l/eW.xW/XpyoZd4sdibumj8yvihTsvYH16mC",
+                "createdAt": "2018-01-27T15:53:03.674Z",
+                "updatedAt": "2018-01-27T15:53:03.674Z",
+                "__v": 0
+              },
+              "updatedBy": {
+                "tokens": [],
+                "role": "admin",
+                "deleted": false,
+                "_id": "5a6ca05f54297a0c500cbd41",
+                "name": "James",
+                "email": "james@astteq.org",
+                "password": "$2a$10$jnu1d5jGRaMXNXtt6l/eW.xW/XpyoZd4sdibumj8yvihTsvYH16mC",
+                "createdAt": "2018-01-27T15:53:03.674Z",
+                "updatedAt": "2018-01-27T15:53:03.674Z",
+                "__v": 0
+              },
+              "participant": {
+                "socialmedia": {
+                  "service": "",
+                  "username": ""
+                },
+                "documents": [],
+                "notes": [],
+                "socialworkers": [
+                  "5a6ca05f54297a0c500cbd41"
+                ],
+                "deleted": false,
+                "_id": "5aaea8fab858a4d1d1126cf5",
+                "name": "Charlene",
+                "email": "",
+                "pronouns": "",
+                "telephone": "",
+                "address": "",
+                "username": "Charlene_6cf5",
+                "createdAt": "2018-03-18T17:59:22.178Z",
+                "updatedAt": "2018-03-18T17:59:22.241Z",
+                "__v": 0
+              },
+              "status": "In progress",
+              "type": "Housing",
+              "urgency": "Urgent",
+              "createdAt": "2018-03-18T18:30:22.556Z",
+              "updatedAt": "2018-03-18T18:30:22.556Z",
+              "__v": 0
+            },
+            {
+              "contactedResources": [
+                {
+                  "isContacted": true,
+                  "resource": null,
+                  "dateContacted": "2018-03-18T18:29:54.805Z",
+                  "note": null,
+                  "_id": "5aaeaff613e113d3a360988a"
+                }
+              ],
+              "notes": [
+                null
+              ],
+              "date": "2018-03-18T18:28:59.228Z",
+              "deleted": false,
+              "_id": "5aaeaff613e113d3a360988b",
+              "createdBy": {
+                "tokens": [],
+                "role": "admin",
+                "deleted": false,
+                "_id": "5a6ca05f54297a0c500cbd41",
+                "name": "James",
+                "email": "james@astteq.org",
+                "password": "$2a$10$jnu1d5jGRaMXNXtt6l/eW.xW/XpyoZd4sdibumj8yvihTsvYH16mC",
+                "createdAt": "2018-01-27T15:53:03.674Z",
+                "updatedAt": "2018-01-27T15:53:03.674Z",
+                "__v": 0
+              },
+              "updatedBy": {
+                "tokens": [],
+                "role": "admin",
+                "deleted": false,
+                "_id": "5a6ca05f54297a0c500cbd41",
+                "name": "James",
+                "email": "james@astteq.org",
+                "password": "$2a$10$jnu1d5jGRaMXNXtt6l/eW.xW/XpyoZd4sdibumj8yvihTsvYH16mC",
+                "createdAt": "2018-01-27T15:53:03.674Z",
+                "updatedAt": "2018-01-27T15:53:03.674Z",
+                "__v": 0
+              },
+              "participant": {
+                "socialmedia": {
+                  "service": "",
+                  "username": ""
+                },
+                "documents": [],
+                "notes": [],
+                "socialworkers": [
+                  "5a6ca05f54297a0c500cbd41"
+                ],
+                "deleted": false,
+                "_id": "5aaea8fab858a4d1d1126cf5",
+                "name": "Charlene",
+                "email": "",
+                "pronouns": "",
+                "telephone": "",
+                "address": "",
+                "username": "Charlene_6cf5",
+                "createdAt": "2018-03-18T17:59:22.178Z",
+                "updatedAt": "2018-03-18T17:59:22.241Z",
+                "__v": 0
+              },
+              "status": "In progress",
+              "type": "Housing",
+              "urgency": "Regular",
+              "createdAt": "2018-02-18T18:29:10.571Z",
+              "updatedAt": "2018-02-18T18:29:54.924Z",
+              "__v": 0
+            }
+          ]);
+    }
+
+    getRecentlyUpdated() {
+        return Observable.of([
+            {
+              "contactedResources": [
+                {
+                  "isContacted": false,
+                  "resource": null,
+                  "dateContacted": null,
+                  "note": null,
+                  "_id": "5aaeb06413e113d3a360988e"
+                }
+              ],
+              "notes": [
+                null
+              ],
+              "date": "2018-03-18T18:30:53.938Z",
+              "deleted": false,
+              "_id": "5aaeb06413e113d3a360988f",
+              "createdBy": "5a6ca05f54297a0c500cbd41",
+              "updatedBy": "5a6ca05f54297a0c500cbd41",
+              "participant": {
+                "socialmedia": {
+                  "service": "",
+                  "username": ""
+                },
+                "documents": [],
+                "notes": [],
+                "socialworkers": [
+                  "5a6ca05f54297a0c500cbd41"
+                ],
+                "deleted": false,
+                "_id": "5aaea8fab858a4d1d1126cf5",
+                "name": "Charlene",
+                "email": "",
+                "pronouns": "",
+                "telephone": "",
+                "address": "",
+                "username": "Charlene_6cf5",
+                "createdAt": "2018-03-18T17:59:22.178Z",
+                "updatedAt": "2018-03-18T17:59:22.241Z",
+                "__v": 0
+              },
+              "status": "In progress",
+              "type": "Housing",
+              "urgency": "Urgent",
+              "createdAt": "2018-03-18T18:31:00.448Z",
+              "updatedAt": "2018-03-18T18:31:00.448Z",
+              "__v": 0
+            },
+            {
+              "contactedResources": [
+                {
+                  "isContacted": false,
+                  "resource": null,
+                  "dateContacted": null,
+                  "note": null,
+                  "_id": "5aaeb03e13e113d3a360988c"
+                }
+              ],
+              "notes": [
+                null
+              ],
+              "date": "2018-03-18T18:30:15.572Z",
+              "deleted": false,
+              "_id": "5aaeb03e13e113d3a360988d",
+              "createdBy": "5a6ca05f54297a0c500cbd41",
+              "updatedBy": "5a6ca05f54297a0c500cbd41",
+              "participant": {
+                "socialmedia": {
+                  "service": "",
+                  "username": ""
+                },
+                "documents": [],
+                "notes": [],
+                "socialworkers": [
+                  "5a6ca05f54297a0c500cbd41"
+                ],
+                "deleted": false,
+                "_id": "5aaea8fab858a4d1d1126cf5",
+                "name": "Charlene",
+                "email": "",
+                "pronouns": "",
+                "telephone": "",
+                "address": "",
+                "username": "Charlene_6cf5",
+                "createdAt": "2018-03-18T17:59:22.178Z",
+                "updatedAt": "2018-03-18T17:59:22.241Z",
+                "__v": 0
+              },
+              "status": "In progress",
+              "type": "Housing",
+              "urgency": "Urgent",
+              "createdAt": "2018-03-18T18:30:22.556Z",
+              "updatedAt": "2018-03-18T18:30:22.556Z",
+              "__v": 0
+            }
+          ]);
+    }
+
     get(id) {
         return Observable.of(this.testCasefile);
     }

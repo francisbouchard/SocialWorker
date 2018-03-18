@@ -1,4 +1,32 @@
-mat-card {
-    width: 66%;
+mat-toolbar-row a.nav-link {
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+}
+
+.toolbar {
+    /* flex-grow: 1; */
+    flex: 1 20%;
     margin: 1em;
+}
+
+.main {
+    /* flex-grow: 4; */
+    flex: 1 80%;
+    margin: 1em;
+}
+
+mat-icon {
+    padding: 0 15px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+button.mat-button {
+    padding: 0 10px 0 0;
 }
