@@ -10,4 +10,10 @@
 
 <mat-card>
     <mat-card-title>Recent Phone Log Activity</mat-card-title>
+    <div *ngIf="recentlyUpdatedPhonelog">
+        <div *ngFor="let phonelog of recentlyUpdatedPhonelog">
+          <p>Caller: {{phonelog.name}} - Last update: {{phonelog.updatedAt | date: 'short'}}</p>
+        </div>
+      </div>
+      <div *ngIf="!recentlyUpdatedPhonelog">No recent activity</div>
 </mat-card>
