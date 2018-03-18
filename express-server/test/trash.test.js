@@ -10,6 +10,7 @@ const Casefile = require('../models/Casefile');
 let id1 = new mongoose.Types.ObjectId();
 let id2 = new mongoose.Types.ObjectId();
 let id3 = new mongoose.Types.ObjectId();
+let userId = new mongoose.Types.ObjectId("5a7f87c0e146e233d707518b"); //test1 user
 
 let cookie;
 let adminCookie;
@@ -35,6 +36,7 @@ describe('Trash Tests', () => {
         });
         let casefileRecord = new Casefile({
             _id: id3,
+            createdBy: userId,
             participant: id1,
             notes: 'testing'
         });

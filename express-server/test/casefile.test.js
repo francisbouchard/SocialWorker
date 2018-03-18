@@ -11,6 +11,7 @@ let participantId1 = new mongoose.Types.ObjectId();
 let participantId2 = new mongoose.Types.ObjectId();
 let housingId1 = new mongoose.Types.ObjectId();
 let housingId2 = new mongoose.Types.ObjectId();
+let userId = new mongoose.Types.ObjectId("5a7f87c0e146e233d707518b"); //test1 user
 let id1 = new mongoose.Types.ObjectId();
 let id2 = new mongoose.Types.ObjectId();
 let id3 = new mongoose.Types.ObjectId();
@@ -68,6 +69,7 @@ describe('Casefile Tests', () => {
 
         let casefile1 = new CaseFile({
             _id: id1,
+            createdBy: userId,
             participant: participantId1,
             notes: 'testing',
             contactedResources: [{
@@ -79,6 +81,7 @@ describe('Casefile Tests', () => {
         });
         let casefile2 = new CaseFile({
             _id: id5,
+            createdBy: userId,
             participant: participantId2,
             notes: 'testing'
         });
