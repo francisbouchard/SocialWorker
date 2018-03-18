@@ -20,7 +20,8 @@
       <input matInput placeholder="Location" name="location" formControlName="location">
     </mat-form-field>
 
-    <div [ngSwitch]="kind">
+    <div [ngSwitch]="resource.kind">
+
       <ng-container *ngSwitchCase="'Housing'">
         <mat-form-field>
           <input matInput placeholder="Notes" name="notes" formControlName="notes">
@@ -32,6 +33,7 @@
           <input matInput placeholder="Constraints" name="constraints" formControlName="constraints">
         </mat-form-field>
       </ng-container>
+
       <ng-container *ngSwitchCase="'Medical'">
         <mat-form-field>
           <input matInput placeholder="Cost" name="without_cost" formControlName="without_cost">
