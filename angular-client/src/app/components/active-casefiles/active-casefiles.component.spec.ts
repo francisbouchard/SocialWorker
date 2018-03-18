@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ActiveCasefilesComponent } from './active-casefiles.component';
+import { OrderByPipe } from '../../pipes/orderBy.pipe';
+import { SearchPipe } from '../../pipes/search.pipe';
+import { MaterialsModule } from '../../modules/materials.module';
+import { CasefileService } from '../../services/casefile.service';
+import { MockCasefileService } from '../../mocks/MockCasefileService';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ActiveCasefilesComponent', () => {
   let component: ActiveCasefilesComponent;
@@ -8,7 +14,10 @@ describe('ActiveCasefilesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActiveCasefilesComponent ]
+      declarations: [ ActiveCasefilesComponent, OrderByPipe, SearchPipe ],
+      imports: [ MaterialsModule, RouterTestingModule ],
+      providers: [ { provide: CasefileService, useClass: MockCasefileService },
+      ]
     })
     .compileComponents();
   }));
