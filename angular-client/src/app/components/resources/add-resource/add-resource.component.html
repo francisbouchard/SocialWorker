@@ -1,7 +1,7 @@
 <div>
 <mat-card>
   <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
-    <mat-select [(value)]="selected" formControlName="kind">
+    <mat-select [(ngModel)]="selected" formControlName="kind">
         <mat-option value="Housing">Housing</mat-option>
         <mat-option value="Medical">Medical</mat-option>
     </mat-select>

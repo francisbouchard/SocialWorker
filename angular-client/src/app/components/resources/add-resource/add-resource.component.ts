@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-resource.component.css']
 })
 export class AddResourceComponent implements OnInit {
-
+  selected = 'Housing';
   form: FormGroup;
   phoneregex = /^(\d){3}(-|\.|\s|\()?(\d){3}(-|\.|\s|\()?(\d){4}$/m;
 
