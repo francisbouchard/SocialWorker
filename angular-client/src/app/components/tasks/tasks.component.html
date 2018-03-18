@@ -1,12 +1,12 @@
 <mat-card>
     <mat-card-title>Tasks</mat-card-title>
     <mat-card-content>
-        <mat-selection-list *ngIf="tasks.length > 0">
+        <mat-selection-list *ngIf="tasks">
             <mat-list-option #taskItem *ngFor="let task of tasks" (click)="deleteTask(task._id)" [disabled]="taskItem.selected">
                 {{task.description}}
             </mat-list-option>
         </mat-selection-list>
-        <div *ngIf="tasks.length == 0">
+        <div *ngIf="!tasks">
             You've completed all your tasks!
         </div>
         <form [formGroup]="form" (ngSubmit)="saveTask()">

@@ -10,7 +10,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 export class TasksComponent implements OnInit {
 
   form: FormGroup;
-  tasks = [];
+  tasks: Object[];
 
   constructor(private formBuilder: FormBuilder, private taskService: TaskService) {
     this.createForm();
@@ -28,7 +28,6 @@ export class TasksComponent implements OnInit {
 
   loadTasks() {
     this.taskService.getByUser().subscribe(data => {
-      console.log(data);
       this.tasks = data;
     });
   }
@@ -37,7 +36,9 @@ export class TasksComponent implements OnInit {
     this.taskService.save(this.form.value)
       .subscribe(data => {
         console.log(data);
-        this.form.reset({});
+        this.form.reset({
+          description: ''
+        });
         this.loadTasks();
       });
   }

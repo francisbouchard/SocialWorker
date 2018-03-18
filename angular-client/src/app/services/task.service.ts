@@ -13,8 +13,8 @@ export class TaskService {
 
   /**
    * Get all tasks associated with the logged in user
-   * 
-   * @returns {Observable<Object[]>} 
+   *
+   * @returns {Observable<Object[]>}
    * @memberof TaskService
    */
   getByUser(): Observable<Object[]> {
@@ -27,9 +27,9 @@ export class TaskService {
 
   /**
    * Save a new task
-   * 
-   * @param {any} task 
-   * @returns {Observable<Object>} 
+   *
+   * @param {any} task
+   * @returns {Observable<Object>}
    * @memberof TaskService
    */
   save(task): Observable<Object> {
