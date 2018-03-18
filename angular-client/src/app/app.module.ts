@@ -6,48 +6,54 @@ import { HttpClientModule } from '@angular/common/http';
 import { Http, HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
+
 import { AppComponent } from './app.component';
+import { AddParticipantComponent } from './components/participants/add-participant/add-participant.component';
+import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
 import { AddResourceComponent } from './components/resources/add-resource/add-resource.component';
 import { AlertModalComponent } from './components/modals/alert-modal/alert-modal.component';
+import { CasefilesComponent } from './components/participants/participant-profile/casefiles/casefiles.component';
+import { CaseModalComponent } from './components/modals/case-modal/case-modal.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
-import { MessagesComponent } from './components/messages/messages.component';
-import { AddParticipantComponent } from './components/participants/add-participant/add-participant.component';
-import { NoteComponent } from './components/note/note.component';
 import { DocumentComponent } from './components/document/document.component';
-import { RegisterUserComponent } from './components/users/register-user/register-user.component';
-import { ParticipantProfileComponent } from './components/participants/participant-profile/participant-profile.component';
-import { ViewParticipantsComponent } from './components/participants/view-participants/view-participants.component';
+import { DocumentsComponent } from './components/participants/participant-profile/documents/documents.component';
+import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
+import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
+import { EditWorkerModalComponent } from './components/modals/edit-worker-modal/edit-worker-modal.component';
+import { LoginComponent } from './components/login/login.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { NoteComponent } from './components/note/note.component';
+import { NotesComponent } from './components/participants/participant-profile/notes/notes.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
+import { ParticipantProfileComponent } from './components/participants/participant-profile/participant-profile.component';
+import { PhonelogComponent } from './components/phonelog/phonelog.component';
+import { RegisterUserComponent } from './components/users/register-user/register-user.component';
 import { ResourcesComponent } from './components/resources/resources.component';
+import { UsersComponent } from './components/users/users.component';
+import { ViewPhonelogComponent } from './components/phonelog/view-phonelog/view-phonelog.component';
+import { ViewParticipantsComponent } from './components/participants/view-participants/view-participants.component';
 import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
+import { ViewUsersComponent } from './components/users/view-users/view-users.component';
+import { TrashComponent } from './components/dashboard/trash/trash.component';
+import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
+import { EditPhonelogComponent } from './components/phonelog/edit-phonelog/edit-phonelog.component';
+
+import { AuthenticationService } from './services/authentication.service';
+import { CasefileService } from './services/casefile.service';
 import { MessageService } from './services/message.service';
 import { ParticipantService } from './services/participant.service';
-import { LoginComponent } from './components/login/login.component';
-import { AuthenticationService } from './services/authentication.service';
+import { PhonelogService } from './services/phonelog.service';
 import { ResourceService } from './services/resource.service';
-import { CaseModalComponent } from './components/modals/case-modal/case-modal.component';
-import { CasefileService } from './services/casefile.service';
+import { UserService } from './services/user.service';
+import { TrashService } from './services/trash.service';
+
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
-import { UsersComponent } from './components/users/users.component';
-import { ViewUsersComponent } from './components/users/view-users/view-users.component';
-import { UserService } from './services/user.service';
-import { EditWorkerModalComponent } from './components/modals/edit-worker-modal/edit-worker-modal.component';
-import { CasefilesComponent } from './components/participants/participant-profile/casefiles/casefiles.component';
-import { NotesComponent } from './components/participants/participant-profile/notes/notes.component';
-import { DocumentsComponent } from './components/participants/participant-profile/documents/documents.component';
-import { PhonelogComponent } from './components/phonelog/phonelog.component';
-import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
-import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
-import { ViewPhonelogComponent } from './components/phonelog/view-phonelog/view-phonelog.component';
-import { PhonelogService } from './services/phonelog.service';
-import { EditPhonelogComponent } from './components/phonelog/edit-phonelog/edit-phonelog.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/participants',
+    redirectTo: '/dashboard',
     pathMatch: 'full'
   },
   {
@@ -102,36 +108,36 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    AddParticipantComponent,
+    AddPhonelogComponent,
     AddResourceComponent,
     AlertModalComponent,
+    CasefilesComponent,
+    CaseModalComponent,
     DashboardComponent,
+    DocumentComponent,
+    DocumentsComponent,
+    EditParticipantComponent,
     EditResourceComponent,
+    EditWorkerModalComponent,
+    LoginComponent,
     MessagesComponent,
-    AddParticipantComponent,
+    NoteComponent,
+    NotesComponent,
     ParticipantProfileComponent,
     ParticipantsComponent,
-    ViewParticipantsComponent,
-    AlertModalComponent,
-    LoginComponent,
-    ResourcesComponent,
-    AddResourceComponent,
-    ViewResourcesComponent,
-    CaseModalComponent,
-    NoteComponent,
-    DocumentComponent,
+    PhonelogComponent,
     RegisterUserComponent,
+    TrashComponent,
+    ResourcesComponent,
+    UsersComponent,
+    ViewParticipantsComponent,
+    ViewPhonelogComponent,
+    ViewResourcesComponent,
+    ViewUsersComponent,
     OrderByPipe,
     SearchPipe,
-    UsersComponent,
-    ViewUsersComponent,
-    EditWorkerModalComponent,
-    CasefilesComponent,
-    NotesComponent,
-    DocumentsComponent,
-    PhonelogComponent,
-    EditParticipantComponent,
-    AddPhonelogComponent,
-    ViewPhonelogComponent,
+    ConfirmModalComponent,
     EditPhonelogComponent
   ],
   imports: [
@@ -147,6 +153,7 @@ const routes: Routes = [
     AlertModalComponent,
     CaseModalComponent,
     EditWorkerModalComponent,
+    ConfirmModalComponent,
     DocumentComponent,
     NoteComponent
   ],
@@ -157,7 +164,8 @@ const routes: Routes = [
     CasefileService,
     UserService,
     AuthenticationService,
-    PhonelogService
+    PhonelogService,
+    TrashService
   ],
   bootstrap: [AppComponent]
 })

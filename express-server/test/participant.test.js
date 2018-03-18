@@ -5,9 +5,10 @@ const mongoose = require('mongoose');
 const server = require('../server');
 const Participant = require('../models/Participant');
 
-let id1 = 'testingID1';
-let id2 = 'testingID2';
-let id3 = 'testingID3';
+let id1 = new mongoose.Types.ObjectId();
+let id2 = new mongoose.Types.ObjectId();
+let id3 = new mongoose.Types.ObjectId();
+let id4 = null;
 let noteId = new mongoose.Types.ObjectId();
 let docId = new mongoose.Types.ObjectId();
 let workerId1 = new mongoose.Types.ObjectId("5a7f87c0e146e233d707518b");
@@ -30,6 +31,7 @@ describe('Participant Tests', () => {
             });
         let participant1 = new Participant({
             _id: id1,
+            username:"test",
             name: 'participant1',
             pronouns: 'she/her',
             email: 'participant1@p.com',
@@ -48,6 +50,7 @@ describe('Participant Tests', () => {
         });
         let participant3 = new Participant({
             _id: id3,
+            username:"test2",
             name: 'participant3',
             email: 'participant3@p.com',
             telephone: '514-1234567'
@@ -81,7 +84,7 @@ describe('Participant Tests', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
-                    res.body.should.have.property('_id');
+                    res.body.should.have.property('username');
                     res.body.should.have.property('name');
                     res.body.should.have.property('pronouns');
                     res.body.should.have.property('email');
@@ -95,7 +98,7 @@ describe('Participant Tests', () => {
         });
         it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
-                .get('/api/participant/id/' + 'p123')
+                .get('/api/participant/id/' + new mongoose.Types.ObjectId())
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -155,9 +158,8 @@ describe('Participant Tests', () => {
     });
 
     describe('/POST', () => {
-        it('should not POST a participant without _id', (done) => {
+        it('should not POST a participant without name', (done) => {
             let participant = {
-                name: 'participant',
                 email: 'participant@p.com',
                 telephone: '514-1234567'
             }
@@ -169,14 +171,13 @@ describe('Participant Tests', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('errors');
-                    res.body.errors.should.have.property('_id');
-                    res.body.errors._id.should.have.property('kind').eql('required');
+                    res.body.errors.should.have.property('name');
+                    res.body.errors.name.should.have.property('kind').eql('required');
                     done();
                 });
         });
         it('should POST a participant', (done) => {
             let participant = {
-                _id: id2,
                 name: 'participant',
                 pronouns: 'they/them',
                 email: 'participant2@p.com',
@@ -190,12 +191,14 @@ describe('Participant Tests', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('_id');
+                    res.body.should.have.property('username');
                     res.body.should.have.property('name');
                     res.body.should.have.property('pronouns');
                     res.body.should.have.property('email');
                     res.body.should.have.property('telephone');
                     res.body.should.have.property('socialworkers');
                     res.body.socialworkers.length.should.be.eql(1);
+                    id4 = res.body._id;
                     done();
                 });
         });
@@ -293,7 +296,7 @@ describe('Participant Tests', () => {
     });
 
     describe('/DELETE/:pid', () => {
-        it('should not permanently DELETE the participant with the given ID when user is not admin', (done) => {
+        it('should flag the participant with the given ID as deleted', (done) => {
             chai.request(server)
                 .del('/api/participant/' + id3)
                 .set('Cookie', cookie)
@@ -302,24 +305,6 @@ describe('Participant Tests', () => {
                     res.body.should.be.a('object');
                     res.body.should.have.property('deleted').eql(true);
                     done();
-                });
-        });
-        it('should permanently DELETE the participant with the given ID when user is admin', (done) => {
-            chai.request(server)
-                .post('/user/login')
-                .send({
-                    'email': 'test2@test.com',
-                    'password': 'test123'
-                })
-                .end((err, res) => {
-                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
-                    chai.request(server)
-                        .del('/api/participant/' + id3)
-                        .set('Cookie', adminCookie)
-                        .end((err, res) => {
-                            res.should.have.status(200);
-                            done();
-                        });
                 });
         });
     });
@@ -365,6 +350,12 @@ describe('Participant Tests', () => {
             console.log(err);
         });
         Participant.findByIdAndRemove(id2).then(data => { }, err => {
+            console.log(err);
+        });
+        Participant.findByIdAndRemove(id3).then(data => { }, err => {
+            console.log(err);
+        });
+        Participant.findByIdAndRemove(id4).then(data => { }, err => {
             console.log(err);
         });
     });

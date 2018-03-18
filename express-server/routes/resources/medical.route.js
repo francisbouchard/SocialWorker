@@ -7,8 +7,8 @@ const Medical = require('../../models/resources/Medical');
 /**
  * Get all medical resources
  */
-router.get('/', (req, res) => {
-    Resource.find().then(data => {
+router.get('/medical', (req, res) => {
+    Resource.find({deleted: { $ne: true }}).then(data => {
         res.send(data);
     }, err => {
         res.send(err);

@@ -4,7 +4,7 @@ import { MaterialsModule } from '../../../../modules/materials.module';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { MockAuthenticationService } from '../../../../mocks/MockAuthenticationService';
 import { CasefileService } from '../../../../services/casefile.service';
@@ -21,7 +21,6 @@ describe('CasefilesComponent', () => {
       providers: [
         { provide: AuthenticationService, useClass: MockAuthenticationService },
         { provide: CasefileService, useClass: MockCasefileService },
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } },
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: convertToParamMap({ _id: 'frontendtest' }) } } }
       ]
     })
