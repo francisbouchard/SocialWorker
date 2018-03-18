@@ -1,19 +1,22 @@
 <h4>
   Active Case Files</h4>
 <mat-accordion *ngIf="activeCases.length > 0">
-  <mat-expansion-panel *ngFor="let casefile of activeCases; let caseIndex = index">
+  <mat-expansion-panel *ngFor="let casefile of (activeCases | orderBy: sortProperty: reverse); let caseIndex = index">
 
     <!-- Panel Header -->
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{casefile.date | date: 'fullDate'}}
+        {{casefile.participant.name}}
+        <div *ngIf="casefile.urgency == 'Urgent'">
+        <mat-icon color="warn">assignment_late</mat-icon>
+        </div>
       </mat-panel-title>
       <mat-panel-description>
-        Status: {{casefile.status | slice:0:100}}
+        Last update: {{casefile.updatedAt | date: 'short'}}
       </mat-panel-description>
     </mat-expansion-panel-header>
 
     <!-- Casefile Information -->
-    <h4>TODO: add text </h4>
+    <p>Priority: {{casefile.urgency}}</p>
   </mat-expansion-panel>
 </mat-accordion>

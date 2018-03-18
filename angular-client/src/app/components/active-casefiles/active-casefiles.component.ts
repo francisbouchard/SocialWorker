@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { CasefileService } from '../../services/casefile.service';
+import { Casefile } from '../../classes/case';
 
 @Component({
   selector: 'app-active-casefiles',
@@ -9,6 +10,8 @@ import { CasefileService } from '../../services/casefile.service';
 export class ActiveCasefilesComponent implements OnInit {
 
   activeCases = [];
+  sortProperty = 'urgency';
+  reverse = false;
 
   constructor(private casefileService: CasefileService) { }
 
@@ -18,7 +21,15 @@ export class ActiveCasefilesComponent implements OnInit {
 
   loadAllActiveCases() {
     this.casefileService.getAllActive().subscribe(data => {
-      this.activeCases = data;
+      if (data[0]) {
+        const cases = data as Array<Casefile>;
+        this.activeCases = cases.sort((case1, case2) => {
+          return new Date(case2.date).getTime() - new Date(case1.date).getTime();
+        });
+      } else {
+        this.activeCases = [];
+      }
+      console.log(this.activeCases);
     });
   }
 

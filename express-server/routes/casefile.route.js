@@ -47,6 +47,7 @@ router.get('/active/all', (req, res) => {
     Casefile.find({ status: 'In progress' })
     .populate('contactedResources.resource')
     .populate('selectedResource.resource')
+    .populate('participant')
     .then(data => {
         res.send(data);
     }, err => {
@@ -62,6 +63,7 @@ router.get('/active/user/:id', (req, res) => {
     Casefile.find({ _id: req.params.id, status: 'In progress' })
     .populate('contactedResources.resource')
     .populate('selectedResource.resource')
+    .populate('participant')
     .then(data => {
         res.send(data);
     }, err => {
@@ -88,7 +90,7 @@ router.get('/:id/resource/:resId', (req, res) => {
 router.post('/', (req, res) => {
     let casefile = new Casefile({
         createdBy: req.user.id,
-        updatedBy: req.body.createdBy,
+        updatedBy: req.user.id,
         participant: req.body.participant,
         notes: [req.body.notes],
         status: req.body.status,
