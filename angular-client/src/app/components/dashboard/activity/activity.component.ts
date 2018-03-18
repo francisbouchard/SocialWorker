@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CasefileService } from '../../../services/casefile.service';
+import { PhonelogService } from '../../../services/phonelog.service';
 
 @Component({
   selector: 'app-activity',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActivityComponent implements OnInit {
 
-  constructor() { }
+  recentlyUpdatedCasefiles: Object[];
+
+  constructor(
+    private casefileService: CasefileService
+  ) { }
 
   ngOnInit() {
+    this.loadRecentCasefiles();
+  }
+
+  loadRecentCasefiles() {
+    this.casefileService.getRecentlyUpdated().subscribe( data => {
+      this.recentlyUpdatedCasefiles = data;
+    });
   }
 
 }

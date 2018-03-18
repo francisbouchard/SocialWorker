@@ -73,6 +73,26 @@ router.get('/active/user/:id', (req, res) => {
     })
 });
 
+/**
+ * Get recently updated case files 
+ */
+router.get('/active/recent', (req, res) => {
+    
+    const rangeOfDays = 7;
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate()- rangeOfDays);
+
+    Casefile.find({ updatedAt: { $gt: startDate }})
+    .populate('contactedResources.resource')
+    .populate('selectedResource.resource')
+    .populate('participant')
+    .then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
+});
+
 
 /**
  * Get a contacted resource of a Casefile by resource ID
