@@ -7,8 +7,8 @@ const Participant = require('../models/Participant');
 const Housing = require('../models/Housing');
 const CaseFile = require('../models/Casefile');
 
-let participantId1 = 'reqParticipant1';
-let participantId2 = 'reqParticipant2';
+let participantId1 = new mongoose.Types.ObjectId();
+let participantId2 = new mongoose.Types.ObjectId();
 let housingId1 = new mongoose.Types.ObjectId();
 let housingId2 = new mongoose.Types.ObjectId();
 let id1 = new mongoose.Types.ObjectId();

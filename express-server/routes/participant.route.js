@@ -82,12 +82,12 @@ router.get('/search/:values', (req, res) => {
  */
 router.post('/', (req, res) => {
     let participant = new Participant({
-        _id: req.body._id,
         name: req.body.name,
         email: req.body.email,
         pronouns: req.body.pronouns,
         telephone: req.body.telephone,
         address: req.body.address,
+        username:"",
         socialmedia: {
             service: req.body.service,
             username: req.body.username
@@ -95,6 +95,10 @@ router.post('/', (req, res) => {
         socialworkers: [req.user._id] // add creator's ID by default
     });
     participant.save().then(data => {
+        let id=data._id.toString();
+        data.username=data.name+"_"+id.slice(id.length-4,id.length);
+        data.username=data.username.replace(/\s/g, '')
+        data.save();
         res.send(data);
     }, err => {
         res.send(err);
@@ -130,6 +134,10 @@ router.put('/:pid', (req, res) => {
         participant.documents = req.body.documents || participant.documents;
 
         participant.save().then(data => {
+            let id=data._id.toString();
+            data.username=data.name+"_"+id.slice(id.length-4,id.length);
+            data.username=data.username.replace(/\s/g, '')
+            data.save();
             res.send(data);
         }, err => {
             res.send(err);

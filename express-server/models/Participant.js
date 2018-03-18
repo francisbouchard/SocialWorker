@@ -6,8 +6,7 @@ const Casefile = require('./Casefile');
 const NULL_PARTICIPANT = require('../config/null-objects').NULL_PARTICIPANT;
 
 const participantSchema = new Schema({
-  _id: { type: String, required: true },
-  name: String,
+  name: { type: String, required: true },
   pronouns: String,
   email: { type: String, sparse: true },
   telephone: String,
@@ -17,10 +16,11 @@ const participantSchema = new Schema({
     username: String
   },
   documents: [Document],
+  username:String,
   notes: [Note],
   socialworkers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   deleted: { type: Boolean, default: false }
-}, { _id: false, timestamps: true });
+}, {timestamps: true});
 
 participantSchema.pre('remove', function (next) {
   Casefile.update({ participant: this._id },

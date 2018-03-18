@@ -16,7 +16,7 @@
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title><b>Name: {{participant.name}}</b></mat-card-title>
-    <mat-card-subtitle>Username: {{participant._id}}</mat-card-subtitle>
+    <mat-card-subtitle>Username: {{participant.username}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
    <div *ngIf="participant.pronouns !== undefined && participant.pronouns !== ''"><b> Pronouns: </b> {{participant.pronouns}} <br></div>
