@@ -1,5 +1,5 @@
 module.exports = {
-    NULL_RESOURCE: "5aabc3faf10913c626daa20f",
+    NULL_RESOURCE: "5aadb78d3ce0c7fe045e7b3f",
     NULL_PARTICIPANT: "notavailable",
     NULL_USER: "5aa7ef094e26de831ffde0d8"
 }

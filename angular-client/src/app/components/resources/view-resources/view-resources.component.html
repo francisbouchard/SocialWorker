@@ -26,8 +26,7 @@
         <p>Constraints: {{resource.constraints}}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button *ngIf="!resource.deleted" (click)="edit(resource._id, resource)">Edit</button>
-        <button mat-raised-button *ngIf="resource.deleted" disabled>In Trash</button>
+        <button mat-raised-button (click)="edit(resource._id, resource)">Edit</button>
       </mat-card-actions>
     </div>
 

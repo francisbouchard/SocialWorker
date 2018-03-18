@@ -32,8 +32,7 @@
   </mat-card-content>
   <mat-card-actions>
       <button mat-raised-button (click)="view(participant._id)">View</button>
-      <button mat-raised-button *ngIf="!participant.deleted" (click)="edit(participant._id, participant)">Edit</button>
-      <button mat-raised-button *ngIf="participant.deleted" disabled>In Trash</button>
+      <button mat-raised-button (click)="edit(participant._id, participant)">Edit</button>
   </mat-card-actions>
 </div>
 

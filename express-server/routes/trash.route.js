@@ -5,6 +5,9 @@ const Resource = require('../models/Resource');
 const Casefile = require('../models/Casefile');
 const User = require('../models/User');
 const Phonelog = require('../models/Phonelog');
+const NULL_PARTICIPANT = require('../config/null-objects').NULL_PARTICIPANT;
+const NULL_RESOURCE = require('../config/null-objects').NULL_RESOURCE;
+const NULL_USER = require('../config/null-objects').NULL_USER;
 
 const collections = [Participant, Resource, Casefile, User, Phonelog];
 
@@ -15,7 +18,8 @@ router.get('/', (req, res) => {
     let deletedRecords = [];
     let requests = collections.map((collection) => {
         return new Promise((resolve) => {
-            collection.find({ deleted: true }).then(records => {
+            collection.find({ deleted: true, _id: {$nin: [NULL_PARTICIPANT, NULL_RESOURCE, NULL_USER]} })
+            .then(records => {
                 records.forEach((record) => {
                     record._doc.model = collection.modelName;
                 });

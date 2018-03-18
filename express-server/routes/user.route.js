@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('../models/User');
 const passport = require('passport');
 const passportConfig = require('../config/passport');
-const NULL_USER = require('../config/null-objects').NULL_USER;
 
 /**
  * Log in a user to the application
@@ -105,7 +104,7 @@ router.post('/heartbeat', (req, res, next) => {
  * Get all users
  */
 router.get('/all', (req, res) => {
-  User.find({_id: {$ne: NULL_USER}}).then(data => {
+  User.find({deleted: { $ne: true }}).then(data => {
     res.send(data);
   }, err => {
     res.send(err);

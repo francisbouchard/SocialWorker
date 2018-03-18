@@ -2,13 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Resource = require('../models/Resource');
 const Housing = require('../models/Housing');
-const NULL_RESOURCE = require('../config/null-objects').NULL_RESOURCE;
 
 /**
  * Get all resources
  */
 router.get('/', (req, res) => {
-    Resource.find({_id: {$ne: NULL_RESOURCE}}).then(data => {
+    Resource.find({deleted: { $ne: true }}).then(data => {
         res.send(data);
     }, err => {
         res.send(err);
@@ -19,7 +18,7 @@ router.get('/', (req, res) => {
  * Get all housing resources
  */
 router.get('/housing', (req, res) => {
-    Resource.find({_id: {$ne: NULL_RESOURCE}}).then(data => {
+    Resource.find({deleted: { $ne: true }}).then(data => {
         res.send(data);
     }, err => {
         res.send(err);

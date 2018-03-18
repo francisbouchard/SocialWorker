@@ -7,7 +7,6 @@ const Note = require('../models/Note');
 const fs = require('fs');
 const path = require('path');
 const User = require('../models/User');
-const NULL_PARTICIPANT = require('../config/null-objects').NULL_PARTICIPANT;
 
 fs.exists(path.join(__dirname, "../notes"), exists => {
     if (!exists) {
@@ -27,7 +26,7 @@ fs.exists(path.join(__dirname, "../documents"), exists => {
  * Get all participants
  */
 router.get('/', (req, res) => {
-    Participant.find({_id: {$ne: NULL_PARTICIPANT}}).populate("socialworkers")
+    Participant.find({deleted: { $ne: true }}).populate("socialworkers")
         .then(data => {
             res.send(data);
         }, err => {
@@ -56,8 +55,7 @@ router.get('/worker', (req, res) => {
         return res.status(401).send({ err: "No user ID provided. User must be logged in." })
     }
     Participant.find({ deleted: { $ne: true }, 
-        socialworkers: new ObjectId(req.user._id), 
-        _id: {$ne: NULL_PARTICIPANT} })
+        socialworkers: new ObjectId(req.user._id)})
         .populate("socialworkers").then(data => {
             res.send(data);
         }, err => {
