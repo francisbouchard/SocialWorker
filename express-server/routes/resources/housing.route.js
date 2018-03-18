@@ -3,7 +3,6 @@ const router = express.Router();
 const Resource = require('../../models/Resource');
 const Housing = require('../../models/resources/Housing');
 
-
 /**
  * Get all housing resources
  */

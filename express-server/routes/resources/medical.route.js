@@ -15,7 +15,6 @@ router.get('/', (req, res) => {
     })
 });
 
-
 /**
  * Create a new medical resource
  */
