@@ -7,8 +7,6 @@ const Medical = require('../models/resources/Medical');
 
 let id1 = new mongoose.Types.ObjectId();
 let id2 = null;
-let id3 = new mongoose.Types.ObjectId();
-let id4 = new mongoose.Types.ObjectId();
 let cookie;
 
 chai.use(chaiHttp);
@@ -36,18 +34,7 @@ describe('Medical Resources Tests', () => {
             without_cost: true,
             waitlist_time: 'walk-in'
         });
-        let medical2 = new Medical({
-            _id: id4,
-            name: 'Medical Resource Name 2',
-            email: 'medical2@resource.com',
-            without_cost: false,
-            waitlist_time: 'by appointment, takes about 6 months',
-            schedule_availability: ['Monday-Thursday 09:00-16:00']
-        });
         medical1.save().then(data => { }, err => {
-            console.log(err);
-        });
-        medical2.save().then(data => { }, err => {
             console.log(err);
         });
     });
