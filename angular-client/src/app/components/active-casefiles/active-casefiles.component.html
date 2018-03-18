@@ -20,5 +20,7 @@
     <p>Priority: {{casefile.urgency}}</p>
     <p>Created by: {{casefile.createdBy.name}}</p>
     <p>Last updated by: {{casefile.updatedBy.name}}</p>
+    <button mat-button (click)="viewParticipant(casefile.participant._id)">View Participant</button>
+
   </mat-expansion-panel>
 </mat-accordion>

@@ -1,4 +1,5 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Router } from '@angular/router';
 import { CasefileService } from '../../services/casefile.service';
 import { Casefile } from '../../classes/case';
 
@@ -13,7 +14,10 @@ export class ActiveCasefilesComponent implements OnInit {
   sortProperty = 'urgency';
   reverse = false;
 
-  constructor(private casefileService: CasefileService) { }
+  constructor(
+    private casefileService: CasefileService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.loadAllActiveCases();
@@ -33,8 +37,8 @@ export class ActiveCasefilesComponent implements OnInit {
     });
   }
 
-  loadUserActiveCases() {
-
+  viewParticipant(pid) {
+    this.router.navigateByUrl(`/participant-profile/${pid}`);
   }
 
 
