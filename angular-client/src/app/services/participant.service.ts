@@ -12,7 +12,7 @@ import { MessageService } from './message.service';
 @Injectable()
 export class ParticipantService {
 
-  private url = '/api/participant/';
+  private url = '/api/participant';
 
   constructor(private http: HttpClient,
     private messageService: MessageService

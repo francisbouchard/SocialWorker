@@ -10,7 +10,7 @@ import { MessageService } from './message.service';
 @Injectable()
 export class ResourceService {
 
-  private url = '/api/resource/';
+  private url = '/api/resource';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
