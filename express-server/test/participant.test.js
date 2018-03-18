@@ -8,6 +8,7 @@ const Participant = require('../models/Participant');
 let id1 = new mongoose.Types.ObjectId();
 let id2 = new mongoose.Types.ObjectId();
 let id3 = new mongoose.Types.ObjectId();
+let id4 = null;
 let noteId = new mongoose.Types.ObjectId();
 let docId = new mongoose.Types.ObjectId();
 let workerId1 = new mongoose.Types.ObjectId("5a7f87c0e146e233d707518b");
@@ -189,6 +190,7 @@ describe('Participant Tests', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
+                    res.body.should.have.property('_id');
                     res.body.should.have.property('username');
                     res.body.should.have.property('name');
                     res.body.should.have.property('pronouns');
@@ -196,6 +198,7 @@ describe('Participant Tests', () => {
                     res.body.should.have.property('telephone');
                     res.body.should.have.property('socialworkers');
                     res.body.socialworkers.length.should.be.eql(1);
+                    id4 = res.body._id;
                     done();
                 });
         });
@@ -365,6 +368,9 @@ describe('Participant Tests', () => {
             console.log(err);
         });
         Participant.findByIdAndRemove(id2).then(data => { }, err => {
+            console.log(err);
+        });
+        Participant.findByIdAndRemove(id4).then(data => { }, err => {
             console.log(err);
         });
     });
