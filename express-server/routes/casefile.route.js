@@ -26,17 +26,17 @@ router.get('/:id', (req, res) => {
 });
 
 /**
- * Get a Casefile by participant ID
+ * Get Casefiles by participant ID
  */
 router.get('/participant/:id', (req, res) => {
-    Casefile.find({ participant: req.params.id })
-    .populate('contactedResources.resource')
-    .populate('selectedResource.resource')
-    .then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    })
+    Casefile.find({ deleted: { $ne: true }, participant: req.params.id })
+        .populate('contactedResources.resource')
+        .populate('selectedResource.resource')
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
 });
 
 /**
@@ -124,12 +124,12 @@ router.put('/:id/resource/:resId', (req, res) => {
  *
  */
 router.put('/:id/selection', (req, res) => {
-    Casefile.update({ '_id': req.params.id }, { '$set': { selectedResource: req.body.selectedResource}})
-    .then(data => {
-        res.send(data);
-    }, err => {
-        res.send(err);
-    });
+    Casefile.update({ '_id': req.params.id }, { '$set': { selectedResource: req.body.selectedResource } })
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        });
 });
 
 /**
@@ -148,12 +148,12 @@ router.put('/:id/status', (req, res) => {
  * Update note of a Casefile
  */
 router.put('/:id/note', (req, res) => {
-    Casefile.update({ '_id': req.params.id }, { '$set': { notes: [req.body.notes] }})
-    .then(data => {
-        res.send(data);
-    }), err => {
-        res.send(err);
-    }
+    Casefile.update({ '_id': req.params.id }, { '$set': { notes: [req.body.notes] } })
+        .then(data => {
+            res.send(data);
+        }), err => {
+            res.send(err);
+        }
 })
 
 /**
@@ -163,19 +163,11 @@ router.put('/:id/note', (req, res) => {
  * Otherwise, it will only be flagged as deleted.
  */
 router.delete('/:id', (req, res) => {
-    if (req.user.role === "admin") {
-        Casefile.findByIdAndRemove(req.params.id).then(data => {
-            res.send(data);
-        }, err => {
-            res.send(err);
-        })
-    } else {
-        Casefile.findByIdAndUpdate(req.params.id, { deleted: true }, { new: true }).then(data => {
-            res.send(data);
-        }, err => {
-            res.send(err);
-        })
-    }
+    Casefile.findByIdAndUpdate(req.params.id, { deleted: true }, { new: true }).then(data => {
+        res.send(data);
+    }, err => {
+        res.send(err);
+    })
 })
 
 module.exports = router;

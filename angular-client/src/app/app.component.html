@@ -1,6 +1,8 @@
 <mat-toolbar color="primary">
-  SocialWorker
   <span *ngIf="this.authenticationService.loggedIn">
+    <a class="nav-link" routerLink="dashboard">
+      <button mat-button class="nav-logo">SocialWorker</button>
+    </a>
     <a class="nav-link" routerLink="participants">
       <button mat-button>Participants</button>
     </a>
