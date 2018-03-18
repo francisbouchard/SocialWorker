@@ -13,7 +13,7 @@ import { ConfirmModalComponent } from '../modals/confirm-modal/confirm-modal.com
 })
 export class TrashbinComponent implements OnInit {
 
-  items = [];
+  items: Object[];
 
   constructor(public authService: AuthenticationService,
     private trashService: TrashService,
@@ -49,8 +49,8 @@ export class TrashbinComponent implements OnInit {
 
   loadTrashRecords(): void {
     this.trashService.getAll()
-      .subscribe((data: [any]) => {
-        this.items = data;
+      .subscribe(data => {
+        if (data[0]) { this.items = data; }
       });
   }
 
