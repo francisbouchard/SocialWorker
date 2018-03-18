@@ -13,7 +13,7 @@ export class TasksComponent implements OnInit {
   tasks = [];
 
   constructor(private formBuilder: FormBuilder, private taskService: TaskService) {
-    this.createForm(); 
+    this.createForm();
   }
 
   ngOnInit() {
@@ -39,6 +39,13 @@ export class TasksComponent implements OnInit {
         console.log(data);
         this.form.reset({});
         this.loadTasks();
+      });
+  }
+
+  deleteTask(taskID: String) {
+    this.taskService.delete(taskID)
+      .subscribe(data => {
+        console.log(data);
       });
   }
 

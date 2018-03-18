@@ -7,7 +7,7 @@ import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class TaskService {
-  private url = '/api/task/';
+  private url = '/api/task';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
@@ -37,6 +37,14 @@ export class TaskService {
       .pipe(
         tap(_ => this.log('saving a task')),
         catchError(this.handleError<Object>('save(task)'))
+      );
+  }
+
+  delete(taskID: String): Observable<Object> {
+    return this.http.delete(`${this.url}/${taskID}`)
+      .pipe(
+        tap(_ => this.log('deleting a task')),
+        catchError(this.handleError<Object>('delete(taskID: String)'))
       );
   }
 
