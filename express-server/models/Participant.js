@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const Document = require('../models/Document').schema;
 const Note = require('../models/Note').schema;
 const Casefile = require('./Casefile');
-const NULL_PARTICIPANT = require('../config/null-objects').NULL_PARTICIPANT;
 
 const participantSchema = new Schema({
   name: { type: String, required: true },
