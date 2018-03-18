@@ -1,6 +1,13 @@
 <mat-card>
   <mat-card-title>Recent Case File Activity</mat-card-title>
+  <div *ngIf="recentlyUpdatedCasefiles">
+    <div *ngFor="let casefile of recentlyUpdatedCasefiles">
+      <p>Participant: {{casefile.participant.name}} - Last update: {{casefile.updatedAt | date: 'short'}}</p>
+    </div>
+  </div>
+  <div *ngIf="!recentlyUpdatedCasefiles">No recent activity</div>
 </mat-card>
+
 <mat-card>
     <mat-card-title>Recent Phone Log Activity</mat-card-title>
 </mat-card>

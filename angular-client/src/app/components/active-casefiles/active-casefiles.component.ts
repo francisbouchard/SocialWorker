@@ -33,7 +33,6 @@ export class ActiveCasefilesComponent implements OnInit {
       } else {
         this.activeCases = [];
       }
-      console.log(this.activeCases);
     });
   }
 

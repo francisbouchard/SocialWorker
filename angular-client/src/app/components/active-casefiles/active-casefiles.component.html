@@ -1,7 +1,7 @@
 <h4>
   Active Case Files</h4>
 <mat-accordion *ngIf="activeCases.length > 0">
-  <mat-expansion-panel *ngFor="let casefile of (activeCases | orderBy: sortProperty: reverse); let caseIndex = index">
+  <mat-expansion-panel *ngFor="let casefile of (activeCases | orderBy: sortProperty: reverse)">
 
     <!-- Panel Header -->
     <mat-expansion-panel-header>
