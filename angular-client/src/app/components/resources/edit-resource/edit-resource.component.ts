@@ -27,6 +27,7 @@ export class EditResourceComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.resourceForm.patchValue({
+      kind: this.resource.kind,
       name: this.resource.name,
       term: this.resource.term,
       email: this.resource.email,
@@ -34,20 +35,27 @@ export class EditResourceComponent implements OnInit, OnChanges {
       location: this.resource.location,
       notes: this.resource.notes,
       gender: this.resource.gender,
-      constraints: this.resource.constraints
+      constraints: this.resource.constraints,
+      without_cost: this.resource.without_cost,
+      waitlist_time: this.resource.waitlist_time,
+      schedule_availability: this.resource.schedule_availability
     });
   }
 
   createForm() {
     this.resourceForm = this.form.group({
+      kind: [''],
       name: ['', Validators.required],
-      term: '',
-      email: '',
+      term: [''],
+      email: [''],
       phone: ['', Validators.pattern(this.phoneregex)],
-      location: '',
-      notes: '',
-      gender: '',
-      constraints: ''
+      location: [''],
+      notes: [''],
+      gender: [''],
+      constraints: [''],
+      without_cost: [''],
+      waitlist_time: [''],
+      schedule_availability: ['']
     });
   }
 
@@ -58,7 +66,7 @@ export class EditResourceComponent implements OnInit, OnChanges {
   update() {
     const resource = this.resourceForm.value;
     const id = this.resource._id;
-    this.resourceService.update('housing', id, resource)
+    this.resourceService.update(this.resourceForm.value['kind'].toLowerCase(), id, resource)
       .subscribe(data => {
         this.cancelEdit();
       });
