@@ -47,6 +47,14 @@ export class PhonelogService {
       );
   }
 
+  getRecentlyUpdated(): Observable<Object> {
+    return this.http.get(`${this.url}/recent`)
+    .pipe(
+      tap(participants => this.log('fecthed recently updated logs')),
+      catchError(this.handleError<Object>('getRecentlyUpdated()'))
+    );
+  }
+
   getByDeleted(): Observable<Object> {
     return this.http.get(`${this.url}/deleted`)
       .pipe(

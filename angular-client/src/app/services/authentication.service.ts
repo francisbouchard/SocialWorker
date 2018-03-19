@@ -11,6 +11,7 @@ import { User } from '../classes/user';
 export class AuthenticationService {
   public loggedIn: boolean;
   public role: String;
+  public profile: any;
 
   constructor(
     private http: HttpClient,
@@ -34,7 +35,8 @@ export class AuthenticationService {
         if (p.error) {
           this.log('Problem logging in.');
         } else {
-          this.role = p.role;
+          this.role = p.profile.role;
+          this.profile = p.profile;
           this.log('Successful login.');
         }
       }),

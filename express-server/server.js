@@ -22,6 +22,7 @@ const user = require('./routes/user.route');
 const participant = require('./routes/participant.route');
 const casefile = require('./routes/casefile.route');
 const phonelog = require('./routes/phonelog.route');
+const task = require('./routes/task.route');
 const trash = require('./routes/trash.route');
 
 const resource = require('./routes/resource.route');
@@ -80,6 +81,7 @@ app.use('/user', user);
 app.use('/api/participant', participant);
 app.use('/api/casefile', casefile);
 app.use('/api/phonelog', phonelog);
+app.use('/api/task', task);
 app.use('/api/trash', trash);
 
 app.use('/api/resource', resource);

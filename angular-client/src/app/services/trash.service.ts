@@ -20,11 +20,11 @@ export class TrashService {
    * @returns {Observable<Object>} 
    * @memberof TrashService
    */
-  getAll(): Observable<Object> {
-    return this.http.get(`${this.url}`)
+  getAll(): Observable<Object[]> {
+    return this.http.get<Object[]>(`${this.url}`)
       .pipe(
         tap(users => this.log('fetched all deleted records')),
-        catchError(this.handleError<Object>('getAll()'))
+        catchError(this.handleError<Object[]>('getAll()'))
       );
   }
 

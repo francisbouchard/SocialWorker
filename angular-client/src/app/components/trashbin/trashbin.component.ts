@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { TrashService } from '../../../services/trash.service';
-import { AuthenticationService } from '../../../services/authentication.service';
+import { TrashService } from '../../services/trash.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-import { ConfirmModalComponent } from '../../modals/confirm-modal/confirm-modal.component';
+import { ConfirmModalComponent } from '../modals/confirm-modal/confirm-modal.component';
+
 
 @Component({
-  selector: 'app-trash',
-  templateUrl: './trash.component.html',
-  styleUrls: ['./trash.component.css']
+  selector: 'app-trashbin',
+  templateUrl: './trashbin.component.html',
+  styleUrls: ['./trashbin.component.css']
 })
-export class TrashComponent implements OnInit {
+export class TrashbinComponent implements OnInit {
 
-  items = [];
+  items: Object[];
 
   constructor(public authService: AuthenticationService,
     private trashService: TrashService,
@@ -23,7 +24,7 @@ export class TrashComponent implements OnInit {
   }
 
   delete(itemModel: String, itemID: String) {
-    this.confirmModal("Are you sure you want to permanently delete this record?").subscribe(result => {
+    this.confirmModal('Are you sure you want to permanently delete this record?').subscribe(result => {
       if (result) {
         this.trashService.deletePermanently(itemModel, itemID)
           .subscribe(data => {
@@ -35,7 +36,7 @@ export class TrashComponent implements OnInit {
   }
 
   restore(itemModel: String, itemID: String) {
-    this.confirmModal("Are you sure you want to restore this record?").subscribe(result => {
+    this.confirmModal('Are you sure you want to restore this record?').subscribe(result => {
       if (result) {
         this.trashService.restore(itemModel, itemID)
           .subscribe(data => {
@@ -48,8 +49,8 @@ export class TrashComponent implements OnInit {
 
   loadTrashRecords(): void {
     this.trashService.getAll()
-      .subscribe((data: [any]) => {
-        this.items = data;
+      .subscribe(data => {
+        if (data[0]) { this.items = data; }
       });
   }
 

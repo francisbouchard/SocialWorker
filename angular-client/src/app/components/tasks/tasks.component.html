@@ -1,0 +1,21 @@
+<mat-card>
+    <mat-card-title>Tasks</mat-card-title>
+    <mat-card-content>
+        <mat-selection-list *ngIf="tasks">
+            <mat-list-option #taskItem *ngFor="let task of tasks" (click)="deleteTask(task._id)" [disabled]="taskItem.selected">
+                {{task.description}}
+            </mat-list-option>
+        </mat-selection-list>
+        <div *ngIf="!tasks">
+            You've completed all your tasks!
+        </div>
+        <form [formGroup]="form" (ngSubmit)="saveTask()">
+            <mat-form-field>
+                <input matInput type="text" placeholder="Add task" formControlName="description"/>
+                <button [disabled]="form.invalid" mat-button matSuffix mat-icon-button aria-label="Add">
+                    <mat-icon color="primary">add_circle_outline</mat-icon>
+                </button>
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+</mat-card>
