@@ -47,15 +47,15 @@ export class EditPhonelogComponent implements OnInit {
 
   dateLessThan(date: string) {
     return (editphonelog: FormGroup): { [key: string]: any } => {
-      let f = editphonelog.controls[date];
-      let t = Date.now()
+      const f = editphonelog.controls[date];
+      const t = Date.now();
       if (f.value > t) {
         return {
-          dates: "Date before today"
+          dates: 'Date before today'
         };
       }
       return {};
-    }
+    };
   }
 
   update(id, log) {

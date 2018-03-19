@@ -13,7 +13,7 @@ describe('UsersComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ UsersComponent ],
       imports: [ MaterialsModule, RouterTestingModule ],
-      providers: [ 
+      providers: [
         { provide: AuthenticationService, useClass: MockAuthenticationService }
       ]
     })

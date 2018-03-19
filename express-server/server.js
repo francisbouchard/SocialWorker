@@ -20,11 +20,14 @@ const permit = require("./config/permission");
 const api = require('./routes/api');
 const user = require('./routes/user.route');
 const participant = require('./routes/participant.route');
-const resource = require('./routes/resource.route');
 const casefile = require('./routes/casefile.route');
 const phonelog = require('./routes/phonelog.route');
 const task = require('./routes/task.route');
 const trash = require('./routes/trash.route');
+
+const resource = require('./routes/resource.route');
+const housing = require('./routes/resources/housing.route');
+const medical = require('./routes/resources/medical.route');
 
 const MongoStore = mongo(session);
 
@@ -76,11 +79,14 @@ app.use('/api/trash', permit('admin'));
 app.use('/api', api);
 app.use('/user', user);
 app.use('/api/participant', participant);
-app.use('/api/resource', resource);
 app.use('/api/casefile', casefile);
 app.use('/api/phonelog', phonelog);
 app.use('/api/task', task);
 app.use('/api/trash', trash);
+
+app.use('/api/resource', resource);
+app.use('/api/resource/housing', housing);
+app.use('/api/resource/medical', medical);
 
 
 // Server public folder

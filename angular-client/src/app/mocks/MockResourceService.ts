@@ -45,7 +45,7 @@ export class MockResourceService {
               'location': '2000, rue Notre Dame O.',
               'notes': 'http://armeedusalut.ca/quebec/abri/',
               'term': 'Short, Long',
-              'gender': 'Female',
+              'gender': 'Self-identified Women',
               'createdAt': '2018-01-13T20:14:17.753Z',
               'updatedAt': '2018-01-13T20:14:17.753Z',
               '__v': 0
@@ -68,7 +68,7 @@ export class MockResourceService {
               '__v': 1
             },
             {
-              'constraints': null,
+              'constraints': [],
               'kind': 'Housing',
               '_id': '5a5d3f4d03af28260c70dc4e',
               'name': 'Auberge Transition',
@@ -95,6 +95,23 @@ export class MockResourceService {
               'notes': 'bhsbshabhbshab',
               'term': 'hbhbhbhb',
               'gender': 'hbhbhb',
+              'createdAt': '2018-01-27T00:11:46.134Z',
+              'updatedAt': '2018-01-27T00:11:46.134Z',
+              '__v': 0
+            },
+            {
+              'kind': 'Medical',
+              '_id': '5a28f0be86b782957c3c064f',
+              'name': 'Example Med clinic',
+              'email': 'med@clinic.com',
+              'phone': '5149998888',
+              'location': 'Montreal',
+              'schedule_availability' : [
+                'Monday-Friday 07:30-17:00',
+                'Saturday 08:30-15:30'
+              ],
+              'without_cost' : false,
+              'waitlist_time' : 'by appointment, can be same day (walk-in)',
               'createdAt': '2018-01-27T00:11:46.134Z',
               'updatedAt': '2018-01-27T00:11:46.134Z',
               '__v': 0

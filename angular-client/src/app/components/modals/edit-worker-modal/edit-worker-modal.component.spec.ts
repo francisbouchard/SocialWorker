@@ -16,7 +16,7 @@ describe('EditWorkerModalComponent', () => {
   let allButtons: [any];
 
   beforeEach(async(() => {
-    let participantData = {
+    const participantData = {
       workers: [
         {
           'tokens': [],
@@ -71,17 +71,17 @@ describe('EditWorkerModalComponent', () => {
 
   it('should display Remove button', () => {
     // at least 1 Remove button should be present (at least 1 assigned social worker)
-    let removeBtn = this.allButtons.find(btn => btn.innerText == 'Remove');
+    const removeBtn = this.allButtons.find(btn => btn.innerText == 'Remove');
     expect(removeBtn).toBeTruthy();
   });
 
   it('should display Add button', () => {
-    let addBtn = this.allButtons.find(btn => btn.innerText == 'Add');
+    const addBtn = this.allButtons.find(btn => btn.innerText == 'Add');
     expect(addBtn).toBeTruthy();
   });
 
   it('should display OK button', () => {
-    let okBtn = this.allButtons.find(btn => btn.innerText == 'OK');
+    const okBtn = this.allButtons.find(btn => btn.innerText == 'OK');
     expect(okBtn).toBeTruthy();
   });
 

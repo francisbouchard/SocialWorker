@@ -4,7 +4,7 @@ const should = chai.should();
 const mongoose = require('mongoose');
 const server = require('../server');
 const Participant = require('../models/Participant');
-const Housing = require('../models/Housing');
+const Housing = require('../models/resources/Housing');
 const Casefile = require('../models/Casefile');
 
 let id1 = new mongoose.Types.ObjectId();

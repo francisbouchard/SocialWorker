@@ -91,7 +91,7 @@ export class PhonelogService {
    * @returns {Observable<Object>}
    * @memberof ResourceService
    */
-  update(id,LogData): Observable<Object> {
+  update(id, LogData): Observable<Object> {
     return this.http.put(`${this.url}/${id}`, LogData)
       .pipe(
       tap(_ => this.log('saving a resource')),

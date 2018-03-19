@@ -159,8 +159,8 @@ export class ParticipantProfileComponent implements OnInit {
   /**
    * Reopen a casefile
    *
-   * @param {any} casefile 
-   * @param {any} casefileIndex 
+   * @param {any} casefile
+   * @param {any} casefileIndex
    * @memberof ParticipantProfileComponent
    */
   reopenCasefile(casefile, casefileIndex): void {
@@ -223,7 +223,7 @@ export class ParticipantProfileComponent implements OnInit {
 
   /**
    * Open the Assign Worker modal
-   * 
+   *
    * @memberof ParticipantProfileComponent
    */
   editWorkers(): void {
