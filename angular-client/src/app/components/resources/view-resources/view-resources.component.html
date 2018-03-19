@@ -17,22 +17,22 @@
         <mat-card-title>Name: {{resource.name}}</mat-card-title>        
       </mat-card-header>
       <mat-card-content>
-        <p *ngIf="resource.location !== undefined && resource.location !== ''">Location: {{resource.location}}</p>
-        <p *ngIf="resource.phone !== undefined && resource.phone !== ''">Phone: {{resource.phone}}</p>
-        <p *ngIf="resource.email !== undefined && resource.email !== ''">Email: {{resource.email}}</p>
+        <p *ngIf="resource.location && resource.location !== ''">Location: {{resource.location}}</p>
+        <p *ngIf="resource.phone && resource.phone !== ''">Phone: {{resource.phone}}</p>
+        <p *ngIf="resource.email && resource.email !== ''">Email: {{resource.email}}</p>
         <div [ngSwitch]="resource.kind">
           <ng-container *ngSwitchCase="'Housing'">
-            <p *ngIf="resource.term !== undefined && resource.term !== ''">Term: {{resource.term}}</p>
-            <p *ngIf="resource.gender !== undefined && resource.gender !== ''">Gender: {{resource.gender}}</p>
-            <p *ngIf="resource.constraints !== undefined && resource.constraints[0] !== ''">Constraints: {{resource.constraints}}</p>
+            <p *ngIf="resource.term  && resource.term !== ''">Term: {{resource.term}}</p>
+            <p *ngIf="resource.gender && resource.gender !== ''">Gender: {{resource.gender}}</p>
+            <p *ngIf="resource.constraints && resource.constraints[0] !== ''">Constraints: {{resource.constraints}}</p>
           </ng-container>     
           <ng-container *ngSwitchCase="'Medical'">
-            <p *ngIf="resource.without_cost !== undefined && resource.without_cost !== ''">Free: {{resource.without_cost}}</p>
-            <p *ngIf="resource.waitlist_time !== undefined && resource.waitlist_time !== ''">Approximate Waitlist: {{resource.waitlist_time}}</p>
-            <p *ngIf="resource.schedule_availability !== undefined && resource.schedule_availability !== ''">Schedule: {{resource.schedule_availability[0]}}</p>
+            <p *ngIf="resource.without_cost  && resource.without_cost !== ''">Free: {{resource.without_cost}}</p>
+            <p *ngIf="resource.waitlist_time && resource.waitlist_time !== ''">Approximate Waitlist: {{resource.waitlist_time}}</p>
+            <p *ngIf="resource.schedule_availability && resource.schedule_availability !== ''">Schedule: {{resource.schedule_availability[0]}}</p>
           </ng-container>
         </div>
-        <p *ngIf="resource.notes !== undefined && resource.notes !== ''"> Notes: {{resource.notes}}</p>
+        <p *ngIf="resource.notes && resource.notes !== ''"> Notes: {{resource.notes}}</p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button (click)="edit(resource._id, resource)">Edit</button>
