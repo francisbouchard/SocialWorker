@@ -12,9 +12,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-resource.component.css']
 })
 export class AddResourceComponent implements OnInit {
-  selected = 'Housing';
+  
+  resourceTypes = [ 'Housing', 'Medical' ];
   form: FormGroup;
   phoneregex = /^(\d){3}(-|\.|\s|\()?(\d){3}(-|\.|\s|\()?(\d){4}$/m;
+
 
   constructor(private fb: FormBuilder, private resourceService: ResourceService, public dialog: MatDialog, private router: Router
   ) {
@@ -27,7 +29,7 @@ export class AddResourceComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
-      kind: [''],
+      kind: this.resourceTypes[0],
       name: ['', Validators.required],
       email: [''],
       telephone: ['', Validators.pattern(this.phoneregex)],
