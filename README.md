@@ -5,16 +5,16 @@
 SocialWorker
 ============
 
-An free, open-source application for keeping notes for frontline social workers.
+A free, open-source application for keeping notes, tracking casefiles and logging phonecalls for frontline social workers.
 
 Developed by:
 -------------
 - Adrianna Diaz
 - Anna Rogozin
-- Francis Bouchard
-- James Talarico
 - Liuai Hatter
 - Wahab Ahmed
+- Francis Bouchard
+- James Talarico
 
 Domain Model:
 -------------
