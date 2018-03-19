@@ -59,7 +59,7 @@ import { SearchPipe } from './pipes/search.pipe';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/dashboard/activity',
     pathMatch: 'full'
   },
   {

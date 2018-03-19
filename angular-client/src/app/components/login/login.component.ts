@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       this.loading = false;
       if (!data.error) {
         this.authenticationService.loggedIn = true;
-        this.router.navigateByUrl('/participants');
+        this.router.navigateByUrl('/dashboard/activity');
       } else {
         this.authenticationService.loggedIn = false;
         this.loading = false;
