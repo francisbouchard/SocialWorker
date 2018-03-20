@@ -1,4 +1,4 @@
-@import '../participant-profile.component.css';
+@import '../participants/participant-profile/participant-profile.component.css';
 
 /* Casefile description and notes */
 .caseNotes {

@@ -11,7 +11,7 @@ import { NoteComponent } from '../../note/note.component';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
-import { CaseModalComponent } from '../../modals/case-modal/case-modal.component';
+import { CaseModalComponent } from '../../casefiles/case-modal/case-modal.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { EditWorkerModalComponent } from '../../modals/edit-worker-modal/edit-worker-modal.component';
 

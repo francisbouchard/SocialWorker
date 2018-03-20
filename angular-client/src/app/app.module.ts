@@ -8,14 +8,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
 
 import { AppComponent } from './app.component';
-import { ActiveCasefilesComponent } from './components/active-casefiles/active-casefiles.component';
+import { ActiveCasefilesComponent } from './components/casefiles/active-casefiles/active-casefiles.component';
 import { ActivityComponent } from './components/dashboard/activity/activity.component';
 import { AddParticipantComponent } from './components/participants/add-participant/add-participant.component';
 import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
 import { AddResourceComponent } from './components/resources/add-resource/add-resource.component';
 import { AlertModalComponent } from './components/modals/alert-modal/alert-modal.component';
-import { CasefilesComponent } from './components/participants/participant-profile/casefiles/casefiles.component';
-import { CaseModalComponent } from './components/modals/case-modal/case-modal.component';
+import { CasefilesComponent } from './components/casefiles/casefiles.component';
+import { CaseModalComponent } from './components/casefiles/case-modal/case-modal.component';
 import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DocumentComponent } from './components/document/document.component';
