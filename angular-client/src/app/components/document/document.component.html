@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Add a Document</h1>
-<mat-dialog-content>
+<mat-dialog-content *ngIf="!loading">
   <form>
     <mat-form-field>
       <textarea matInput placeholder="Document Type" name="text" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"
@@ -15,3 +15,5 @@
   <button mat-raised-button color="primary" (click)="submit()">Submit</button>
   <button mat-raised-button (click)="cancel()">Close</button>
 </mat-dialog-actions>
+<mat-spinner *ngIf="loading"></mat-spinner>
+
