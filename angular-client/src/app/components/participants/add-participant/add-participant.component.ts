@@ -18,7 +18,6 @@ export class AddParticipantComponent implements OnInit {
   socialmedia: FormGroup;
   phoneregex = /^(\d){3}(-|\.|\s|\()?(\d){3}(-|\.|\s|\()?(\d){4}$/m;
 
-  isAlreadyAParticipantID = false;
   isAlreadyAParticipantEmail = false;
 
   constructor(
@@ -41,7 +40,6 @@ export class AddParticipantComponent implements OnInit {
   createForm() {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      _id: ['', Validators.required],
       pronouns: [''],
       telephone: ['', Validators.pattern(this.phoneregex)],
       service: [''],
@@ -65,9 +63,7 @@ export class AddParticipantComponent implements OnInit {
     if (value.length > 0) {
       this.participantService.search(query)
         .subscribe(data => {
-          if (attribute === '_id') {
-            that.isAlreadyAParticipantID = (data === true) ? true : false;
-          } else {
+          if (attribute === 'email'){
             that.isAlreadyAParticipantEmail = (data === true) ? true : false;
           }
         });

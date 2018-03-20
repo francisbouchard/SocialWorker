@@ -8,15 +8,15 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class UserService {
 
-  private url = '/user/';
+  private url = '/user';
 
   constructor(private http: HttpClient,
     private messageService: MessageService) { }
 
   /**
    * Get all users
-   * 
-   * @returns {Observable<Object>} 
+   *
+   * @returns {Observable<Object>}
    * @memberof UserService
    */
   getAll(): Observable<Object> {
@@ -38,12 +38,12 @@ export class UserService {
   /**
    * Capture errors from the service, then log them,
    * and let the app keep running with a returned Observable
-   * 
+   *
    * @private
-   * @template T 
-   * @param {string} [operation='operation'] 
-   * @param {T} [result] 
-   * @returns 
+   * @template T
+   * @param {string} [operation='operation']
+   * @param {T} [result]
+   * @returns
    * @memberof UserService
    */
   private handleError<T>(operation = 'operation', result?: T) {
@@ -56,9 +56,9 @@ export class UserService {
 
   /**
    * Log messages by sending them to message service
-   * 
+   *
    * @private
-   * @param {String} message 
+   * @param {String} message
    * @memberof UserService
    */
   private log(message: String) {

@@ -13,10 +13,10 @@ import { Note } from '../../classes/note';
 export class NoteComponent implements OnInit {
 
   note: Note = {
-    text: "",
+    text: '',
     date: new Date(),
     attachment: null
-  }
+  };
   file: FormData;
 
   constructor(
@@ -34,7 +34,7 @@ export class NoteComponent implements OnInit {
 
   /**
    * Submit to save a new note for a participant
-   * 
+   *
    * @memberof NoteComponent
    */
   submit(): void {
@@ -46,7 +46,7 @@ export class NoteComponent implements OnInit {
 
   /**
    * Close the note dialog modal
-   * 
+   *
    * @memberof NoteComponent
    */
   cancel(): void {
@@ -55,14 +55,14 @@ export class NoteComponent implements OnInit {
 
   /**
    * Read file input and store as attachment
-   * 
+   *
    * @param {any} files
    * @memberof NoteComponent
    */
   handleFileInput(files) {
     if (files) {
       const formData = new FormData();
-      formData.append("attachment", files[0]);
+      formData.append('attachment', files[0]);
       this.note.attachment = files[0].name;
       this.file = formData;
     }

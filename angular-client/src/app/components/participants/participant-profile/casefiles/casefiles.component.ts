@@ -26,7 +26,7 @@ export class CasefilesComponent implements OnInit {
 
   constructor(
     private casefileService: CasefileService,
-    private form: FormBuilder,
+    private form: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -161,7 +161,10 @@ export class CasefilesComponent implements OnInit {
     this.editedCasefile.contactedResources[resourceIndex].note = comment;
     this.setContactedResources(this.editedCasefile.contactedResources);
 
-    this.casefileService.updateCaseContactedResource(casefileID, resourceID, { 'note': comment }).subscribe();
+    this.casefileService.updateCaseContactedResource(
+      casefileID,
+      resourceID,
+      { 'note': comment }).subscribe();
   }
 
 

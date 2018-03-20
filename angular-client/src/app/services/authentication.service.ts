@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 import { of } from 'rxjs/observable/of';
-import { MessageService } from "./message.service";
+import { MessageService } from './message.service';
 import { User } from '../classes/user';
 
 @Injectable()
 export class AuthenticationService {
   public loggedIn: boolean;
   public role: String;
+  public profile: any;
 
   constructor(
     private http: HttpClient,
@@ -34,7 +35,8 @@ export class AuthenticationService {
         if (p.error) {
           this.log('Problem logging in.');
         } else {
-          this.role = p.role;
+          this.role = p.profile.role;
+          this.profile = p.profile;
           this.log('Successful login.');
         }
       }),
@@ -63,9 +65,9 @@ export class AuthenticationService {
 
   /**
    * Registers an account.
-   * 
-   * @param {User} userData 
-   * @returns {Observable<any>} 
+   *
+   * @param {User} userData
+   * @returns {Observable<any>}
    * @memberof AuthenticationService
    */
   public signUp(userData: User): Observable<any> {

@@ -1,3 +1,30 @@
-<p>
-  Dashboard Page
-</p>
+<div class="container">
+
+  <div class="toolbar">
+    <mat-toolbar color="primary">
+
+      <mat-toolbar-row *ngFor="let link of dashboardLinks">
+        <a class="nav-link" routerLink="{{link.path}}">
+          <button mat-button>
+            <mat-icon>{{link.icon}}</mat-icon>
+            {{link.label}}
+          </button>
+        </a>
+      </mat-toolbar-row>
+
+      <!-- TODO: Only allow admins to manage users -->
+      <!-- <a class="nav-link" routerLink="users">
+          <button mat-button *ngIf="this.authenticationService.role && this.authenticationService.role == 'admin'">Manage Users</button>
+        </a> -->
+
+
+    </mat-toolbar>
+  </div>
+
+  <div class="main">
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+</div>

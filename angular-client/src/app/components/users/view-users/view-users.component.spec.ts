@@ -17,10 +17,10 @@ describe('ViewUsersComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ViewUsersComponent, OrderByPipe, SearchPipe ],
       imports: [ MaterialsModule ],
-      providers: [ 
+      providers: [
         { provide: AuthenticationService, useClass: MockAuthenticationService },
         { provide: UserService, useClass: MockUserService },
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } }
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } }
       ]
     })
     .compileComponents();
