@@ -10,11 +10,11 @@ import { ParticipantService } from '../../../services/participant.service';
 import { MessageService } from '../../../services/message.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Location } from '@angular/common';
-import { MockParticipantService } from '../../../mocks/MockParticipantService';
+import { MockParticipantService } from '../../../services/mocks/MockParticipantService';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../../services/mocks/MockAuthenticationService';
 import { CasefileService } from '../../../services/casefile.service';
-import { MockCasefileService } from '../../../mocks/MockCasefileService';
+import { MockCasefileService } from '../../../services/mocks/MockCasefileService';
 
 
 

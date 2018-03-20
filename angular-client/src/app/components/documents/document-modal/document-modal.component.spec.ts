@@ -4,9 +4,9 @@ import { MaterialsModule } from '../../../modules/materials.module';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../../services/mocks/MockAuthenticationService';
 import { ParticipantService } from '../../../services/participant.service';
-import { MockParticipantService } from '../../../mocks/MockParticipantService';
+import { MockParticipantService } from '../../../services/mocks/MockParticipantService';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 

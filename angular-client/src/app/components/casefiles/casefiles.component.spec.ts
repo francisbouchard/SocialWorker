@@ -6,9 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
-import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../services/mocks/MockAuthenticationService';
 import { CasefileService } from '../../services/casefile.service';
-import { MockCasefileService } from '../../mocks/MockCasefileService';
+import { MockCasefileService } from '../../services/mocks/MockCasefileService';
 
 describe('CasefilesComponent', () => {
   let component: CasefilesComponent;

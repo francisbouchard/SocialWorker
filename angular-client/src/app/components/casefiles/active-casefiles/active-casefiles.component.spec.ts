@@ -5,7 +5,7 @@ import { OrderByPipe } from '../../../pipes/orderBy.pipe';
 import { SearchPipe } from '../../../pipes/search.pipe';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { CasefileService } from '../../../services/casefile.service';
-import { MockCasefileService } from '../../../mocks/MockCasefileService';
+import { MockCasefileService } from '../../../services/mocks/MockCasefileService';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ActiveCasefilesComponent', () => {

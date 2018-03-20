@@ -6,10 +6,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ViewParticipantsComponent } from './view-participants/view-participants.component';
 import { AddParticipantComponent } from './add-participant/add-participant.component';
 import { EditParticipantComponent } from './edit-participant/edit-participant.component';
-import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { MockParticipantService } from '../../services/mocks/MockParticipantService';
 import { ParticipantService } from '../../services/participant.service';
 import { AuthenticationService } from '../../services/authentication.service';
-import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../services/mocks/MockAuthenticationService';
 import { OrderByPipe } from '../../pipes/orderBy.pipe';
 import { SearchPipe } from '../../pipes/search.pipe';
 

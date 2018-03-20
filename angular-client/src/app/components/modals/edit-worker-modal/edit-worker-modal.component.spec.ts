@@ -3,12 +3,12 @@ import { EditWorkerModalComponent } from './edit-worker-modal.component';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../../services/mocks/MockAuthenticationService';
 import { ParticipantService } from '../../../services/participant.service';
-import { MockParticipantService } from '../../../mocks/MockParticipantService';
+import { MockParticipantService } from '../../../services/mocks/MockParticipantService';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
-import { MockUserService } from '../../../mocks/MockUserService';
+import { MockUserService } from '../../../services/mocks/MockUserService';
 
 describe('EditWorkerModalComponent', () => {
   let component: EditWorkerModalComponent;

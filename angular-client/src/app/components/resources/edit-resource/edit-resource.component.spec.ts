@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditResourceComponent } from './edit-resource.component';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { ResourceService } from '../../../services/resource.service';
-import { MockResourceService } from '../../../mocks/MockResourceService';
+import { MockResourceService } from '../../../services/mocks/MockResourceService';
 
 describe('EditResourceComponent', () => {
   let component: EditResourceComponent;

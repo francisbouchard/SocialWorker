@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DocumentsComponent } from './documents.component';
 import { ParticipantService } from '../../services/participant.service';
-import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { MockParticipantService } from '../../services/mocks/MockParticipantService';
 import { AuthenticationService } from '../../services/authentication.service';
-import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../services/mocks/MockAuthenticationService';
 
 
 describe('DocumentsComponent', () => {

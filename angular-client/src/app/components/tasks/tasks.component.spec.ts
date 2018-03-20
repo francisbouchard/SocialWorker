@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TasksComponent } from './tasks.component';
 import { MaterialsModule } from '../../modules/materials.module';
 import { TaskService } from '../../services/task.service';
-import { MockTaskService } from '../../mocks/MockTaskService';
+import { MockTaskService } from '../../services/mocks/MockTaskService';
 
 describe('TasksComponent', () => {
   let component: TasksComponent;
