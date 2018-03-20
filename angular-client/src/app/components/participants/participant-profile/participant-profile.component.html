@@ -11,7 +11,7 @@
     </p>
     <p *ngIf="participantSelected.address !== undefined && participantSelected.address !== ''">Address: {{participantSelected.address}}
     </p>
-    <p *ngIf="participantSelected.socialworkers">Social workers assigned: 
+    <p *ngIf="participantSelected.socialworkers">Social workers assigned:
       <span *ngFor="let worker of participantSelected.socialworkers; let isLast=last">
         {{worker.name}}{{isLast ? '': ', '}}
       </span>

@@ -21,6 +21,7 @@
       <!-- </mat-grid-tile> -->
     </mat-grid-list>
     <br>
+    <button id="downloadDocumentBtn" mat-raised-button (click)="downloadDocument(document.attachment, document._id)">Download Document</button>
     <button mat-raised-button (click)="deleteDocument(document._id)">Delete Document</button>
   </mat-expansion-panel>
 </mat-accordion>

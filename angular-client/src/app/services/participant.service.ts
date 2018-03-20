@@ -8,6 +8,7 @@ import { Participant } from '../classes/participant';
 import { Note } from '../classes/note';
 import { Document } from '../classes/document';
 import { MessageService } from './message.service';
+import { RequestOptions, ResponseContentType } from '@angular/http';
 
 @Injectable()
 export class ParticipantService {
@@ -211,6 +212,30 @@ export class ParticipantService {
         tap(_ => this.log('deleted participant\'s document')),
         catchError(this.handleError<Object>('deleteDocument(participantID, documentID)'))
       );
+  }
+
+ /**
+   * Download note attachment from server.
+   * @param {String} participantID
+   * @param {String} attachmentID 
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  downloadAttachment(participantID: String, attachmentID: String): Observable<Blob>  {
+    //let options = new RequestOptions();
+
+    return this.http.get(`${this.url}${participantID}/note/${attachmentID}`, {responseType: 'blob' })
+  }
+
+  /**
+   * Download document from server.
+   * @param {String} participantID
+   * @param {String} documentID
+   * @returns {Observable<Object>} 
+   * @memberof ParticipantService
+   */
+  downloadDocument(participantID: String, documentID: String): Observable<Blob> {
+    return this.http.get(`${this.url}${participantID}/doc/${documentID}`, {responseType: 'blob'});
   }
 
   /**
