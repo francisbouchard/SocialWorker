@@ -18,8 +18,8 @@ import { CasefilesComponent } from './components/casefiles/casefiles.component';
 import { CaseModalComponent } from './components/casefiles/case-modal/case-modal.component';
 import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { DocumentComponent } from './components/document/document.component';
-import { DocumentsComponent } from './components/participants/participant-profile/documents/documents.component';
+import { DocumentModalComponent } from './components/documents/document-modal/document-modal.component';
+import { DocumentsComponent } from './components/documents/documents.component';
 import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
 import { EditPhonelogComponent } from './components/phonelog/edit-phonelog/edit-phonelog.component';
 import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
@@ -151,7 +151,7 @@ const routes: Routes = [
     CaseModalComponent,
     ConfirmModalComponent,
     DashboardComponent,
-    DocumentComponent,
+    DocumentModalComponent,
     DocumentsComponent,
     EditParticipantComponent,
     EditPhonelogComponent,
@@ -191,7 +191,7 @@ const routes: Routes = [
     CaseModalComponent,
     EditWorkerModalComponent,
     ConfirmModalComponent,
-    DocumentComponent,
+    DocumentModalComponent,
     NoteComponent
   ],
   providers: [

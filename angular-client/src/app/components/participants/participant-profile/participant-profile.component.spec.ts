@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ParticipantProfileComponent } from './participant-profile.component';
 import { CasefilesComponent } from '../../casefiles/casefiles.component';
 import { NotesComponent } from './notes/notes.component';
-import { DocumentsComponent } from './documents/documents.component';
+import { DocumentsComponent } from '../../documents/documents.component';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { ParticipantService } from '../../../services/participant.service';
