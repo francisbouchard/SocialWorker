@@ -14,6 +14,7 @@ import { AddParticipantComponent } from './components/participants/add-participa
 import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
 import { AddResourceComponent } from './components/resources/add-resource/add-resource.component';
 import { AlertModalComponent } from './components/modals/alert-modal/alert-modal.component';
+import { AssignUsersModalComponent } from './components/users/assign-users-modal/assign-users-modal.component';
 import { CasefilesComponent } from './components/casefiles/casefiles.component';
 import { CaseModalComponent } from './components/casefiles/case-modal/case-modal.component';
 import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
@@ -23,7 +24,6 @@ import { DocumentsComponent } from './components/documents/documents.component';
 import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
 import { EditPhonelogComponent } from './components/phonelog/edit-phonelog/edit-phonelog.component';
 import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
-import { EditWorkerModalComponent } from './components/modals/edit-worker-modal/edit-worker-modal.component';
 import { LoginComponent } from './components/login/login.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { NoteModalComponent } from './components/notes/note-modal/note-modal.component';
@@ -147,6 +147,7 @@ const routes: Routes = [
     AddPhonelogComponent,
     AddResourceComponent,
     AlertModalComponent,
+    AssignUsersModalComponent,
     CasefilesComponent,
     CaseModalComponent,
     ConfirmModalComponent,
@@ -156,7 +157,6 @@ const routes: Routes = [
     EditParticipantComponent,
     EditPhonelogComponent,
     EditResourceComponent,
-    EditWorkerModalComponent,
     LoginComponent,
     MessagesComponent,
     NoteModalComponent,
@@ -188,8 +188,8 @@ const routes: Routes = [
   ],
   entryComponents: [
     AlertModalComponent,
+    AssignUsersModalComponent,
     CaseModalComponent,
-    EditWorkerModalComponent,
     ConfirmModalComponent,
     DocumentModalComponent,
     NoteModalComponent

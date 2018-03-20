@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { EditWorkerModalComponent } from './edit-worker-modal.component';
+import { AssignUsersModalComponent } from './assign-users-modal.component';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -11,8 +11,8 @@ import { UserService } from '../../../services/user.service';
 import { MockUserService } from '../../../services/mocks/MockUserService';
 
 describe('EditWorkerModalComponent', () => {
-  let component: EditWorkerModalComponent;
-  let fixture: ComponentFixture<EditWorkerModalComponent>;
+  let component: AssignUsersModalComponent;
+  let fixture: ComponentFixture<AssignUsersModalComponent>;
   let allButtons: [any];
 
   beforeEach(async(() => {
@@ -43,7 +43,7 @@ describe('EditWorkerModalComponent', () => {
       ]
     };
     TestBed.configureTestingModule({
-      declarations: [EditWorkerModalComponent],
+      declarations: [AssignUsersModalComponent],
       imports: [MaterialsModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
@@ -58,7 +58,7 @@ describe('EditWorkerModalComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditWorkerModalComponent);
+    fixture = TestBed.createComponent(AssignUsersModalComponent);
     component = fixture.componentInstance;
     const compiled = fixture.debugElement.nativeElement;
     fixture.detectChanges();

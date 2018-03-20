@@ -10,7 +10,7 @@ import { CasefileService } from '../../../services/casefile.service';
 import { ParticipantService } from '../../../services/participant.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { CaseModalComponent } from '../../casefiles/case-modal/case-modal.component';
-import { EditWorkerModalComponent } from '../../modals/edit-worker-modal/edit-worker-modal.component';
+import { AssignUsersModalComponent, } from '../../users/assign-users-modal/assign-users-modal.component';
 import { DocumentModalComponent } from '../../documents/document-modal/document-modal.component';
 import { NoteModalComponent } from '../../notes/note-modal/note-modal.component';
 
@@ -225,7 +225,7 @@ export class ParticipantProfileComponent implements OnInit {
    * @memberof ParticipantProfileComponent
    */
   editWorkers(): void {
-    const dialogRef = this.dialog.open(EditWorkerModalComponent, {
+    const dialogRef = this.dialog.open(AssignUsersModalComponent, {
       width: '33%',
       data: { id: this.participantSelected._id, workers: this.participantSelected.socialworkers }
     });
