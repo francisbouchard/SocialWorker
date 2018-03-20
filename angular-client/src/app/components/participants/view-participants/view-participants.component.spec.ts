@@ -6,7 +6,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockParticipantService } from '../../../mocks/MockParticipantService';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
-import { Router } from '@angular/router';
 import { OrderByPipe } from '../../../pipes/orderBy.pipe';
 import { SearchPipe } from '../../../pipes/search.pipe';
 import { EditParticipantComponent } from '../edit-participant/edit-participant.component';
@@ -22,7 +21,7 @@ describe('ViewParticipantsComponent', () => {
       imports: [ MaterialsModule, RouterTestingModule ],
       providers: [ { provide: ParticipantService, useClass: MockParticipantService },
         { provide: AuthenticationService, useClass: MockAuthenticationService },
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } } ]
+      ]
     })
     .compileComponents();
   }));

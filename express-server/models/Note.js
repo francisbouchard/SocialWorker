@@ -6,7 +6,8 @@ const noteSchema = new mongoose.Schema({
     attachment: String,
     thumbnails: [
       { data: String, contentType: String }
-    ]
+    ],
+    deleted: { type: Boolean, default: false }
   }, { timestamps: true });
 
 const Note = mongoose.model('Note', noteSchema, 'notes');

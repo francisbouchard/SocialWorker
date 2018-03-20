@@ -12,7 +12,7 @@ import { MessageService } from './message.service';
 @Injectable()
 export class ParticipantService {
 
-  private url = '/api/participant/';
+  private url = '/api/participant';
 
   constructor(private http: HttpClient,
     private messageService: MessageService
@@ -136,10 +136,10 @@ export class ParticipantService {
 
   /**
    * Add a social worker to a participant
-   * 
-   * @param {String} participantID 
-   * @param {String} workerID 
-   * @returns {Observable<Object>} 
+   *
+   * @param {String} participantID
+   * @param {String} workerID
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   addSocialWorker(participantID: String, workerID: String): Observable<Object> {
@@ -152,10 +152,10 @@ export class ParticipantService {
 
   /**
    * Remove social worker with given ID from participant
-   * 
-   * @param {String} participantID 
-   * @param {String} workerID 
-   * @returns {Observable<Object>} 
+   *
+   * @param {String} participantID
+   * @param {String} workerID
+   * @returns {Observable<Object>}
    * @memberof ParticipantService
    */
   removeSocialWorker(participantID: String, workerID: String): Observable<Object> {

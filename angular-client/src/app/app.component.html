@@ -1,21 +1,20 @@
 <mat-toolbar color="primary">
-  SocialWorker
   <span *ngIf="this.authenticationService.loggedIn">
+    <a class="nav-link" routerLink="dashboard">
+      <button mat-button class="nav-logo">SocialWorker</button>
+    </a>
     <a class="nav-link" routerLink="participants">
       <button mat-button>Participants</button>
     </a>
     <a class="nav-link" routerLink="resources">
       <button mat-button>Resources</button>
     </a>
-    <a class="nav-link" routerLink="phonelog">
+    <a class="nav-link" routerLink="dashboard/phonelog">
       <button mat-button>Phonelog</button>
     </a>
   </span>
   <span class="example-fill-remaining-space"></span>
   <span *ngIf="this.authenticationService.loggedIn">
-    <a class="nav-link" routerLink="users">
-      <button mat-button *ngIf="this.authenticationService.role && this.authenticationService.role == 'admin'">Manage Users</button>
-    </a>
     <button mat-button (click)="logout()">Logout</button>
   </span>
 </mat-toolbar>

@@ -13,8 +13,8 @@ describe('RegisterUserComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ RegisterUserComponent ],
       imports: [ MaterialsModule ],
-      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService }, 
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } } ]
+      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } } ]
     })
     .compileComponents();
   }));
