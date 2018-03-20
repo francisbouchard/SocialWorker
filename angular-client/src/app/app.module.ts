@@ -26,8 +26,8 @@ import { EditResourceComponent } from './components/resources/edit-resource/edit
 import { EditWorkerModalComponent } from './components/modals/edit-worker-modal/edit-worker-modal.component';
 import { LoginComponent } from './components/login/login.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { NoteComponent } from './components/note/note.component';
-import { NotesComponent } from './components/participants/participant-profile/notes/notes.component';
+import { NoteModalComponent } from './components/notes/note-modal/note-modal.component';
+import { NotesComponent } from './components/notes/notes.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
 import { ParticipantProfileComponent } from './components/participants/participant-profile/participant-profile.component';
 import { PhonelogComponent } from './components/phonelog/phonelog.component';
@@ -159,7 +159,7 @@ const routes: Routes = [
     EditWorkerModalComponent,
     LoginComponent,
     MessagesComponent,
-    NoteComponent,
+    NoteModalComponent,
     NotesComponent,
     ParticipantProfileComponent,
     ParticipantsComponent,
@@ -192,7 +192,7 @@ const routes: Routes = [
     EditWorkerModalComponent,
     ConfirmModalComponent,
     DocumentModalComponent,
-    NoteComponent
+    NoteModalComponent
   ],
   providers: [
     ParticipantService,
