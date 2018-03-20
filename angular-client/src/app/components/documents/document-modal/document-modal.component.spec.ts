@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DocumentModalComponent } from './document-modal.component';
-import { MaterialsModule } from '../../modules/materials.module';
+import { MaterialsModule } from '../../../modules/materials.module';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AuthenticationService } from '../../services/authentication.service';
-import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
-import { ParticipantService } from '../../services/participant.service';
-import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { ParticipantService } from '../../../services/participant.service';
+import { MockParticipantService } from '../../../mocks/MockParticipantService';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
