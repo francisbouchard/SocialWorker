@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { MaterialsModule } from './modules/materials.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthenticationService } from './services/authentication.service';
-import { MockAuthenticationService } from './mocks/MockAuthenticationService';
+import { MockAuthenticationService } from './services/mocks/MockAuthenticationService';
 import { Router } from '@angular/router';
 import { MessageService } from './services/message.service';
 

@@ -5,13 +5,13 @@ import { CaseModalComponent } from './case-modal.component';
 import { FormsModule } from '@angular/forms';
 
 import { AuthenticationService } from '../../../services/authentication.service';
-import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../../services/mocks/MockAuthenticationService';
 import { CasefileService } from '../../../services/casefile.service';
-import { MockCasefileService } from '../../../mocks/MockCasefileService';
+import { MockCasefileService } from '../../../services/mocks/MockCasefileService';
 import { ResourceService } from '../../../services/resource.service';
-import { MockResourceService } from '../../../mocks/MockResourceService';
+import { MockResourceService } from '../../../services/mocks/MockResourceService';
 import { ParticipantService } from '../../../services/participant.service';
-import { MockParticipantService } from '../../../mocks/MockParticipantService';
+import { MockParticipantService } from '../../../services/mocks/MockParticipantService';
 
 import { Router } from '@angular/router';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CasefileService } from '../../../../services/casefile.service';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { Casefile } from '../../../../classes/case';
+import { CasefileService } from '../../services/casefile.service';
+import { Casefile } from '../../classes/case';
 import { ValidatorFn } from '@angular/forms/src/directives/validators';
 
 @Component({

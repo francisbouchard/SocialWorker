@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PhonelogService } from '../../../services/phonelog.service';
 import { MaterialsModule } from '../../../modules/materials.module';
-import { MockPhonelogService } from '../../../mocks/MockPhonelogService';
+import { MockPhonelogService } from '../../../services/mocks/MockPhonelogService';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../../services/mocks/MockAuthenticationService';
 import { ViewPhonelogComponent } from './view-phonelog.component';
 import { Router } from '@angular/router';
 import { OrderByPipe } from '../../../pipes/orderBy.pipe';

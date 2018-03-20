@@ -1,14 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CasefilesComponent } from './casefiles.component';
-import { MaterialsModule } from '../../../../modules/materials.module';
+import { MaterialsModule } from '../../modules/materials.module';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
-import { AuthenticationService } from '../../../../services/authentication.service';
-import { MockAuthenticationService } from '../../../../mocks/MockAuthenticationService';
-import { CasefileService } from '../../../../services/casefile.service';
-import { MockCasefileService } from '../../../../mocks/MockCasefileService';
+import { AuthenticationService } from '../../services/authentication.service';
+import { MockAuthenticationService } from '../../services/mocks/MockAuthenticationService';
+import { CasefileService } from '../../services/casefile.service';
+import { MockCasefileService } from '../../services/mocks/MockCasefileService';
 
 describe('CasefilesComponent', () => {
   let component: CasefilesComponent;

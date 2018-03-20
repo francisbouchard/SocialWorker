@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ParticipantProfileComponent } from './participant-profile.component';
-import { CasefilesComponent } from './casefiles/casefiles.component';
-import { NotesComponent } from './notes/notes.component';
-import { DocumentsComponent } from './documents/documents.component';
+import { CasefilesComponent } from '../../casefiles/casefiles.component';
+import { NotesComponent } from '../../notes/notes.component';
+import { DocumentsComponent } from '../../documents/documents.component';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { ParticipantService } from '../../../services/participant.service';
 import { MessageService } from '../../../services/message.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Location } from '@angular/common';
-import { MockParticipantService } from '../../../mocks/MockParticipantService';
+import { MockParticipantService } from '../../../services/mocks/MockParticipantService';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../../services/mocks/MockAuthenticationService';
 import { CasefileService } from '../../../services/casefile.service';
-import { MockCasefileService } from '../../../mocks/MockCasefileService';
+import { MockCasefileService } from '../../../services/mocks/MockCasefileService';
 
 
 

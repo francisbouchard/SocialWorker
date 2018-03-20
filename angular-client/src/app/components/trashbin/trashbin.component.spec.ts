@@ -3,9 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TrashbinComponent } from './trashbin.component';
 import { MaterialsModule } from '../../modules/materials.module';
 import { AuthenticationService } from '../../services/authentication.service';
-import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../services/mocks/MockAuthenticationService';
 import { TrashService } from '../../services/trash.service';
-import { MockTrashService } from '../../mocks/MockTrashService';
+import { MockTrashService } from '../../services/mocks/MockTrashService';
 import { OrderByPipe } from '../../pipes/orderBy.pipe';
 import { MatDialog } from '@angular/material';
 

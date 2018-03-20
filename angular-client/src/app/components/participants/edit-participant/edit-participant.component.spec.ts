@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditParticipantComponent } from './edit-participant.component';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { ParticipantService } from '../../../services/participant.service';
-import { MockParticipantService } from '../../../mocks/MockParticipantService';
+import { MockParticipantService } from '../../../services/mocks/MockParticipantService';
 
 describe('EditParticipantComponent', () => {
   let component: EditParticipantComponent;

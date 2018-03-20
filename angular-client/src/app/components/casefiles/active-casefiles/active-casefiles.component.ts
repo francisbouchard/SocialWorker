@@ -1,7 +1,7 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
-import { CasefileService } from '../../services/casefile.service';
-import { Casefile } from '../../classes/case';
+import { CasefileService } from '../../../services/casefile.service';
+import { Casefile } from '../../../classes/case';
 
 @Component({
   selector: 'app-active-casefiles',

@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DocumentComponent } from './document.component';
-import { MaterialsModule } from '../../modules/materials.module';
+import { DocumentModalComponent } from './document-modal.component';
+import { MaterialsModule } from '../../../modules/materials.module';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AuthenticationService } from '../../services/authentication.service';
-import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
-import { ParticipantService } from '../../services/participant.service';
-import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { MockAuthenticationService } from '../../../services/mocks/MockAuthenticationService';
+import { ParticipantService } from '../../../services/participant.service';
+import { MockParticipantService } from '../../../services/mocks/MockParticipantService';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
 describe('DocumentComponent', () => {
-  let component: DocumentComponent;
-  let fixture: ComponentFixture<DocumentComponent>;
+  let component: DocumentModalComponent;
+  let fixture: ComponentFixture<DocumentModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DocumentComponent],
+      declarations: [DocumentModalComponent],
       imports: [MaterialsModule],
       providers: [
         { provide: ParticipantService, useClass: MockParticipantService },
@@ -31,7 +31,7 @@ describe('DocumentComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DocumentComponent);
+    fixture = TestBed.createComponent(DocumentModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

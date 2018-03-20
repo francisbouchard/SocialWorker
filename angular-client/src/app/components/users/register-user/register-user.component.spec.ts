@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegisterUserComponent } from './register-user.component';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../../services/mocks/MockAuthenticationService';
 import { Router } from '@angular/router';
 
 describe('RegisterUserComponent', () => {

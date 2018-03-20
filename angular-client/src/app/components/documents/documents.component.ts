@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ParticipantService } from '../../../../services/participant.service';
+import { ParticipantService } from '../../services/participant.service';
 
 @Component({
   selector: 'app-documents',

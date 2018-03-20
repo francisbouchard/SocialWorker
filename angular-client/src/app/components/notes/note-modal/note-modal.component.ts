@@ -1,16 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ParticipantService } from '../../services/participant.service';
-import { AuthenticationService } from '../../services/authentication.service';
+import { ParticipantService } from '../../../services/participant.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
-import { Note } from '../../classes/note';
+import { Note } from '../../../classes/note';
 
 @Component({
-  selector: 'app-note',
-  templateUrl: './note.component.html',
-  styleUrls: ['./note.component.css']
+  selector: 'app-note-modal',
+  templateUrl: './note-modal.component.html',
+  styleUrls: ['./note-modal.component.css']
 })
-export class NoteComponent implements OnInit {
+export class NoteModalComponent implements OnInit {
 
   note: Note = {
     text: '',
@@ -21,7 +21,7 @@ export class NoteComponent implements OnInit {
 
   constructor(
     private participantService: ParticipantService,
-    public dialogRef: MatDialogRef<NoteComponent>,
+    public dialogRef: MatDialogRef<NoteModalComponent>,
     private authService: AuthenticationService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) private participant: any) { }

@@ -3,9 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivityComponent } from './activity.component';
 import { MaterialsModule } from '../../../modules/materials.module';
 import { CasefileService } from '../../../services/casefile.service';
-import { MockCasefileService } from '../../../mocks/MockCasefileService';
+import { MockCasefileService } from '../../../services/mocks/MockCasefileService';
 import { PhonelogService } from '../../../services/phonelog.service';
-import { MockPhonelogService } from '../../../mocks/MockPhonelogService';
+import { MockPhonelogService } from '../../../services/mocks/MockPhonelogService';
 
 describe('ActivityComponent', () => {
   let component: ActivityComponent;

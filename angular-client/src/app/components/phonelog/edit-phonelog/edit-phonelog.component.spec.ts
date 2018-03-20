@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditPhonelogComponent } from './edit-phonelog.component';
 import { PhonelogService } from '../../../services/phonelog.service';
-import { MockPhonelogService } from '../../../mocks/MockPhonelogService';
+import { MockPhonelogService } from '../../../services/mocks/MockPhonelogService';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SearchPipe } from '../../../pipes/search.pipe';
 import { MaterialsModule } from '../../../modules/materials.module';

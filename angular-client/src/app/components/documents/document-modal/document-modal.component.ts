@@ -1,16 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AuthenticationService } from '../../services/authentication.service';
-import { ParticipantService } from '../../services/participant.service';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { ParticipantService } from '../../../services/participant.service';
 import { Router } from '@angular/router';
-import { Document } from '../../classes/document';
+import { Document } from '../../../classes/document';
 
 @Component({
-  selector: 'app-document',
-  templateUrl: './document.component.html',
-  styleUrls: ['./document.component.css']
+  selector: 'app-document-modal',
+  templateUrl: './document-modal.component.html',
+  styleUrls: ['./document-modal.component.css']
 })
-export class DocumentComponent implements OnInit {
+export class DocumentModalComponent implements OnInit {
 
   document: Document = {
     type: null,
@@ -22,7 +22,7 @@ export class DocumentComponent implements OnInit {
 
   constructor(
     private participantService: ParticipantService,
-    public dialogRef: MatDialogRef<DocumentComponent>,
+    public dialogRef: MatDialogRef<DocumentModalComponent>,
     private authService: AuthenticationService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) private participant: any

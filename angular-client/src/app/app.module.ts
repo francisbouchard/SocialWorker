@@ -8,26 +8,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
 
 import { AppComponent } from './app.component';
-import { ActiveCasefilesComponent } from './components/active-casefiles/active-casefiles.component';
+import { ActiveCasefilesComponent } from './components/casefiles/active-casefiles/active-casefiles.component';
 import { ActivityComponent } from './components/dashboard/activity/activity.component';
 import { AddParticipantComponent } from './components/participants/add-participant/add-participant.component';
 import { AddPhonelogComponent } from './components/phonelog/add-phonelog/add-phonelog.component';
 import { AddResourceComponent } from './components/resources/add-resource/add-resource.component';
 import { AlertModalComponent } from './components/modals/alert-modal/alert-modal.component';
-import { CasefilesComponent } from './components/participants/participant-profile/casefiles/casefiles.component';
-import { CaseModalComponent } from './components/modals/case-modal/case-modal.component';
+import { CasefilesComponent } from './components/casefiles/casefiles.component';
+import { CaseModalComponent } from './components/casefiles/case-modal/case-modal.component';
 import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { DocumentComponent } from './components/document/document.component';
-import { DocumentsComponent } from './components/participants/participant-profile/documents/documents.component';
+import { DocumentModalComponent } from './components/documents/document-modal/document-modal.component';
+import { DocumentsComponent } from './components/documents/documents.component';
 import { EditParticipantComponent } from './components/participants/edit-participant/edit-participant.component';
 import { EditPhonelogComponent } from './components/phonelog/edit-phonelog/edit-phonelog.component';
 import { EditResourceComponent } from './components/resources/edit-resource/edit-resource.component';
 import { EditWorkerModalComponent } from './components/modals/edit-worker-modal/edit-worker-modal.component';
 import { LoginComponent } from './components/login/login.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { NoteComponent } from './components/note/note.component';
-import { NotesComponent } from './components/participants/participant-profile/notes/notes.component';
+import { NoteModalComponent } from './components/notes/note-modal/note-modal.component';
+import { NotesComponent } from './components/notes/notes.component';
 import { ParticipantsComponent } from './components/participants/participants.component';
 import { ParticipantProfileComponent } from './components/participants/participant-profile/participant-profile.component';
 import { PhonelogComponent } from './components/phonelog/phonelog.component';
@@ -151,7 +151,7 @@ const routes: Routes = [
     CaseModalComponent,
     ConfirmModalComponent,
     DashboardComponent,
-    DocumentComponent,
+    DocumentModalComponent,
     DocumentsComponent,
     EditParticipantComponent,
     EditPhonelogComponent,
@@ -159,7 +159,7 @@ const routes: Routes = [
     EditWorkerModalComponent,
     LoginComponent,
     MessagesComponent,
-    NoteComponent,
+    NoteModalComponent,
     NotesComponent,
     ParticipantProfileComponent,
     ParticipantsComponent,
@@ -191,8 +191,8 @@ const routes: Routes = [
     CaseModalComponent,
     EditWorkerModalComponent,
     ConfirmModalComponent,
-    DocumentComponent,
-    NoteComponent
+    DocumentModalComponent,
+    NoteModalComponent
   ],
   providers: [
     ParticipantService,

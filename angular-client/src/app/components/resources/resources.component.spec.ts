@@ -6,9 +6,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ViewResourcesComponent } from './view-resources/view-resources.component';
 import { AddResourceComponent } from './add-resource/add-resource.component';
 import { EditResourceComponent } from './edit-resource/edit-resource.component';
-import { MockResourceService } from '../../mocks/MockResourceService';
+import { MockResourceService } from '../../services/mocks/MockResourceService';
 import { AuthenticationService } from '../../services/authentication.service';
-import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../services/mocks/MockAuthenticationService';
 import { OrderByPipe } from '../../pipes/orderBy.pipe';
 import { SearchPipe } from '../../pipes/search.pipe';
 

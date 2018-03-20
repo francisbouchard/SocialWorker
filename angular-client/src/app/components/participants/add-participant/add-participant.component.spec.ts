@@ -3,9 +3,9 @@ import { MaterialsModule } from '../../../modules/materials.module';
 import { AddParticipantComponent } from './add-participant.component';
 import { ParticipantService } from '../../../services/participant.service';
 import { MatDialog } from '@angular/material';
-import { MockParticipantService } from '../../../mocks/MockParticipantService';
+import { MockParticipantService } from '../../../services/mocks/MockParticipantService';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { MockAuthenticationService } from '../../../mocks/MockAuthenticationService';
+import { MockAuthenticationService } from '../../../services/mocks/MockAuthenticationService';
 import { Router } from '@angular/router';
 
 describe('AddParticipantComponent', () => {

@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialsModule } from '../../modules/materials.module';
-import { ParticipantService } from '../../services/participant.service';
+import { MaterialsModule } from '../../../modules/materials.module';
+import { ParticipantService } from '../../../services/participant.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { MockParticipantService } from '../../mocks/MockParticipantService';
+import { MockParticipantService } from '../../../services/mocks/MockParticipantService';
 import { FormsModule } from '@angular/forms';
-import { AuthenticationService } from '../../services/authentication.service';
-import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { MockAuthenticationService } from '../../../services/mocks/MockAuthenticationService';
 import { Router } from '@angular/router';
-import { NoteComponent } from './note.component';
+import { NoteModalComponent } from './note-modal.component';
 
 describe('NoteComponent', () => {
-  let component: NoteComponent;
-  let fixture: ComponentFixture<NoteComponent>;
+  let component: NoteModalComponent;
+  let fixture: ComponentFixture<NoteModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoteComponent ],
+      declarations: [ NoteModalComponent ],
       imports: [ MaterialsModule, FormsModule ],
       providers: [
         { provide: ParticipantService, useClass: MockParticipantService },
@@ -29,7 +29,7 @@ describe('NoteComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NoteComponent);
+    fixture = TestBed.createComponent(NoteModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

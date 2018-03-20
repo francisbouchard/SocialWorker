@@ -1,20 +1,18 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { Participant } from '../../../classes/participant';
 import { Casefile } from '../../../classes/case';
 import { CasefileService } from '../../../services/casefile.service';
-import { FormControl } from '@angular/forms';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ParticipantService } from '../../../services/participant.service';
-import { Participant } from '../../../classes/participant';
-import { DocumentComponent } from '../../document/document.component';
-import { NoteComponent } from '../../note/note.component';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { ActivatedRoute, RouterModule, Router } from '@angular/router';
-
-import { CaseModalComponent } from '../../modals/case-modal/case-modal.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { CaseModalComponent } from '../../casefiles/case-modal/case-modal.component';
 import { EditWorkerModalComponent } from '../../modals/edit-worker-modal/edit-worker-modal.component';
-
+import { DocumentModalComponent } from '../../documents/document-modal/document-modal.component';
+import { NoteModalComponent } from '../../notes/note-modal/note-modal.component';
 
 @Component({
   selector: 'app-participant-profile',
@@ -118,7 +116,7 @@ export class ParticipantProfileComponent implements OnInit {
    * @memberof ParticipantProfileComponent
    */
   addNote(): void {
-    const dialogRef = this.dialog.open(NoteComponent, {
+    const dialogRef = this.dialog.open(NoteModalComponent, {
       width: '66%',
       data: { id: this.participantSelected._id }
     });
@@ -134,7 +132,7 @@ export class ParticipantProfileComponent implements OnInit {
    * @memberof ParticipantProfileComponent
    */
   addDocument(): void {
-    const dialogRef = this.dialog.open(DocumentComponent, {
+    const dialogRef = this.dialog.open(DocumentModalComponent, {
       width: '66%',
       data: { id: this.participantSelected._id }
     });
