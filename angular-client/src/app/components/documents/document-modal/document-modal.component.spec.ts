@@ -31,7 +31,7 @@ describe('DocumentComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DocumentComponent);
+    fixture = TestBed.createComponent(DocumentModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

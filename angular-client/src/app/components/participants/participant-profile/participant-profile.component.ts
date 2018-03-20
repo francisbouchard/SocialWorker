@@ -12,7 +12,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { CaseModalComponent } from '../../casefiles/case-modal/case-modal.component';
 import { EditWorkerModalComponent } from '../../modals/edit-worker-modal/edit-worker-modal.component';
 import { DocumentModalComponent } from '../../documents/document-modal/document-modal.component';
-import { NoteComponent } from '../../note/note.component';
+import { NoteModalComponent } from '../../notes/note-modal/note-modal.component';
 
 @Component({
   selector: 'app-participant-profile',
@@ -116,7 +116,7 @@ export class ParticipantProfileComponent implements OnInit {
    * @memberof ParticipantProfileComponent
    */
   addNote(): void {
-    const dialogRef = this.dialog.open(NoteComponent, {
+    const dialogRef = this.dialog.open(NoteModalComponent, {
       width: '66%',
       data: { id: this.participantSelected._id }
     });
