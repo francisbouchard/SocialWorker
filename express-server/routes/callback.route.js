@@ -46,6 +46,21 @@ router.get('/participant/:id', (req, res) => {
             res.send(err);
         })
 });
+/**
+ * Get callback by user ID
+ */
+router.get('/participant/user', (req, res) => {
+    if (!req.user || !req.user._id) {
+        return res.status(401).send({ err: "No user ID provided. User must be logged in." })
+    }
+    Callback.find({ deleted: { $ne: true }, user: req.user._id })
+        .populate('participant')
+        .then(data => {
+            res.send(data);
+        }, err => {
+            res.send(err);
+        })
+});
 
 /*
 * Create a callback
@@ -81,3 +96,5 @@ router.delete('/:id', (req, res) => {
         res.status(500).send(err);
     });
 })
+
+module.exports = router;
