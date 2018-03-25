@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
     {label: 'Tasks', icon: 'assignment', path: 'tasks'},
     {label: 'Active Case Files', icon: 'folder', path: 'active-casefiles'},
     {label: 'Phone Log', icon: 'phone', path: 'phonelog'},
+    {label: 'Follow Up', icon: 'alert', path: 'callback'},    
     {label: 'Manage Users', icon: 'supervisor_account', path: 'users'},
     {label: 'Reports', icon: 'assessment', path: 'reports'},
     {label: 'Trash Bin', icon: 'delete', path: 'trashbin'}

@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 });
 
 /**
- * Get a Calback by ID
+ * Get a Callback by ID
  */
 router.get('/:id', (req, res) => {
     if (!req.user || !req.user._id) {
