@@ -41,6 +41,8 @@ import { ViewPhonelogComponent } from './components/phonelog/view-phonelog/view-
 import { ViewParticipantsComponent } from './components/participants/view-participants/view-participants.component';
 import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 import { ViewUsersComponent } from './components/users/view-users/view-users.component';
+import { FollowUpComponent } from './components/followups/follow-up.component';
+
 
 import { AuthenticationService } from './services/authentication.service';
 import { CasefileService } from './services/casefile.service';
@@ -54,6 +56,8 @@ import { TaskService } from './services/task.service';
 
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import { FollowUpService } from './services/follow-up.service';
+import { AddFollowUpComponent } from './components/followups/add-follow-up/add-follow-up.component';
 
 
 const routes: Routes = [
@@ -86,6 +90,10 @@ const routes: Routes = [
       {
         path: 'phonelog',
         component: PhonelogComponent
+      },
+      {
+        path: 'followup',
+        component: FollowUpComponent
       },
       {
         path: 'users',
@@ -175,7 +183,9 @@ const routes: Routes = [
     ViewResourcesComponent,
     ViewUsersComponent,
     OrderByPipe,
-    SearchPipe
+    SearchPipe,
+    FollowUpComponent,
+    AddFollowUpComponent
   ],
   imports: [
     BrowserModule,
@@ -203,7 +213,8 @@ const routes: Routes = [
     AuthenticationService,
     PhonelogService,
     TaskService,
-    TrashService
+    TrashService,
+    FollowUpService
   ],
   bootstrap: [AppComponent]
 })

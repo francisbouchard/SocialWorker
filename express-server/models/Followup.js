@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const callbackSchema = new Schema({
+const followupSchema = new Schema({
     description: { type: String, required: true},
     date: Date,
     user: { type: String, ref: 'User'},
@@ -9,6 +9,6 @@ const callbackSchema = new Schema({
     deleted: Boolean
 });
 
-const Callback = mongoose.model('Callback', callbackSchema, 'callbacks');
+const Followup = mongoose.model('Followup', followupSchema, 'followups');
 
-module.exports = Callback;
+module.exports = Followup;

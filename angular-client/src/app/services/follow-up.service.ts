@@ -7,53 +7,53 @@ import { of } from 'rxjs/observable/of';
 
 
 @Injectable()
-export class CallbacksService {
-  private url = '/api/callback';
+export class FollowUpService {
+  private url = '/api/followup';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
 
   /**
-   * Get all callbacks associated with the logged in user
+   * Get all followups associated with the logged in user
    *
    * @returns {Observable<Object[]>}
-   * @memberof CallbacksService
+   * @memberof FollowUpService
    */
   getByUser(): Observable<Object[]> {
     return this.http.get<Object[]>(`${this.url}/user`)
       .pipe(
-        tap(_ => this.log('fetching callbacks')),
+        tap(_ => this.log('fetching followups')),
         catchError(this.handleError<Object[]>('getByUser()'))
       );
   }
 
   /**
-   * Save a new callback
+   * Save a new followup
    *
-   * @param {any} callback
+   * @param {any} followup
    * @returns {Observable<Object>}
-   * @memberof CallbacksService
+   * @memberof FollowUpService
    */
-  save(callback): Observable<Object> {
-    return this.http.post(`${this.url}`, callback)
+  save(followup): Observable<Object> {
+    return this.http.post(`${this.url}`, followup)
       .pipe(
-        tap(_ => this.log('saving a callback')),
-        catchError(this.handleError<Object>('save(callback)'))
+        tap(_ => this.log('saving a followup')),
+        catchError(this.handleError<Object>('save(followup)'))
       );
   }
 
   /**
-   * Delete a callback
+   * Delete a followup
    *
-   * @param {String} callbackID
+   * @param {String} followupID
    * @returns {Observable<Object>}
-   * @memberof CallbacksService
+   * @memberof FollowUpService
    */
-  delete(callbackID: String): Observable<Object> {
-    return this.http.delete(`${this.url}/${callbackID}`)
+  delete(followupID: String): Observable<Object> {
+    return this.http.delete(`${this.url}/${followupID}`)
       .pipe(
-        tap(_ => this.log('deleting a callback')),
-        catchError(this.handleError<Object>('delete(callbackID: String)'))
+        tap(_ => this.log('deleting a followup')),
+        catchError(this.handleError<Object>('delete(followupID: String)'))
       );
   }
 
@@ -62,10 +62,10 @@ export class CallbacksService {
    *
    * @private
    * @param {String} message
-   * @memberof CallbacksService
+   * @memberof FollowUpService
    */
   private log(message: String) {
-    this.messageService.add('Callback Service: ' + message);
+    this.messageService.add('Followup Service: ' + message);
   }
 
   /**
@@ -77,7 +77,7 @@ export class CallbacksService {
    * @param {string} [operation='operation']
    * @param {T} [result]
    * @returns
-   * @memberof CallbacksService
+   * @memberof FollowUpService
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

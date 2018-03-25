@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const should = chai.should();
 const mongoose = require('mongoose');
 const server = require('../server');
-const Callback = require('../models/Callback');
+const Followup = require('../models/Followup');
 
 let id1 = new mongoose.Types.ObjectId();
 let id2 = new mongoose.Types.ObjectId();
@@ -12,7 +12,7 @@ let cookie;
 
 chai.use(chaiHttp);
 
-describe('Callback Tests', () => {
+describe('Followup Tests', () => {
 
     before((finished) => {
         chai.request(server)
@@ -25,22 +25,22 @@ describe('Callback Tests', () => {
                 cookie = res.headers['set-cookie'].pop().split(';')[0];
                 finished();
             });
-        let callback1 = new Callback({
+        let followup1 = new Followup({
             _id: id1,
-            description: 'Testing callback',
+            description: 'Testing followup',
             user: 'test1',
             participant: id1
         });
-        let callback2 = new Callback({
+        let followup2 = new Followup({
             _id: id2,
-            description: 'Testing callback',
+            description: 'Testing followup',
             user: 'test2',
             participant: id2
         });
-        callback1.save().then(data => { }, err => {
+        followup1.save().then(data => { }, err => {
             console.log(err);
         });
-        callback2.save().then(data => { }, err => {
+        followup2.save().then(data => { }, err => {
             console.log(err);
         });
     });
@@ -48,15 +48,15 @@ describe('Callback Tests', () => {
     describe('/GET/user', () => {
         it('should not proceed with GET when user ID not provided through the cookie', (done) => {
             chai.request(server)
-                .get('/api/callback/')
+                .get('/api/followup/')
                 .end((err, res) => {
                     res.should.have.status(401);
                     done();
                 });
         });
-        it('should GET all callbacks for the requesting user', (done) => {
+        it('should GET all followups for the requesting user', (done) => {
             chai.request(server)
-                .get('/api/callback/user')
+                .get('/api/followup/user')
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -67,9 +67,9 @@ describe('Callback Tests', () => {
     });
 
     describe('/GET/:id', () => {
-        it('should GET a callback with the given ID', (done) => {
+        it('should GET a followup with the given ID', (done) => {
             chai.request(server)
-                .get('/api/callback/' + id1)
+                .get('/api/followup/' + id1)
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -82,7 +82,7 @@ describe('Callback Tests', () => {
         });
         it('should be empty for GET with nonexisting ID', (done) => {
             chai.request(server)
-                .get('/api/callback/' + id3)
+                .get('/api/followup/' + id3)
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -93,14 +93,14 @@ describe('Callback Tests', () => {
         });
     })
     describe('/POST', () => {
-        it('should POST a new callback', (done) => {
-            let callback = {
-                description: 'Another callback'
+        it('should POST a new followup', (done) => {
+            let followup = {
+                description: 'Another followup'
             }
             chai.request(server)
-                .post('/api/callback')
+                .post('/api/followup')
                 .set('Cookie', cookie)
-                .send(callback)
+                .send(followup)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
@@ -114,9 +114,9 @@ describe('Callback Tests', () => {
     });
 
     describe('/DELETE/:id', () => {
-        it('should permanently DELETE the callback with the given ID', (done) => {
+        it('should permanently DELETE the followup with the given ID', (done) => {
             chai.request(server)
-                .del('/api/callback/' + id2)
+                .del('/api/followup/' + id2)
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -126,10 +126,10 @@ describe('Callback Tests', () => {
     });
 
     after(() => {
-        Callback.findByIdAndRemove(id1).then(data => { }, err => {
+        Followup.findByIdAndRemove(id1).then(data => { }, err => {
             console.log(err);
         });
-        Callback.findByIdAndRemove(id4).then(data => { }, err => {
+        Followup.findByIdAndRemove(id4).then(data => { }, err => {
             console.log(err);
         });
     });
