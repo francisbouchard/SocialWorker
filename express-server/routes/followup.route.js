@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 /**
  * Get a Followup by ID
  */
-router.get('/:id', (req, res) => {
+router.get('/id/:id', (req, res) => {
     if (!req.user || !req.user._id) {
         return res.status(401).send({ err: "No user ID provided. User must be logged in." })
     }
@@ -49,7 +49,7 @@ router.get('/participant/:id', (req, res) => {
 /**
  * Get followup by user ID
  */
-router.get('/participant/user', (req, res) => {
+router.get('/user', (req, res) => {
     if (!req.user || !req.user._id) {
         return res.status(401).send({ err: "No user ID provided. User must be logged in." })
     }
@@ -66,7 +66,7 @@ router.get('/participant/user', (req, res) => {
 * Create a followup
 */
 
-router.post('/participant', (req, res) => {
+router.post('/', (req, res) => {
     if (!req.user || !req.user._id) {
         return res.status(401).send({ err: "No user ID provided. User must be logged in." })
     }

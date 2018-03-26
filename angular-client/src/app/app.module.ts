@@ -57,7 +57,6 @@ import { TaskService } from './services/task.service';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { FollowUpService } from './services/follow-up.service';
-import { AddFollowUpComponent } from './components/followups/add-follow-up/add-follow-up.component';
 
 
 const routes: Routes = [
@@ -184,8 +183,7 @@ const routes: Routes = [
     ViewUsersComponent,
     OrderByPipe,
     SearchPipe,
-    FollowUpComponent,
-    AddFollowUpComponent
+    FollowUpComponent
   ],
   imports: [
     BrowserModule,
