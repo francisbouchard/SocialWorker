@@ -48,7 +48,7 @@ describe('Followup Tests', () => {
     describe('/GET/user', () => {
         it('should not proceed with GET when user ID not provided through the cookie', (done) => {
             chai.request(server)
-                .get('/api/followup/')
+                .get('/api/followup')
                 .end((err, res) => {
                     res.should.have.status(401);
                     done();
@@ -73,10 +73,6 @@ describe('Followup Tests', () => {
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('_id');
-                    res.body.should.have.property('description');
-                    res.body.should.have.property('user');
                     done();
                 });
         });
