@@ -1,17 +1,19 @@
-<mat-tab-group (selectedTabChange)="changeTab()">
+<mat-tab-group [selectedIndex]="selectedTab">
     <mat-tab label="Follow-ups">
         <h2>Follow Ups</h2>
 
-        <div *ngIf="!followup">
+        <div *ngIf="followups.length == 0">
             There are no follow ups
         </div>
-        <div *ngIf="followup">
+        <div *ngIf="followups">
             <mat-card *ngFor="let followup of followups">
-                <mat-card-title>{{followup.participant}}</mat-card-title>
+                <mat-card-title (click)="view(followup.participant._id)">{{followup.participant.name}}</mat-card-title>
                 <mat-card-content>
-                    {{followup.description}} Date : {{followup.date}}
+                    <p>{{followup.description}} </p>
+                    <br>
+                    <p>Date : {{followup.date | date }}</p>
                     <mat-card-actions>
-                        <button (click)="deleteFollowup(followup._id)" mat-button mat-icon-button aria-label="Add">Delete</button>
+                        <button (click)="deleteFollowup(followup._id)" mat-raised-button aria-label="Add">DELETE</button>
                     </mat-card-actions>
                 </mat-card-content>
             </mat-card>
@@ -21,16 +23,13 @@
     <mat-tab label="Add Follow Up">
             <form [formGroup]="form" (ngSubmit)="saveFollowUp()">
                     <mat-form-field>
-                            <input type="text" placeholder="Participant"  matInput [formControl]="Participant" [matAutocomplete]="auto">
+                            <input type="text" placeholder="Participant"  matInput formControlName="participant" [matAutocomplete]="auto">
                             <mat-autocomplete #auto="matAutocomplete">
-                              <mat-option *ngFor="let participant of participants | async" [value]="participant._id">
+                              <mat-option *ngFor="let participant of participants" [value]="participant.name">
                                 {{ participant.name }}
                               </mat-option>
                             </mat-autocomplete>
                           </mat-form-field>
-                    <!-- <mat-form-field>
-                        <input matInput type="text" placeholder="Participant" formControlName="participant"/>                        
-                    </mat-form-field> -->
                     <br>
                     <mat-form-field>
                             <textarea name="description" matInput placeholder="Description" matTextareaAutosize matAutosizeMinRows="3"
@@ -38,9 +37,9 @@
                           </mat-form-field>
                     <br>
                     <mat-form-field>
-                            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                            <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-datepicker #picker ></mat-datepicker>
                           </mat-form-field>  
                           <button [disabled]="form.invalid" mat-button matSuffix mat-icon-button aria-label="Add">
                                 <mat-icon color="primary">add_circle_outline</mat-icon>
