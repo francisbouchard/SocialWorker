@@ -16,6 +16,7 @@
     {{note.text}}
     <h4>Attachments:</h4>
     <p>{{note.attachment}}</p>
+    <button id="downloadNoteBtn" mat-raised-button (click)="downloadAttachment(note.attachment, note._id)">Download Attachment</button>
     <button id="deleteNoteBtn" mat-raised-button (click)="deleteNote(note._id)">Delete Note</button>
   </mat-expansion-panel>
 </mat-accordion>
