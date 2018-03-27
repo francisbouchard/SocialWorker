@@ -21,8 +21,8 @@ describe('Participant Tests', () => {
         chai.request(server)
             .post('/user/login')
             .send({
-                'email': 'test1@test.com',
-                'password': 'test'
+                'email': 'test@test.com',
+                'password': 'test123'
             })
             .end((err, res) => {
                 cookie = res.headers['set-cookie'].pop().split(';')[0];
@@ -105,6 +105,54 @@ describe('Participant Tests', () => {
                 });
         });
     });
+    
+    describe('/GET/id/:pid/note/:noteId', () => {
+        it('should GET a note attachment from a specific participant with the given IDs', (done) => {
+            chai.request(server)
+                .get('/api/participant/id/' + id1 + '/note/' + noteId)
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+        it('should be empty for GET with nonexisting ID', (done) => {
+            chai.request(server)
+                .get('/api/participant/id/' + 'fakeId' + '/note/' + noteId)
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.be.empty;
+                    done();
+                });
+        });      
+    });
+    
+    describe('/GET/id/:pid/doc/:docId', () => {
+        it('should GET a document from a specific participant with the given IDs', (done) => {
+            chai.request(server)
+                .get('/api/participant/id/' + id1 + '/doc/' + docId)
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+        it('should be empty for GET with nonexisting ID', (done) => {
+            chai.request(server)
+                .get('/api/participant/id/' + 'fakeId' +  '/doc/' + docId)
+                .set('Cookie', cookie)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.be.empty;
+                    done();
+                });
+        });      
+    });    
 
     describe('/GET/worker', () => {
         it('should GET all participant associated with the given social worker ID', (done) => {
