@@ -16,6 +16,7 @@
     {{note.text}}
     <h4>Attachments:</h4>
     <p>{{note.attachment}}</p>
+    <img *ngFor="let img of note.thumbnails" src="data:image/jpeg;base64,{{img.data}}" alt="thumbnail"  height="800" width="600">
     <button id="deleteNoteBtn" mat-raised-button (click)="deleteNote(note._id)">Delete Note</button>
   </mat-expansion-panel>
 </mat-accordion>

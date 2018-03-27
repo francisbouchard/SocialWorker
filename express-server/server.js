@@ -23,6 +23,7 @@ const participant = require('./routes/participant.route');
 const casefile = require('./routes/casefile.route');
 const phonelog = require('./routes/phonelog.route');
 const task = require('./routes/task.route');
+const followup = require('./routes/followup.route');
 const trash = require('./routes/trash.route');
 
 const resource = require('./routes/resource.route');
@@ -82,12 +83,12 @@ app.use('/api/participant', participant);
 app.use('/api/casefile', casefile);
 app.use('/api/phonelog', phonelog);
 app.use('/api/task', task);
+app.use('/api/followup', followup);
 app.use('/api/trash', trash);
 
 app.use('/api/resource', resource);
 app.use('/api/resource/housing', housing);
 app.use('/api/resource/medical', medical);
-
 
 // Server public folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -111,5 +112,4 @@ const server = http.createServer(app);
 * Listen on provided port, on all network interfaces.
 */
 server.listen(port, () => console.log(`API running on localhost:${port}`));
-
 module.exports = app;

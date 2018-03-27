@@ -7,20 +7,25 @@ const Note = require('../models/Note');
 const fs = require('fs');
 const path = require('path');
 const User = require('../models/User');
+const pdfThumbnail = require('../config/pdfThumbnail')
 
-fs.exists(path.join(__dirname, "../notes"), exists => {
-    if (!exists) {
-        fs.mkdir(path.join(__dirname, "../notes"), err => {
-            console.log(err)
-        })
-    }
+fs.exists(path.join(__dirname, "../notes"), exists =>{
+if(!exists){
+    fs.mkdir(path.join(__dirname, "../notes"), err =>{
+        if(err) {
+            console.log(err);
+        }
+    })
+}
 })
-fs.exists(path.join(__dirname, "../documents"), exists => {
-    if (!exists) {
-        fs.mkdir(path.join(__dirname, "../documents"), err => {
-            console.log(err)
-        })
-    }
+fs.exists(path.join(__dirname, "../documents"), exists =>{
+if(!exists){
+    fs.mkdir(path.join(__dirname, "../documents"), err =>{
+        if(err) {
+            console.log(err);
+        }
+    })
+}
 })
 /**
  * Get all participants
@@ -190,6 +195,13 @@ router.post('/:pid/doc', (req, res) => {
         date: req.query.date,
         attachment: req.query.attachment
     });
+    if(!req.files){
+        return res.status(400).send({err: "No file sent"});
+    } 
+    if(fs.existsSync(path.join(__dirname, "../documents", req.params.pid, req.query.attachment))){
+        return res.status(400).send({err: "File with that name already exists."})
+    }
+
     fs.exists(path.join(__dirname, "../documents", req.params.pid), exists => {
         if (!exists) {
             fs.mkdir(path.join(__dirname, "../documents", req.params.pid), err => {
@@ -200,6 +212,48 @@ router.post('/:pid/doc', (req, res) => {
                         if (err) {
                             res.status(500).send(err);
                         } else {
+                            if(req.files.attachment.mimetype && req.files.attachment.mimetype == "application/pdf"){
+                                pdfThumbnail.makeThumbnail(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), (err, data) => {
+                                    let document = new Document({
+                                        text: req.query.text,
+                                        date: req.query.date,
+                                        attachment: req.files.attachment.name,
+                                        thumbnails: data
+                                    });
+                                    Participant.findById(req.params.pid).then(participant => {
+                                        if (!participant.documents) {
+                                            participant.documents = [];
+                                        }
+                                        participant.documents.push(document);
+                                
+                                        participant.save().then(data => {
+                                            res.send(data);
+                                        }, err => {
+                                            res.send(err);
+                                        })
+                                    }, err => {
+                                        res.send(err);
+                                    })
+                                })
+                            }
+                            
+                        }
+                    })
+                }
+            })
+        } else {
+            req.files.attachment.mv(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), err => {
+                if(err){
+                    res.status(500).send(err);
+                } else {
+                    if(req.files.attachment.mimetype && req.files.attachment.mimetype == "application/pdf"){
+                        pdfThumbnail.makeThumbnail(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), (err, data) => {
+                            let document = new Document({
+                                text: req.query.text,
+                                date: req.query.date,
+                                attachment: req.files.attachment.name,
+                                thumbnails: data
+                            });
                             Participant.findById(req.params.pid).then(participant => {
                                 if (!participant.documents) {
                                     participant.documents = [];
@@ -214,29 +268,8 @@ router.post('/:pid/doc', (req, res) => {
                             }, err => {
                                 res.send(err);
                             })
-                        }
-                    })
-                }
-            })
-        } else {
-            req.files.attachment.mv(path.join(__dirname, "../documents", req.params.pid, req.query.attachment), err => {
-                if (err) {
-                    res.status(500).send(err);
-                } else {
-                    Participant.findById(req.params.pid).then(participant => {
-                        if (!participant.documents) {
-                            participant.documents = [];
-                        }
-                        participant.documents.push(document);
-
-                        participant.save().then(data => {
-                            res.send(data);
-                        }, err => {
-                            res.send(err);
                         })
-                    }, err => {
-                        res.send(err);
-                    })
+                    }
                 }
             })
         }
@@ -259,8 +292,13 @@ router.delete('/:pid/doc/:docId', (req, res) => {
 /**
  * Add a note to participant
  */
-router.post('/:pid/note', (req, res) => {
-
+router.post('/:pid/note', (req, res) => { 
+    if(!req.files){
+        return res.status(400).send({err: "No file sent"});
+    }
+    if(fs.existsSync(path.join(__dirname, "../notes", req.params.pid, req.query.attachment))){
+        return res.status(400).send({err: "File with that name already exists."})
+    }
     let note = new Note({
         text: req.query.text,
         date: req.query.date,
@@ -277,6 +315,48 @@ router.post('/:pid/note', (req, res) => {
                         if (err) {
                             res.status(500).send(err);
                         } else {
+                            if(req.files.attachment.mimetype && req.files.attachment.mimetype == "application/pdf"){
+                                pdfThumbnail.makeThumbnail(path.join(__dirname, "../notes", req.params.pid, req.query.attachment), (err, data) => {
+                                    let note = new Note({
+                                        text: req.query.text,
+                                        date: req.query.date,
+                                        attachment: req.files.attachment.name,
+                                        thumbnails: data
+                                    });
+                                    Participant.findById(req.params.pid).then(participant => {
+                                        if (!participant.notes) {
+                                            participant.notes = [];
+                                        }
+                                        participant.notes.push(note);
+                                
+                                        participant.save().then(data => {
+                                            res.send(data);
+                                        }, err => {
+                                            res.send(err);
+                                        })
+                                    }, err => {
+                                        res.send(err);
+                                    })
+                                })
+                            }
+                            
+                        }
+                    })
+                }
+            })
+        } else {
+            req.files.attachment.mv(path.join(__dirname, "../notes", req.params.pid, req.query.attachment), err => {
+                if(err){
+                    res.status(500).send(err);
+                } else {
+                    if(req.files.attachment.mimetype == "application/pdf"){
+                        pdfThumbnail.makeThumbnail(path.join(__dirname, "../notes", req.params.pid, req.query.attachment), (err, data) => {
+                            let note = new Note({
+                                text: req.query.text,
+                                date: req.query.date,
+                                attachment: req.files.attachment.name,
+                                thumbnails: data
+                            });
                             Participant.findById(req.params.pid).then(participant => {
                                 if (!participant.notes) {
                                     participant.notes = [];
@@ -291,29 +371,8 @@ router.post('/:pid/note', (req, res) => {
                             }, err => {
                                 res.send(err);
                             })
-                        }
-                    })
-                }
-            })
-        } else {
-            req.files.attachment.mv(path.join(__dirname, "../notes", req.params.pid, req.query.attachment), err => {
-                if (err) {
-                    res.status(500).send(err);
-                } else {
-                    Participant.findById(req.params.pid).then(participant => {
-                        if (!participant.notes) {
-                            participant.notes = [];
-                        }
-                        participant.notes.push(note);
-
-                        participant.save().then(data => {
-                            res.send(data);
-                        }, err => {
-                            res.send(err);
                         })
-                    }, err => {
-                        res.send(err);
-                    })
+                    }
                 }
             })
         }

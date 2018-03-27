@@ -52,7 +52,7 @@ let passportConfig = {
         if (process.env.TRAVIS || (process.argv.length > 2 && process.argv[2] == 'test')) {
           return next();
         }
-        res.redirect("/login");
+        res.redirect(401, "/login");
       }
 }
 

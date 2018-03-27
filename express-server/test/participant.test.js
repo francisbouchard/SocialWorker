@@ -4,6 +4,8 @@ const should = chai.should();
 const mongoose = require('mongoose');
 const server = require('../server');
 const Participant = require('../models/Participant');
+const fs = require('fs');
+const path = require('path');
 
 let id1 = new mongoose.Types.ObjectId();
 let id2 = new mongoose.Types.ObjectId();
@@ -253,21 +255,22 @@ describe('Participant Tests', () => {
                 type: 'A123 Form',
                 attachment: 'url'
             }
-            // TODO: uncomment/fix this when the docs attachment functionality is done
-            // Participant.findById(id1).then(participant => {
-            //     let numOfDocs = participant.documents.length;
-            //     chai.request(server)
-            //         .post('/api/participant/' + id1 + '/doc')
-            //         .set('Cookie', cookie)
-            //         .send (document)
-            //         .end((err, res) => {
-            //             res.should.have.status(200);
-            //             res.body.should.be.a('object');
-            //             res.body.should.have.property('documents');
-            //             res.body.documents.length.should.be.eql(numOfDocs + 1);
+            Participant.findById(id1).then(participant => {
+                let numOfDocs = participant.documents.length;
+                chai.request(server)
+                    .post('/api/participant/' + id1 + '/doc')
+                    .attach('attachment', fs.readFileSync(path.join(__dirname, '../../', 'course-admin', 'Proposal 13-dec-2017.pdf')), 'Proposal 13-dec-2017.pdf')
+                    .query({attachment: 'Proposal 13-dec-2017.pdf'})                    
+                    .set('Cookie', cookie)
+                    .send(document)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('documents');
+                        res.body.documents.length.should.be.eql(numOfDocs + 1);
                         done();
-            //         });
-            // })
+                     });
+             })
         });
     });
 
@@ -277,21 +280,22 @@ describe('Participant Tests', () => {
                 text: 'notes taken',
                 attachment: 'url'
             }
-            // TODO: uncomment/fix this when the docs attachment functionality is done
-            // Participant.findById(id1).then(participant => {
-            //     let numOfNotes = participant.notes.length;
-            //     chai.request(server)
-            //         .post('/api/participant/' + id1 + '/note')
-            //         .set('Cookie', cookie)
-            //         .send(note)
-            //         .end((err, res) => {
-            //             res.should.have.status(200);
-            //             res.body.should.be.a('object');
-            //             res.body.should.have.property('notes');
-            //             res.body.notes.length.should.be.eql(numOfNotes + 1);
+            Participant.findById(id1).then(participant => {
+                let numOfNotes = participant.notes.length;
+                chai.request(server)
+                    .post('/api/participant/' + id1 + '/note')
+                    .attach('attachment', fs.readFileSync(path.join(__dirname, '../../', 'course-admin', 'Proposal 13-dec-2017.pdf')), 'Proposal 13-dec-2017.pdf')
+                    .query({attachment: 'Proposal 13-dec-2017.pdf'})
+                    .set('Cookie', cookie)
+                    .send(note)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('notes');
+                        res.body.notes.length.should.be.eql(numOfNotes + 1);
                         done();
-            //         });
-            // })
+                    });
+         })
         });
     });
 

@@ -18,6 +18,7 @@ export class DocumentModalComponent implements OnInit {
     attachment: null
   };
   file: FormData;
+  loading: boolean = false;
 
 
   constructor(
@@ -40,8 +41,10 @@ export class DocumentModalComponent implements OnInit {
    * @memberof DocumentComponent
    */
   submit() {
+    this.loading = true;
     this.participantService.saveDocument(this.file, this.document, this.participant.id)
       .subscribe(data => {
+        this.loading = false;
         this.dialogRef.close();
       });
     console.log(this.document);
