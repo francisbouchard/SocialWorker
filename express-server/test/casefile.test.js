@@ -4,13 +4,14 @@ const should = chai.should();
 const mongoose = require('mongoose');
 const server = require('../server');
 const Participant = require('../models/Participant');
-const Housing = require('../models/Housing');
+const Housing = require('../models/resources/Housing');
 const CaseFile = require('../models/Casefile');
 
-let participantId1 = 'reqParticipant1';
-let participantId2 = 'reqParticipant2';
+let participantId1 = new mongoose.Types.ObjectId();
+let participantId2 = new mongoose.Types.ObjectId();
 let housingId1 = new mongoose.Types.ObjectId();
 let housingId2 = new mongoose.Types.ObjectId();
+let userId = new mongoose.Types.ObjectId("5a7f87c0e146e233d707518b"); //test1 user
 let id1 = new mongoose.Types.ObjectId();
 let id2 = new mongoose.Types.ObjectId();
 let id3 = new mongoose.Types.ObjectId();
@@ -68,6 +69,7 @@ describe('Casefile Tests', () => {
 
         let casefile1 = new CaseFile({
             _id: id1,
+            createdBy: userId,
             participant: participantId1,
             notes: 'testing',
             contactedResources: [{
@@ -79,6 +81,7 @@ describe('Casefile Tests', () => {
         });
         let casefile2 = new CaseFile({
             _id: id5,
+            createdBy: userId,
             participant: participantId2,
             notes: 'testing'
         });
@@ -145,7 +148,7 @@ describe('Casefile Tests', () => {
         });
         it('should be empty for GET with nonexisting participant ID', (done) => {
             chai.request(server)
-                .get('/api/casefile/participant/' + 'p123')
+                .get('/api/casefile/participant/' + new mongoose.Types.ObjectId())
                 .set('Cookie', cookie)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -383,7 +386,7 @@ describe('Casefile Tests', () => {
     });
 
     describe('/DELETE/:id', () => {
-        it('should not permanently DELETE the casefile with the given ID when user is not admin', (done) => {
+        it('should flag the casefile with the given ID as deleted', (done) => {
             chai.request(server)
                 .del('/api/casefile/' + id5)
                 .set('Cookie', cookie)
@@ -392,24 +395,6 @@ describe('Casefile Tests', () => {
                     res.body.should.be.a('object');
                     res.body.should.have.property('deleted').eql(true);
                     done();
-                });
-        });
-        it('should permanently DELETE the casefile with the given ID when user is admin', (done) => {
-            chai.request(server)
-                .post('/user/login')
-                .send({
-                    'email': 'test2@test.com',
-                    'password': 'test123'
-                })
-                .end((err, res) => {
-                    let adminCookie = res.headers['set-cookie'].pop().split(';')[0];
-                    chai.request(server)
-                        .del('/api/casefile/' + id5)
-                        .set('Cookie', adminCookie)
-                        .end((err, res) => {
-                            res.should.have.status(200);
-                            done();
-                        });
                 });
         });
     });
@@ -422,6 +407,9 @@ describe('Casefile Tests', () => {
             console.log(err);
         });
         CaseFile.findByIdAndRemove(id4).then(data => { }, err => {
+            console.log(err);
+        });
+        CaseFile.findByIdAndRemove(id5).then(data => { }, err => {
             console.log(err);
         });
         Participant.findByIdAndRemove(participantId1).then(data => { }, err => {

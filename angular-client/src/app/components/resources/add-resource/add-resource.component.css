@@ -1,3 +1,8 @@
 mat-form-field {
     width: 60%;
 }
+
+mat-select {
+    width: 20%;
+    display: flex;
+}

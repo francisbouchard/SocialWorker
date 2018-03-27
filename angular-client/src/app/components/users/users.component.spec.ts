@@ -3,7 +3,6 @@ import { UsersComponent } from './users.component';
 import { MaterialsModule } from '../../modules/materials.module';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
-import { Router, ActivatedRoute, convertToParamMap } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('UsersComponent', () => {
@@ -14,7 +13,7 @@ describe('UsersComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ UsersComponent ],
       imports: [ MaterialsModule, RouterTestingModule ],
-      providers: [ 
+      providers: [
         { provide: AuthenticationService, useClass: MockAuthenticationService }
       ]
     })

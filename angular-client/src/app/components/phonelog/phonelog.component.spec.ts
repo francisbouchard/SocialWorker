@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
@@ -22,12 +21,11 @@ describe('PhonelogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PhonelogComponent, AddPhonelogComponent, ViewPhonelogComponent,EditPhonelogComponent,OrderByPipe,SearchPipe ],
+      declarations: [ PhonelogComponent, AddPhonelogComponent, ViewPhonelogComponent, EditPhonelogComponent, OrderByPipe, SearchPipe ],
       imports: [ MaterialsModule, RouterTestingModule ],
       providers: [
         { provide: AuthenticationService, useClass: MockAuthenticationService },
         { provide: PhonelogService, useClass: MockPhonelogService },
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } }
       ]
     })
     .compileComponents();

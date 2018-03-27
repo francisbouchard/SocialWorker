@@ -1,6 +1,10 @@
 <div>
 <mat-card>
   <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <mat-select placeholder="Resource Type" formControlName="kind">
+        <mat-option *ngFor="let type of resourceTypes" [value]="type">{{type}}</mat-option>
+    </mat-select>
+
     <mat-form-field>
       <input matInput placeholder="Name" formControlName="name">
     </mat-form-field>
@@ -22,17 +26,30 @@
       <input matInput placeholder="Notes" formControlName="notes">
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Term" formControlName="term">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="Gender" formControlName="gender">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="Constraints" formControlName="constraints">
-    </mat-form-field>
+    <div [ngSwitch]="selected">
+      <ng-container *ngSwitchCase="'Housing'">
+        <mat-form-field>
+          <input matInput placeholder="Term" formControlName="term">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Gender" formControlName="gender">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Constraints" formControlName="constraints">
+        </mat-form-field>
+      </ng-container>
+      <ng-container *ngSwitchCase="'Medical'">
+        <mat-form-field>
+          <input matInput placeholder="Cost" formControlName="without_cost">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Waitlist Time" formControlName="waitlist_time">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Schedule" formControlName="schedule_availability">
+        </mat-form-field>
+      </ng-container>
+    </div>
 <button mat-raised-button [disabled]="form.invalid">Submit</button>
   </form>
   

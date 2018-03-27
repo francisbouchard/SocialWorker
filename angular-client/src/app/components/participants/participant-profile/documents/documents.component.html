@@ -13,6 +13,8 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <h4>Attachments:</h4>
+    {{document.attachment}}
+          <img *ngFor="let img of (document.thumbnails)" src="data:image/jpeg;base64,{{img.data}}" alt="thumbnail"  height="800" width="600">
     <mat-grid-list cols="2" *ngFor="let doc of document.attachment">
       <!-- <mat-grid-tile> -->
       <img [src]="doc">

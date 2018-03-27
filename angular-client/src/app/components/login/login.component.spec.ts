@@ -13,8 +13,8 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       imports: [ MaterialsModule ],
-      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService }, 
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy("navigateByUrl") } } ]
+      providers: [ { provide: AuthenticationService, useClass: MockAuthenticationService },
+        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } } ]
     })
     .compileComponents();
   }));

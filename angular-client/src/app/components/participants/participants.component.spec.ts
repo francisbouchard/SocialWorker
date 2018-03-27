@@ -8,7 +8,6 @@ import { AddParticipantComponent } from './add-participant/add-participant.compo
 import { EditParticipantComponent } from './edit-participant/edit-participant.component';
 import { MockParticipantService } from '../../mocks/MockParticipantService';
 import { ParticipantService } from '../../services/participant.service';
-import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MockAuthenticationService } from '../../mocks/MockAuthenticationService';
 import { OrderByPipe } from '../../pipes/orderBy.pipe';
@@ -28,7 +27,7 @@ describe('ParticipantsComponent', () => {
       imports: [ MaterialsModule, RouterTestingModule ],
       providers: [ { provide: ParticipantService, useClass: MockParticipantService },
         { provide: AuthenticationService, useClass: MockAuthenticationService },
-        { provide: Router, useValue: { navigateByUrl: jasmine.createSpy('navigateByUrl') } } ]
+      ]
     })
     .compileComponents();
   }));

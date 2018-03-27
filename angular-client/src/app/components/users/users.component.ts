@@ -8,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class UsersComponent implements OnInit {
   navLinks = [
     {
-      label: "Users",
-      path: "./view-users"
+      label: 'Users',
+      path: './view-users'
     },
     {
-      label: "Add User",
-      path: "./register-user"
+      label: 'Add User',
+      path: './register-user'
     }
   ];
 

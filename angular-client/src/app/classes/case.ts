@@ -1,4 +1,5 @@
 export class Casefile {
+    createdBy: String;
     participant: String;
     status: String;
     urgency: String;

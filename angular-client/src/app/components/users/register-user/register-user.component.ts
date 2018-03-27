@@ -31,8 +31,8 @@ export class RegisterUserComponent implements OnInit {
   }
 
   /**
-   * Register a new user account 
-   * 
+   * Register a new user account
+   *
    * @memberof LoginComponent
    */
   public signUp() {

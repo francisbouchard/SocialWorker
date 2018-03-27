@@ -20,17 +20,32 @@
       <input matInput placeholder="Location" name="location" formControlName="location">
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Notes" name="notes" formControlName="notes">
-    </mat-form-field>
+    <div [ngSwitch]="resource.kind">
 
-    <mat-form-field>
-      <input matInput placeholder="Gender" name="gender" formControlName="gender">
-    </mat-form-field>
+      <ng-container *ngSwitchCase="'Housing'">
+        <mat-form-field>
+          <input matInput placeholder="Notes" name="notes" formControlName="notes">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Gender" name="gender" formControlName="gender">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Constraints" name="constraints" formControlName="constraints">
+        </mat-form-field>
+      </ng-container>
 
-    <mat-form-field>
-      <input matInput placeholder="Constraints" name="constraints" formControlName="constraints">
-    </mat-form-field>
+      <ng-container *ngSwitchCase="'Medical'">
+        <mat-form-field>
+          <input matInput placeholder="Cost" name="without_cost" formControlName="without_cost">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Waitlist Time" name="waitlist_time" formControlName="waitlist_time">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Schedule" name="schedule_availability" formControlName="schedule_availability">
+        </mat-form-field>
+      </ng-container>
+    </div>
 
     <mat-card-actions>
       <button mat-button (click)="update()" [disabled]="resourceForm.invalid">Update</button>

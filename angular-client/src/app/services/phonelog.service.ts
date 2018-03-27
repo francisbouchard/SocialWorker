@@ -10,7 +10,7 @@ import { MessageService } from './message.service';
 @Injectable()
 export class PhonelogService {
 
-  private url = '/api/phonelog/';
+  private url = '/api/phonelog';
 
   constructor(private http: HttpClient,
     private messageService: MessageService) {
@@ -45,6 +45,14 @@ export class PhonelogService {
         tap(participants => this.log('fecthed logs')),
         catchError(this.handleError<Object>('getActive()'))
       );
+  }
+
+  getRecentlyUpdated(): Observable<Object> {
+    return this.http.get(`${this.url}/recent`)
+    .pipe(
+      tap(participants => this.log('fecthed recently updated logs')),
+      catchError(this.handleError<Object>('getRecentlyUpdated()'))
+    );
   }
 
   getByDeleted(): Observable<Object> {
@@ -83,7 +91,7 @@ export class PhonelogService {
    * @returns {Observable<Object>}
    * @memberof ResourceService
    */
-  update(id,LogData): Observable<Object> {
+  update(id, LogData): Observable<Object> {
     return this.http.put(`${this.url}/${id}`, LogData)
       .pipe(
       tap(_ => this.log('saving a resource')),

@@ -60,11 +60,14 @@ export class ParticipantProfileComponent implements OnInit {
       if (participantSelected != null) {
         this.participantSelected = participantSelected as Participant;
         this.loadCases();
+        // filter documents and notes flagged as deleted
+        this.orderedDocuments = this.participantSelected.documents.filter((doc) => !doc.deleted);
+        this.orderedNotes = this.participantSelected.notes.filter((note) => !note.deleted);
         // order documents and notes of participant in reverse chronological order
-        this.orderedDocuments = this.participantSelected.documents.sort((doc1, doc2) => {
+        this.orderedDocuments = this.orderedDocuments.sort((doc1, doc2) => {
           return new Date(doc2.date).getTime() - new Date(doc1.date).getTime();
         });
-        this.orderedNotes = this.participantSelected.notes.sort((note1, note2) => {
+        this.orderedNotes = this.orderedNotes.sort((note1, note2) => {
           return new Date(note2.date).getTime() - new Date(note1.date).getTime();
         });
       } else {
@@ -156,8 +159,8 @@ export class ParticipantProfileComponent implements OnInit {
   /**
    * Reopen a casefile
    *
-   * @param {any} casefile 
-   * @param {any} casefileIndex 
+   * @param {any} casefile
+   * @param {any} casefileIndex
    * @memberof ParticipantProfileComponent
    */
   reopenCasefile(casefile, casefileIndex): void {
@@ -220,7 +223,7 @@ export class ParticipantProfileComponent implements OnInit {
 
   /**
    * Open the Assign Worker modal
-   * 
+   *
    * @memberof ParticipantProfileComponent
    */
   editWorkers(): void {

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ResourceService } from '../../../services/resource.service';
+import { Resource } from '../../../classes/resource';
 import { Housing } from '../../../classes/housing';
+import { Medical } from '../../../classes/medical';
 
 @Component({
   selector: 'app-view-resources',
@@ -11,7 +13,7 @@ export class ViewResourcesComponent implements OnInit {
 
   @Input() hasTabChanged: boolean;
   resources: Object;
-  editingResource = Housing;
+  editingResource = Resource;
   public sortProperty = 'name';
   public reverse = false;
   public query: string;
