@@ -187,6 +187,23 @@ router.delete('/:pid/worker/:workerId', (req, res) => {
 })
 
 /**
+ * Get a participant's document by the document ID
+ */
+router.get('/:pid/doc/:docId', (req, res) => {
+        Participant.findById(req.params.pid)
+        .then(participant => {
+            let file = participant.documents.filter(document => document._id == req.params.docId)[0];
+            res.download(path.join(__dirname, "../documents", req.params.pid, file.attachment[0]), "file");
+    
+        })
+        .catch( err => {
+            res.send(err);
+        }
+        );
+    })
+
+
+/**
  * Add a document to participant
  */
 router.post('/:pid/doc', (req, res) => {
@@ -288,6 +305,22 @@ router.delete('/:pid/doc/:docId', (req, res) => {
         res.send(err);
     })
 })
+
+/**
+ * Get a participant's note by the note ID
+ */
+router.get('/:pid/note/:noteId', (req, res) => {
+        Participant.findById(req.params.pid)
+        .then(participant => {
+            let file = participant.notes.filter(note => note._id == req.params.noteId)[0];
+            res.download(path.join(__dirname, "../notes", req.params.pid, file.attachment), "file");
+    
+        })
+        .catch( err => {
+            res.send(err);
+        }
+        );
+    })
 
 /**
  * Add a note to participant
