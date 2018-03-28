@@ -314,7 +314,7 @@ router.get('/:pid/note/:noteId', (req, res) => {
         .then(participant => {
             let file = participant.notes.filter(note => note._id == req.params.noteId)[0];
             res.download(path.join(__dirname, "../notes", req.params.pid, file.attachment), "file");
-    
+
         })
         .catch( err => {
             res.send(err);

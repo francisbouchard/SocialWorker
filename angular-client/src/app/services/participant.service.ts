@@ -143,7 +143,7 @@ export class ParticipantService {
    * @memberof ParticipantService
    */
   downloadAttachment(participantID: String, attachmentID: String): Observable<Blob>  {
-    return this.http.get(`${this.url}${participantID}/note/${attachmentID}`, {responseType: 'blob' })
+    return this.http.get(`${this.url}/${participantID}/note/${attachmentID}`, {responseType: 'blob' })
   }
 
   /**
@@ -154,7 +154,7 @@ export class ParticipantService {
    * @memberof ParticipantService
    */
   downloadDocument(participantID: String, documentID: String): Observable<Blob> {
-    return this.http.get(`${this.url}${participantID}/doc/${documentID}`, {responseType: 'blob'});
+    return this.http.get(`${this.url}/${participantID}/doc/${documentID}`, {responseType: 'blob'});
   }
 
   /**
