@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css']
 })
-export class TasksComponent implements OnInit {
+export class TasksComponent implements OnChanges {
 
   form: FormGroup;
   tasks: Object[];
@@ -16,7 +16,7 @@ export class TasksComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnInit() {
+  ngOnChanges () {
     this.loadTasks();
   }
 
@@ -46,6 +46,7 @@ export class TasksComponent implements OnInit {
   deleteTask(taskID: String) {
     this.taskService.delete(taskID)
       .subscribe(data => {
+        this.loadTasks();
         console.log(data);
       });
   }
