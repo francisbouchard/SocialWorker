@@ -186,8 +186,7 @@ const routes: Routes = [
     ViewUsersComponent,
     OrderByPipe,
     SearchPipe,
-    FollowUpComponent,
-    NgChatModule 
+    FollowUpComponent 
   ],
   imports: [
     BrowserModule,
@@ -196,6 +195,7 @@ const routes: Routes = [
     FormsModule,
     MaterialsModule,
     ReactiveFormsModule,
+    NgChatModule,
     RouterModule.forRoot(routes)
   ],
   entryComponents: [
