@@ -34,7 +34,17 @@ export class SignalRAdapter extends ChatAdapter {
     private proxy: SignalR.Hub.Proxy;
 
     listFriends(): Observable<User[]> {
-        return this._dataService.ListFriends();
+        return this.userService.getAll().map( 
+            (users) => {
+                console.log(users)
+                let x = new User();
+                x.id = 99;
+                x.displayName = "Test";
+                x.status = UserStatus.Online;
+
+                return [x];
+            }
+        );
     }
 
     getMessageHistory(userId: any): Observable<Message[]> {
