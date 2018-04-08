@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-
+import { ChatAdapter } from 'ng-chat';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,11 @@ import { Observable } from 'rxjs/Observable';
 })
 export class AppComponent implements OnInit {
   title = 'SocialWorker';
+  userId = 999;
+
+  public adapter: ChatAdapter;
+
+
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router

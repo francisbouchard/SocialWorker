@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { Http, HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
+import { NgChatModule } from 'ng-chat';
+
 
 import { AppComponent } from './app.component';
 import { ActiveCasefilesComponent } from './components/casefiles/active-casefiles/active-casefiles.component';
@@ -57,6 +59,7 @@ import { TaskService } from './services/task.service';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { FollowUpService } from './services/follow-up.service';
+
 
 
 const routes: Routes = [
@@ -183,7 +186,8 @@ const routes: Routes = [
     ViewUsersComponent,
     OrderByPipe,
     SearchPipe,
-    FollowUpComponent
+    FollowUpComponent,
+    NgChatModule 
   ],
   imports: [
     BrowserModule,
