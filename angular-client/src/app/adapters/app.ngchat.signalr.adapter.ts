@@ -3,11 +3,11 @@ import { ChatAdapter, User, Message, UserStatus } from 'ng-chat';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/from';
-import { DataService } from './services/values-data.service';
+import { UserService } from './../services/user.service';
 
 @Injectable()
 export class SignalRAdapter extends ChatAdapter {
-    constructor(private _dataService: DataService) {
+    constructor(private userService: UserService) {
         super();
 
         // initializing the connection

@@ -3,6 +3,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ChatAdapter } from 'ng-chat';
+import { SignalRAdapter } from './adapters/app.ngchat.signalr.adapter';
 
 @Component({
   selector: 'app-root',
@@ -13,16 +14,18 @@ export class AppComponent implements OnInit {
   title = 'SocialWorker';
   userId = 999;
 
-  public adapter: ChatAdapter;
-
-
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private _signalRAdapter: SignalRAdapter,
   ) {
   }
   public heartbeat = false;
   public loggedIn = false;
+
+  public adapter: ChatAdapter = this._signalRAdapter;
+
+
   ngOnInit() {
     this.authenticationService.heartbeat().subscribe(data => {
       if (!data.loggedIn) {
