@@ -42,6 +42,7 @@ import { ViewParticipantsComponent } from './components/participants/view-partic
 import { ViewResourcesComponent } from './components/resources/view-resources/view-resources.component';
 import { ViewUsersComponent } from './components/users/view-users/view-users.component';
 import { FollowUpComponent } from './components/followups/follow-up.component';
+import { MeetingLogComponent } from './components/meeting-log/meeting-log.component';
 
 
 import { AuthenticationService } from './services/authentication.service';
@@ -57,6 +58,9 @@ import { TaskService } from './services/task.service';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { FollowUpService } from './services/follow-up.service';
+import { AddMeetingComponent } from './components/meeting-log/add-meeting/add-meeting.component';
+import { EditMeetingComponent } from './components/meeting-log/edit-meeting/edit-meeting.component';
+import { ViewMeetingComponent } from './components/meeting-log/view-meeting/view-meeting.component';
 
 
 const routes: Routes = [
@@ -121,6 +125,10 @@ const routes: Routes = [
         path: 'trashbin',
         component: TrashbinComponent
       },
+      {
+        path: 'meetings',
+        component: MeetingLogComponent
+      },
     ]
   },
   {
@@ -183,7 +191,11 @@ const routes: Routes = [
     ViewUsersComponent,
     OrderByPipe,
     SearchPipe,
-    FollowUpComponent
+    FollowUpComponent,
+    MeetingLogComponent,
+    AddMeetingComponent,
+    EditMeetingComponent,
+    ViewMeetingComponent
   ],
   imports: [
     BrowserModule,

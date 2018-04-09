@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     {label: 'Follow Up', icon: 'refresh', path: 'followup'},    
     {label: 'Manage Users', icon: 'supervisor_account', path: 'users'},
     {label: 'Reports', icon: 'assessment', path: 'reports'},
+    {label: 'Meeting Log', icon: 'event', path: 'meetings'},    
     {label: 'Trash Bin', icon: 'delete', path: 'trashbin'}
   ];
 
