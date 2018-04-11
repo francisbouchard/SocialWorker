@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
 import { NgChatModule } from 'ng-chat';
 
-
 import { AppComponent } from './app.component';
 import { ActiveCasefilesComponent } from './components/casefiles/active-casefiles/active-casefiles.component';
 import { ActivityComponent } from './components/dashboard/activity/activity.component';

@@ -3,7 +3,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ChatAdapter } from 'ng-chat';
-import { SignalRAdapter } from './adapters/app.ngchat.signalr.adapter';
+import { SocketIOAdapter } from './adapters/ngchat.socketio.adapter';
 
 @Component({
   selector: 'app-root',
@@ -17,13 +17,13 @@ export class AppComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    private _signalRAdapter: SignalRAdapter,
+    private socketIOAdapter: SocketIOAdapter,
   ) {
   }
   public heartbeat = false;
   public loggedIn = false;
 
-  public adapter: ChatAdapter = this._signalRAdapter;
+  public adapter: ChatAdapter = this.socketIOAdapter;
 
 
   ngOnInit() {
