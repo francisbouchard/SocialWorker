@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   title = 'SocialWorker';
   userId: string;
   username: string;
+  public adapter: ChatAdapter;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -23,13 +24,10 @@ export class AppComponent implements OnInit {
     private socket: Socket,
     private http: Http,
   ) {
-    this.InitializeSocketListerners();  
+    this.InitializeSocketListerners();
   }
   public heartbeat = false;
   public loggedIn = false;
-
-  public adapter: ChatAdapter;
-
 
   ngOnInit() {
     this.authenticationService.heartbeat().subscribe(data => {
@@ -40,6 +38,7 @@ export class AppComponent implements OnInit {
       } else {
         this.authenticationService.loggedIn = true;
         this.heartbeat = true;
+        this.testChat();
       }
     }, err => {
       this.heartbeat = true;
@@ -59,6 +58,11 @@ export class AppComponent implements OnInit {
     this.socket.emit("join", this.username);
   }
 
+  public testChat(): void {
+    this.username = this.authenticationService.profile.name;
+    this.joinRoom();
+  }
+
   public InitializeSocketListerners(): void
   {
     this.socket.on("generatedUserId", (userId) => {
@@ -67,6 +71,4 @@ export class AppComponent implements OnInit {
       this.userId = userId;
     });
   }
-
-
 }

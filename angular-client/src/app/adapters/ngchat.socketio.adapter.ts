@@ -24,7 +24,6 @@ export class SocketIOAdapter extends ChatAdapter
         this.socket = socket;
         this.http = http;
         this.userId = userId;
-        
         this.InitializeSocketListerners();  
     }
 

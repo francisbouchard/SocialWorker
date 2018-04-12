@@ -113,15 +113,24 @@ const server = http.createServer(app);
 */
 server.listen(port, () => console.log(`API running on localhost:${port}`));
 
+// TEMPORARY FOR TESTING. Replace this by user service
+let usersCollection = [];
+app.post("/listFriends",function(req, res){
+  var clonedArray = usersCollection.slice();
+  var i = usersCollection.findIndex(x => x.id == req.body.userId);
+  clonedArray.splice(i,1);
+  res.json(clonedArray);
+});
+
 const io = require('socket.io').listen(server);
 
-io.on('connection', function(socket){
+io.on('connection', function(socket) {
   console.log('A user has connected to the server.');
   // Temporary fix to correct host
   socket.handshake.headers.origin = 'http://localhost:' + port;
-  console.log(socket.handshake.headers.origin);
 
   socket.on('join', function(username) {
+    console.log('test');
     // Same contract as ng-chat.User
     usersCollection.push({  
       id: socket.id, // Assigning the socket ID as the user ID in this example

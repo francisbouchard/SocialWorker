@@ -19,6 +19,6 @@
   </span>
 </mat-toolbar>
 
-<ng-chat [adapter]="adapter" [userId]="userId" [title]="Users" [isCollapsed]="true"></ng-chat>
+<ng-chat *ngIf="userId" [adapter]="adapter" [userId]="userId" [title]="Users" [isCollapsed]="false"></ng-chat>
 
 <router-outlet *ngIf="heartbeat"></router-outlet>
