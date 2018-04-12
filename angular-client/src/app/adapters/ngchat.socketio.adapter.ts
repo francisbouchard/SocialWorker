@@ -13,18 +13,18 @@ export class SocketIOAdapter extends ChatAdapter
     private socket: Socket;
     private http: Http;
     private userId: string;
+    private userService: UserService;
 
     constructor(
         userId: string, 
         socket: Socket, 
         http: Http,
-        private userService: UserService
     ) {
         super();
         this.socket = socket;
         this.http = http;
         this.userId = userId;
-
+        
         this.InitializeSocketListerners();  
     }
 

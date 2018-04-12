@@ -3,7 +3,9 @@ import { AuthenticationService } from './services/authentication.service';
 import { RouterModule, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ChatAdapter } from 'ng-chat';
+import { Socket } from 'ng-socket-io';
 import { SocketIOAdapter } from './adapters/ngchat.socketio.adapter';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-root',
@@ -12,18 +14,21 @@ import { SocketIOAdapter } from './adapters/ngchat.socketio.adapter';
 })
 export class AppComponent implements OnInit {
   title = 'SocialWorker';
-  userId = 999;
+  userId: string;
+  username: string;
 
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    private socketIOAdapter: SocketIOAdapter,
+    private socket: Socket,
+    private http: Http,
   ) {
+    this.InitializeSocketListerners();  
   }
   public heartbeat = false;
   public loggedIn = false;
 
-  public adapter: ChatAdapter = this.socketIOAdapter;
+  public adapter: ChatAdapter;
 
 
   ngOnInit() {
@@ -48,4 +53,20 @@ export class AppComponent implements OnInit {
       console.log(err);
     });
   }
+
+  public joinRoom(): void 
+  {
+    this.socket.emit("join", this.username);
+  }
+
+  public InitializeSocketListerners(): void
+  {
+    this.socket.on("generatedUserId", (userId) => {
+      // Initializing the chat with the userId and the adapter with the socket instance
+      this.adapter = new SocketIOAdapter(userId, this.socket, this.http);
+      this.userId = userId;
+    });
+  }
+
+
 }
