@@ -115,9 +115,11 @@ server.listen(port, () => console.log(`API running on localhost:${port}`));
 
 const io = require('socket.io').listen(server);
 
-// Socket.io operations
 io.on('connection', function(socket){
   console.log('A user has connected to the server.');
+  // Temporary fix to correct host
+  socket.handshake.headers.origin = 'http://localhost:' + port;
+  console.log(socket.handshake.headers.origin);
 
   socket.on('join', function(username) {
     // Same contract as ng-chat.User
@@ -158,7 +160,5 @@ io.on('connection', function(socket){
     console.log("Message sent.");
   });
 });
-
-
 
 module.exports = app;
