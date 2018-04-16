@@ -6,6 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { Http, HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from './modules/materials.module';
+import { NgChatModule } from 'ng-chat';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 import { AppComponent } from './app.component';
 import { ActiveCasefilesComponent } from './components/casefiles/active-casefiles/active-casefiles.component';
@@ -204,7 +207,10 @@ const routes: Routes = [
     FormsModule,
     MaterialsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    NgChatModule,
+    RouterModule.forRoot(routes),
+    SocketIoModule.forRoot(config)
+
   ],
   entryComponents: [
     AlertModalComponent,

@@ -114,4 +114,62 @@ const server = http.createServer(app);
 * Listen on provided port, on all network interfaces.
 */
 server.listen(port, () => console.log(`API running on localhost:${port}`));
+
+// TEMPORARY FOR TESTING. Replace this by user service
+let usersCollection = [];
+app.post("/listFriends",function(req, res){
+  var clonedArray = usersCollection.slice();
+  var i = usersCollection.findIndex(x => x.id == req.body.userId);
+  clonedArray.splice(i,1);
+  res.json(clonedArray);
+});
+
+const io = require('socket.io').listen(server);
+
+io.on('connection', function(socket) {
+  console.log('A user has connected to the server.');
+  // Temporary fix to correct host
+  socket.handshake.headers.origin = 'http://localhost:' + port;
+
+  socket.on('join', function(username) {
+    console.log('test');
+    // Same contract as ng-chat.User
+    usersCollection.push({  
+      id: socket.id, // Assigning the socket ID as the user ID in this example
+      displayName: username,
+      status: 0, // ng-chat UserStatus.Online,
+      avatar: null
+    });
+
+    socket.broadcast.emit("userListChanged", usersCollection);
+
+    console.log(username + " has joined the chat room.");
+
+    // This is the user's unique ID to be used on ng-chat as the connected user.
+    socket.emit("generatedUserId", socket.id);
+
+    // On disconnect remove this socket client from the users collection
+    socket.on('disconnect', function() {
+      console.log('User disconnected');
+
+      var i = usersCollection.findIndex(x => x.id == socket.id);
+      usersCollection.splice(i, 1);
+
+      socket.broadcast.emit("userListChanged", usersCollection);
+   });
+  });
+
+  socket.on("sendMessage", function(message){
+    console.log("Message received:");
+    console.log(message);
+
+    io.to(message.toId).emit("messageReceived", {
+      user: usersCollection.find(x => x.id == message.fromId),
+      message: message
+    });
+
+    console.log("Message sent.");
+  });
+});
+
 module.exports = app;
