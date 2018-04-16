@@ -25,6 +25,7 @@ const phonelog = require('./routes/phonelog.route');
 const task = require('./routes/task.route');
 const followup = require('./routes/followup.route');
 const trash = require('./routes/trash.route');
+const meeting = require('./routes/meeting.route');
 
 const resource = require('./routes/resource.route');
 const housing = require('./routes/resources/housing.route');
@@ -85,6 +86,7 @@ app.use('/api/phonelog', phonelog);
 app.use('/api/task', task);
 app.use('/api/followup', followup);
 app.use('/api/trash', trash);
+app.use('/api/meeting', meeting);
 
 app.use('/api/resource', resource);
 app.use('/api/resource/housing', housing);
